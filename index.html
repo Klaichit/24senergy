@@ -249,7 +249,7 @@
 
   /* ===== Products section ===== */
   #products{background:var(--bg-soft)}
-  .products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
   .product-card{
     background:#fff;border-radius:var(--radius);padding:36px 32px;
     border:1px solid var(--line);transition:all .3s ease;cursor:pointer;
@@ -297,6 +297,8 @@
   .product-card.bess .mockup{--mockup-tint:linear-gradient(135deg, rgba(106,45,175,.22), rgba(77,31,128,.15))}
   .product-card.solar .mockup{--mockup-tint:linear-gradient(135deg, rgba(217,119,6,.22), rgba(124,45,18,.15))}
   .product-card.ev .mockup{--mockup-tint:linear-gradient(135deg, rgba(5,150,105,.22), rgba(6,78,59,.15))}
+  .product-card.monitor .icon{background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:#2563eb}
+  .product-card.monitor .mockup{--mockup-tint:linear-gradient(135deg, rgba(37,99,235,.22), rgba(30,64,175,.15))}
   .product-card h3{font-size:20px;font-weight:700;color:var(--ink);margin-bottom:10px}
   .product-card p{color:var(--ink-2);font-size:14.5px;margin-bottom:20px;min-height:46px}
   .product-card .specs{display:flex;gap:16px;padding-top:18px;border-top:1px solid var(--line);font-size:13px}
@@ -836,7 +838,7 @@
       <a class="product-card bess reveal" href="products.html#bess">
         <div class="mockup">
           <span class="tag">MOCKUP</span>
-          <img src="01.png" alt="">
+          <img src="01.png" alt="BESS">
         </div>
         <div class="icon">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/><line x1="6" y1="11" x2="6" y2="13"/><line x1="10" y1="11" x2="10" y2="13"/><line x1="14" y1="11" x2="14" y2="13"/></svg>
@@ -853,7 +855,7 @@
       <a class="product-card solar reveal" href="products.html#solar">
         <div class="mockup">
           <span class="tag">MOCKUP</span>
-          <img src="04.png" alt="">
+          <img src="02.png" alt="Solar PV">
         </div>
         <div class="icon">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
@@ -870,7 +872,7 @@
       <a class="product-card ev reveal" href="products.html#ev">
         <div class="mockup">
           <span class="tag">MOCKUP</span>
-          <img src="02.png" alt="">
+          <img src="03.png" alt="EV Charger">
         </div>
         <div class="icon">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="13" rx="1"/><path d="M16 10h3a2 2 0 0 1 2 2v4M9 13l2-3 2 3"/></svg>
@@ -881,6 +883,23 @@
           <div><span class="v">60–360</span><span class="l">kW</span></div>
           <div><span class="v">CCS2</span><span class="l">Standard</span></div>
           <div><span class="v">OCPP 2.0</span><span class="l">Protocol</span></div>
+        </div>
+        <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
+      </a>
+      <a class="product-card monitor reveal" href="products.html#monitoring">
+        <div class="mockup">
+          <span class="tag">MOCKUP</span>
+          <img src="04.png" alt="Monitoring">
+        </div>
+        <div class="icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><polyline points="5 9 9 6 13 9 19 5"/></svg>
+        </div>
+        <h3><span class="bi"><span class="th">ระบบมอนิเตอร์ &amp; EMS</span><span class="en">Monitoring &amp; EMS</span></span></h3>
+        <p><span class="bi"><span class="th">ติดตามพลังงาน Real-time ผ่าน Cloud วิเคราะห์ ROI แจ้งเตือนผ่าน LINE/Email</span><span class="en">Real-time cloud energy monitoring, ROI analytics, LINE & email alerts</span></span></p>
+        <div class="specs">
+          <div><span class="v">24/7</span><span class="l">Monitor</span></div>
+          <div><span class="v">Cloud</span><span class="l">Platform</span></div>
+          <div><span class="v">API</span><span class="l">Modbus</span></div>
         </div>
         <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
       </a>
