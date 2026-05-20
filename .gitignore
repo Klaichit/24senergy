@@ -1,0 +1,53 @@
+# ===== 24sEnergy — gitignore =====
+
+# Build artifacts / archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Skill packaging (kept locally, not in main repo)
+*.skill
+skill/
+
+# Source materials (PDFs from vendor — too large / proprietary)
+# Comment out lines below if you DO want PDFs in the repo
+*.pdf
+*.pptx
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Temp files
+*.tmp
+*.temp
+*.bak
+*.log
+ziZzH5jg
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# Node (if frontend tooling added later)
+node_modules/
+dist/
+build/
+.cache/
+
+# Python (if backend added later)
+__pycache__/
+*.py[cod]
+.venv/
+venv/

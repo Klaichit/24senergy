@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>24sEnergy — Website Analysis, Sitemap & Wireframes</title>
+<style>
+  :root{
+    --ink:#2b2b2b;
+    --ink-2:#4a4a4a;
+    --muted:#8a8a8a;
+    --line:#e5e5ea;
+    --bg:#fafafa;
+    --card:#ffffff;
+    --brand:#6A2DAF;       /* purple from logo */
+    --brand-2:#3F3F3F;     /* dark gray from logo */
+    --brand-soft:#f1e9fb;
+    --accent:#22c55e;
+    --warning:#f59e0b;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 28px rgba(0,0,0,.06);
+    --mono:'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Sukhumvit Set", "Noto Sans Thai", sans-serif;
+    line-height:1.55; font-size:15px;
+  }
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1180px;margin:0 auto;padding:32px 24px 80px}
+
+  /* ===== Top bar ===== */
+  .topbar{
+    position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);
+    backdrop-filter:saturate(180%) blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:18px}
+  .brand-mark{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.5px}
+  .brand-mark img{height:28px;width:auto;display:block}
+  .brand-mark .b1{color:var(--brand-2)}
+  .brand-mark .b2{color:var(--brand)}
+  .tabs{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+  .tab{padding:8px 14px;border-radius:999px;font-size:13px;cursor:pointer;color:var(--ink-2);border:1px solid transparent}
+  .tab:hover{background:#f0f0f3}
+  .tab.active{background:var(--brand);color:#fff}
+
+  /* ===== Hero ===== */
+  .hero{
+    background:linear-gradient(135deg,#fff 0%, #faf6ff 60%, #fff 100%);
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:36px 32px;margin-top:24px;display:grid;grid-template-columns:1.4fr .9fr;gap:32px;align-items:center;
+  }
+  .eyebrow{display:inline-block;background:var(--brand-soft);color:var(--brand);
+    padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.4px}
+  .hero h1{font-size:32px;line-height:1.2;margin:14px 0 10px;color:var(--ink)}
+  .hero h1 span{color:var(--brand)}
+  .hero p{color:var(--ink-2);margin:0;max-width:60ch}
+  .hero-logo{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px
+  }
+  .hero-logo svg{max-width:100%;height:auto}
+
+  /* ===== Sections ===== */
+  section{display:none;margin-top:28px}
+  section.active{display:block}
+  h2.section-title{
+    font-size:22px;margin:0 0 6px;color:var(--ink);
+    display:flex;align-items:center;gap:10px;
+  }
+  h2.section-title .dot{width:10px;height:10px;border-radius:50%;background:var(--brand)}
+  .section-lede{color:var(--muted);margin:0 0 22px;font-size:14px}
+
+  /* ===== Cards / grid ===== */
+  .grid{display:grid;gap:18px}
+  .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+  .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+  .grid.cols-4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+  .card h3{margin:0 0 8px;font-size:15px;color:var(--brand-2)}
+  .card p{margin:0;color:var(--ink-2);font-size:14px}
+  .card .num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;border-radius:8px;background:var(--brand-soft);color:var(--brand);
+    font-weight:700;font-size:13px;margin-right:8px
+  }
+
+  /* ===== Color swatches ===== */
+  .swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .swatch{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff}
+  .swatch .chip{height:90px}
+  .swatch .meta{padding:10px 12px;font-size:12px;color:var(--ink-2)}
+  .swatch .meta b{display:block;color:var(--ink);font-size:13px}
+  code.hex{font-family:var(--mono);font-size:12px;color:var(--brand-2)}
+
+  /* ===== Type scale ===== */
+  .type-row{display:flex;align-items:baseline;gap:16px;padding:10px 0;border-bottom:1px dashed var(--line)}
+  .type-row:last-child{border-bottom:none}
+  .type-label{width:120px;color:var(--muted);font-size:12px;font-family:var(--mono)}
+
+  /* ===== Sitemap tree ===== */
+  .sitemap{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;overflow-x:auto}
+  .tree{font-family:var(--mono);font-size:13px;color:var(--ink-2);white-space:pre}
+  .tree b{color:var(--brand);font-weight:700}
+  .tree i{color:var(--brand-2);font-style:normal;font-weight:600}
+
+  .sitemap-visual{
+    display:grid;gap:10px;justify-items:center;margin-top:8px
+  }
+  .node{
+    background:#fff;border:1.5px solid var(--brand);color:var(--brand);
+    padding:10px 16px;border-radius:10px;font-weight:600;font-size:13px;min-width:140px;text-align:center;
+  }
+  .node.root{background:var(--brand);color:#fff;font-size:14px;padding:12px 22px}
+  .node.l2{border-color:var(--brand-2);color:var(--brand-2)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .connector{width:2px;height:18px;background:var(--line)}
+
+  /* ===== Wireframes ===== */
+  .wf{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;margin-bottom:24px;box-shadow:var(--shadow)
+  }
+  .wf-header{
+    padding:12px 16px;background:#f7f7f9;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-2)
+  }
+  .wf-dots{display:flex;gap:5px}
+  .wf-dots span{width:10px;height:10px;border-radius:50%;background:#d1d5db}
+  .wf-dots span:nth-child(1){background:#ef4444}
+  .wf-dots span:nth-child(2){background:#f59e0b}
+  .wf-dots span:nth-child(3){background:#10b981}
+  .wf-url{margin-left:8px;padding:4px 10px;background:#fff;border:1px solid var(--line);border-radius:6px;font-family:var(--mono);font-size:11px}
+  .wf-body{padding:18px;background:repeating-linear-gradient(45deg, #fff, #fff 10px, #fcfcfd 10px, #fcfcfd 20px)}
+
+  .block{background:#fff;border:1.5px dashed #c8c8d0;border-radius:8px;padding:14px;color:var(--muted);font-size:12px;text-align:center}
+  .block.solid{border-style:solid;background:#f6f6f9}
+  .block.brand{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .block.brand-2{background:var(--brand-2);color:#fff;border-color:var(--brand-2)}
+  .block.tall{min-height:120px;display:flex;align-items:center;justify-content:center}
+  .block.taller{min-height:200px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px}
+  .lbl{font-size:11px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.5px;color:inherit;opacity:.9}
+  .ph{display:block;margin-top:4px;color:inherit;opacity:.7;font-size:12px}
+
+  .nav-wf{display:flex;align-items:center;gap:12px;background:var(--brand-2);color:#fff;padding:14px 18px;border-radius:8px;margin-bottom:16px}
+  .nav-wf .logo-wf{font-weight:800;display:flex;align-items:center}
+  .nav-wf .logo-wf img{height:24px;width:auto;filter:brightness(0) invert(1) drop-shadow(0 0 0 #fff)}
+  .nav-wf .logo-wf .p{color:#c8a8ff}
+  .nav-wf .links{display:flex;gap:18px;margin-left:24px;font-size:13px;opacity:.9}
+  .nav-wf .lang-switch{
+    margin-left:auto;display:flex;align-items:center;gap:0;
+    background:rgba(255,255,255,.08);border-radius:6px;overflow:hidden;font-size:11px;font-family:var(--mono)
+  }
+  .nav-wf .lang-switch span{padding:6px 10px;cursor:pointer;opacity:.6}
+  .nav-wf .lang-switch span.on{background:var(--brand);opacity:1;font-weight:700}
+  .nav-wf .cta{margin-left:14px;background:var(--brand);padding:8px 14px;border-radius:6px;font-size:12px;white-space:nowrap}
+
+  /* Bilingual content toggle */
+  .bi{display:inline-block}
+  .bi .th, .bi .en{display:block}
+  body[data-lang="th"] .bi .en{display:none}
+  body[data-lang="en"] .bi .th{display:none}
+  .lang-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;opacity:.6;margin-right:6px}
+
+  /* Floating lang badge in wireframe */
+  .lang-badge{
+    position:absolute;top:8px;right:12px;background:#fff;color:var(--brand);
+    border:1px solid var(--brand);padding:2px 8px;border-radius:999px;font-size:10px;font-family:var(--mono);font-weight:700
+  }
+  .wf-body{position:relative}
+
+  .hero-wf{display:grid;grid-template-columns:1.3fr 1fr;gap:14px;margin-bottom:14px}
+  .grid-wf{display:grid;gap:12px}
+  .grid-wf.c2{grid-template-columns:1fr 1fr}
+  .grid-wf.c3{grid-template-columns:1fr 1fr 1fr}
+  .grid-wf.c4{grid-template-columns:repeat(4,1fr)}
+
+  .footer-wf{background:var(--brand-2);color:#fff;padding:16px;border-radius:8px;margin-top:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;font-size:12px;opacity:.95}
+
+  /* ===== Tables ===== */
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  th,td{padding:12px 14px;text-align:left;font-size:13px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#f7f7f9;color:var(--brand-2);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+  tr:last-child td{border-bottom:none}
+  td.muted{color:var(--muted)}
+  td .tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;background:var(--brand-soft);color:var(--brand);font-weight:600}
+  td .tag.gray{background:#f0f0f3;color:var(--ink-2)}
+
+  .callout{
+    background:linear-gradient(135deg,#f1e9fb 0%, #fff 100%);
+    border:1px solid #e2d4f4;border-radius:var(--radius);padding:18px 22px;margin:16px 0
+  }
+  .callout h4{margin:0 0 6px;color:var(--brand);font-size:14px;letter-spacing:.3px;text-transform:uppercase}
+  .callout p{margin:0;color:var(--ink-2);font-size:14px}
+
+  ul.clean{margin:10px 0 0;padding-left:18px;color:var(--ink-2);font-size:14px}
+  ul.clean li{margin:4px 0}
+
+  /* Print */
+  @media print{
+    .topbar,.tabs{display:none}
+    section{display:block!important;page-break-before:always}
+    section:first-of-type{page-break-before:auto}
+  }
+
+  @media (max-width:820px){
+    .hero{grid-template-columns:1fr}
+    .grid.cols-3,.grid.cols-4{grid-template-columns:1fr 1fr}
+    .swatches{grid-template-columns:1fr 1fr}
+    .hero-wf,.grid-wf.c3,.grid-wf.c4{grid-template-columns:1fr 1fr}
+    .footer-wf{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body data-lang="th">
+
+<!-- ========= TOP BAR ========= -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-mark">
+      <img src="24sEnergy_png.png" alt="24sEnergy">
+    </div>
+    <div class="tabs" id="tabs">
+      <div class="tab active" data-tab="overview">ภาพรวม</div>
+      <div class="tab" data-tab="brand">แบรนด์ &amp; ดีไซน์</div>
+      <div class="tab" data-tab="sitemap">Sitemap</div>
+      <div class="tab" data-tab="content">เนื้อหา &amp; โครงสร้าง</div>
+      <div class="tab" data-tab="wireframes">Wireframes</div>
+      <div class="tab" data-tab="i18n">2 ภาษา (i18n)</div>
+      <div class="tab" data-tab="roadmap">Roadmap</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ========= HERO ========= -->
+<div class="hero">
+  <div>
+    <span class="eyebrow">WEBSITE DESIGN BRIEF · 2026</span>
+    <h1>วิเคราะห์ &amp; วางโครงเว็บไซต์<br><span>24sEnergy</span> — BESS &amp; Solar PV Solutions</h1>
+    <p>เอกสารชุดนี้สรุปการวิเคราะห์แบรนด์ ออกแบบ Information Architecture วาง Sitemap และ Wireframe หน้าหลัก พร้อมแนวทางเนื้อหาและ UX/UI สำหรับเว็บไซต์ธุรกิจอุปกรณ์พลังงาน (Battery Energy Storage + PV) — อิงข้อมูลจริงในโฟลเดอร์โครงการ (Hithium HinerCab 125kW/261kWh, ESS 5016/6250 kWh, Utility-scale PV)</p>
+  </div>
+  <div class="hero-logo">
+    <img src="24sEnergy_png.png" alt="24sEnergy logo" style="max-width:100%;height:auto;max-height:150px;object-fit:contain">
+  </div>
+</div>
+
+<!-- ========= OVERVIEW ========= -->
+<section id="overview" class="active">
+  <h2 class="section-title"><span class="dot"></span>ภาพรวมการวิเคราะห์</h2>
+  <p class="section-lede">สรุปสิ่งที่พบในโฟลเดอร์โครงการ + เป้าหมายของเว็บไซต์</p>
+
+  <div class="grid cols-3">
+    <div class="card">
+      <h3><span class="num">1</span>ธุรกิจคืออะไร</h3>
+      <p>ตัวแทน/ผู้ติดตั้งระบบกักเก็บพลังงานเชิงพาณิชย์-อุตสาหกรรม (BESS) แบรนด์ Hithium พร้อมระบบ Solar PV ขนาด commercial &amp; utility-scale</p>
+    </div>
+    <div class="card">
+      <h3><span class="num">2</span>กลุ่มเป้าหมาย</h3>
+      <p>เจ้าของโรงงาน, นิคมอุตสาหกรรม, EPC contractors, ผู้พัฒนาโครงการ Solar Farm, IPP/SPP, อาคารพาณิชย์ขนาดใหญ่</p>
+    </div>
+    <div class="card">
+      <h3><span class="num">3</span>เป้าหมายเว็บไซต์</h3>
+      <p>สร้างความน่าเชื่อถือแบรนด์, แสดง portfolio โครงการ, ให้ข้อมูล spec ผลิตภัณฑ์, รับ leads ขอใบเสนอราคา (RFQ)</p>
+    </div>
+    <div class="card">
+      <h3><span class="num">4</span>คู่แข่งแนวเดียวกัน</h3>
+      <p>BCPG, GULF Renewable, Energy Absolute, B.Grimm Power, Solar D, SCG Cleanergy — ส่วนใหญ่เน้นภาพ corporate &amp; ESG</p>
+    </div>
+    <div class="card">
+      <h3><span class="num">5</span>จุดต่าง</h3>
+      <p>โฟกัส BESS เป็นพระเอก (ไม่ใช่แค่ solar), partner กับ Hithium ซึ่งเป็น top-3 BESS supplier ของโลก — ใช้เป็น differentiator ได้</p>
+    </div>
+    <div class="card">
+      <h3><span class="num">6</span>Tone &amp; Manner</h3>
+      <p>Professional · Technical-trustworthy · Modern · Clean — ไม่ใช่สไตล์ "อุ่น/บ้าน" แบบ residential solar, แต่เป็น industrial-grade</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h4>หลักการตัดสินใจ (Design Principles)</h4>
+    <p><b>1) Spec ต้องอ่านง่าย</b> — ลูกค้า B2B ค้นหา datasheet, capacity, voltage, cycle life ·
+       <b>2) Proof ต้องชัด</b> — โครงการที่ทำแล้ว, MW ที่ติดตั้งสะสม, partner logos ·
+       <b>3) RFQ ต้องลื่น</b> — เป้าหมายปลายทางคือฟอร์มขอใบเสนอราคา ไม่ใช่ e-commerce checkout</p>
+  </div>
+</section>
+
+<!-- ========= BRAND ========= -->
+<section id="brand">
+  <h2 class="section-title"><span class="dot"></span>แบรนด์ &amp; การออกแบบ (UX/UI)</h2>
+  <p class="section-lede">ดึงสีและคาแรกเตอร์จากโลโก้จริง + กำหนด design system เบื้องต้น</p>
+
+  <h3 style="margin:18px 0 10px;color:var(--brand-2);font-size:15px">Color Palette</h3>
+  <div class="swatches">
+    <div class="swatch"><div class="chip" style="background:#6A2DAF"></div>
+      <div class="meta"><b>Primary · Purple</b><code class="hex">#6A2DAF</code><div>ใช้กับ CTA, link, accent, brand</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#3F3F3F"></div>
+      <div class="meta"><b>Secondary · Charcoal</b><code class="hex">#3F3F3F</code><div>headline, navigation, footer</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#F1E9FB;border-bottom:1px solid var(--line)"></div>
+      <div class="meta"><b>Soft purple</b><code class="hex">#F1E9FB</code><div>background section, badges</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#22c55e"></div>
+      <div class="meta"><b>Success · Green</b><code class="hex">#22C55E</code><div>green energy stat, badge</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#F59E0B"></div>
+      <div class="meta"><b>Solar · Amber</b><code class="hex">#F59E0B</code><div>icon solar, energy production</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#FAFAFA;border-bottom:1px solid var(--line)"></div>
+      <div class="meta"><b>Background</b><code class="hex">#FAFAFA</code><div>page background, alt section</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#FFFFFF;border-bottom:1px solid var(--line)"></div>
+      <div class="meta"><b>Surface</b><code class="hex">#FFFFFF</code><div>card, modal, header</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#E5E5EA"></div>
+      <div class="meta"><b>Border</b><code class="hex">#E5E5EA</code><div>เส้นแบ่ง, divider</div></div></div>
+  </div>
+
+  <h3 style="margin:24px 0 10px;color:var(--brand-2);font-size:15px">Typography</h3>
+  <div class="card">
+    <div class="type-row"><div class="type-label">H1 · 48/56</div>
+      <div style="font-size:34px;font-weight:800;color:var(--ink)">พลังงานสะอาด · ขับเคลื่อนอุตสาหกรรม</div></div>
+    <div class="type-row"><div class="type-label">H2 · 32/40</div>
+      <div style="font-size:24px;font-weight:700;color:var(--ink)">ระบบกักเก็บพลังงาน Hithium</div></div>
+    <div class="type-row"><div class="type-label">H3 · 20/28</div>
+      <div style="font-size:18px;font-weight:600;color:var(--ink)">HinerCab 125kW / 261kWh</div></div>
+    <div class="type-row"><div class="type-label">Body · 16/26</div>
+      <div style="font-size:15px;color:var(--ink-2)">ระบบ Liquid-Cooled Energy Storage System สำหรับ C&amp;I และ utility-scale</div></div>
+    <div class="type-row"><div class="type-label">Caption · 13/18</div>
+      <div style="font-size:13px;color:var(--muted)">Datasheet · Updated 2024 · Hithium Energy Co., Ltd.</div></div>
+    <p style="margin:14px 0 0;color:var(--muted);font-size:13px">
+      <b>แนะนำ:</b> Inter / IBM Plex Sans (EN) + IBM Plex Sans Thai / Noto Sans Thai (TH) — sans-serif สะอาด อ่านง่ายในตัวเลข spec
+    </p>
+  </div>
+
+  <h3 style="margin:24px 0 10px;color:var(--brand-2);font-size:15px">UI Principles</h3>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>1. Grid &amp; Spacing</h3>
+      <p>12-column grid, gutters 24px, max-width 1200px · ใช้ระยะห่างเป็นหน่วย 8px (8/16/24/32/48/64) ให้สม่ำเสมอทั้งระบบ</p>
+    </div>
+    <div class="card">
+      <h3>2. Component Radius</h3>
+      <p>การ์ด/ปุ่ม radius 8–14px (ไม่กลมเกินไปแบบ consumer brand) ให้ความรู้สึก engineering-grade</p>
+    </div>
+    <div class="card">
+      <h3>3. Imagery</h3>
+      <p>ภาพถ่ายจริงของระบบ container BESS, solar farm, control room — หลีกเลี่ยง stock photo ที่ดูปลอม · เพิ่ม cinemagraph / drone shot ในหน้า Hero</p>
+    </div>
+    <div class="card">
+      <h3>4. Iconography</h3>
+      <p>Line icon 1.5–2px stroke (Lucide / Phosphor) · ไอคอนสำหรับ solar, battery, grid, monitoring, EV charger</p>
+    </div>
+    <div class="card">
+      <h3>5. Data &amp; Spec</h3>
+      <p>ตัวเลข spec ใช้ font monospace หรือ tabular figures · ตารางสเปคแบบเปรียบเทียบ side-by-side · กราฟ performance ใช้ Recharts/Chart.js</p>
+    </div>
+    <div class="card">
+      <h3>6. Motion</h3>
+      <p>เน้น micro-interaction เบา (fade/translate 200–300ms) · หลีกเลี่ยง parallax หนัก · counter animation สำหรับตัวเลข MW/MWh installed</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========= SITEMAP ========= -->
+<section id="sitemap">
+  <h2 class="section-title"><span class="dot"></span>Sitemap &amp; Information Architecture</h2>
+  <p class="section-lede">โครงสร้างเมนู 3 ระดับ — เน้น path สู่ "ขอใบเสนอราคา" ภายใน 2–3 คลิกจากทุกหน้า</p>
+
+  <!-- Visual tree -->
+  <div class="sitemap" style="margin-bottom:18px">
+    <div class="sitemap-visual">
+      <div class="node root">หน้าแรก (Home)</div>
+      <div class="connector"></div>
+      <div class="row">
+        <div class="node">Products</div>
+        <div class="node">Solutions</div>
+        <div class="node">Projects</div>
+        <div class="node">About</div>
+        <div class="node">Resources</div>
+        <div class="node">Contact</div>
+      </div>
+      <div class="connector"></div>
+      <div class="row">
+        <div class="node l2">BESS (ESS)</div>
+        <div class="node l2">Solar PV</div>
+        <div class="node l2">EV Charger</div>
+        <div class="node l2">Monitoring</div>
+        <div class="node l2">C&amp;I Solution</div>
+        <div class="node l2">Utility Solution</div>
+        <div class="node l2">Off-grid / Microgrid</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Text tree -->
+  <div class="sitemap">
+    <pre class="tree">
+<b>/ (Home)</b>
+├── <i>Products</i>
+│   ├── Battery Energy Storage (BESS)
+│   │   ├── HinerCab 125kW / 261kWh   ← C&amp;I liquid-cooled
+│   │   ├── ESS Container 5016 kWh    ← EU market
+│   │   ├── ESS Container 6250 kWh    ← US market
+│   │   └── Compare Models (spec table)
+│   ├── Solar PV Systems
+│   │   ├── Rooftop (Industrial)
+│   │   ├── Ground-Mount / Solar Farm
+│   │   └── Floating Solar
+│   ├── EV Charging
+│   └── Monitoring &amp; EMS
+│
+├── <i>Solutions (by use case)</i>
+│   ├── Peak Shaving &amp; Demand Charge
+│   ├── Solar + Storage (Self-consumption)
+│   ├── Backup / UPS for Factory
+│   ├── Off-grid / Microgrid
+│   ├── Utility-scale PV Plant
+│   └── Arc Protection (Safety)
+│
+├── <i>Projects (Case Studies)</i>
+│   ├── Filter: ขนาด (kW/MW) · ประเภท · จังหวัด · ปี
+│   └── [project-slug]  ← หน้ารายละเอียดแต่ละโครงการ
+│
+├── <i>About</i>
+│   ├── เกี่ยวกับเรา / วิสัยทัศน์
+│   ├── ทีมงานและทีมวิศวกร
+│   ├── พันธมิตร (Hithium &amp; partners)
+│   ├── มาตรฐาน / Certificates (UL, IEC, CE)
+│   └── ข่าวสาร / กิจกรรม
+│
+├── <i>Resources</i>
+│   ├── Datasheets (PDF)
+│   ├── Whitepapers / Case study
+│   ├── ROI Calculator (interactive)
+│   ├── คำถามที่พบบ่อย (FAQ)
+│   └── Blog / Insights
+│
+└── <i>Contact</i>
+    ├── ขอใบเสนอราคา (RFQ form)   ★ primary conversion
+    ├── ติดต่อทีมเซลส์
+    ├── สาขาและสำนักงาน (Map)
+    └── ร่วมงานกับเรา (Careers)
+</pre>
+  </div>
+
+  <div class="callout">
+    <h4>Conversion Paths</h4>
+    <p><b>Path A:</b> Home → Products → BESS detail → <b>ขอใบเสนอราคา</b> (3 คลิก) ·
+       <b>Path B:</b> Home → Solutions → Case → <b>ขอใบเสนอราคา</b> (3 คลิก) ·
+       <b>Path C:</b> Home → CTA หลัก → <b>ขอใบเสนอราคา</b> (1 คลิก)</p>
+  </div>
+</section>
+
+<!-- ========= CONTENT ========= -->
+<section id="content">
+  <h2 class="section-title"><span class="dot"></span>เนื้อหา &amp; โครงสร้างหน้า</h2>
+  <p class="section-lede">รายการเนื้อหาที่ควรมีในแต่ละหน้า · พร้อม notes สำหรับ SEO และคีย์เวิร์ด</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:18%">หน้า</th>
+        <th style="width:42%">Section &amp; เนื้อหาที่ต้องมี</th>
+        <th style="width:25%">Primary CTA / Outcome</th>
+        <th style="width:15%">SEO Keywords</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Home</b><div class="muted" style="font-size:12px;color:var(--muted)">/ </div></td>
+        <td>Hero (โซลูชันพลังงานครบวงจร), KPI strip (MW/MWh installed, projects, ปีที่ก่อตั้ง), Product categories (3 cards), Featured Solutions, Featured Projects, Partner logos (Hithium, EGAT etc.), Testimonial, News, RFQ CTA banner</td>
+        <td><span class="tag">ขอใบเสนอราคา</span><span class="tag gray">ดูโครงการ</span></td>
+        <td class="muted">ระบบกักเก็บพลังงาน, BESS, solar farm thailand</td>
+      </tr>
+      <tr>
+        <td><b>Product list</b><div class="muted" style="font-size:12px;color:var(--muted)">/products/bess</div></td>
+        <td>Filter sidebar (capacity/voltage/use case), card grid (รูป + name + key spec), comparison checkbox, sticky compare bar ด้านล่าง, link to datasheet PDF</td>
+        <td><span class="tag">เปรียบเทียบสเปค</span><span class="tag gray">ดาวน์โหลด datasheet</span></td>
+        <td class="muted">แบตเตอรี่อุตสาหกรรม, lithium iron phosphate, LFP battery</td>
+      </tr>
+      <tr>
+        <td><b>Product detail</b><div class="muted" style="font-size:12px;color:var(--muted)">/products/hinercab-125kw</div></td>
+        <td>Gallery (รูป/วิดีโอ/3D), Key spec card, Tab: Overview / Spec / Application / Downloads / Compare, ราคาแบบ "ขอใบเสนอราคา" (ไม่โชว์ราคา), Related products</td>
+        <td><span class="tag">ขอใบเสนอราคา</span><span class="tag gray">ดาวน์โหลด PDF</span></td>
+        <td class="muted">HinerCab 125kw, Hithium ESS, liquid cooled BESS</td>
+      </tr>
+      <tr>
+        <td><b>Solutions</b><div class="muted" style="font-size:12px;color:var(--muted)">/solutions/peak-shaving</div></td>
+        <td>Pain point intro, diagram การทำงาน, ROI calculator inline, before/after chart, Case studies ที่เกี่ยวข้อง, ขั้นตอนการ implement (5 steps)</td>
+        <td><span class="tag">คำนวณ ROI</span><span class="tag gray">ปรึกษาเรา</span></td>
+        <td class="muted">peak shaving, ลดค่าไฟโรงงาน, demand charge</td>
+      </tr>
+      <tr>
+        <td><b>Projects</b><div class="muted" style="font-size:12px;color:var(--muted)">/projects</div></td>
+        <td>Map view (โครงการตาม location), Filter (industry/size/year), Card grid, "Total installed: XX MW / XX MWh" counter</td>
+        <td><span class="tag gray">ดูรายละเอียด</span></td>
+        <td class="muted">โครงการ solar farm, BESS reference site</td>
+      </tr>
+      <tr>
+        <td><b>Project detail</b><div class="muted" style="font-size:12px;color:var(--muted)">/projects/[slug]</div></td>
+        <td>Hero ภาพ, Spec sheet (capacity, panels, batteries, location), Challenge / Solution / Outcome, Timeline ดำเนินการ, Gallery, Results chart, Testimonial ลูกค้า</td>
+        <td><span class="tag">ขอข้อมูลโครงการคล้ายกัน</span></td>
+        <td class="muted">case study + ชื่อโครงการ</td>
+      </tr>
+      <tr>
+        <td><b>About</b><div class="muted" style="font-size:12px;color:var(--muted)">/about</div></td>
+        <td>Story, วิสัยทัศน์, Timeline บริษัท, Team (โครงสร้าง/ทีมวิศวกร), Certificates (UL/IEC/CE), Partners</td>
+        <td><span class="tag gray">ติดต่อเรา</span></td>
+        <td class="muted">บริษัท 24sEnergy, ผู้ติดตั้ง BESS</td>
+      </tr>
+      <tr>
+        <td><b>Resources</b><div class="muted" style="font-size:12px;color:var(--muted)">/resources</div></td>
+        <td>Datasheets PDF (gated form), Whitepapers, Blog, FAQ, ROI calculator แยกหน้า</td>
+        <td><span class="tag">ดาวน์โหลด</span></td>
+        <td class="muted">วิธีคำนวณคุ้มทุน solar, what is BESS</td>
+      </tr>
+      <tr>
+        <td><b>Contact / RFQ</b><div class="muted" style="font-size:12px;color:var(--muted)">/contact</div></td>
+        <td>ฟอร์มขอใบเสนอราคา (multi-step: ประเภทโครงการ → ขนาดที่ต้องการ → location → ติดต่อ), แผนที่, เบอร์/Line/Email, ช่อง chatbot</td>
+        <td><span class="tag">ส่งคำขอ</span></td>
+        <td class="muted">ขอใบเสนอราคา solar, สอบถาม BESS</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="margin-top:18px">
+    <h4>Content Strategy Tips</h4>
+    <p>· ใช้ <b>หน่วยและตัวเลขจริง</b> เสมอ (kW, kWh, MW, cycle, IP rating) — สร้างความน่าเชื่อถือกับวิศวกร <br>
+       · หน้า Product แต่ละตัวต้องมี <b>PDF datasheet ของจริง</b> ให้ดาวน์โหลด (gated by email = lead source) <br>
+       · Blog เน้น <b>technical / regulation</b> เช่น "ERC อนุมัติ BESS อย่างไร", "การคำนวณ peak shaving" ไม่ใช่ lifestyle content <br>
+       · ทำ 2 ภาษาตั้งแต่วันแรก (TH/EN) เพราะลูกค้า EPC และ utility ใช้ภาษาอังกฤษ</p>
+  </div>
+</section>
+
+<!-- ========= WIREFRAMES ========= -->
+<section id="wireframes">
+  <h2 class="section-title"><span class="dot"></span>Wireframes (Desktop)</h2>
+  <p class="section-lede">โครงร่าง low-fidelity ของหน้าหลัก 5 หน้า — แสดงตำแหน่ง section, hierarchy, และจุด CTA</p>
+
+  <!-- Language toggle for wireframes -->
+  <div style="display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px 18px;margin-bottom:18px;box-shadow:var(--shadow)">
+    <span style="font-weight:600;color:var(--brand-2)">ดูตัวอย่างภาษา:</span>
+    <div style="display:flex;background:#f0f0f3;border-radius:8px;padding:3px">
+      <button id="langTH" class="lang-btn on" style="border:none;padding:7px 18px;border-radius:6px;font-weight:600;cursor:pointer;background:var(--brand);color:#fff;font-size:13px">🇹🇭 ไทย</button>
+      <button id="langEN" class="lang-btn" style="border:none;padding:7px 18px;border-radius:6px;font-weight:600;cursor:pointer;background:transparent;color:var(--ink-2);font-size:13px">🇬🇧 English</button>
+    </div>
+    <span style="margin-left:auto;font-size:12px;color:var(--muted)">เนื้อหาใน wireframe ด้านล่างจะสลับตามภาษาที่เลือก</span>
+  </div>
+
+  <!-- HOME -->
+  <div class="wf">
+    <div class="wf-header">
+      <div class="wf-dots"><span></span><span></span><span></span></div>
+      <div class="wf-url"><span class="bi"><span class="th">24senergy.co.th/th</span><span class="en">24senergy.co.th/en</span></span></div>
+      <span style="margin-left:auto;font-weight:600;color:var(--brand)">1. Home</span>
+    </div>
+    <div class="wf-body">
+      <div class="lang-badge"><span class="bi"><span class="th">TH</span><span class="en">EN</span></span></div>
+      <div class="nav-wf">
+        <div class="logo-wf"><img src="24sEnergy_png.png" alt="24sEnergy"></div>
+        <div class="links">
+          <span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span>
+          <span class="bi"><span class="th">โซลูชัน</span><span class="en">Solutions</span></span>
+          <span class="bi"><span class="th">โครงการ</span><span class="en">Projects</span></span>
+          <span class="bi"><span class="th">เกี่ยวกับเรา</span><span class="en">About</span></span>
+          <span class="bi"><span class="th">แหล่งข้อมูล</span><span class="en">Resources</span></span>
+        </div>
+        <div class="lang-switch">
+          <span class="bi-active-th on">TH</span>
+          <span class="bi-active-en">EN</span>
+        </div>
+        <div class="cta"><span class="bi"><span class="th">ขอใบเสนอราคา</span><span class="en">Request a Quote</span></span></div>
+      </div>
+      <div class="hero-wf">
+        <div class="block taller" style="background:linear-gradient(135deg,#3F3F3F 0%, #6A2DAF 100%);color:#fff;border:none">
+          <div class="lbl">HERO IMAGE / DRONE SHOT</div>
+          <div style="font-size:18px;font-weight:700">
+            <span class="bi"><span class="th">พลังงานสะอาด · ขับเคลื่อนอุตสาหกรรม</span><span class="en">Clean Energy · Powering Industry</span></span>
+          </div>
+          <div style="font-size:13px;opacity:.85">
+            <span class="bi"><span class="th">BESS + Solar PV จาก partner ระดับโลก</span><span class="en">BESS + Solar PV from world-class partners</span></span>
+          </div>
+          <div style="background:#fff;color:var(--brand);padding:6px 14px;border-radius:6px;font-size:12px;margin-top:6px">
+            <span class="bi"><span class="th">ขอใบเสนอราคาฟรี →</span><span class="en">Get Free Quote →</span></span>
+          </div>
+        </div>
+        <div class="grid-wf">
+          <div class="block solid"><span class="lbl">KPI · 350+ MWh <span class="bi"><span class="th">ติดตั้งแล้ว</span><span class="en">installed</span></span></span></div>
+          <div class="block solid"><span class="lbl">KPI · 120+ <span class="bi"><span class="th">โครงการ</span><span class="en">projects</span></span></span></div>
+          <div class="block solid"><span class="lbl">KPI · 15 <span class="bi"><span class="th">ปีประสบการณ์</span><span class="en">years experience</span></span></span></div>
+        </div>
+      </div>
+      <div class="grid-wf c3" style="margin-bottom:14px">
+        <div class="block tall"><span class="lbl">CARD · BESS</span><span class="ph"><span class="bi"><span class="th">ระบบกักเก็บพลังงาน</span><span class="en">Battery Energy Storage</span></span></span></div>
+        <div class="block tall"><span class="lbl">CARD · Solar PV</span><span class="ph"><span class="bi"><span class="th">ระบบโซลาร์เซลล์</span><span class="en">Photovoltaic Systems</span></span></span></div>
+        <div class="block tall"><span class="lbl">CARD · EV Charger</span><span class="ph"><span class="bi"><span class="th">แท่นชาร์จรถ EV</span><span class="en">EV Charging Stations</span></span></span></div>
+      </div>
+      <div class="block solid" style="margin-bottom:14px;padding:18px"><span class="lbl">
+        <span class="bi"><span class="th">SECTION · โซลูชันแนะนำ (carousel 4 ใบ)</span><span class="en">SECTION · Featured Solutions (4-card carousel)</span></span>
+      </span></div>
+      <div class="grid-wf c2" style="margin-bottom:14px">
+        <div class="block tall"><span class="lbl">FEATURED PROJECT 1</span><span class="ph">
+          <span class="bi"><span class="th">โรงงาน X · 5 MW + 10 MWh</span><span class="en">Factory X · 5 MW + 10 MWh</span></span>
+        </span></div>
+        <div class="block tall"><span class="lbl">FEATURED PROJECT 2</span><span class="ph">
+          <span class="bi"><span class="th">นิคม Y · 12 MW solar farm</span><span class="en">Industrial Estate Y · 12 MW Solar Farm</span></span>
+        </span></div>
+      </div>
+      <div class="block solid" style="margin-bottom:14px"><span class="lbl">SECTION · Partner Logos · Hithium / EGAT / PEA</span></div>
+      <div class="block brand" style="padding:24px"><span class="lbl" style="opacity:.9">CTA BANNER</span><br><b style="font-size:16px">
+        <span class="bi"><span class="th">พร้อมเริ่มต้นโครงการพลังงาน? · ขอใบเสนอราคาวันนี้</span><span class="en">Ready to start your energy project? · Get a quote today</span></span>
+      </b></div>
+      <div class="footer-wf">
+        <div><b style="color:#c8a8ff"><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></b>
+          <div>BESS</div><div>Solar PV</div><div>EV Charger</div></div>
+        <div><b style="color:#c8a8ff"><span class="bi"><span class="th">บริษัท</span><span class="en">Company</span></span></b>
+          <div><span class="bi"><span class="th">เกี่ยวกับเรา</span><span class="en">About</span></span></div>
+          <div><span class="bi"><span class="th">โครงการ</span><span class="en">Projects</span></span></div>
+          <div><span class="bi"><span class="th">ร่วมงาน</span><span class="en">Careers</span></span></div></div>
+        <div><b style="color:#c8a8ff"><span class="bi"><span class="th">แหล่งข้อมูล</span><span class="en">Resources</span></span></b>
+          <div>Datasheets</div><div>Blog</div><div>FAQ</div></div>
+        <div><b style="color:#c8a8ff"><span class="bi"><span class="th">ติดต่อ</span><span class="en">Contact</span></span></b>
+          <div>📞 02-XXX-XXXX</div><div>✉ info@24senergy.co.th</div>
+          <div>📍 <span class="bi"><span class="th">กรุงเทพฯ</span><span class="en">Bangkok</span></span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT DETAIL -->
+  <div class="wf">
+    <div class="wf-header">
+      <div class="wf-dots"><span></span><span></span><span></span></div>
+      <div class="wf-url"><span class="bi"><span class="th">24senergy.co.th/th/products/hinercab-125kw-261kwh</span><span class="en">24senergy.co.th/en/products/hinercab-125kw-261kwh</span></span></div>
+      <span style="margin-left:auto;font-weight:600;color:var(--brand)">2. Product Detail</span>
+    </div>
+    <div class="wf-body">
+      <div class="lang-badge"><span class="bi"><span class="th">TH</span><span class="en">EN</span></span></div>
+      <div class="nav-wf">
+        <div class="logo-wf"><img src="24sEnergy_png.png" alt="24sEnergy"></div>
+        <div class="links">
+          <span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span>
+          <span class="bi"><span class="th">โซลูชัน</span><span class="en">Solutions</span></span>
+          <span class="bi"><span class="th">โครงการ</span><span class="en">Projects</span></span>
+          <span class="bi"><span class="th">เกี่ยวกับ</span><span class="en">About</span></span>
+          <span class="bi"><span class="th">แหล่งข้อมูล</span><span class="en">Resources</span></span>
+        </div>
+        <div class="lang-switch"><span class="bi-active-th on">TH</span><span class="bi-active-en">EN</span></div>
+        <div class="cta"><span class="bi"><span class="th">ขอใบเสนอราคา</span><span class="en">Request a Quote</span></span></div>
+      </div>
+      <div class="block solid" style="text-align:left;font-family:var(--mono);font-size:11px;margin-bottom:14px">
+        <span class="bi"><span class="th">หน้าแรก / ผลิตภัณฑ์ / BESS / </span><span class="en">Home / Products / BESS / </span></span>
+        <b style="color:var(--brand)">HinerCab 125kW · 261kWh</b>
+      </div>
+      <div class="hero-wf" style="grid-template-columns:1.2fr 1fr">
+        <div class="block taller" style="min-height:280px;background:#f0e7fb">
+          <span class="lbl">PRODUCT GALLERY</span>
+          <span class="ph"><span class="bi"><span class="th">รูปจริง 4–6 ภาพ + 3D rotate + วิดีโอ</span><span class="en">4–6 real photos + 3D viewer + video</span></span></span>
+        </div>
+        <div class="block" style="text-align:left;padding:18px">
+          <div class="lbl" style="color:var(--brand)"><span class="bi"><span class="th">ระบบกักเก็บพลังงาน</span><span class="en">BATTERY ENERGY STORAGE</span></span></div>
+          <div style="font-size:18px;font-weight:700;color:var(--ink);margin:6px 0">HinerCab 125kW / 261kWh</div>
+          <div style="font-size:13px;color:var(--muted);margin-bottom:12px">
+            <span class="bi">
+              <span class="th">ระบบกักเก็บพลังงานระบายความร้อนด้วยของเหลว สำหรับโรงงาน &amp; อาคารพาณิชย์</span>
+              <span class="en">Liquid-Cooled Energy Storage System for C&amp;I applications</span>
+            </span>
+          </div>
+          <div class="grid-wf c2" style="gap:6px;margin-bottom:12px">
+            <div class="block solid" style="padding:8px"><span class="lbl"><span class="bi"><span class="th">กำลัง</span><span class="en">Power</span></span></span><span class="ph">125 kW</span></div>
+            <div class="block solid" style="padding:8px"><span class="lbl"><span class="bi"><span class="th">พลังงาน</span><span class="en">Energy</span></span></span><span class="ph">261 kWh</span></div>
+            <div class="block solid" style="padding:8px"><span class="lbl"><span class="bi"><span class="th">รอบใช้งาน</span><span class="en">Cycle</span></span></span><span class="ph">8,000+</span></div>
+            <div class="block solid" style="padding:8px"><span class="lbl">IP Rating</span><span class="ph">IP54</span></div>
+          </div>
+          <div class="block brand" style="margin-bottom:6px"><span class="bi"><span class="th">ขอใบเสนอราคา →</span><span class="en">Request a Quote →</span></span></div>
+          <div class="block" style="border-style:solid;border-color:var(--brand);color:var(--brand)">📥 <span class="bi"><span class="th">ดาวน์โหลด Datasheet (PDF)</span><span class="en">Download Datasheet (PDF)</span></span></div>
+        </div>
+      </div>
+      <div class="block solid" style="text-align:left;padding:10px 18px;margin-bottom:14px;display:flex;gap:24px;font-size:12px;flex-wrap:wrap">
+        <b style="color:var(--brand);border-bottom:2px solid var(--brand);padding-bottom:6px"><span class="bi"><span class="th">ภาพรวม</span><span class="en">Overview</span></span></b>
+        <span><span class="bi"><span class="th">สเปค</span><span class="en">Specifications</span></span></span>
+        <span><span class="bi"><span class="th">การใช้งาน</span><span class="en">Applications</span></span></span>
+        <span><span class="bi"><span class="th">ดาวน์โหลด</span><span class="en">Downloads</span></span></span>
+        <span><span class="bi"><span class="th">เปรียบเทียบ</span><span class="en">Compare</span></span></span>
+      </div>
+      <div class="grid-wf c2" style="margin-bottom:14px">
+        <div class="block tall" style="text-align:left;padding:16px">
+          <span class="lbl"><span class="bi"><span class="th">รายละเอียด</span><span class="en">DESCRIPTION</span></span></span>
+          <span class="ph"><span class="bi"><span class="th">ย่อหน้าบรรยายผลิตภัณฑ์ 3–5 บรรทัด</span><span class="en">Product description paragraph, 3–5 lines</span></span></span>
+        </div>
+        <div class="block tall" style="text-align:left;padding:16px">
+          <span class="lbl"><span class="bi"><span class="th">คุณสมบัติเด่น</span><span class="en">KEY FEATURES</span></span></span>
+          <span class="ph">
+            <span class="bi">
+              <span class="th">• เซลล์ LFP ปลอดภัยสูง<br>• ระบายความร้อนด้วยของเหลว<br>• ขยายระบบได้แบบ Modular<br>• ได้รับมาตรฐาน UL9540 / IEC</span>
+              <span class="en">• High-safety LFP cells<br>• Liquid cooling<br>• Modular &amp; scalable<br>• UL9540 / IEC certified</span>
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="block solid" style="padding:18px;margin-bottom:14px">
+        <span class="lbl"><span class="bi"><span class="th">ตารางสเปค (เต็ม)</span><span class="en">SPEC TABLE (full)</span></span></span>
+        <span class="ph"><span class="bi"><span class="th">ตาราง 2 คอลัมน์ — พารามิเตอร์ / ค่า</span><span class="en">2-column table — parameter / value</span></span></span>
+      </div>
+      <div class="block solid" style="padding:18px;margin-bottom:14px">
+        <span class="lbl"><span class="bi"><span class="th">ไดอะแกรมการใช้งาน</span><span class="en">APPLICATION DIAGRAM</span></span></span>
+        <span class="ph"><span class="bi"><span class="th">ภาพระบบ + กรณีใช้งาน</span><span class="en">System diagram + use cases</span></span></span>
+      </div>
+      <div class="grid-wf c3">
+        <div class="block tall"><span class="lbl"><span class="bi"><span class="th">สินค้าที่เกี่ยวข้อง</span><span class="en">RELATED</span></span> · ESS 5016</span></div>
+        <div class="block tall"><span class="lbl"><span class="bi"><span class="th">สินค้าที่เกี่ยวข้อง</span><span class="en">RELATED</span></span> · ESS 6250</span></div>
+        <div class="block tall"><span class="lbl"><span class="bi"><span class="th">สินค้าที่เกี่ยวข้อง</span><span class="en">RELATED</span></span> · Monitoring</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOLUTION -->
+  <div class="wf">
+    <div class="wf-header">
+      <div class="wf-dots"><span></span><span></span><span></span></div>
+      <div class="wf-url"><span class="bi"><span class="th">24senergy.co.th/th/solutions/peak-shaving</span><span class="en">24senergy.co.th/en/solutions/peak-shaving</span></span></div>
+      <span style="margin-left:auto;font-weight:600;color:var(--brand)">3. Solution Page</span>
+    </div>
+    <div class="wf-body">
+      <div class="lang-badge"><span class="bi"><span class="th">TH</span><span class="en">EN</span></span></div>
+      <div class="nav-wf">
+        <div class="logo-wf"><img src="24sEnergy_png.png" alt="24sEnergy"></div>
+        <div class="links">
+          <span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span>
+          <span class="bi"><span class="th">โซลูชัน</span><span class="en">Solutions</span></span>
+          <span class="bi"><span class="th">โครงการ</span><span class="en">Projects</span></span>
+          <span class="bi"><span class="th">เกี่ยวกับ</span><span class="en">About</span></span>
+        </div>
+        <div class="lang-switch"><span class="bi-active-th on">TH</span><span class="bi-active-en">EN</span></div>
+        <div class="cta"><span class="bi"><span class="th">ขอใบเสนอราคา</span><span class="en">Request a Quote</span></span></div>
+      </div>
+      <div class="block taller" style="background:linear-gradient(135deg,#6A2DAF 0%, #3F3F3F 100%);color:#fff;border:none;margin-bottom:14px">
+        <div class="lbl">SOLUTION HERO</div>
+        <div style="font-size:18px;font-weight:700">
+          <span class="bi">
+            <span class="th">Peak Shaving · ลดค่าไฟพีคของโรงงานสูงสุด 30%</span>
+            <span class="en">Peak Shaving · Reduce factory peak demand cost by up to 30%</span>
+          </span>
+        </div>
+        <div style="font-size:13px;opacity:.85">
+          <span class="bi">
+            <span class="th">BESS ปล่อยพลังงานในช่วง demand peak อัตโนมัติ</span>
+            <span class="en">BESS automatically discharges during demand peak periods</span>
+          </span>
+        </div>
+      </div>
+      <div class="grid-wf c2" style="margin-bottom:14px">
+        <div class="block tall" style="text-align:left;padding:16px">
+          <span class="lbl"><span class="bi"><span class="th">ปัญหา</span><span class="en">PROBLEM</span></span></span>
+          <span class="ph"><span class="bi"><span class="th">ค่าไฟพีคของโรงงาน, demand charge สูง</span><span class="en">High peak demand charges in factory billing</span></span></span>
+        </div>
+        <div class="block tall" style="text-align:left;padding:16px">
+          <span class="lbl"><span class="bi"><span class="th">วิธีแก้</span><span class="en">SOLUTION</span></span></span>
+          <span class="ph"><span class="bi"><span class="th">วาง BESS ขนาด X kWh เพื่อ shave peak</span><span class="en">Install X kWh BESS to shave peak demand</span></span></span>
+        </div>
+      </div>
+      <div class="block solid" style="padding:18px;margin-bottom:14px">
+        <span class="lbl"><span class="bi"><span class="th">ไดอะแกรม · ทำงานอย่างไร</span><span class="en">DIAGRAM · How it works</span></span></span>
+        <span class="ph"><span class="bi"><span class="th">ภาพ flow: grid → meter → BESS → load</span><span class="en">Flow diagram: grid → meter → BESS → load</span></span></span>
+      </div>
+      <div class="block solid" style="padding:18px;margin-bottom:14px;background:var(--brand-soft);border:1px solid #d6c2f0">
+        <span class="lbl" style="color:var(--brand)">ROI CALCULATOR · INTERACTIVE</span>
+        <span class="ph">
+          <span class="bi">
+            <span class="th">[Input: ค่าไฟปัจจุบัน/เดือน · อัตรา peak/off-peak]  →  [Output: ประหยัด/ปี · ระยะเวลาคืนทุน]</span>
+            <span class="en">[Input: monthly bill · peak/off-peak ratio]  →  [Output: annual savings · payback period]</span>
+          </span>
+        </span>
+      </div>
+      <div class="grid-wf c3">
+        <div class="block tall"><span class="lbl"><span class="bi"><span class="th">กรณีศึกษา</span><span class="en">CASE STUDY</span></span> 1</span></div>
+        <div class="block tall"><span class="lbl"><span class="bi"><span class="th">กรณีศึกษา</span><span class="en">CASE STUDY</span></span> 2</span></div>
+        <div class="block tall"><span class="lbl"><span class="bi"><span class="th">กรณีศึกษา</span><span class="en">CASE STUDY</span></span> 3</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT DETAIL -->
+  <div class="wf">
+    <div class="wf-header">
+      <div class="wf-dots"><span></span><span></span><span></span></div>
+      <div class="wf-url"><span class="bi"><span class="th">24senergy.co.th/th/projects/factory-x-rayong</span><span class="en">24senergy.co.th/en/projects/factory-x-rayong</span></span></div>
+      <span style="margin-left:auto;font-weight:600;color:var(--brand)">4. Project Case Study</span>
+    </div>
+    <div class="wf-body">
+      <div class="lang-badge"><span class="bi"><span class="th">TH</span><span class="en">EN</span></span></div>
+      <div class="nav-wf">
+        <div class="logo-wf"><img src="24sEnergy_png.png" alt="24sEnergy"></div>
+        <div class="links">
+          <span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span>
+          <span class="bi"><span class="th">โซลูชัน</span><span class="en">Solutions</span></span>
+          <span class="bi"><span class="th">โครงการ</span><span class="en">Projects</span></span>
+          <span class="bi"><span class="th">เกี่ยวกับ</span><span class="en">About</span></span>
+        </div>
+        <div class="lang-switch"><span class="bi-active-th on">TH</span><span class="bi-active-en">EN</span></div>
+        <div class="cta"><span class="bi"><span class="th">ขอใบเสนอราคา</span><span class="en">Request a Quote</span></span></div>
+      </div>
+      <div class="block taller" style="min-height:240px;background:#3F3F3F;color:#fff;border:none;margin-bottom:14px">
+        <span class="lbl">FULL-WIDTH HERO IMAGE</span>
+        <span class="ph"><span class="bi"><span class="th">ภาพ drone ของไซต์งานจริง</span><span class="en">Drone shot of actual site</span></span></span>
+      </div>
+      <div class="hero-wf">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="block solid" style="text-align:left;padding:16px">
+            <span class="lbl"><span class="bi"><span class="th">ความท้าทาย</span><span class="en">CHALLENGE</span></span></span>
+            <span class="ph"><span class="bi"><span class="th">3–4 บรรทัด อธิบายปัญหาที่ลูกค้าเจอ</span><span class="en">3–4 lines explaining the customer's problem</span></span></span>
+          </div>
+          <div class="block solid" style="text-align:left;padding:16px">
+            <span class="lbl"><span class="bi"><span class="th">โซลูชัน</span><span class="en">SOLUTION</span></span></span>
+            <span class="ph"><span class="bi"><span class="th">3–4 บรรทัด สรุปโซลูชันที่นำเสนอ</span><span class="en">3–4 lines summarizing the proposed solution</span></span></span>
+          </div>
+          <div class="block solid" style="text-align:left;padding:16px">
+            <span class="lbl"><span class="bi"><span class="th">ผลลัพธ์</span><span class="en">OUTCOME</span></span></span>
+            <span class="ph"><span class="bi"><span class="th">ตัวเลขจริง: ลดค่าไฟ X%, คืนทุน Y ปี</span><span class="en">Real numbers: X% bill reduction, Y-year payback</span></span></span>
+          </div>
+        </div>
+        <div class="block" style="text-align:left;padding:18px">
+          <div class="lbl"><span class="bi"><span class="th">ข้อมูลโครงการ</span><span class="en">PROJECT FACTS</span></span></div>
+          <div class="ph" style="font-size:12px;margin-top:8px">
+            <span class="bi">
+              <span class="th">▸ สถานที่: ระยอง<br>▸ ขนาด: 5 MW + 10 MWh<br>▸ แล้วเสร็จ: 2024<br>▸ อุตสาหกรรม: ปิโตรเคมี<br>▸ อุปกรณ์: HinerCab + PV 2MW</span>
+              <span class="en">▸ Location: Rayong, Thailand<br>▸ Capacity: 5 MW + 10 MWh<br>▸ Completed: 2024<br>▸ Industry: Petrochemical<br>▸ Equipment: HinerCab + 2 MW PV</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="grid-wf c3" style="margin-top:14px">
+        <div class="block tall"><span class="lbl"><span class="bi"><span class="th">รูปภาพ</span><span class="en">GALLERY</span></span> 1</span></div>
+        <div class="block tall"><span class="lbl"><span class="bi"><span class="th">รูปภาพ</span><span class="en">GALLERY</span></span> 2</span></div>
+        <div class="block tall"><span class="lbl"><span class="bi"><span class="th">รูปภาพ</span><span class="en">GALLERY</span></span> 3</span></div>
+      </div>
+      <div class="block solid" style="padding:18px;margin-top:14px">
+        <span class="lbl"><span class="bi"><span class="th">กราฟผลลัพธ์</span><span class="en">RESULTS CHART</span></span></span>
+        <span class="ph"><span class="bi"><span class="th">กราฟก่อน/หลัง — การใช้พลังงาน / ค่าใช้จ่าย</span><span class="en">Before/after chart — energy consumption / cost</span></span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT / RFQ -->
+  <div class="wf">
+    <div class="wf-header">
+      <div class="wf-dots"><span></span><span></span><span></span></div>
+      <div class="wf-url"><span class="bi"><span class="th">24senergy.co.th/th/contact</span><span class="en">24senergy.co.th/en/contact</span></span></div>
+      <span style="margin-left:auto;font-weight:600;color:var(--brand)">5. Contact / RFQ (Multi-step form)</span>
+    </div>
+    <div class="wf-body">
+      <div class="lang-badge"><span class="bi"><span class="th">TH</span><span class="en">EN</span></span></div>
+      <div class="nav-wf">
+        <div class="logo-wf"><img src="24sEnergy_png.png" alt="24sEnergy"></div>
+        <div class="links">
+          <span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span>
+          <span class="bi"><span class="th">โซลูชัน</span><span class="en">Solutions</span></span>
+          <span class="bi"><span class="th">โครงการ</span><span class="en">Projects</span></span>
+          <span class="bi"><span class="th">เกี่ยวกับ</span><span class="en">About</span></span>
+        </div>
+        <div class="lang-switch"><span class="bi-active-th on">TH</span><span class="bi-active-en">EN</span></div>
+        <div class="cta"><span class="bi"><span class="th">ขอใบเสนอราคา</span><span class="en">Request a Quote</span></span></div>
+      </div>
+      <div class="hero-wf" style="grid-template-columns:1.4fr 1fr">
+        <div class="block" style="text-align:left;padding:18px;min-height:380px">
+          <div style="display:flex;gap:8px;margin-bottom:14px">
+            <div style="flex:1;height:6px;background:var(--brand);border-radius:3px"></div>
+            <div style="flex:1;height:6px;background:var(--brand);border-radius:3px"></div>
+            <div style="flex:1;height:6px;background:var(--line);border-radius:3px"></div>
+            <div style="flex:1;height:6px;background:var(--line);border-radius:3px"></div>
+          </div>
+          <div class="lbl" style="color:var(--brand)">
+            <span class="bi"><span class="th">ขั้นตอน 2 จาก 4 · ขนาดโครงการ</span><span class="en">STEP 2 OF 4 · Project size</span></span>
+          </div>
+          <div style="font-size:16px;font-weight:700;color:var(--ink);margin:6px 0 14px">
+            <span class="bi"><span class="th">บอกเราเกี่ยวกับโครงการของคุณ</span><span class="en">Tell us about your project</span></span>
+          </div>
+          <div class="ph" style="font-size:13px">
+            <span class="bi">
+              <span class="th">
+                • ประเภทสถานที่ : โรงงาน / อาคาร / Solar farm<br>
+                • กำลังที่ต้องการ (kW)<br>
+                • พลังงานที่ต้องการ (kWh)<br>
+                • ค่าไฟเฉลี่ย/เดือน<br>
+                • Timeline ดำเนินการ
+              </span>
+              <span class="en">
+                • Site type : Factory / Building / Solar farm<br>
+                • Power required (kW)<br>
+                • Energy required (kWh)<br>
+                • Avg. monthly electricity bill<br>
+                • Implementation timeline
+              </span>
+            </span>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:18px">
+            <div class="block" style="flex:1">← <span class="bi"><span class="th">ย้อนกลับ</span><span class="en">Back</span></span></div>
+            <div class="block brand" style="flex:2"><span class="bi"><span class="th">ถัดไป →</span><span class="en">Next →</span></span></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="block" style="text-align:left;padding:16px">
+            <div class="lbl"><span class="bi"><span class="th">ข้อมูลติดต่อ</span><span class="en">CONTACT INFO</span></span></div>
+            <div class="ph" style="font-size:12px;margin-top:8px">📞 02-XXX-XXXX<br>📱 LINE: @24senergy<br>✉ sales@24senergy.co.th</div>
+          </div>
+          <div class="block tall"><span class="lbl">MAP · GOOGLE MAPS</span></div>
+          <div class="block solid" style="text-align:left;padding:14px;background:#22c55e;color:#fff;border:none">
+            <span class="lbl" style="opacity:.9"><span class="bi"><span class="th">ระยะเวลาตอบกลับ</span><span class="en">RESPONSE SLA</span></span></span>
+            <span class="ph" style="color:#fff">
+              <span class="bi"><span class="th">ทีมเซลส์ติดต่อกลับภายใน 24 ชม.</span><span class="en">Sales team responds within 24 hours</span></span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= I18N STRATEGY ========= -->
+<section id="i18n">
+  <h2 class="section-title"><span class="dot"></span>กลยุทธ์ระบบ 2 ภาษา (i18n Strategy)</h2>
+  <p class="section-lede">วิธี implement ระบบ TH/EN ให้ครบทั้งด้าน UX, technical และ SEO — สำหรับลูกค้าในประเทศและต่างประเทศ</p>
+
+  <div class="grid cols-2">
+    <div class="card">
+      <h3><span class="num">1</span>URL Structure (แนะนำ)</h3>
+      <p>ใช้ <b>subpath routing</b> แบบ <code style="background:#f0f0f3;padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:12px">/th/</code> และ <code style="background:#f0f0f3;padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:12px">/en/</code> — ดีต่อ SEO กว่า query string, แชร์ลิงก์ตรงภาษาได้ และ Next.js i18n รองรับ native</p>
+      <ul class="clean" style="font-size:13px">
+        <li>✅ <code>24senergy.co.th/th/products/hinercab-125kw</code></li>
+        <li>✅ <code>24senergy.co.th/en/products/hinercab-125kw</code></li>
+        <li>❌ <code>?lang=th</code> (ไม่แนะนำ — SEO อ่อนกว่า)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="num">2</span>Default &amp; Fallback</h3>
+      <p>Default = <b>ไทย</b> (ตลาดหลัก) · ตรวจ <code>Accept-Language</code> header ครั้งแรก: ถ้าเป็น th-* → /th, อื่นๆ → /en · บันทึก preference ใน cookie สำหรับการเข้าใช้ครั้งต่อไป</p>
+      <p style="margin-top:8px;font-size:13px;color:var(--muted)"><b>หมายเหตุ:</b> ถ้าคำใดยังไม่ได้แปล → fallback ไปภาษาไทย (ไม่ทิ้งช่องว่าง)</p>
+    </div>
+    <div class="card">
+      <h3><span class="num">3</span>Language Switcher · UI</h3>
+      <p>วางมุมขวาบนของ navigation · ใช้ปุ่ม <b>TH | EN</b> แบบ toggle ชัดเจน · เมื่อสลับให้ <b>คงอยู่หน้าเดิม</b> (ไม่กลับ home) · ใส่ <code>hreflang</code> attribute บนปุ่ม</p>
+    </div>
+    <div class="card">
+      <h3><span class="num">4</span>SEO · hreflang Tags</h3>
+      <p>ใส่ในทุกหน้าใน <code>&lt;head&gt;</code>:</p>
+      <pre style="background:#1e1e2e;color:#cdd6f4;padding:10px;border-radius:6px;font-size:11px;overflow-x:auto;margin:6px 0">&lt;link rel="alternate" hreflang="th"
+  href="...co.th/th/..."/&gt;
+&lt;link rel="alternate" hreflang="en"
+  href="...co.th/en/..."/&gt;
+&lt;link rel="alternate" hreflang="x-default"
+  href="...co.th/th/..."/&gt;</pre>
+    </div>
+    <div class="card">
+      <h3><span class="num">5</span>Font Strategy</h3>
+      <p>ใช้ font ที่รองรับทั้งสองภาษา <b>ในชุดเดียวกัน</b> เพื่อความสม่ำเสมอ:</p>
+      <ul class="clean" style="font-size:13px">
+        <li><b>แนะนำ:</b> IBM Plex Sans Thai + IBM Plex Sans (free, รองรับ tabular figures สำหรับ spec)</li>
+        <li><b>ทางเลือก:</b> Noto Sans Thai + Inter</li>
+        <li>โหลด font ผ่าน Google Fonts หรือ self-host พร้อม <code>font-display:swap</code></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="num">6</span>Content Workflow</h3>
+      <p>ใน CMS (Sanity/Strapi) เปิด <b>localization plugin</b> · ทุก field ที่มี text จะมี slot TH + EN · ทีม content เขียน TH ก่อน → แล้วส่งให้ทีมแปลทำ EN · มี status "ยังไม่แปล" ให้เห็นใน admin</p>
+    </div>
+  </div>
+
+  <h3 style="margin:24px 0 10px;color:var(--brand-2);font-size:15px">เนื้อหาที่ต้องแปลทั้งหมด (Translation Inventory)</h3>
+  <table>
+    <thead>
+      <tr><th style="width:25%">ประเภท</th><th>รายการ</th><th style="width:18%">Priority</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><b>UI Strings</b></td><td>เมนู, ปุ่ม, label ฟอร์ม, validation message, footer, error pages</td><td><span class="tag">P0 · Critical</span></td></tr>
+      <tr><td><b>Product Content</b></td><td>ชื่อสินค้า, description, key features, spec labels (ตัวเลขไม่ต้องแปล)</td><td><span class="tag">P0 · Critical</span></td></tr>
+      <tr><td><b>Solutions / Pages</b></td><td>หน้า solutions, about, services — เนื้อหา narrative</td><td><span class="tag">P0 · Critical</span></td></tr>
+      <tr><td><b>Case Studies</b></td><td>ชื่อโครงการ, challenge/solution/outcome — ปกติเขียน TH ก่อน แปล EN ทีหลัง</td><td><span class="tag gray">P1 · High</span></td></tr>
+      <tr><td><b>Datasheets PDF</b></td><td>มี 2 ฉบับ TH/EN แยกไฟล์ · ลิงก์ตามภาษาที่เลือก</td><td><span class="tag gray">P1 · High</span></td></tr>
+      <tr><td><b>Blog Posts</b></td><td>technical articles, news — แปลเฉพาะที่สำคัญ ไม่จำเป็นต้องแปลทุกชิ้น</td><td><span class="tag gray">P2 · Medium</span></td></tr>
+      <tr><td><b>Legal</b></td><td>Privacy Policy, Terms of Service, Cookie Policy</td><td><span class="tag gray">P1 · High</span></td></tr>
+      <tr><td><b>SEO Meta</b></td><td>title, description, og:tags, schema.org JSON-LD ของแต่ละหน้า</td><td><span class="tag">P0 · Critical</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <h4>Pitfalls ที่ต้องระวัง</h4>
+    <p>· <b>ขนาดข้อความต่างกัน:</b> อังกฤษมักยาวกว่าไทย 15–30% · ต้องเทส layout ทั้ง 2 ภาษาเสมอ — ปุ่ม, navigation, card ต้องไม่ break <br>
+       · <b>Line height:</b> ภาษาไทยมีวรรณยุกต์/สระบน-ล่าง → ใช้ line-height &ge; 1.6 จะอ่านง่ายกว่า · 1.5 พอใช้ได้สำหรับ EN<br>
+       · <b>วันที่และตัวเลข:</b> TH ใช้ พ.ศ. (2568) vs EN ใช้ ค.ศ. (2025) · TH ใช้ "," เป็น thousands separator เหมือนกัน แต่ระวังการเขียน "1,000.50" ที่บางที่ผิด<br>
+       · <b>ไม่ใช้ Google Translate:</b> ข้อมูลเทคนิคต้อง <b>คนแปล</b> เท่านั้น — มืออาชีพในวงการพลังงาน · GT มักผิดศัพท์ technical เช่น "cycle", "rated capacity", "round-trip efficiency"<br>
+       · <b>URL slug:</b> ใช้ภาษาอังกฤษทั้งหมด (ทั้ง TH และ EN versions) — เช่น <code>/th/products/hinercab-125kw</code> ไม่ใช่ <code>/th/ผลิตภัณฑ์/...</code></p>
+  </div>
+
+  <h3 style="margin:24px 0 10px;color:var(--brand-2);font-size:15px">ตัวอย่างคำแปลศัพท์เทคนิค (Glossary)</h3>
+  <table>
+    <thead>
+      <tr><th>ไทย</th><th>English</th><th style="width:30%">หมายเหตุ</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>ระบบกักเก็บพลังงาน</td><td>Battery Energy Storage System (BESS)</td><td>คงคำย่อ "BESS" ทั้งสองภาษา</td></tr>
+      <tr><td>ระบบโซลาร์เซลล์ / ระบบพลังงานแสงอาทิตย์</td><td>Solar PV / Photovoltaic System</td><td class="muted">PV = ย่อ Photovoltaic</td></tr>
+      <tr><td>ระบายความร้อนด้วยของเหลว</td><td>Liquid-Cooled</td><td class="muted">ห้ามแปลว่า "เย็นน้ำ"</td></tr>
+      <tr><td>โรงไฟฟ้าระดับโครงข่าย / ขนาดสาธารณูปโภค</td><td>Utility-Scale</td><td class="muted">ระบบขนาดใหญ่ที่จ่ายเข้า grid</td></tr>
+      <tr><td>การลด peak demand / ปาดยอดพีค</td><td>Peak Shaving</td><td class="muted">"ปาดยอด" เริ่มใช้ในแวดวงไทย</td></tr>
+      <tr><td>ค่า demand charge / ค่าความต้องการพลังไฟฟ้า</td><td>Demand Charge</td><td class="muted">ศัพท์การไฟฟ้า</td></tr>
+      <tr><td>รอบการชาร์จ/คายประจุ</td><td>Cycle (charge/discharge)</td><td class="muted">มักใช้ "cycle life"</td></tr>
+      <tr><td>ลิเทียมเหล็กฟอสเฟต</td><td>LFP (Lithium Iron Phosphate)</td><td class="muted">คงคำย่อ LFP</td></tr>
+      <tr><td>โครงข่ายไฟฟ้าขนาดเล็ก / ไมโครกริด</td><td>Microgrid</td><td class="muted">"ไมโครกริด" ใช้ทับศัพท์ได้</td></tr>
+      <tr><td>ระบบจัดการพลังงาน</td><td>EMS (Energy Management System)</td><td class="muted">คงคำย่อ EMS</td></tr>
+      <tr><td>ระยะเวลาคืนทุน</td><td>Payback Period</td><td class="muted">หน่วยเป็นปี</td></tr>
+      <tr><td>ผู้รับเหมา EPC</td><td>EPC Contractor</td><td class="muted">Engineering · Procurement · Construction</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <h4>ขั้นตอนการ implement (Implementation steps)</h4>
+    <p><b>1.</b> เลือก stack (Next.js + next-intl หรือ next-i18next) · <b>2.</b> ตั้งค่า CMS ให้รองรับ localization · <b>3.</b> แยกไฟล์แปล (en.json / th.json) ออกจากโค้ด · <b>4.</b> ติด hreflang &amp; sitemap.xml (มี &lt;xhtml:link&gt;) · <b>5.</b> เทสกับ Lighthouse + Google Search Console (international targeting) · <b>6.</b> Monitor: GA4 แยก dimension ภาษา ดูพฤติกรรมแต่ละกลุ่ม</p>
+  </div>
+</section>
+
+<!-- ========= ROADMAP ========= -->
+<section id="roadmap">
+  <h2 class="section-title"><span class="dot"></span>Roadmap &amp; ขั้นตอนการทำเว็บไซต์</h2>
+  <p class="section-lede">แบ่งเป็น 4 phase, ระยะเวลารวมโดยประมาณ 8–12 สัปดาห์</p>
+
+  <table>
+    <thead>
+      <tr><th>Phase</th><th>กิจกรรม</th><th>Deliverables</th><th>ระยะเวลา</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>1. Discovery</b><br><span class="tag gray">สัปดาห์ 1–2</span></td>
+        <td>สัมภาษณ์ทีม sales/engineer, รวบรวมเนื้อหา/ภาพ/datasheet, วิเคราะห์คู่แข่ง, สรุป personas</td>
+        <td>Content inventory · Brand brief · Site goals</td>
+        <td>2 สัปดาห์</td>
+      </tr>
+      <tr>
+        <td><b>2. UX / IA</b><br><span class="tag gray">สัปดาห์ 2–4</span></td>
+        <td>ทำ sitemap, user flow, wireframe (lo-fi → hi-fi), prototype หน้าหลัก, usability test กับลูกค้าตัวอย่าง</td>
+        <td>Sitemap · Wireframe · Figma prototype</td>
+        <td>2–3 สัปดาห์</td>
+      </tr>
+      <tr>
+        <td><b>3. Design + Content</b><br><span class="tag gray">สัปดาห์ 4–8</span></td>
+        <td>UI design system, mockup ทุกหน้า, ถ่ายภาพ/วิดีโอจริง, เขียน copy TH/EN, optimize SEO</td>
+        <td>UI design · Copy · Photo/video assets</td>
+        <td>3–4 สัปดาห์</td>
+      </tr>
+      <tr>
+        <td><b>4. Build + Launch</b><br><span class="tag gray">สัปดาห์ 7–12</span></td>
+        <td>Develop (Next.js / Webflow), CMS (Strapi/Sanity), integrate RFQ form ไปยัง CRM/อีเมล, QA, SEO setup, launch</td>
+        <td>Live website · CMS handover · Analytics</td>
+        <td>4–5 สัปดาห์</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <h4>ข้อแนะนำเชิงเทคนิค</h4>
+    <p>· <b>Stack แนะนำ:</b> Next.js (App Router) + Tailwind + Sanity/Strapi CMS — รองรับ 2 ภาษาและ SEO ได้ดี<br>
+       · <b>Hosting:</b> Vercel หรือ Cloudflare Pages + Cloudflare CDN<br>
+       · <b>Forms:</b> ใช้ HubSpot / Salesforce Web-to-Lead หรือฟอร์มเอง ส่งเข้า CRM<br>
+       · <b>Analytics:</b> GA4 + Hotjar (heatmap), ติด Conversion event ที่ฟอร์ม RFQ<br>
+       · <b>Performance budget:</b> LCP &lt; 2.5s, image WebP/AVIF, lazy-load ทุก section ใต้ fold</p>
+  </div>
+</section>
+
+</div>
+
+<script>
+  // ===== Tab navigation =====
+  const tabs = document.querySelectorAll('.tab');
+  const sections = document.querySelectorAll('section');
+  tabs.forEach(t=>{
+    t.addEventListener('click',()=>{
+      tabs.forEach(x=>x.classList.remove('active'));
+      sections.forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      document.getElementById(t.dataset.tab).classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+
+  // ===== Language toggle (TH/EN for wireframes) =====
+  const langTH = document.getElementById('langTH');
+  const langEN = document.getElementById('langEN');
+  function setLang(lang){
+    document.body.setAttribute('data-lang', lang);
+    if(lang==='th'){
+      langTH.style.background='var(--brand)'; langTH.style.color='#fff';
+      langEN.style.background='transparent';   langEN.style.color='var(--ink-2)';
+    } else {
+      langEN.style.background='var(--brand)'; langEN.style.color='#fff';
+      langTH.style.background='transparent';   langTH.style.color='var(--ink-2)';
+    }
+    // Update the small TH/EN pill inside each wireframe nav
+    document.querySelectorAll('.bi-active-th').forEach(s=>s.classList.toggle('on', lang==='th'));
+    document.querySelectorAll('.bi-active-en').forEach(s=>s.classList.toggle('on', lang==='en'));
+  }
+  if(langTH) langTH.addEventListener('click',()=>setLang('th'));
+  if(langEN) langEN.addEventListener('click',()=>setLang('en'));
+  // Initial state
+  setLang('th');
+</script>
+</body>
+</html>

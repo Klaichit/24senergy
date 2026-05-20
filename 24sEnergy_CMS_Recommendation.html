@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>24sEnergy — Backend / CMS Recommendation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#6A2DAF; --brand-dark:#4d1f80; --brand-light:#8b4dd6;
+    --brand-soft:#f1e9fb; --brand-2:#3F3F3F;
+    --ink:#1a1a1a; --ink-2:#4a4a4a; --muted:#8a8a8a;
+    --line:#e8e8ec; --bg:#fff; --bg-soft:#fafafb; --bg-dark:#0f0f14;
+    --success:#22c55e; --warning:#f59e0b; --danger:#ef4444; --info:#3b82f6;
+    --mono:'JetBrains Mono', monospace; --radius:14px;
+    --shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 28px rgba(0,0,0,.06);
+    --shadow-lg:0 20px 60px rgba(106,45,175,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'IBM Plex Sans Thai','IBM Plex Sans',-apple-system,sans-serif;
+    color:var(--ink);background:var(--bg-soft);line-height:1.65;font-size:15px;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* Layout: sidebar + main */
+  .layout{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+
+  /* Sidebar */
+  .side{
+    background:#fff;border-right:1px solid var(--line);
+    position:sticky;top:0;height:100vh;overflow-y:auto;padding:24px 18px;
+  }
+  .side-logo{display:flex;align-items:center;gap:10px;padding:0 8px 22px;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .side-logo img{height:30px}
+  .side h4{
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;
+    color:var(--muted);padding:14px 8px 8px;
+  }
+  .side a{
+    display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;
+    color:var(--ink-2);font-size:14px;font-weight:500;transition:all .15s;
+  }
+  .side a:hover{background:var(--bg-soft);color:var(--ink);text-decoration:none}
+  .side a.active{background:var(--brand-soft);color:var(--brand);font-weight:600}
+  .side a .num{
+    margin-left:auto;background:var(--bg-soft);padding:1px 7px;border-radius:999px;
+    font-family:var(--mono);font-size:10.5px;color:var(--muted);font-weight:600;
+  }
+  .side a.active .num{background:var(--brand);color:#fff}
+
+  /* Main */
+  main{padding:40px 48px 80px;max-width:1100px}
+
+  /* Hero block */
+  .hero{
+    background:linear-gradient(135deg,var(--brand) 0%, var(--brand-dark) 100%);
+    color:#fff;border-radius:20px;padding:44px 40px;margin-bottom:36px;
+    position:relative;overflow:hidden;
+    box-shadow:0 20px 60px rgba(106,45,175,.3);
+  }
+  .hero::before{
+    content:'';position:absolute;top:-30%;right:-10%;width:500px;height:500px;
+    background:radial-gradient(circle, rgba(255,255,255,.12) 0%, transparent 60%);
+    filter:blur(40px);
+  }
+  .hero-eyebrow{
+    display:inline-block;background:rgba(255,255,255,.15);
+    padding:5px 12px;border-radius:999px;font-size:11.5px;font-weight:600;
+    letter-spacing:.5px;margin-bottom:14px;font-family:var(--mono);
+  }
+  .hero h1{font-size:36px;font-weight:800;line-height:1.15;letter-spacing:-.5px;margin-bottom:12px;position:relative}
+  .hero p{font-size:16px;opacity:.9;max-width:680px;position:relative}
+
+  /* Section */
+  section{margin-bottom:48px;scroll-margin-top:24px}
+  h2.section-title{
+    font-size:24px;font-weight:800;letter-spacing:-.3px;
+    display:flex;align-items:center;gap:12px;margin-bottom:8px;color:var(--ink);
+  }
+  h2.section-title .pip{
+    width:8px;height:24px;background:var(--brand);border-radius:2px;
+  }
+  .section-lede{color:var(--muted);font-size:14.5px;margin-bottom:24px}
+
+  /* Cards */
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;box-shadow:var(--shadow);
+  }
+  .grid{display:grid;gap:16px}
+  .grid.c2{grid-template-columns:repeat(2,1fr)}
+  .grid.c3{grid-template-columns:repeat(3,1fr)}
+  .grid.c4{grid-template-columns:repeat(4,1fr)}
+
+  /* Comparison table cards */
+  .cms-card{
+    background:#fff;border:2px solid var(--line);border-radius:var(--radius);
+    padding:24px;transition:all .2s;position:relative;
+  }
+  .cms-card.featured{
+    border-color:var(--brand);box-shadow:var(--shadow-lg);
+  }
+  .cms-card.featured::before{
+    content:'⭐ แนะนำ';position:absolute;top:-12px;left:20px;
+    background:var(--brand);color:#fff;padding:4px 12px;border-radius:999px;
+    font-size:11px;font-weight:700;letter-spacing:.4px;
+  }
+  .cms-card .name{font-size:22px;font-weight:800;letter-spacing:-.4px;margin-bottom:4px}
+  .cms-card .tag{color:var(--muted);font-size:12.5px;font-family:var(--mono);margin-bottom:14px}
+  .cms-card .price{
+    background:var(--bg-soft);padding:10px 14px;border-radius:10px;margin-bottom:14px;
+    font-size:13px;color:var(--ink-2);
+  }
+  .cms-card .price b{color:var(--brand);font-weight:700;font-family:var(--mono);font-size:15px}
+  .cms-card ul{list-style:none;padding:0;margin:0}
+  .cms-card li{font-size:13.5px;padding:5px 0;display:flex;align-items:flex-start;gap:8px;color:var(--ink-2)}
+  .cms-card li.pro::before{content:'✓';color:var(--success);font-weight:700;flex-shrink:0}
+  .cms-card li.con::before{content:'✗';color:var(--danger);font-weight:700;flex-shrink:0}
+
+  /* Scorecard */
+  .scorecard{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;
+  }
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:top}
+  th{background:var(--bg-soft);font-weight:700;color:var(--brand-2);font-size:12.5px;text-transform:uppercase;letter-spacing:.5px}
+  tr:last-child td{border-bottom:none}
+  td.center{text-align:center}
+  .pill{
+    display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;
+    font-size:11.5px;font-weight:700;letter-spacing:.3px;
+  }
+  .pill.green{background:#dcfce7;color:#166534}
+  .pill.yellow{background:#fef3c7;color:#92400e}
+  .pill.red{background:#fee2e2;color:#991b1b}
+  .pill.blue{background:#dbeafe;color:#1e40af}
+
+  /* Score dots */
+  .dots{display:inline-flex;gap:3px}
+  .dots .d{width:8px;height:8px;border-radius:50%;background:var(--line)}
+  .dots .d.on{background:var(--brand)}
+
+  /* Code */
+  pre, code.block{
+    background:var(--bg-dark);color:#cdd6f4;padding:18px 20px;border-radius:10px;
+    font-family:var(--mono);font-size:12.5px;line-height:1.6;overflow-x:auto;
+    border:1px solid #1e1e2e;
+  }
+  code.inline{
+    background:#f0f0f3;color:var(--brand-2);padding:2px 6px;border-radius:5px;
+    font-family:var(--mono);font-size:12.5px;
+  }
+  pre .k{color:#cba6f7}
+  pre .s{color:#a6e3a1}
+  pre .c{color:#6c7086;font-style:italic}
+  pre .n{color:#fab387}
+  pre .p{color:#94e2d5}
+
+  /* Schema diagram */
+  .schema{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;overflow-x:auto;
+  }
+  .schema-tree{font-family:var(--mono);font-size:13px;color:var(--ink-2);white-space:pre;line-height:1.75}
+  .schema-tree b{color:var(--brand);font-weight:700}
+  .schema-tree i{color:var(--brand-2);font-style:normal;font-weight:600}
+  .schema-tree em{color:var(--success);font-style:normal}
+
+  /* Step list */
+  .step{
+    display:flex;gap:18px;padding:20px;background:#fff;border:1px solid var(--line);
+    border-radius:var(--radius);margin-bottom:14px;
+  }
+  .step .n{
+    flex-shrink:0;width:36px;height:36px;border-radius:10px;
+    background:linear-gradient(135deg,var(--brand),var(--brand-light));color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;
+    box-shadow:0 4px 12px rgba(106,45,175,.3);
+  }
+  .step h4{font-size:16px;font-weight:700;margin-bottom:4px;color:var(--ink)}
+  .step p{font-size:13.5px;color:var(--ink-2);margin:0}
+  .step code.inline{font-size:12px}
+
+  /* Callout */
+  .callout{
+    background:linear-gradient(135deg,#f1e9fb 0%, #fff 100%);
+    border:1px solid #e2d4f4;border-radius:var(--radius);padding:18px 22px;margin:16px 0;
+  }
+  .callout h4{margin:0 0 6px;color:var(--brand);font-size:13px;letter-spacing:.4px;text-transform:uppercase;font-weight:700}
+  .callout p{margin:0;color:var(--ink-2);font-size:13.5px}
+
+  .callout.warn{background:linear-gradient(135deg,#fef3c7 0%, #fff 100%);border-color:#fcd34d}
+  .callout.warn h4{color:#92400e}
+
+  /* Cost table */
+  .cost-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 18px;background:#fff;border:1px solid var(--line);border-radius:10px;
+    margin-bottom:8px;
+  }
+  .cost-row .label{font-size:14px;color:var(--ink-2);font-weight:500}
+  .cost-row .val{font-family:var(--mono);font-weight:700;color:var(--brand);font-size:14px}
+  .cost-total{
+    background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;
+    border:none;font-size:15px;
+  }
+  .cost-total .val{color:#fff}
+
+  /* Mobile */
+  @media (max-width:980px){
+    .layout{grid-template-columns:1fr}
+    .side{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+    main{padding:30px 24px 60px}
+    .grid.c3,.grid.c4{grid-template-columns:1fr}
+    .grid.c2{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="side">
+    <div class="side-logo">
+      <img src="24sEnergy_png.png" alt="24sEnergy">
+    </div>
+    <h4>เริ่มต้น</h4>
+    <a href="#overview" class="active">📋 ภาพรวม</a>
+    <a href="#compare">⚖️ เปรียบเทียบ CMS <span class="num">5</span></a>
+    <a href="#recommend">⭐ คำแนะนำ</a>
+    <h4>เนื้อหา</h4>
+    <a href="#schema">🗂️ Content Schema <span class="num">9</span></a>
+    <a href="#bilingual">🌐 ระบบ 2 ภาษา</a>
+    <a href="#media">🖼️ จัดการรูปภาพ</a>
+    <h4>เริ่มใช้งาน</h4>
+    <a href="#setup">⚙️ ขั้นตอน Setup</a>
+    <a href="#integration">🔌 เชื่อมต่อกับเว็บ</a>
+    <a href="#workflow">👥 Workflow ทีม</a>
+    <h4>ทางเลือก</h4>
+    <a href="#alternative">🔄 Plan B: Strapi</a>
+    <a href="#cost">💰 ค่าใช้จ่าย</a>
+    <a href="#timeline">📅 Timeline</a>
+  </aside>
+
+  <!-- Main content -->
+  <main>
+
+    <!-- HERO -->
+    <section id="overview">
+      <div class="hero">
+        <span class="hero-eyebrow">BACKEND / CMS STRATEGY · 2026</span>
+        <h1>ระบบจัดการเนื้อหา<br>สำหรับ 24sEnergy</h1>
+        <p>คำแนะนำ Headless CMS ที่เหมาะกับเว็บไซต์พลังงาน B2B — ทีมไม่ใช่ดีเวลอปเปอร์แก้ข้อความ/รูปได้เอง รองรับ 2 ภาษา และเชื่อมกับเว็บที่เราออกแบบไว้</p>
+      </div>
+
+      <h2 class="section-title"><span class="pip"></span>สรุปข้อแนะนำ</h2>
+      <p class="section-lede">TL;DR สำหรับผู้บริหาร — 30 วินาทีอ่านจบ</p>
+
+      <div class="grid c3">
+        <div class="card">
+          <div style="font-size:32px;margin-bottom:8px">⭐</div>
+          <h3 style="font-size:17px;margin-bottom:6px">เลือก: <span style="color:var(--brand)">Sanity</span></h3>
+          <p style="font-size:13.5px;color:var(--ink-2)">Headless CMS ที่มี Studio UI ใช้ง่าย เหมาะกับทีม marketing แก้คอนเทนต์ ทำงาน real-time ดู preview ทันที</p>
+        </div>
+        <div class="card">
+          <div style="font-size:32px;margin-bottom:8px">💰</div>
+          <h3 style="font-size:17px;margin-bottom:6px">เริ่มต้น: <span style="color:var(--brand)">฿0/เดือน</span></h3>
+          <p style="font-size:13.5px;color:var(--ink-2)">Free tier ครอบคลุม 3 users + 10k docs + 500k API requests/เดือน · เพียงพอสำหรับ 1-2 ปีแรก</p>
+        </div>
+        <div class="card">
+          <div style="font-size:32px;margin-bottom:8px">⏱</div>
+          <h3 style="font-size:17px;margin-bottom:6px">Setup: <span style="color:var(--brand)">1-2 สัปดาห์</span></h3>
+          <p style="font-size:13.5px;color:var(--ink-2)">ตั้งค่า schema ตามโครงสร้างเว็บ + เชื่อมเว็บ + train ทีม · พร้อมใช้งานเต็มรูปแบบ</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <h4>ทำไมไม่ทำ admin เอง?</h4>
+        <p>การเขียน admin panel เองใช้เวลา 3-6 เดือน + ต้องดูแล security, auth, image CDN, backup เอง · ขณะที่ Sanity ครอบคลุมทั้งหมดและทีมระดับโลกดูแล infrastructure ให้ฟรี · ลง 0 บาท ได้คุณภาพระดับ Netflix/Figma ใช้</p>
+      </div>
+    </section>
+
+    <!-- COMPARE -->
+    <section id="compare">
+      <h2 class="section-title"><span class="pip"></span>เปรียบเทียบ Headless CMS ตัวเลือก</h2>
+      <p class="section-lede">5 ตัวเลือกหลักในตลาด — เน้นความเหมาะกับธุรกิจขนาดเล็ก-กลางที่ทีมไม่ใช่ dev</p>
+
+      <div class="grid c3" style="margin-bottom:24px">
+        <div class="cms-card featured">
+          <div class="name">Sanity</div>
+          <div class="tag">Hosted · React Studio</div>
+          <div class="price"><b>Free</b> · 3 users, 10k docs · Growth $99/mo</div>
+          <ul>
+            <li class="pro">Studio UI สวย, real-time</li>
+            <li class="pro">Image CDN built-in, hotspot</li>
+            <li class="pro">Localization plugin ใช้ง่าย</li>
+            <li class="pro">GROQ query แรงและ flex</li>
+            <li class="pro">Free tier ใหญ่</li>
+            <li class="con">Studio ต้อง custom ด้วย React</li>
+          </ul>
+        </div>
+        <div class="cms-card">
+          <div class="name">Strapi</div>
+          <div class="tag">Self-hosted · Open-source</div>
+          <div class="price"><b>Free</b> · self-host · Cloud $9-99/mo</div>
+          <ul>
+            <li class="pro">Open-source, own data</li>
+            <li class="pro">Admin UI ครบ ใช้ทันที</li>
+            <li class="pro">REST + GraphQL built-in</li>
+            <li class="pro">Localization plugin</li>
+            <li class="con">ต้องดูแล server, backup เอง</li>
+            <li class="con">Image CDN ต้องตั้งเอง</li>
+          </ul>
+        </div>
+        <div class="cms-card">
+          <div class="name">Directus</div>
+          <div class="tag">Self-hosted · SQL-based</div>
+          <div class="price"><b>Free</b> · self-host · Cloud $15-99/mo</div>
+          <ul>
+            <li class="pro">Auto-generate admin จาก DB</li>
+            <li class="pro">SQL-native (Postgres/MySQL)</li>
+            <li class="pro">User permissions ละเอียด</li>
+            <li class="pro">Translation interface ดี</li>
+            <li class="con">เรียนรู้ syntax SQL/Flow</li>
+            <li class="con">ทีมเล็กกว่า Sanity/Strapi</li>
+          </ul>
+        </div>
+        <div class="cms-card">
+          <div class="name">Payload CMS</div>
+          <div class="tag">Self-hosted · TypeScript</div>
+          <div class="price"><b>Free</b> · self-host · Cloud $35+/mo</div>
+          <ul>
+            <li class="pro">Code-first, TypeScript</li>
+            <li class="pro">Modern, growing fast</li>
+            <li class="pro">Built-in auth, access control</li>
+            <li class="con">ใหม่กว่า ecosystem เล็ก</li>
+            <li class="con">ต้องเขียน TS เป็น</li>
+            <li class="con">ต้องดูแล server</li>
+          </ul>
+        </div>
+        <div class="cms-card">
+          <div class="name">Webflow</div>
+          <div class="tag">Hosted · Visual builder</div>
+          <div class="price"><b>$23-39/mo</b> · CMS plan ขึ้นไป</div>
+          <ul>
+            <li class="pro">Editor ไม่ต้องเป็น dev เลย</li>
+            <li class="pro">Visual builder ครบ</li>
+            <li class="pro">Hosting + CDN ใน package</li>
+            <li class="con">Locked-in กับ Webflow</li>
+            <li class="con">เว็บที่ทำมาแล้วต้องย้าย</li>
+            <li class="con">2 ภาษาต้องจ่าย add-on</li>
+          </ul>
+        </div>
+        <div class="cms-card">
+          <div class="name">WordPress</div>
+          <div class="tag">Self-hosted · PHP · ดั้งเดิม</div>
+          <div class="price"><b>~฿500/mo</b> · hosting + theme</div>
+          <ul>
+            <li class="pro">คนไทยใช้แพร่หลาย หาคนช่วยง่าย</li>
+            <li class="pro">Plugin มหาศาล</li>
+            <li class="pro">ฟรี + hosting ถูก</li>
+            <li class="con">ต้อง update plugin บ่อย</li>
+            <li class="con">Performance ช้ากว่า</li>
+            <li class="con">Security ต้องดูแล</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="font-size:16px;margin:24px 0 14px;color:var(--brand-2)">ตารางคะแนน (1-5)</h3>
+      <div class="scorecard">
+        <table>
+          <thead>
+            <tr>
+              <th>เกณฑ์</th>
+              <th class="center">Sanity</th>
+              <th class="center">Strapi</th>
+              <th class="center">Directus</th>
+              <th class="center">Webflow</th>
+              <th class="center">WordPress</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ใช้ง่ายสำหรับทีม non-dev</td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span><span class="d"></span></span></td>
+            </tr>
+            <tr>
+              <td>รองรับ 2 ภาษา (TH/EN)</td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span><span class="d"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span></span></td>
+            </tr>
+            <tr>
+              <td>จัดการรูปภาพ + CDN</td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span><span class="d"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d"></span><span class="d"></span><span class="d"></span></span></td>
+            </tr>
+            <tr>
+              <td>ค่าใช้จ่าย (เริ่มต้น)</td>
+              <td class="center"><span class="pill green">Free</span></td>
+              <td class="center"><span class="pill yellow">฿500/mo</span></td>
+              <td class="center"><span class="pill yellow">฿500/mo</span></td>
+              <td class="center"><span class="pill red">฿800+/mo</span></td>
+              <td class="center"><span class="pill yellow">฿500/mo</span></td>
+            </tr>
+            <tr>
+              <td>Performance (Web Speed)</td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span><span class="d"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d"></span><span class="d"></span><span class="d"></span></span></td>
+            </tr>
+            <tr>
+              <td>Self-host (เก็บข้อมูลเอง)</td>
+              <td class="center"><span class="pill red">ไม่</span></td>
+              <td class="center"><span class="pill green">ได้</span></td>
+              <td class="center"><span class="pill green">ได้</span></td>
+              <td class="center"><span class="pill red">ไม่</span></td>
+              <td class="center"><span class="pill green">ได้</span></td>
+            </tr>
+            <tr>
+              <td>Developer Experience</td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span><span class="d"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d"></span><span class="d"></span><span class="d"></span></span></td>
+              <td class="center"><span class="dots"><span class="d on"></span><span class="d on"></span><span class="d"></span><span class="d"></span><span class="d"></span></span></td>
+            </tr>
+            <tr>
+              <td><b>คะแนนรวมสำหรับ 24sEnergy</b></td>
+              <td class="center"><b style="color:var(--brand);font-size:16px">34/35</b></td>
+              <td class="center"><b style="font-size:16px">28/35</b></td>
+              <td class="center"><b style="font-size:16px">27/35</b></td>
+              <td class="center"><b style="font-size:16px">26/35</b></td>
+              <td class="center"><b style="font-size:16px">21/35</b></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- RECOMMEND -->
+    <section id="recommend">
+      <h2 class="section-title"><span class="pip"></span>แนะนำใช้ Sanity — เหตุผล</h2>
+      <p class="section-lede">5 เหตุผลที่ Sanity เหมาะกับ 24sEnergy มากที่สุด</p>
+
+      <div class="grid c2">
+        <div class="card">
+          <div style="font-size:24px;margin-bottom:6px">🎨</div>
+          <h3 style="font-size:16px;margin-bottom:6px">1. Studio UI ปรับแต่งได้</h3>
+          <p style="font-size:13.5px;color:var(--ink-2)">หน้า admin สวยกว่าทุกตัว ทีมที่ไม่ใช่ dev แก้คอนเทนต์ได้ทันที พร้อม real-time preview เห็นผลลัพธ์ทันทีบนเว็บจริง</p>
+        </div>
+        <div class="card">
+          <div style="font-size:24px;margin-bottom:6px">🌐</div>
+          <h3 style="font-size:16px;margin-bottom:6px">2. Bilingual ตั้งง่าย</h3>
+          <p style="font-size:13.5px;color:var(--ink-2)">Plugin <code class="inline">@sanity/document-internationalization</code> แค่ install ก็พร้อมใช้ ทุก field มี TH + EN และ admin มีปุ่มสลับภาษา</p>
+        </div>
+        <div class="card">
+          <div style="font-size:24px;margin-bottom:6px">🖼️</div>
+          <h3 style="font-size:16px;margin-bottom:6px">3. Image CDN ระดับโลก</h3>
+          <p style="font-size:13.5px;color:var(--ink-2)">รูปอัพโหลดแล้วได้ CDN URL ที่ resize/crop/optimize ได้ผ่าน URL params · WebP/AVIF อัตโนมัติ ช่วยให้เว็บโหลดเร็ว</p>
+        </div>
+        <div class="card">
+          <div style="font-size:24px;margin-bottom:6px">⚡</div>
+          <h3 style="font-size:16px;margin-bottom:6px">4. Performance ดีเยี่ยม</h3>
+          <p style="font-size:13.5px;color:var(--ink-2)">Static generation ผ่าน Next.js + Sanity CDN = LCP &lt; 2s · ดีกว่า WordPress ที่ render ทุกครั้งที่มี request</p>
+        </div>
+        <div class="card">
+          <div style="font-size:24px;margin-bottom:6px">💸</div>
+          <h3 style="font-size:16px;margin-bottom:6px">5. Free Tier ใหญ่</h3>
+          <p style="font-size:13.5px;color:var(--ink-2)">3 admin users + 10,000 documents + 500k API calls/เดือน · พอใช้ 2 ปีแรกแน่นอน · จ่ายเฉพาะตอนโตจริงๆ</p>
+        </div>
+        <div class="card">
+          <div style="font-size:24px;margin-bottom:6px">🛡️</div>
+          <h3 style="font-size:16px;margin-bottom:6px">6. Backup &amp; Security ฟรี</h3>
+          <p style="font-size:13.5px;color:var(--ink-2)">ทีม Sanity ดูแลให้ทั้งหมด — daily backup, DDoS protection, 99.99% uptime SLA · ไม่ต้องมี DevOps</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <h4>ลูกค้า Sanity ระดับโลก</h4>
+        <p>Figma, Netflix, Nike, Sonos, Loom, Eurostar ใช้ Sanity จัดการเว็บไซต์หลัก · เป็นเครื่องยืนยันว่า scale ขึ้นได้แน่นอน</p>
+      </div>
+    </section>
+
+    <!-- SCHEMA -->
+    <section id="schema">
+      <h2 class="section-title"><span class="pip"></span>Content Schema ตาม Wireframe</h2>
+      <p class="section-lede">โครงสร้างข้อมูลที่จะใช้ใน Sanity — ตรงกับ section ที่ออกแบบไว้</p>
+
+      <div class="schema">
+        <pre class="schema-tree">
+<b>📁 24sEnergy CMS Content Types</b>
+
+<i>siteSettings</i> (singleton — เซ็ตติ้งทั่วไป)
+  ├── logo                 <em>image</em>
+  ├── phone                string
+  ├── email                string
+  ├── lineId               string
+  ├── address              object { th, en }
+  └── socialLinks          array [facebook, linkedin, youtube]
+
+<i>homePage</i> (singleton — หน้า Home)
+  ├── hero                 object
+  │   ├── eyebrow          object { th, en }
+  │   ├── title            object { th, en }
+  │   ├── lede             object { th, en }
+  │   ├── ctaPrimary       object { text, link } × th/en
+  │   └── orbValue         string  <span class="c"># "350+"</span>
+  ├── kpis                 array of object (max 4)
+  │   ├── value            string  <span class="c"># "350"</span>
+  │   ├── unit             string  <span class="c"># "+"</span>
+  │   └── label            object { th, en }
+  ├── partners             array of string  <span class="c"># ["HITHIUM", "EGAT", ...]</span>
+  └── ctaBanner            object
+      ├── title            object { th, en }
+      ├── description      object { th, en }
+      └── buttonText       object { th, en }
+
+<i>product</i> (collection — สินค้าแต่ละชิ้น)
+  ├── name                 object { th, en }
+  ├── slug                 slug  <span class="c"># /products/hinercab-125kw</span>
+  ├── model                string
+  ├── category             reference → <i>productCategory</i>
+  ├── description          object { th, en } (rich text)
+  ├── shortDesc            object { th, en }
+  ├── heroImage            <em>image</em> (with hotspot)
+  ├── gallery              array of <em>image</em>
+  ├── specs                array of { value, label_th, label_en }
+  ├── badges               array  <span class="c"># ["HOT", "NEW"]</span>
+  ├── datasheet            <em>file</em> (PDF)
+  ├── applications         array of string
+  ├── featured             boolean  <span class="c"># แสดงในหน้า Home?</span>
+  └── order                number   <span class="c"># เรียงลำดับ</span>
+
+<i>productCategory</i> (collection — หมวดสินค้า)
+  ├── name                 object { th, en }   <span class="c"># BESS, Solar, EV, Monitoring</span>
+  ├── slug                 slug
+  ├── icon                 string  <span class="c"># SVG path หรือ emoji</span>
+  └── color                color
+
+<i>solution</i> (collection — โซลูชัน)
+  ├── title                object { th, en }
+  ├── slug                 slug
+  ├── description          object { th, en }
+  ├── icon                 string
+  ├── problemStatement     object { th, en }
+  ├── solutionDescription  object { th, en }
+  ├── diagram              <em>image</em>
+  └── relatedProjects      array of reference → <i>project</i>
+
+<i>project</i> (collection — กรณีศึกษา/โครงการ)
+  ├── title                object { th, en }
+  ├── slug                 slug
+  ├── client               string
+  ├── location             object { th, en }
+  ├── industry             string
+  ├── completedDate        date
+  ├── heroImage            <em>image</em>
+  ├── gallery              array of <em>image</em>
+  ├── capacity             object  <span class="c"># { power: "5MW", energy: "10MWh" }</span>
+  ├── challenge            object { th, en }
+  ├── solution             object { th, en }
+  ├── outcome              object { th, en, metrics: [{label, value}] }
+  ├── equipment            array of reference → <i>product</i>
+  └── featured             boolean
+
+<i>blogPost</i> (collection — บทความ)
+  ├── title                object { th, en }
+  ├── slug                 slug
+  ├── author               reference → <i>teamMember</i>
+  ├── publishedAt          datetime
+  ├── coverImage           <em>image</em>
+  ├── excerpt              object { th, en }
+  ├── content              object { th, en } (rich text + portable text)
+  └── tags                 array of string
+
+<i>teamMember</i> (collection — ทีมงาน)
+  ├── name                 string
+  ├── role                 object { th, en }
+  ├── photo                <em>image</em>
+  └── bio                  object { th, en }
+
+<i>quoteRequest</i> (collection — RFQ submissions)
+  ├── name, email, phone   string
+  ├── company              string
+  ├── projectType          string
+  ├── powerNeeded          number  <span class="c"># kW</span>
+  ├── energyNeeded         number  <span class="c"># kWh</span>
+  ├── monthlyBill          number  <span class="c"># THB</span>
+  ├── timeline             string
+  ├── status               string  <span class="c"># new, contacted, quoted, won, lost</span>
+  └── submittedAt          datetime  <span class="c"># auto</span>
+        </pre>
+      </div>
+
+      <div class="callout">
+        <h4>กลุ่มที่แก้ไขได้เป็นกลุ่ม</h4>
+        <p>เมื่อเข้าใน Sanity Studio ทีม content จะเห็น sidebar กลุ่มชัดเจน: <b>Site Settings · Home Page · Products · Categories · Solutions · Projects · Blog · Team · Quote Requests</b> — แต่ละกลุ่มแก้แยกได้</p>
+      </div>
+    </section>
+
+    <!-- BILINGUAL -->
+    <section id="bilingual">
+      <h2 class="section-title"><span class="pip"></span>ระบบ 2 ภาษา (TH/EN)</h2>
+      <p class="section-lede">ตั้งค่าใน Sanity แล้วจะได้ admin ที่มี toggle ภาษาทุก field</p>
+
+      <pre><span class="c">// sanity.config.ts</span>
+<span class="k">import</span> {documentInternationalization} <span class="k">from</span> <span class="s">'@sanity/document-internationalization'</span>
+
+<span class="k">export default</span> defineConfig({
+  plugins: [
+    documentInternationalization({
+      supportedLanguages: [
+        {id: <span class="s">'th'</span>, title: <span class="s">'ไทย'</span>},
+        {id: <span class="s">'en'</span>, title: <span class="s">'English'</span>}
+      ],
+      schemaTypes: [<span class="s">'product'</span>, <span class="s">'project'</span>, <span class="s">'solution'</span>, <span class="s">'blogPost'</span>]
+    })
+  ]
+})</pre>
+
+      <p style="font-size:13.5px;color:var(--ink-2);margin-top:14px">หลังจากนี้ทุก document จะมี:</p>
+      <ul style="font-size:13.5px;color:var(--ink-2);padding-left:22px;margin-top:6px">
+        <li>ปุ่มสลับภาษาบน toolbar — กดเดียวสลับ TH ↔ EN</li>
+        <li>Document ตัวเดียวกันแต่คนละภาษา link กันอัตโนมัติ</li>
+        <li>Admin จะเตือนถ้ายังไม่ได้แปลภาษาใด</li>
+        <li>API เรียกได้ตามภาษาผ่าน param <code class="inline">?lang=th</code></li>
+      </ul>
+    </section>
+
+    <!-- MEDIA -->
+    <section id="media">
+      <h2 class="section-title"><span class="pip"></span>การจัดการรูปภาพ</h2>
+      <p class="section-lede">Sanity Image CDN — อัพโหลดครั้งเดียวใช้ได้ทุก resolution</p>
+
+      <div class="grid c2">
+        <div class="card">
+          <h3 style="font-size:15px;margin-bottom:8px;color:var(--brand)">วิธีใช้งานในเว็บ</h3>
+          <pre style="font-size:11.5px;margin-top:8px">// ภาพหน้า Home Hero ที่ resize
+<span class="k">const</span> imageUrl = builder.image(hero.image)
+  .width(<span class="n">1600</span>)
+  .height(<span class="n">900</span>)
+  .fit(<span class="s">'crop'</span>)
+  .format(<span class="s">'webp'</span>)
+  .quality(<span class="n">85</span>)
+  .url()</pre>
+        </div>
+        <div class="card">
+          <h3 style="font-size:15px;margin-bottom:8px;color:var(--brand)">Features ที่ได้ฟรี</h3>
+          <ul style="font-size:13px;color:var(--ink-2);padding-left:18px">
+            <li>WebP / AVIF อัตโนมัติ</li>
+            <li>Lazy loading + responsive srcset</li>
+            <li>Hotspot &amp; crop — focus จุดสำคัญ</li>
+            <li>Blur placeholder (LQIP)</li>
+            <li>Global CDN (Cloudflare)</li>
+            <li>EXIF auto-remove (privacy)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <h4>ขนาดไฟล์ที่แนะนำให้ทีม content อัพโหลด</h4>
+        <p>· Hero / Project hero: <b>2000×1200 px, JPG/PNG ไม่เกิน 1 MB</b> (Sanity จะ optimize ให้)<br>
+           · Product images: <b>1200×800 px ไม่เกิน 500 KB</b><br>
+           · Logo / icon: <b>SVG หรือ PNG transparent</b><br>
+           · ห้ามอัพ HEIC จาก iPhone ตรงๆ — แปลงเป็น JPG ก่อน</p>
+      </div>
+    </section>
+
+    <!-- SETUP -->
+    <section id="setup">
+      <h2 class="section-title"><span class="pip"></span>ขั้นตอน Setup</h2>
+      <p class="section-lede">7 ขั้นตอนตั้งแต่ 0 ถึงพร้อมใช้งาน (ประมาณ 1-2 สัปดาห์)</p>
+
+      <div class="step">
+        <div class="n">1</div>
+        <div>
+          <h4>สมัครบัญชี Sanity</h4>
+          <p>ไปที่ <a href="https://sanity.io" target="_blank">sanity.io</a> → Sign up ด้วย Google/GitHub → สร้าง project ชื่อ "24senergy" → เลือก Free plan</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <div>
+          <h4>Init Sanity Studio</h4>
+          <p>รัน <code class="inline">npm create sanity@latest -- --project YOUR_ID --dataset production</code> → เลือก clean template → ได้ Sanity Studio ที่ <code class="inline">http://localhost:3333</code></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <div>
+          <h4>กำหนด Schema</h4>
+          <p>สร้างไฟล์ใน <code class="inline">/schemas</code> ตามที่ออกแบบไว้ — product.ts, project.ts, solution.ts, homePage.ts ฯลฯ · ใช้เวลา 2-3 วัน</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">4</div>
+        <div>
+          <h4>ติดตั้ง Localization Plugin</h4>
+          <p><code class="inline">npm i @sanity/document-internationalization</code> → ตั้งค่า config สำหรับ TH/EN → restart studio</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">5</div>
+        <div>
+          <h4>Deploy Studio</h4>
+          <p><code class="inline">npx sanity deploy</code> → ได้ URL <code class="inline">24senergy.sanity.studio</code> · ทีม content เข้าใช้งานได้ทันที</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">6</div>
+        <div>
+          <h4>เพิ่ม Users + Permissions</h4>
+          <p>เชิญทีม marketing/content ผ่าน email · กำหนด role: Administrator, Editor (แก้ได้), Viewer (อ่านอย่างเดียว)</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">7</div>
+        <div>
+          <h4>Import Content เริ่มต้น</h4>
+          <p>คัดลอกเนื้อหาจากเว็บปัจจุบันใส่ Sanity ผ่าน UI หรือ <code class="inline">sanity dataset import</code> · พร้อมเริ่มทดสอบกับ frontend</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTEGRATION -->
+    <section id="integration">
+      <h2 class="section-title"><span class="pip"></span>เชื่อมต่อกับเว็บที่ออกแบบไว้</h2>
+      <p class="section-lede">เปลี่ยน HTML static เป็น Next.js + Sanity — ดึงเนื้อหาจาก CMS แทน hard-code</p>
+
+      <pre><span class="c">// pages/index.tsx — หน้า Home ดึงข้อมูลจาก Sanity</span>
+<span class="k">import</span> {client, urlFor} <span class="k">from</span> <span class="s">'@/lib/sanity'</span>
+
+<span class="k">export async function</span> <span class="p">getStaticProps</span>({locale}) {
+  <span class="k">const</span> data = <span class="k">await</span> client.fetch(<span class="s">`</span>
+<span class="s">    *[_type == "homePage"][0] {</span>
+<span class="s">      hero { eyebrow, title, lede, orbValue },</span>
+<span class="s">      kpis[] { value, unit, label },</span>
+<span class="s">      partners</span>
+<span class="s">    }</span>
+<span class="s">  `</span>, {locale})
+
+  <span class="k">return</span> { props: { data }, revalidate: <span class="n">60</span> }
+}
+
+<span class="k">export default function</span> <span class="p">Home</span>({data}) {
+  <span class="k">return</span> (
+    &lt;<span class="p">section</span> className=<span class="s">"hero"</span>&gt;
+      &lt;<span class="p">h1</span>&gt;{data.hero.title[locale]}&lt;/h1&gt;
+      &lt;<span class="p">p</span>&gt;{data.hero.lede[locale]}&lt;/p&gt;
+    &lt;/<span class="p">section</span>&gt;
+  )
+}</pre>
+
+      <div class="callout" style="margin-top:18px">
+        <h4>Migration Plan: HTML → Next.js + Sanity</h4>
+        <p>1. เก็บ design ที่ทำไว้ (CSS, layout) · 2. แปลงเป็น React components · 3. เปลี่ยน hard-coded text/image เป็น query Sanity · 4. Deploy บน Vercel · 5. เปิด preview mode ให้ทีมเช็คก่อน publish</p>
+      </div>
+    </section>
+
+    <!-- WORKFLOW -->
+    <section id="workflow">
+      <h2 class="section-title"><span class="pip"></span>Workflow ทีมแก้เนื้อหา</h2>
+      <p class="section-lede">ขั้นตอนการแก้คอนเทนต์ในชีวิตประจำวัน</p>
+
+      <div class="grid c3">
+        <div class="card">
+          <div style="font-weight:700;color:var(--brand);font-size:13px;letter-spacing:.5px;margin-bottom:8px">STEP 1 · LOGIN</div>
+          <p style="font-size:13.5px;color:var(--ink-2)">เข้า <code class="inline">24senergy.sanity.studio</code> → login ด้วย Google → เห็น dashboard</p>
+        </div>
+        <div class="card">
+          <div style="font-weight:700;color:var(--brand);font-size:13px;letter-spacing:.5px;margin-bottom:8px">STEP 2 · EDIT</div>
+          <p style="font-size:13.5px;color:var(--ink-2)">เลือก document ที่ต้องการแก้ — เช่น Product → HinerCab → แก้ราคา/description/ภาพ</p>
+        </div>
+        <div class="card">
+          <div style="font-weight:700;color:var(--brand);font-size:13px;letter-spacing:.5px;margin-bottom:8px">STEP 3 · PREVIEW</div>
+          <p style="font-size:13.5px;color:var(--ink-2)">กดปุ่ม Preview → เปิด tab ใหม่ดูเว็บจริง (ก่อน publish คนนอกยังไม่เห็น)</p>
+        </div>
+        <div class="card">
+          <div style="font-weight:700;color:var(--brand);font-size:13px;letter-spacing:.5px;margin-bottom:8px">STEP 4 · PUBLISH</div>
+          <p style="font-size:13.5px;color:var(--ink-2)">กด Publish → เว็บอัพเดทใน 30-60 วินาที ผ่าน Next.js ISR · ไม่ต้อง deploy เอง</p>
+        </div>
+        <div class="card">
+          <div style="font-weight:700;color:var(--brand);font-size:13px;letter-spacing:.5px;margin-bottom:8px">STEP 5 · ROLLBACK</div>
+          <p style="font-size:13.5px;color:var(--ink-2)">ถ้าผิดพลาด → History tab → กดย้อนกลับ version ก่อนหน้าได้</p>
+        </div>
+        <div class="card">
+          <div style="font-weight:700;color:var(--brand);font-size:13px;letter-spacing:.5px;margin-bottom:8px">STEP 6 · COLLABORATE</div>
+          <p style="font-size:13.5px;color:var(--ink-2)">ทีมหลายคนแก้พร้อมกันได้ — เห็น cursor ของกันและกัน (real-time)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALTERNATIVE -->
+    <section id="alternative">
+      <h2 class="section-title"><span class="pip"></span>Plan B: ถ้าต้องการ Self-host</h2>
+      <p class="section-lede">ถ้านโยบายบริษัทต้องการเก็บข้อมูลบน server เอง — ใช้ Strapi</p>
+
+      <div class="grid c2">
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:8px">เหตุผลที่อาจเลือก Strapi</h3>
+          <ul style="font-size:13.5px;color:var(--ink-2);padding-left:18px;line-height:1.8">
+            <li>เก็บข้อมูลบน server ตัวเอง (compliance)</li>
+            <li>ไม่อยาก lock-in กับ SaaS</li>
+            <li>มี dev ดูแลอยู่แล้ว</li>
+            <li>ต้องการ customize admin UI ลึกๆ</li>
+            <li>มีลูกค้าต่างประเทศที่กฎหมายไม่อนุญาตข้อมูลออกนอกประเทศ</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:8px">ค่าใช้จ่าย Strapi</h3>
+          <ul style="font-size:13.5px;color:var(--ink-2);padding-left:18px;line-height:1.8">
+            <li>Strapi software: <b>ฟรี (open-source)</b></li>
+            <li>Server (DigitalOcean/AWS): <b>~฿500-1,500/mo</b></li>
+            <li>Database (Postgres): <b>~฿300-700/mo</b></li>
+            <li>Image storage (S3/R2): <b>~฿100-300/mo</b></li>
+            <li>SSL + domain: <b>~฿300/ปี</b></li>
+          </ul>
+          <p style="font-size:13px;color:var(--muted);margin-top:8px"><b>รวม: ~฿1,000-2,500/เดือน</b></p>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <h4>สิ่งที่ต้องเตรียมถ้าใช้ Strapi</h4>
+        <p>· ต้องมี dev ดูแล server, ทำ backup ประจำ, update plugin/security patch<br>
+           · ตั้ง CDN เอง (Cloudflare) สำหรับ image optimization<br>
+           · ตั้ง monitoring (Uptime Robot, Sentry)<br>
+           · มี contract กับ devops vendor หรือ in-house engineer</p>
+      </div>
+    </section>
+
+    <!-- COST -->
+    <section id="cost">
+      <h2 class="section-title"><span class="pip"></span>ค่าใช้จ่ายรวม (Sanity)</h2>
+      <p class="section-lede">ประมาณการสำหรับปีแรก — Sanity Free + Next.js บน Vercel</p>
+
+      <div class="cost-row">
+        <span class="label">Sanity CMS (Free tier — 3 users, 10k docs)</span>
+        <span class="val">฿0/เดือน</span>
+      </div>
+      <div class="cost-row">
+        <span class="label">Vercel Hosting (Hobby — เพียงพอแรกๆ)</span>
+        <span class="val">฿0/เดือน</span>
+      </div>
+      <div class="cost-row">
+        <span class="label">Domain (24senergy.co.th — ต่ออายุ)</span>
+        <span class="val">~฿800/ปี</span>
+      </div>
+      <div class="cost-row">
+        <span class="label">Email (Google Workspace - 3 ที่นั่ง)</span>
+        <span class="val">~฿800/เดือน</span>
+      </div>
+      <div class="cost-row">
+        <span class="label">Backup ระบบ (Sanity built-in)</span>
+        <span class="val">฿0/เดือน</span>
+      </div>
+      <div class="cost-row cost-total">
+        <span class="label">รวมค่าใช้งานปีแรก</span>
+        <span class="val">~฿11,000/ปี</span>
+      </div>
+
+      <div class="callout" style="margin-top:18px">
+        <h4>เมื่อต้อง Upgrade (โต)</h4>
+        <p>· เมื่อมี <b>มากกว่า 3 users</b> หรือ <b>10k docs</b> → Sanity Growth $99/mo (~฿3,500)<br>
+           · เมื่อ traffic เกิน 100GB/mo → Vercel Pro $20/mo (~฿700)<br>
+           · เมื่อต้องการ Form backend (RFQ) → ใช้ Sanity เป็น DB ได้ฟรี หรือ HubSpot Free</p>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline">
+      <h2 class="section-title"><span class="pip"></span>Timeline ดำเนินการ</h2>
+      <p class="section-lede">ตั้งแต่อนุมัติถึง launch — ประมาณ 4-6 สัปดาห์</p>
+
+      <table class="scorecard">
+        <thead>
+          <tr><th style="width:18%">สัปดาห์</th><th>กิจกรรม</th><th style="width:25%">Deliverables</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>สัปดาห์ 1</b><br><span class="pill blue">Setup</span></td>
+            <td>สมัคร Sanity · init project · ออกแบบ schema · ตั้ง localization plugin · deploy Studio บน <code class="inline">.sanity.studio</code></td>
+            <td>Sanity Studio พร้อมใช้</td>
+          </tr>
+          <tr>
+            <td><b>สัปดาห์ 2</b><br><span class="pill blue">Schema</span></td>
+            <td>สร้างทุก content type (Product, Project, Solution, Home, ฯลฯ) · ตั้ง field validation · เพิ่ม preview, custom UI</td>
+            <td>Schema ครบ + ทดสอบ admin</td>
+          </tr>
+          <tr>
+            <td><b>สัปดาห์ 3</b><br><span class="pill yellow">Content</span></td>
+            <td>Import เนื้อหาจากเว็บปัจจุบันใส่ Sanity · ถ่ายรูปจริง · เขียน copy TH/EN · upload datasheets PDF</td>
+            <td>Content เริ่มต้น 100%</td>
+          </tr>
+          <tr>
+            <td><b>สัปดาห์ 4</b><br><span class="pill yellow">Frontend</span></td>
+            <td>แปลง HTML static ที่ทำไว้ → Next.js · เชื่อม Sanity API · ตั้ง ISR + preview mode</td>
+            <td>เว็บ dev ทำงานกับ Sanity</td>
+          </tr>
+          <tr>
+            <td><b>สัปดาห์ 5</b><br><span class="pill green">Train</span></td>
+            <td>Train ทีม content (2 sessions × 1 ชม.) · ทดสอบ workflow แก้-publish · ทำ doc คู่มือใช้งาน</td>
+            <td>ทีมพร้อมใช้ + คู่มือ</td>
+          </tr>
+          <tr>
+            <td><b>สัปดาห์ 6</b><br><span class="pill green">Launch</span></td>
+            <td>Deploy production · ตั้ง analytics, monitoring · DNS switch · soft launch สังเกต 1 สัปดาห์</td>
+            <td>🚀 เว็บใหม่ live</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <h4>ขั้นตอนถัดไป</h4>
+        <p>1. <b>อนุมัติเลือก Sanity</b> (ใช้เอกสารนี้ในการคุย) · 2. <b>กำหนด PIC</b> ฝั่ง 24sEnergy ที่ดูแลคอนเทนต์ · 3. <b>หา dev/agency</b> ที่ทำ Next.js + Sanity (มีในไทย เช่น Seven Peaks, Codigo, freelance) · 4. <b>Kickoff meeting</b> และเริ่มทำตาม timeline</p>
+      </div>
+    </section>
+
+    <div style="margin-top:60px;padding:24px;background:#fff;border:1px dashed var(--line);border-radius:var(--radius);text-align:center;color:var(--muted);font-size:13px">
+      เอกสารฉบับนี้สรุปจากการวิเคราะห์ design + wireframe ที่ทำไว้ใน <code class="inline">24sEnergy_Website_Analysis.html</code> และ <code class="inline">index.html / products.html</code>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // Sidebar active link tracking
+  const links = document.querySelectorAll('.side a[href^="#"]');
+  const sections = document.querySelectorAll('section[id]');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        links.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector(`.side a[href="#${e.target.id}"]`);
+        if(link) link.classList.add('active');
+      }
+    });
+  }, {rootMargin: '-30% 0px -60% 0px'});
+  sections.forEach(s => io.observe(s));
+</script>
+
+</body>
+</html>

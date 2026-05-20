@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>News &amp; Insights — 24sEnergy</title>
+<meta name="description" content="ข่าวสารและบทความเชิงเทคนิคด้านระบบกักเก็บพลังงาน Solar PV และนโยบายพลังงานในประเทศไทย">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#6A2DAF; --brand-dark:#4d1f80; --brand-light:#8b4dd6;
+    --brand-soft:#f1e9fb; --brand-2:#3F3F3F;
+    --ink:#1a1a1a; --ink-2:#4a4a4a; --muted:#8a8a8a;
+    --line:#e8e8ec; --bg:#fff; --bg-soft:#fafafb; --bg-dark:#1a1a1f;
+    --accent:#22c55e; --warning:#f59e0b;
+    --mono:'JetBrains Mono', monospace;
+    --radius:16px;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.04);
+    --shadow:0 4px 16px rgba(0,0,0,.06), 0 12px 40px rgba(0,0,0,.08);
+    --shadow-lg:0 20px 60px rgba(106,45,175,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'IBM Plex Sans Thai','IBM Plex Sans',-apple-system,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.65;font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  body[data-lang="th"]{font-family:'IBM Plex Sans Thai','IBM Plex Sans',sans-serif}
+  body[data-lang="en"]{font-family:'IBM Plex Sans','IBM Plex Sans Thai',sans-serif}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+
+  .bi .th, .bi .en{display:inline}
+  body[data-lang="th"] .bi .en{display:none}
+  body[data-lang="en"] .bi .th{display:none}
+
+  /* ===== Nav (shared style) ===== */
+  .nav{
+    position:sticky;top:0;left:0;right:0;z-index:100;
+    background:rgba(255,255,255,.95);backdrop-filter:saturate(180%) blur(16px);
+    box-shadow:0 1px 0 rgba(0,0,0,.06);padding:14px 0;
+  }
+  .nav-inner{display:flex;align-items:center;gap:32px}
+  .nav-logo{height:36px}
+  .nav-logo img{height:100%;width:auto}
+  .nav-links{display:flex;gap:6px;margin-left:auto}
+  .nav-links a{
+    padding:9px 16px;border-radius:8px;font-size:14.5px;font-weight:500;
+    color:var(--ink-2);transition:all .2s;
+  }
+  .nav-links a:hover, .nav-links a.active{background:var(--brand-soft);color:var(--brand)}
+  .nav-right{display:flex;align-items:center;gap:14px;margin-left:14px}
+  .lang-toggle{display:flex;background:#f0f0f3;border-radius:8px;padding:3px;
+    font-family:var(--mono);font-size:12px;font-weight:600}
+  .lang-toggle button{padding:6px 12px;border-radius:6px;color:var(--muted);transition:all .2s}
+  .lang-toggle button.active{background:var(--brand);color:#fff !important;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+  .btn-cta{
+    background:var(--brand);color:#fff;padding:11px 22px;border-radius:8px;
+    font-weight:600;font-size:14px;transition:all .2s;
+    box-shadow:0 4px 14px rgba(106,45,175,.35);white-space:nowrap;
+  }
+  .btn-cta:hover{background:var(--brand-dark);transform:translateY(-1px)}
+  .nav-burger{display:none;width:30px;height:30px;flex-direction:column;justify-content:center;gap:5px}
+  .nav-burger span{display:block;height:2px;background:var(--ink);border-radius:2px}
+
+  /* ===== Page header ===== */
+  .page-head{
+    background:linear-gradient(135deg, #1a1a1f 0%, #2d1a4a 60%, #3F3F3F 100%);
+    color:#fff;padding:80px 0 70px;position:relative;overflow:hidden;
+  }
+  .page-head::before{
+    content:'';position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size:50px 50px;
+    mask-image:radial-gradient(ellipse at center, #000 30%, transparent 70%);
+    -webkit-mask-image:radial-gradient(ellipse at center, #000 30%, transparent 70%);
+  }
+  .page-head::after{
+    content:'';position:absolute;top:-30%;right:-10%;width:600px;height:600px;
+    background:radial-gradient(circle, rgba(106,45,175,.5) 0%, transparent 60%);
+    filter:blur(60px);
+  }
+  .page-head-inner{position:relative;z-index:1}
+  .breadcrumb{
+    font-family:var(--mono);font-size:12.5px;color:rgba(255,255,255,.6);
+    margin-bottom:18px;letter-spacing:.5px;
+  }
+  .breadcrumb a{color:rgba(255,255,255,.6);transition:color .2s}
+  .breadcrumb a:hover{color:#fff}
+  .breadcrumb .sep{margin:0 8px;opacity:.5}
+  .breadcrumb .current{color:#fff;font-weight:600}
+  .page-head h1{
+    font-size:clamp(32px,4.5vw,52px);font-weight:800;line-height:1.1;
+    letter-spacing:-1px;margin-bottom:16px;
+  }
+  .page-head h1 .accent{
+    background:linear-gradient(135deg,#c8a8ff 0%, #fff 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .page-head p{font-size:17px;color:rgba(255,255,255,.78);max-width:680px;line-height:1.6}
+
+  /* ===== Category tabs ===== */
+  .cat-tabs{
+    position:sticky;top:64px;z-index:50;background:#fff;
+    border-bottom:1px solid var(--line);
+  }
+  .cat-tabs-inner{
+    display:flex;gap:4px;overflow-x:auto;padding:0;
+    scrollbar-width:none;-ms-overflow-style:none;
+  }
+  .cat-tabs-inner::-webkit-scrollbar{display:none}
+  .cat-tab{
+    padding:18px 22px;font-size:14px;font-weight:600;color:var(--muted);
+    border-bottom:2px solid transparent;transition:all .2s;cursor:pointer;
+    white-space:nowrap;display:flex;align-items:center;gap:8px;
+  }
+  .cat-tab:hover{color:var(--ink)}
+  .cat-tab.active{color:var(--brand);border-bottom-color:var(--brand)}
+  .cat-tab .count{
+    background:var(--brand-soft);color:var(--brand);padding:1px 8px;border-radius:999px;
+    font-family:var(--mono);font-size:11px;font-weight:700;
+  }
+  .cat-tab.active .count{background:var(--brand);color:#fff}
+
+  /* ===== Main content ===== */
+  .main{padding:48px 0 80px;display:grid;grid-template-columns:1fr 320px;gap:48px}
+
+  /* ===== Featured article ===== */
+  .featured{
+    grid-column:1 / -1;
+    display:grid;grid-template-columns:1.3fr 1fr;gap:0;
+    background:#fff;border-radius:var(--radius);overflow:hidden;
+    box-shadow:var(--shadow);transition:all .3s ease;cursor:pointer;
+    margin-bottom:8px;
+  }
+  .featured:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .featured-img{
+    height:420px;position:relative;overflow:hidden;
+    background-image:url('01.png');
+    background-size:cover;background-position:center 30%;
+  }
+  .featured-img::before{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(135deg, rgba(106,45,175,.55), rgba(26,26,31,.7));
+    transition:opacity .3s ease;
+  }
+  .featured-img::after{
+    content:'FEATURED';position:absolute;top:20px;left:20px;z-index:2;
+    background:#ef4444;color:#fff;padding:5px 12px;border-radius:6px;
+    font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.5px;
+  }
+  .featured-img .mockup-tag{
+    position:absolute;top:20px;right:20px;z-index:2;
+    background:rgba(0,0,0,.55);color:#fff;padding:3px 9px;border-radius:5px;
+    font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.6px;
+  }
+  .featured-body{
+    padding:48px 44px;display:flex;flex-direction:column;justify-content:center;
+  }
+  .article-meta{
+    display:flex;align-items:center;gap:14px;margin-bottom:14px;
+    font-size:12.5px;color:var(--muted);
+  }
+  .cat-badge{
+    background:var(--brand-soft);color:var(--brand);padding:4px 11px;border-radius:6px;
+    font-size:12px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;
+  }
+  .cat-badge.industry{background:#e0e7ff;color:#3730a3}
+  .cat-badge.tech{background:#f1e9fb;color:var(--brand)}
+  .cat-badge.company{background:#d1fae5;color:#065f46}
+  .cat-badge.esg{background:#fef3c7;color:#92400e}
+  .article-meta .dot{width:3px;height:3px;background:var(--muted);border-radius:50%}
+  .featured-body h2{
+    font-size:30px;font-weight:800;line-height:1.2;letter-spacing:-.5px;
+    margin-bottom:14px;color:var(--ink);
+  }
+  .featured-body p{
+    font-size:15.5px;color:var(--ink-2);line-height:1.65;margin-bottom:20px;
+  }
+  .featured-body .author{
+    display:flex;align-items:center;gap:10px;font-size:13.5px;
+  }
+  .author .avatar{
+    width:36px;height:36px;border-radius:50%;
+    background:linear-gradient(135deg,var(--brand),var(--brand-light));color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:14px;
+  }
+  .author .info{display:flex;flex-direction:column;line-height:1.3}
+  .author .name{font-weight:600;color:var(--ink)}
+  .author .role{color:var(--muted);font-size:12px}
+
+  /* ===== Article grid ===== */
+  .articles-head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    margin-bottom:20px;gap:12px;flex-wrap:wrap;
+  }
+  .articles-head h3{font-size:20px;font-weight:800;letter-spacing:-.3px}
+  .articles-head .count{color:var(--muted);font-size:13.5px}
+  .articles-head .count b{color:var(--ink);font-weight:700}
+
+  .articles{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  .article{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;transition:all .3s ease;cursor:pointer;
+    display:flex;flex-direction:column;
+  }
+  .article:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:transparent}
+  .article-img{
+    height:200px;position:relative;overflow:hidden;
+    background-size:cover;background-position:center 25%;background-repeat:no-repeat;
+  }
+  .article-img::before{
+    content:'';position:absolute;inset:0;
+    background:var(--tint, linear-gradient(135deg, rgba(106,45,175,.55), rgba(26,26,31,.65)));
+    transition:opacity .35s ease;
+  }
+  .article:hover .article-img::before{opacity:.78}
+  .article-img::after{
+    content:'MOCKUP';position:absolute;top:12px;right:12px;
+    background:rgba(0,0,0,.55);color:rgba(255,255,255,.95);
+    padding:3px 9px;border-radius:5px;
+    font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.6px;
+  }
+  .article-img .cat-badge{
+    position:absolute;top:14px;left:14px;z-index:2;
+  }
+  /* Use 01-04.png cycling */
+  .article.img-01 .article-img{background-image:url('01.png');--tint:linear-gradient(135deg, rgba(106,45,175,.6), rgba(45,26,74,.75))}
+  .article.img-02 .article-img{background-image:url('02.png');--tint:linear-gradient(135deg, rgba(217,119,6,.55), rgba(146,64,14,.7))}
+  .article.img-03 .article-img{background-image:url('03.png');--tint:linear-gradient(135deg, rgba(5,150,105,.6), rgba(6,78,59,.7))}
+  .article.img-04 .article-img{background-image:url('04.png');--tint:linear-gradient(135deg, rgba(37,99,235,.55), rgba(30,64,175,.7))}
+
+  .article-body{padding:22px 22px 24px;flex:1;display:flex;flex-direction:column}
+  .article-body h3{
+    font-size:17px;font-weight:700;line-height:1.35;color:var(--ink);
+    margin-bottom:8px;letter-spacing:-.1px;
+  }
+  .article-body p{
+    font-size:13.5px;color:var(--ink-2);line-height:1.6;margin-bottom:14px;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  }
+  .article-foot{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-top:auto;font-size:12.5px;color:var(--muted);
+  }
+  .article-foot .date{font-family:var(--mono)}
+  .article-foot .read{display:inline-flex;align-items:center;gap:5px}
+
+  /* ===== Sidebar ===== */
+  .sidebar{display:flex;flex-direction:column;gap:24px}
+  .widget{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;
+  }
+  .widget h4{
+    font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;
+    color:var(--ink);margin-bottom:18px;display:flex;align-items:center;gap:8px;
+  }
+  .widget h4 .pip{width:6px;height:14px;background:var(--brand);border-radius:2px}
+
+  /* Popular posts */
+  .pop-item{
+    display:flex;gap:14px;padding:12px 0;
+    border-bottom:1px solid var(--line);transition:all .2s;cursor:pointer;
+  }
+  .pop-item:last-child{border-bottom:none}
+  .pop-item:hover{background:var(--bg-soft);margin:0 -16px;padding:12px 16px;border-radius:8px}
+  .pop-num{
+    flex-shrink:0;font-family:var(--mono);font-size:22px;font-weight:700;
+    color:var(--brand);line-height:1;width:30px;
+  }
+  .pop-info h5{font-size:13.5px;font-weight:600;line-height:1.4;margin-bottom:4px;color:var(--ink)}
+  .pop-info .meta{font-size:11.5px;color:var(--muted);font-family:var(--mono)}
+
+  /* Categories list */
+  .cat-list{display:flex;flex-direction:column;gap:0}
+  .cat-link{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 0;border-bottom:1px solid var(--line);
+    font-size:14px;color:var(--ink-2);transition:color .2s;cursor:pointer;
+  }
+  .cat-link:hover{color:var(--brand)}
+  .cat-link:last-child{border-bottom:none}
+  .cat-link .cnt{
+    font-family:var(--mono);font-size:11.5px;color:var(--muted);
+    background:var(--bg-soft);padding:2px 9px;border-radius:999px;
+    transition:all .2s;
+  }
+  .cat-link:hover .cnt{background:var(--brand-soft);color:var(--brand)}
+
+  /* Newsletter widget */
+  .newsletter{
+    background:linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+    color:#fff;border-color:transparent;position:relative;overflow:hidden;
+  }
+  .newsletter::before{
+    content:'';position:absolute;top:-30%;right:-10%;width:300px;height:300px;
+    background:radial-gradient(circle, rgba(255,255,255,.15) 0%, transparent 60%);
+    filter:blur(40px);
+  }
+  .newsletter h4{color:#fff;position:relative}
+  .newsletter h4 .pip{background:rgba(255,255,255,.5)}
+  .newsletter p{font-size:13.5px;color:rgba(255,255,255,.85);margin-bottom:14px;position:relative;line-height:1.55}
+  .newsletter form{display:flex;flex-direction:column;gap:8px;position:relative}
+  .newsletter input{
+    width:100%;padding:11px 14px;border-radius:8px;border:none;
+    background:rgba(255,255,255,.12);color:#fff;font-size:13.5px;
+    font-family:inherit;backdrop-filter:blur(6px);
+    border:1px solid rgba(255,255,255,.2);
+  }
+  .newsletter input::placeholder{color:rgba(255,255,255,.55)}
+  .newsletter input:focus{outline:none;background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4)}
+  .newsletter button[type="submit"]{
+    background:#fff;color:var(--brand);padding:11px 14px;border-radius:8px;
+    font-weight:700;font-size:13.5px;cursor:pointer;transition:all .2s;
+    display:flex;align-items:center;justify-content:center;gap:6px;
+  }
+  .newsletter button[type="submit"]:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.2)}
+
+  /* ===== Pagination ===== */
+  .pagination{
+    grid-column:1 / 2;
+    display:flex;align-items:center;justify-content:center;gap:6px;
+    margin-top:36px;
+  }
+  .pg-btn{
+    min-width:40px;height:40px;border-radius:10px;
+    background:#fff;border:1px solid var(--line);
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:14px;font-weight:600;color:var(--ink-2);
+    transition:all .2s;cursor:pointer;font-family:var(--mono);
+  }
+  .pg-btn:hover{border-color:var(--brand);color:var(--brand)}
+  .pg-btn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .pg-btn:disabled{opacity:.4;cursor:not-allowed}
+  .pg-arrow{padding:0 14px;gap:6px}
+
+  /* ===== CTA banner ===== */
+  .cta-band{
+    background:linear-gradient(135deg, #1a1a1f 0%, #2d1a4a 60%, var(--brand) 100%);
+    color:#fff;border-radius:24px;padding:50px 48px;
+    margin:0 0 60px;display:grid;grid-template-columns:1.5fr 1fr;gap:32px;align-items:center;
+    position:relative;overflow:hidden;
+    box-shadow:0 30px 80px rgba(106,45,175,.3);
+  }
+  .cta-band::before{
+    content:'';position:absolute;top:-30%;right:-10%;width:500px;height:500px;
+    background:radial-gradient(circle, rgba(255,255,255,.15) 0%, transparent 60%);
+    filter:blur(40px);
+  }
+  .cta-band h2{font-size:28px;font-weight:800;line-height:1.2;margin-bottom:10px;position:relative}
+  .cta-band p{font-size:15px;opacity:.85;max-width:480px;position:relative}
+  .cta-band-right{position:relative;z-index:1;display:flex;justify-content:flex-end}
+  .btn-primary-white{
+    background:#fff;color:var(--brand-2);padding:14px 28px;border-radius:10px;
+    font-weight:700;font-size:14.5px;display:inline-flex;align-items:center;gap:10px;
+    transition:all .25s;box-shadow:0 8px 24px rgba(0,0,0,.2);
+  }
+  .btn-primary-white:hover{transform:translateY(-2px)}
+
+  /* ===== Footer (same) ===== */
+  footer{background:var(--bg-dark);color:rgba(255,255,255,.75);padding:80px 0 30px}
+  .footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:40px;margin-bottom:48px}
+  .footer-brand img{height:36px;filter:brightness(0) invert(1);margin-bottom:18px}
+  .footer-brand p{font-size:14px;line-height:1.7;opacity:.65;max-width:280px}
+  .footer-col h4{color:#fff;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:18px}
+  .footer-col a{display:block;font-size:14px;color:rgba(255,255,255,.6);padding:6px 0;transition:color .2s}
+  .footer-col a:hover{color:#fff}
+  .footer-bottom{padding-top:30px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;font-size:13px;color:rgba(255,255,255,.4);flex-wrap:wrap;gap:12px}
+  .social{display:flex;gap:10px}
+  .social a{width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.06);border-radius:8px;transition:all .2s}
+  .social a:hover{background:var(--brand);color:#fff}
+
+  /* Reveal */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease, transform .7s ease}
+  .reveal.in{opacity:1;transform:translateY(0)}
+
+  /* Hide */
+  .article.hide{display:none !important}
+
+  /* Responsive */
+  @media (max-width:1020px){
+    .main{grid-template-columns:1fr;gap:32px}
+    .featured{grid-template-columns:1fr}
+    .featured-img{height:300px}
+    .featured-body{padding:32px 28px}
+    .featured-body h2{font-size:24px}
+    .pagination{grid-column:1}
+  }
+  @media (max-width:640px){
+    .articles{grid-template-columns:1fr}
+    .cta-band{grid-template-columns:1fr;padding:36px 28px}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+    .nav-links,.nav-right .lang-toggle{display:none}
+    .nav-burger{display:flex}
+    .cat-tabs{top:60px}
+    .featured-body h2{font-size:22px}
+    .page-head{padding:60px 0 50px}
+  }
+  @media (max-width:520px){
+    .wrap{padding:0 20px}
+    .footer-grid{grid-template-columns:1fr}
+    .featured-img{height:220px}
+    .article-img{height:180px}
+  }
+</style>
+</head>
+<body data-lang="th">
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="nav-logo"><img src="24sEnergy_png.png" alt="24sEnergy"></a>
+    <div class="nav-links">
+      <a href="products.html"><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></a>
+      <a href="index.html#solutions"><span class="bi"><span class="th">โซลูชัน</span><span class="en">Solutions</span></span></a>
+      <a href="index.html#projects"><span class="bi"><span class="th">โครงการ</span><span class="en">Projects</span></span></a>
+      <a href="news.html" class="active"><span class="bi"><span class="th">ข่าวสาร</span><span class="en">News</span></span></a>
+      <a href="index.html#about"><span class="bi"><span class="th">เกี่ยวกับ</span><span class="en">About</span></span></a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button id="btnTH" class="active" onclick="setLang('th')">TH</button>
+        <button id="btnEN" onclick="setLang('en')">EN</button>
+      </div>
+      <a href="index.html#cta" class="btn-cta"><span class="bi"><span class="th">ขอใบเสนอราคา</span><span class="en">Get a Quote</span></span></a>
+      <button class="nav-burger" aria-label="menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== PAGE HEAD ===== -->
+<header class="page-head">
+  <div class="wrap page-head-inner">
+    <div class="breadcrumb">
+      <a href="index.html"><span class="bi"><span class="th">หน้าแรก</span><span class="en">Home</span></span></a>
+      <span class="sep">/</span>
+      <span class="current"><span class="bi"><span class="th">ข่าวสาร &amp; บทความ</span><span class="en">News &amp; Insights</span></span></span>
+    </div>
+    <h1>
+      <span class="bi">
+        <span class="th">ข่าวสาร <span class="accent">&amp; บทความ</span></span>
+        <span class="en">News &amp; <span class="accent">Insights</span></span>
+      </span>
+    </h1>
+    <p>
+      <span class="bi">
+        <span class="th">ติดตามข่าวสาร ความเคลื่อนไหวในอุตสาหกรรมพลังงาน บทความเชิงเทคนิค และอัพเดทโครงการล่าสุดของเรา</span>
+        <span class="en">Industry news, technical insights, and the latest updates from our energy projects across Thailand.</span>
+      </span>
+    </p>
+  </div>
+</header>
+
+<!-- ===== CATEGORY TABS ===== -->
+<div class="cat-tabs">
+  <div class="wrap cat-tabs-inner">
+    <div class="cat-tab active" data-cat="all"><span class="bi"><span class="th">ทั้งหมด</span><span class="en">All</span></span> <span class="count">7</span></div>
+    <div class="cat-tab" data-cat="industry"><span class="bi"><span class="th">อุตสาหกรรม</span><span class="en">Industry</span></span> <span class="count">2</span></div>
+    <div class="cat-tab" data-cat="tech"><span class="bi"><span class="th">เทคโนโลยี</span><span class="en">Technology</span></span> <span class="count">3</span></div>
+    <div class="cat-tab" data-cat="company"><span class="bi"><span class="th">บริษัท</span><span class="en">Company</span></span> <span class="count">1</span></div>
+    <div class="cat-tab" data-cat="esg"><span class="bi"><span class="th">ESG &amp; ความยั่งยืน</span><span class="en">ESG &amp; Sustainability</span></span> <span class="count">1</span></div>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="wrap main">
+
+  <!-- FEATURED ARTICLE -->
+  <a href="#" class="featured reveal" data-cat="industry">
+    <div class="featured-img">
+      <span class="mockup-tag">MOCKUP</span>
+    </div>
+    <div class="featured-body">
+      <div class="article-meta">
+        <span class="cat-badge industry"><span class="bi"><span class="th">อุตสาหกรรม</span><span class="en">Industry</span></span></span>
+        <span><span class="bi"><span class="th">12 พ.ค. 2026</span><span class="en">May 12, 2026</span></span></span>
+        <span class="dot"></span>
+        <span>8 min read</span>
+      </div>
+      <h2>
+        <span class="bi">
+          <span class="th">ERC อนุมัติ BESS ขนาด 100 MW เข้าโครงข่ายไฟฟ้าครั้งแรกในไทย</span>
+          <span class="en">ERC Approves First 100 MW BESS for Thai Grid Integration</span>
+        </span>
+      </h2>
+      <p>
+        <span class="bi">
+          <span class="th">การไฟฟ้าฝ่ายผลิตและคณะกรรมการกำกับกิจการพลังงาน (กกพ.) อนุมัติโครงการระบบกักเก็บพลังงานขนาดใหญ่ที่สุดในประเทศ พลิกโฉมตลาด Ancillary Services ในไทย — เปิดทางให้ภาคเอกชนเข้าร่วม</span>
+          <span class="en">EGAT and ERC have approved Thailand's largest battery energy storage project, transforming the Ancillary Services market and opening doors for private sector participation.</span>
+        </span>
+      </p>
+      <div class="author">
+        <div class="avatar">ส</div>
+        <div class="info">
+          <span class="name">สมชาย พลังงาน</span>
+          <span class="role"><span class="bi"><span class="th">ผู้เชี่ยวชาญด้าน Grid</span><span class="en">Grid Specialist</span></span></span>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <!-- LEFT COLUMN — ARTICLE GRID -->
+  <div>
+    <div class="articles-head">
+      <h3><span class="bi"><span class="th">บทความล่าสุด</span><span class="en">Latest Articles</span></span></h3>
+      <div class="count"><b id="visibleCount">6</b> <span class="bi"><span class="th">บทความ</span><span class="en">articles</span></span></div>
+    </div>
+
+    <div class="articles">
+
+      <!-- Article 1 -->
+      <a href="#" class="article reveal img-02" data-cat="tech">
+        <div class="article-img">
+          <span class="cat-badge tech"><span class="bi"><span class="th">เทคโนโลยี</span><span class="en">Technology</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi">
+              <span class="th">Hithium เปิดตัว HinerCab Gen 2 ที่ Intersolar Munich 2026</span>
+              <span class="en">Hithium Launches HinerCab Gen 2 at Intersolar Munich 2026</span>
+            </span>
+          </h3>
+          <p>
+            <span class="bi">
+              <span class="th">รุ่นใหม่ของ HinerCab เพิ่มความหนาแน่นพลังงาน 18% รองรับ Cycle Life 10,000 รอบ พร้อม UL9540A certified</span>
+              <span class="en">New generation increases energy density by 18%, supports 10,000 cycle life, UL9540A certified.</span>
+            </span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">10 พ.ค. 2026</span><span class="en">May 10, 2026</span></span></span>
+            <span class="read">⏱ 5 min</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 2 -->
+      <a href="#" class="article reveal img-03" data-cat="company">
+        <div class="article-img">
+          <span class="cat-badge company"><span class="bi"><span class="th">บริษัท</span><span class="en">Company</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi">
+              <span class="th">24sEnergy ส่งมอบ Solar Farm 50 MW ที่อยุธยา</span>
+              <span class="en">24sEnergy Delivers 50 MW Solar Farm in Ayutthaya</span>
+            </span>
+          </h3>
+          <p>
+            <span class="bi">
+              <span class="th">โครงการใหญ่ที่สุดของเราในปีนี้ ผลิตไฟฟ้า 75 GWh/ปี ลด CO2 ได้ 35,000 ตัน/ปี — ส่งมอบเร็วกว่าแผน 2 เดือน</span>
+              <span class="en">Our biggest project this year — 75 GWh/yr output, 35,000 tCO2/yr reduction. Delivered 2 months ahead of schedule.</span>
+            </span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">7 พ.ค. 2026</span><span class="en">May 7, 2026</span></span></span>
+            <span class="read">⏱ 4 min</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 3 -->
+      <a href="#" class="article reveal img-04" data-cat="tech">
+        <div class="article-img">
+          <span class="cat-badge tech"><span class="bi"><span class="th">เทคโนโลยี</span><span class="en">Technology</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi">
+              <span class="th">BESS กับ Demand Charge: คำนวณ ROI แบบจริง</span>
+              <span class="en">BESS &amp; Demand Charge: Real-World ROI Calculation</span>
+            </span>
+          </h3>
+          <p>
+            <span class="bi">
+              <span class="th">วิเคราะห์ลึก ROI ของการติด BESS ในโรงงาน รวม case study 3 ไซต์ — payback period 3.8-5.2 ปี</span>
+              <span class="en">Deep-dive ROI analysis with 3 real-world case studies — payback period 3.8-5.2 years.</span>
+            </span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">5 พ.ค. 2026</span><span class="en">May 5, 2026</span></span></span>
+            <span class="read">⏱ 12 min</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 4 -->
+      <a href="#" class="article reveal img-01" data-cat="esg">
+        <div class="article-img">
+          <span class="cat-badge esg">ESG</span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi">
+              <span class="th">ESG Report 2025: ลด CO2 ของลูกค้ารวม 4,500 ตัน</span>
+              <span class="en">ESG Report 2025: Combined 4,500 tCO2 Reduction</span>
+            </span>
+          </h3>
+          <p>
+            <span class="bi">
+              <span class="th">รายงานความยั่งยืนประจำปี ครอบคลุม 120 โครงการ ลด carbon footprint ภาคอุตสาหกรรมต่อเนื่อง</span>
+              <span class="en">Annual sustainability report covering 120 projects, continuously reducing industrial carbon footprint.</span>
+            </span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">1 พ.ค. 2026</span><span class="en">May 1, 2026</span></span></span>
+            <span class="read">⏱ 7 min</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 5 -->
+      <a href="#" class="article reveal img-02" data-cat="industry">
+        <div class="article-img">
+          <span class="cat-badge industry"><span class="bi"><span class="th">อุตสาหกรรม</span><span class="en">Industry</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi">
+              <span class="th">Carbon Credit Market ในไทยปี 2026 เปลี่ยนอะไรบ้าง</span>
+              <span class="en">Thailand's 2026 Carbon Credit Market — What's Changing</span>
+            </span>
+          </h3>
+          <p>
+            <span class="bi">
+              <span class="th">กฎใหม่ของ TGO ส่งผลต่อโครงการ Solar/BESS อย่างไร โอกาส รายได้เสริม สำหรับเจ้าของโครงการ</span>
+              <span class="en">How TGO's new rules affect Solar/BESS projects — opportunities and additional revenue for asset owners.</span>
+            </span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">28 เม.ย. 2026</span><span class="en">Apr 28, 2026</span></span></span>
+            <span class="read">⏱ 9 min</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 6 -->
+      <a href="#" class="article reveal img-03" data-cat="tech">
+        <div class="article-img">
+          <span class="cat-badge tech"><span class="bi"><span class="th">เทคโนโลยี</span><span class="en">Technology</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi">
+              <span class="th">LFP vs NMC: เลือกแบตเตอรี่อะไรดีสำหรับ C&amp;I BESS</span>
+              <span class="en">LFP vs NMC: Choosing the Right Battery for C&amp;I BESS</span>
+            </span>
+          </h3>
+          <p>
+            <span class="bi">
+              <span class="th">เปรียบเทียบเชิงเทคนิคและการลงทุนระหว่าง 2 เคมีหลัก — ความปลอดภัย cycle life ราคา per kWh</span>
+              <span class="en">Technical and financial comparison between two main chemistries — safety, cycle life, $/kWh.</span>
+            </span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">22 เม.ย. 2026</span><span class="en">Apr 22, 2026</span></span></span>
+            <span class="read">⏱ 14 min</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <button class="pg-btn pg-arrow" disabled>←</button>
+      <button class="pg-btn active">1</button>
+      <button class="pg-btn">2</button>
+      <button class="pg-btn">3</button>
+      <button class="pg-btn">…</button>
+      <button class="pg-btn">8</button>
+      <button class="pg-btn pg-arrow">→</button>
+    </div>
+  </div>
+
+  <!-- RIGHT SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- Popular Posts -->
+    <div class="widget reveal">
+      <h4><span class="pip"></span><span class="bi"><span class="th">ยอดนิยม</span><span class="en">Most Popular</span></span></h4>
+      <div class="pop-item">
+        <div class="pop-num">01</div>
+        <div class="pop-info">
+          <h5><span class="bi"><span class="th">5 เหตุผลที่โรงงานควรมี BESS ในปี 2026</span><span class="en">5 Reasons Factories Need BESS in 2026</span></span></h5>
+          <div class="meta">2.4k views · 5 min</div>
+        </div>
+      </div>
+      <div class="pop-item">
+        <div class="pop-num">02</div>
+        <div class="pop-info">
+          <h5><span class="bi"><span class="th">วิธีคำนวณ Peak Shaving ROI ใน Excel</span><span class="en">How to Calculate Peak Shaving ROI in Excel</span></span></h5>
+          <div class="meta">1.8k views · 8 min</div>
+        </div>
+      </div>
+      <div class="pop-item">
+        <div class="pop-num">03</div>
+        <div class="pop-info">
+          <h5><span class="bi"><span class="th">มาตรฐาน UL9540 เข้าใจง่าย ใน 3 นาที</span><span class="en">UL9540 Standard Explained in 3 Minutes</span></span></h5>
+          <div class="meta">1.5k views · 3 min</div>
+        </div>
+      </div>
+      <div class="pop-item">
+        <div class="pop-num">04</div>
+        <div class="pop-info">
+          <h5><span class="bi"><span class="th">Floating Solar คุ้มจริงหรือไม่? เปรียบเทียบกับ Ground-mount</span><span class="en">Is Floating Solar Worth It? Compared to Ground-mount</span></span></h5>
+          <div class="meta">1.2k views · 7 min</div>
+        </div>
+      </div>
+      <div class="pop-item">
+        <div class="pop-num">05</div>
+        <div class="pop-info">
+          <h5><span class="bi"><span class="th">ทำไม Liquid-cooled BESS ถึงเป็นมาตรฐานใหม่</span><span class="en">Why Liquid-cooled BESS is the New Standard</span></span></h5>
+          <div class="meta">980 views · 6 min</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="widget reveal">
+      <h4><span class="pip"></span><span class="bi"><span class="th">หมวดหมู่</span><span class="en">Categories</span></span></h4>
+      <div class="cat-list">
+        <a class="cat-link" data-cat="industry">
+          <span><span class="bi"><span class="th">อุตสาหกรรม</span><span class="en">Industry</span></span></span>
+          <span class="cnt">2</span>
+        </a>
+        <a class="cat-link" data-cat="tech">
+          <span><span class="bi"><span class="th">เทคโนโลยี</span><span class="en">Technology</span></span></span>
+          <span class="cnt">3</span>
+        </a>
+        <a class="cat-link" data-cat="company">
+          <span><span class="bi"><span class="th">บริษัท</span><span class="en">Company</span></span></span>
+          <span class="cnt">1</span>
+        </a>
+        <a class="cat-link" data-cat="esg">
+          <span><span class="bi"><span class="th">ESG &amp; ความยั่งยืน</span><span class="en">ESG &amp; Sustainability</span></span></span>
+          <span class="cnt">1</span>
+        </a>
+        <a class="cat-link">
+          <span><span class="bi"><span class="th">กรณีศึกษา</span><span class="en">Case Studies</span></span></span>
+          <span class="cnt">12</span>
+        </a>
+        <a class="cat-link">
+          <span><span class="bi"><span class="th">วิดีโอ</span><span class="en">Videos</span></span></span>
+          <span class="cnt">8</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="widget newsletter reveal">
+      <h4><span class="pip"></span><span class="bi"><span class="th">รับข่าวสาร</span><span class="en">Subscribe</span></span></h4>
+      <p><span class="bi">
+        <span class="th">รับข่าวสารและบทความเชิงเทคนิคทางอีเมล สัปดาห์ละ 1 ครั้ง · ยกเลิกได้ทุกเมื่อ</span>
+        <span class="en">Get weekly news &amp; technical insights in your inbox. Unsubscribe anytime.</span>
+      </span></p>
+      <form onsubmit="event.preventDefault();this.querySelector('button').textContent='✓ ' + (document.body.dataset.lang==='th'?'สมัครแล้ว':'Subscribed');this.querySelector('input').value='';">
+        <input type="email" placeholder="your@email.com" required>
+        <button type="submit"><span class="bi"><span class="th">สมัครรับข่าวสาร</span><span class="en">Subscribe</span></span> →</button>
+      </form>
+    </div>
+
+  </aside>
+
+</div>
+
+<!-- ===== CTA BAND ===== -->
+<div class="wrap">
+  <div class="cta-band reveal">
+    <div>
+      <h2><span class="bi"><span class="th">มีคำถามเกี่ยวกับโครงการพลังงาน?</span><span class="en">Have Questions About Your Energy Project?</span></span></h2>
+      <p><span class="bi">
+        <span class="th">ทีมวิศวกรของเราพร้อมให้คำปรึกษาฟรี ประเมินไซต์งานและคำนวณ ROI ที่เหมาะกับธุรกิจคุณ</span>
+        <span class="en">Our engineers offer free consultation, site assessment, and ROI calculation tailored to your business.</span>
+      </span></p>
+    </div>
+    <div class="cta-band-right">
+      <a href="index.html#cta" class="btn-primary-white">
+        <span class="bi"><span class="th">ขอใบเสนอราคา</span><span class="en">Get a Quote</span></span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="24sEnergy_png.png" alt="24sEnergy">
+        <p><span class="bi">
+          <span class="th">ผู้นำด้านระบบกักเก็บพลังงานและ Solar PV สำหรับอุตสาหกรรมไทย ขับเคลื่อนด้วยเทคโนโลยีระดับโลก</span>
+          <span class="en">Leading provider of BESS and Solar PV for Thai industry, powered by world-class technology.</span>
+        </span></p>
+      </div>
+      <div class="footer-col">
+        <h4><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></h4>
+        <a href="products.html#bess">BESS</a>
+        <a href="products.html#solar">Solar PV</a>
+        <a href="products.html#ev">EV Charger</a>
+        <a href="products.html#monitoring">Monitoring</a>
+      </div>
+      <div class="footer-col">
+        <h4><span class="bi"><span class="th">บริษัท</span><span class="en">Company</span></span></h4>
+        <a href="index.html#about"><span class="bi"><span class="th">เกี่ยวกับเรา</span><span class="en">About Us</span></span></a>
+        <a href="index.html#projects"><span class="bi"><span class="th">โครงการ</span><span class="en">Projects</span></span></a>
+        <a href="news.html"><span class="bi"><span class="th">ข่าวสาร</span><span class="en">News</span></span></a>
+        <a href="#"><span class="bi"><span class="th">ร่วมงาน</span><span class="en">Careers</span></span></a>
+      </div>
+      <div class="footer-col">
+        <h4><span class="bi"><span class="th">ติดต่อ</span><span class="en">Contact</span></span></h4>
+        <a href="tel:+6620000000">📞 02-XXX-XXXX</a>
+        <a href="#">📱 LINE: @24senergy</a>
+        <a href="mailto:info@24senergy.co.th">✉ info@24senergy.co.th</a>
+        <a href="#">📍 <span class="bi"><span class="th">กรุงเทพฯ</span><span class="en">Bangkok</span></span></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 24sEnergy Co., Ltd. <span class="bi"><span class="th">สงวนลิขสิทธิ์</span><span class="en">All rights reserved.</span></span></div>
+      <div class="social">
+        <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Language toggle
+  function setLang(lang){
+    document.body.setAttribute('data-lang', lang);
+    document.documentElement.setAttribute('lang', lang);
+    document.getElementById('btnTH').classList.toggle('active', lang==='th');
+    document.getElementById('btnEN').classList.toggle('active', lang==='en');
+  }
+
+  // Category filter
+  const tabs = document.querySelectorAll('.cat-tab');
+  const articles = document.querySelectorAll('.articles .article');
+  const featured = document.querySelector('.featured');
+  const visibleCount = document.getElementById('visibleCount');
+
+  function applyFilter(cat){
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
+    let n = 0;
+    articles.forEach(a => {
+      const show = cat === 'all' || a.dataset.cat === cat;
+      a.classList.toggle('hide', !show);
+      if(show) n++;
+    });
+    // Hide featured if it doesn't match
+    if(featured) featured.style.display = (cat === 'all' || featured.dataset.cat === cat) ? '' : 'none';
+    visibleCount.textContent = n;
+  }
+  tabs.forEach(t => t.addEventListener('click', () => applyFilter(t.dataset.cat)));
+  // Sidebar category links also filter
+  document.querySelectorAll('.cat-link[data-cat]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      applyFilter(a.dataset.cat);
+      window.scrollTo({top: document.querySelector('.cat-tabs').offsetTop - 64, behavior:'smooth'});
+    });
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+  reveals.forEach(el => io.observe(el));
+
+  // Anchor smooth-scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if(id.length > 1 && document.querySelector(id)){
+        e.preventDefault();
+        const top = document.querySelector(id).getBoundingClientRect().top + window.scrollY - 130;
+        window.scrollTo({top, behavior:'smooth'});
+      }
+    });
+  });
+</script>
+</body>
+</html>

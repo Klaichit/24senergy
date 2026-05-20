@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>24sEnergy — AI Image Prompts สำหรับ Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#6A2DAF; --brand-dark:#4d1f80; --brand-light:#8b4dd6;
+    --brand-soft:#f1e9fb; --brand-2:#3F3F3F;
+    --ink:#1a1a1a; --ink-2:#4a4a4a; --muted:#8a8a8a;
+    --line:#e8e8ec; --bg:#fff; --bg-soft:#fafafb; --bg-dark:#0f0f14;
+    --success:#22c55e;
+    --mono:'JetBrains Mono', monospace; --radius:14px;
+    --shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 28px rgba(0,0,0,.06);
+    --shadow-lg:0 20px 60px rgba(106,45,175,.18);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'IBM Plex Sans Thai','IBM Plex Sans',-apple-system,sans-serif;
+    color:var(--ink);background:var(--bg-soft);line-height:1.65;font-size:15px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:980px;margin:0 auto;padding:32px 24px 80px}
+
+  /* Hero */
+  .hero{
+    background:linear-gradient(135deg, #1a1a1f 0%, #2d1a4a 60%, var(--brand) 100%);
+    color:#fff;border-radius:20px;padding:38px 36px;margin-bottom:28px;
+    position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:'';position:absolute;top:-30%;right:-10%;width:500px;height:500px;
+    background:radial-gradient(circle, rgba(255,255,255,.12) 0%, transparent 60%);
+    filter:blur(40px);
+  }
+  .hero-eyebrow{
+    display:inline-block;background:rgba(255,255,255,.15);
+    padding:5px 12px;border-radius:999px;font-size:11.5px;font-weight:600;
+    letter-spacing:.5px;margin-bottom:12px;font-family:var(--mono);
+  }
+  .hero h1{font-size:30px;font-weight:800;line-height:1.15;letter-spacing:-.5px;margin-bottom:10px;position:relative}
+  .hero p{font-size:15px;opacity:.9;max-width:680px;position:relative}
+
+  /* Section */
+  section{margin-bottom:32px}
+  h2{font-size:20px;font-weight:800;letter-spacing:-.3px;margin-bottom:6px;color:var(--ink);
+    display:flex;align-items:center;gap:10px}
+  h2 .pip{width:7px;height:20px;background:var(--brand);border-radius:2px}
+  .lede{color:var(--muted);font-size:13.5px;margin-bottom:18px}
+
+  /* Style direction card */
+  .style-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px 22px;margin-bottom:14px;
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .chip{
+    padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;
+    background:var(--brand-soft);color:var(--brand);
+  }
+  .chip.bad{background:#fee2e2;color:#991b1b}
+  .chip.bad::before{content:'✗ '}
+  .chip.good::before{content:'✓ '}
+
+  /* Prompt card */
+  .prompt{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px 24px;margin-bottom:18px;box-shadow:var(--shadow);
+  }
+  .prompt-head{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+  .prompt-num{
+    background:linear-gradient(135deg,var(--brand),var(--brand-light));color:#fff;
+    width:36px;height:36px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;
+    flex-shrink:0;
+  }
+  .prompt h3{font-size:17px;font-weight:700;color:var(--ink);flex:1;min-width:200px;letter-spacing:-.2px}
+  .prompt h3 .mood{display:block;font-size:11.5px;color:var(--muted);font-weight:500;margin-top:2px;letter-spacing:.4px;text-transform:uppercase}
+  .prompt .tags{display:flex;gap:5px;flex-wrap:wrap}
+  .tag{
+    padding:3px 9px;border-radius:999px;font-size:10.5px;font-weight:700;
+    letter-spacing:.3px;background:#f0f0f3;color:var(--ink-2);
+  }
+  .tag.mj{background:#fae8ff;color:#86198f}
+  .tag.dalle{background:#dcfce7;color:#166534}
+  .tag.flux{background:#dbeafe;color:#1e40af}
+
+  /* Prompt text box */
+  .prompt-box{
+    background:var(--bg-dark);color:#cdd6f4;padding:16px 18px;border-radius:10px;
+    font-family:var(--mono);font-size:12.5px;line-height:1.65;
+    border:1px solid #1e1e2e;position:relative;margin-bottom:12px;
+    white-space:pre-wrap;word-break:break-word;
+  }
+  .prompt-box .copy-btn{
+    position:absolute;top:10px;right:10px;background:rgba(106,45,175,.9);color:#fff;
+    border:none;padding:5px 12px;border-radius:6px;font-family:inherit;font-size:11px;
+    font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:.3px;
+  }
+  .prompt-box .copy-btn:hover{background:var(--brand)}
+  .prompt-box .copy-btn.copied{background:var(--success)}
+  .prompt-box .label{
+    display:inline-block;background:rgba(255,255,255,.08);color:#a6e3a1;
+    padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.5px;
+    text-transform:uppercase;margin-bottom:8px;
+  }
+
+  .prompt-note{font-size:13px;color:var(--ink-2);margin-top:8px;line-height:1.6}
+  .prompt-note b{color:var(--ink)}
+
+  /* Platform tip */
+  .platform-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin-bottom:12px;
+  }
+  .platform-card h4{font-size:15px;font-weight:700;margin-bottom:6px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .platform-card .ic{font-size:18px}
+  .platform-card p{font-size:13px;color:var(--ink-2);margin:0}
+  .platform-card code{
+    background:#f0f0f3;color:var(--brand-2);padding:1px 6px;border-radius:4px;
+    font-family:var(--mono);font-size:11.5px;
+  }
+
+  /* Callout */
+  .callout{
+    background:linear-gradient(135deg,#f1e9fb 0%, #fff 100%);
+    border:1px solid #e2d4f4;border-radius:var(--radius);padding:14px 18px;margin:14px 0;
+  }
+  .callout h4{margin:0 0 4px;color:var(--brand);font-size:12px;letter-spacing:.4px;text-transform:uppercase;font-weight:700}
+  .callout p{margin:0;color:var(--ink-2);font-size:13px}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:640px){
+    .grid2{grid-template-columns:1fr}
+    .hero h1{font-size:24px}
+    .wrap{padding:24px 18px 60px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="hero-eyebrow">AI IMAGE PROMPTS · HERO SECTION</span>
+    <h1>Prompts สำหรับสร้างรูป Hero<br>ของ 24sEnergy</h1>
+    <p>6 prompts ที่พร้อม copy ไปใช้กับ Midjourney, DALL-E 3, Flux, หรือ Imagen · เลือกตาม mood ที่ต้องการ · มี style direction และ tips สำหรับแต่ละ platform</p>
+  </div>
+
+  <!-- STYLE DIRECTION -->
+  <section>
+    <h2><span class="pip"></span>Style Direction</h2>
+    <p class="lede">แนวภาพที่เหมาะกับแบรนด์ 24sEnergy (B2B พลังงาน)</p>
+
+    <div class="style-card">
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:6px;color:var(--brand)">✓ ที่ต้องการ</h3>
+      <div class="chips">
+        <span class="chip good">Cinematic</span>
+        <span class="chip good">Industrial scale</span>
+        <span class="chip good">Golden hour / dawn</span>
+        <span class="chip good">Photorealistic</span>
+        <span class="chip good">Wide aspect ratio</span>
+        <span class="chip good">Dramatic sky</span>
+        <span class="chip good">BESS containers</span>
+        <span class="chip good">Solar farms / panels</span>
+        <span class="chip good">Aerial drone</span>
+        <span class="chip good">Subtle purple tint OK</span>
+      </div>
+    </div>
+
+    <div class="style-card">
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:6px;color:#991b1b">✗ หลีกเลี่ยง</h3>
+      <div class="chips">
+        <span class="chip bad">Residential rooftop</span>
+        <span class="chip bad">Wind turbines</span>
+        <span class="chip bad">Cartoon / illustration</span>
+        <span class="chip bad">Bright sunny midday</span>
+        <span class="chip bad">Smiling stock-photo people</span>
+        <span class="chip bad">Cheesy thumbs-up shots</span>
+        <span class="chip bad">Saturated rainbow colors</span>
+        <span class="chip bad">Cluttered composition</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMPTS -->
+  <section>
+    <h2><span class="pip"></span>6 Prompts พร้อมใช้</h2>
+    <p class="lede">คลิกปุ่ม COPY เพื่อ copy แล้วเอาไปวางในตัวสร้างภาพ AI ที่คุณใช้</p>
+
+    <!-- PROMPT 1 -->
+    <div class="prompt">
+      <div class="prompt-head">
+        <div class="prompt-num">1</div>
+        <h3>Cinematic Dawn · Solar Farm + BESS<span class="mood">Hopeful · Wide Establishing Shot</span></h3>
+        <div class="tags"><span class="tag mj">MJ</span><span class="tag flux">Flux</span></div>
+      </div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span><button class="copy-btn" onclick="copyText(this)">COPY</button>
+Cinematic aerial drone shot of a utility-scale solar farm at golden hour dawn, vast Thai industrial landscape, rows of photovoltaic panels stretching to the horizon glowing in soft sunrise light, white BESS battery storage containers in the mid-ground with subtle purple LED indicator lights, dramatic sky with amber and lavender gradient, hyperrealistic photography, shot on RED Komodo, 24mm anamorphic lens, shallow depth of field, professional industrial photography, ultra-detailed, 8K --ar 16:9 --v 6 --style raw --q 2</div>
+      <div class="prompt-note"><b>Use case:</b> หน้า Hero แบบ wide · ภาพมี space ด้านขวาให้ใส่ headline · ใช้เป็น hero background ที่มี gradient overlay ทับได้</div>
+    </div>
+
+    <!-- PROMPT 2 -->
+    <div class="prompt">
+      <div class="prompt-head">
+        <div class="prompt-num">2</div>
+        <h3>BESS Container Close-up · Industrial<span class="mood">Technical · Product-focused</span></h3>
+        <div class="tags"><span class="tag mj">MJ</span><span class="tag dalle">DALL-E</span></div>
+      </div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span><button class="copy-btn" onclick="copyText(this)">COPY</button>
+Cinematic side angle of a row of white industrial battery energy storage system (BESS) containers at an industrial facility, modern Hithium-style ESS units with cooling fins and LED status indicators, dramatic side lighting from setting sun casting long shadows, dark moody atmosphere with deep purple and charcoal gray tones, slight lens flare, photorealistic, shot on Sony A7R with 35mm prime lens, f/2.8, high contrast, industrial editorial photography, ultra-detailed surface textures --ar 16:9 --v 6 --style raw</div>
+      <div class="prompt-note"><b>Use case:</b> Hero ที่เน้นโปรดักต์ · มี mood เข้ากับ brand color (charcoal + purple) · เหมาะกับ headline สั้นทับด้านบน</div>
+    </div>
+
+    <!-- PROMPT 3 -->
+    <div class="prompt">
+      <div class="prompt-head">
+        <div class="prompt-num">3</div>
+        <h3>Industrial Factory + Solar Rooftop<span class="mood">Real Use Case · Thailand Context</span></h3>
+        <div class="tags"><span class="tag mj">MJ</span><span class="tag flux">Flux</span></div>
+      </div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span><button class="copy-btn" onclick="copyText(this)">COPY</button>
+Aerial bird's-eye view of a large modern Thai industrial factory complex with massive solar PV panels covering the entire rooftop, neat geometric pattern of dark blue solar modules, surrounding tropical landscape with palm trees in distance, late afternoon sunlight, slight haze, dramatic clouds, photorealistic drone photography, DJI Mavic 3 quality, 4K detail, professional commercial real estate photography style, color graded with warm shadows --ar 16:9 --v 6 --style raw --q 2</div>
+      <div class="prompt-note"><b>Use case:</b> สื่อให้ลูกค้า Thai industry เห็นภาพชัด · use case เห็นง่าย · เหมาะสำหรับหน้า Solutions / Industrial section ด้วย</div>
+    </div>
+
+    <!-- PROMPT 4 -->
+    <div class="prompt">
+      <div class="prompt-head">
+        <div class="prompt-num">4</div>
+        <h3>Engineer with Tablet · Human Element<span class="mood">Trust · Expertise</span></h3>
+        <div class="tags"><span class="tag mj">MJ</span><span class="tag dalle">DALL-E</span></div>
+      </div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span><button class="copy-btn" onclick="copyText(this)">COPY</button>
+Professional Asian male engineer in dark gray uniform and white hard hat standing in front of large industrial BESS battery storage containers, holding a ruggedized tablet showing energy management dashboard, confident posture, side three-quarter view, golden hour backlight creating rim lighting, depth of field with bokeh in background, photorealistic, shot on Canon R5, 85mm lens at f/1.8, professional corporate photography, sharp detail on subject, cinematic color grading with subtle teal and amber tones --ar 16:9 --v 6 --style raw</div>
+      <div class="prompt-note"><b>Use case:</b> สร้างความน่าเชื่อถือผ่านคน · เหมาะกับ section "About" หรือ "Our Team" · เพิ่ม human warmth ให้กับเว็บ B2B technical</div>
+    </div>
+
+    <!-- PROMPT 5 -->
+    <div class="prompt">
+      <div class="prompt-head">
+        <div class="prompt-num">5</div>
+        <h3>Night Shot · BESS Glow<span class="mood">Premium · High-tech</span></h3>
+        <div class="tags"><span class="tag mj">MJ</span><span class="tag flux">Flux</span></div>
+      </div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span><button class="copy-btn" onclick="copyText(this)">COPY</button>
+Dramatic nighttime cinematic shot of a utility-scale battery energy storage facility, multiple modern white BESS containers arranged in rows, glowing purple and cool white LED status lights, deep blue twilight sky with stars beginning to appear, distant city skyline lights, atmospheric haze, light pollution glow, photorealistic long exposure photography, shot on Sony A7S III, ISO 1600, tripod-stable, ultra-wide 14mm lens, professional architectural photography, color graded with cyberpunk-style purple and teal palette --ar 16:9 --v 6 --style raw --q 2</div>
+      <div class="prompt-note"><b>Use case:</b> Hero แบบ premium · ตอกย้ำว่า BESS ทำงาน 24/7 · brand color (purple) เด่นในธรรมชาติของภาพ</div>
+    </div>
+
+    <!-- PROMPT 6 -->
+    <div class="prompt">
+      <div class="prompt-head">
+        <div class="prompt-num">6</div>
+        <h3>Abstract Energy Flow · Tech-forward<span class="mood">Conceptual · Brand-aligned</span></h3>
+        <div class="tags"><span class="tag mj">MJ</span><span class="tag flux">Flux</span></div>
+      </div>
+      <div class="prompt-box">
+        <span class="label">PROMPT</span><button class="copy-btn" onclick="copyText(this)">COPY</button>
+Abstract macro photography of flowing energy and electrical particles, glowing purple and white light streaks moving through dark space, hexagonal battery cell patterns subtly visible in background, dramatic depth and motion blur, photorealistic CGI render quality, octane render style, dark charcoal background with deep purple highlights matching color palette hex 6A2DAF and 3F3F3F, futuristic technology visualization, ultra-detailed --ar 16:9 --v 6 --style raw --q 2</div>
+      <div class="prompt-note"><b>Use case:</b> สำหรับแบรนด์ที่ไม่อยากใช้ photo จริง · ตรงกับ brand color 100% · เหมาะกับ Hero ที่มี text headline ใหญ่</div>
+    </div>
+  </section>
+
+  <!-- PLATFORM TIPS -->
+  <section>
+    <h2><span class="pip"></span>Tips สำหรับแต่ละ Platform</h2>
+    <p class="lede">วิธีปรับ prompt ให้ทำงานดีในแต่ละเครื่องมือ</p>
+
+    <div class="grid2">
+      <div class="platform-card">
+        <h4><span class="ic">🎨</span>Midjourney v6/v7</h4>
+        <p>คงพารามิเตอร์ <code>--ar 16:9</code> (aspect ratio สำหรับ hero) · <code>--style raw</code> ทำให้ photorealistic · <code>--v 6</code> หรือ v7 · <code>--q 2</code> ความละเอียดสูง · ใช้ใน Discord หรือ <a href="https://midjourney.com" style="color:var(--brand)">midjourney.com</a></p>
+      </div>
+      <div class="platform-card">
+        <h4><span class="ic">🤖</span>DALL-E 3 / ChatGPT</h4>
+        <p>ตัด <code>--ar --v</code> ออก · พิมพ์เป็นประโยคธรรมดา · บอก aspect ratio ในข้อความ "wide cinematic 16:9 aspect ratio" · DALL-E ไม่ตอบ negative prompt ตรงๆ แต่ตอบจาก context</p>
+      </div>
+      <div class="platform-card">
+        <h4><span class="ic">⚡</span>Flux (Pro / Schnell)</h4>
+        <p>รองรับ prompt ยาว ใส่รายละเอียดเยอะได้ · เก่งกับ photorealistic · ใช้ผ่าน <a href="https://fal.ai" style="color:var(--brand)">fal.ai</a> หรือ <a href="https://replicate.com" style="color:var(--brand)">replicate.com</a> · ราคา ~$0.04/ภาพ</p>
+      </div>
+      <div class="platform-card">
+        <h4><span class="ic">🌐</span>Google Imagen 3 / 4</h4>
+        <p>ผ่าน Gemini app หรือ Google Whisk · เก่ง landscape และ aerial · prompt สั้นกระชับได้ผลดีกว่ายาว · มีฟรีให้ใช้ผ่าน <a href="https://gemini.google.com" style="color:var(--brand)">gemini.google.com</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIPS -->
+  <section>
+    <h2><span class="pip"></span>เคล็ดลับเพิ่มเติม</h2>
+
+    <div class="callout">
+      <h4>1. สั่งหลาย variations แล้วเลือกที่ดีที่สุด</h4>
+      <p>Midjourney/Flux มักให้ 4 ภาพต่อ prompt · gen 3-4 รอบเลือกที่ดีที่สุดก่อน upscale</p>
+    </div>
+    <div class="callout">
+      <h4>2. ทำ "Hero" + "Detail" สองชุด</h4>
+      <p>Prompt 1 หรือ 3 → ใช้เป็น hero ใหญ่ · Prompt 2 หรือ 5 → ใช้ในการ์ดเล็กหรือ section อื่น · ให้ภาพในเว็บมีหลากหลาย</p>
+    </div>
+    <div class="callout">
+      <h4>3. ระวังขนาดไฟล์</h4>
+      <p>หลังได้ภาพ → resize เป็น <b>1920×1080 px</b> + แปลงเป็น WebP ที่ <a href="https://squoosh.app" style="color:var(--brand)">squoosh.app</a> · ขนาดไม่ควรเกิน <b>200 KB</b></p>
+    </div>
+    <div class="callout">
+      <h4>4. ภาพควรมี "negative space"</h4>
+      <p>เพราะจะมี text headline ทับ — เลือกภาพที่มีพื้นที่ว่าง 1/3 ของภาพให้ตัวอักษรอ่านง่าย · ถ้าไม่มีก็ใส่ gradient overlay สีเข้มทับได้</p>
+    </div>
+    <div class="callout">
+      <h4>5. ใส่ภาพมาให้ผมแล้วบอกตำแหน่ง</h4>
+      <p>พอได้ภาพแล้ว upload เข้ามาในแชท + บอก "ใช้ภาพนี้ใน Hero" — ผมจะนำไปวางใน <code>index.html</code> ปรับ gradient overlay ให้ text อ่านง่าย และ optimize ขนาดให้ครับ</p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  function copyText(btn){
+    const box = btn.parentElement;
+    const text = box.textContent.replace('PROMPT', '').replace('COPY', '').replace('COPIED!', '').trim();
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'COPIED!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'COPY';
+        btn.classList.remove('copied');
+      }, 1800);
+    }).catch(err => {
+      // Fallback for environments without clipboard API
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      btn.textContent = 'COPIED!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'COPY';
+        btn.classList.remove('copied');
+      }, 1800);
+    });
+  }
+</script>
+
+</body>
+</html>
