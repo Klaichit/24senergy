@@ -617,6 +617,203 @@ footer{background:var(--black);padding:72px 0 32px;border-top:1px solid var(--li
   .prod-stack{flex-direction:column}
   .prod-mini{border-right:none;border-bottom:1px solid var(--line)}
 }
+
+/* ============================================================
+   DESIGN SYSTEM TOKENS — 8 Brand References
+   Applied as targeted overrides below existing CSS
+   ============================================================ */
+
+/* ===== 1. HERO — Nike principles ===== */
+.hero h1{
+  line-height:.88;
+  letter-spacing:-.02em;
+}
+.hero-cta{
+  border-radius:30px;
+}
+/* hero-cta-icon and hero-arrows keep 50% (already set) */
+
+/* ===== 2. MISSION BAND — Wired principles ===== */
+.mission{
+  background:#0a0a0a;
+}
+/* All mission elements: square geometry */
+.mission *{border-radius:0}
+.mission-label{
+  border-right:1px solid rgba(255,255,255,.08);
+  padding-right:48px;
+}
+/* Wired editorial hairline divider */
+.mission-divider{
+  height:1px;
+  background:rgba(255,255,255,.08);
+  margin:32px 0;
+  border-radius:0;
+}
+/* Wired serif sub-copy variant */
+.mission-quote-serif{
+  font-family:'Times New Roman',Georgia,serif;
+  font-size:clamp(14px,1.6vw,18px);
+  color:rgba(255,255,255,.55);
+  line-height:1.65;
+  letter-spacing:.01em;
+  margin-top:16px;
+}
+/* Editorial opening quote pseudo — Wired pull indicator */
+.mission-quote::before{
+  font-family:Georgia,serif;
+  font-size:72px;
+  color:rgba(34,197,94,.25);
+  content:'\201C';
+  line-height:.5;
+  display:block;
+  margin-bottom:16px;
+}
+
+/* ===== 3. PRODUCTS FEATURED — Apple principles ===== */
+.prod-featured{
+  border-radius:18px 0 0 18px;
+}
+.prod-featured-overlay{
+  background:linear-gradient(to top,rgba(10,10,10,.88) 0%,rgba(10,10,10,.22) 55%,transparent 100%);
+}
+.prod-featured-body h3{
+  letter-spacing:-.025em;
+}
+.prod-tabs{
+  border-radius:18px 0 0 0;
+}
+.prod-tab.active{
+  background:rgba(34,197,94,.18);
+}
+
+/* ===== 4. PRODUCTS MINI STACK — Spotify principles ===== */
+.prod-mini{
+  background:#181818;
+  border-radius:0;
+  box-shadow:rgb(18,18,18) 0px 1px 0px,rgb(60,60,60) 0px 0px 0px 1px inset;
+}
+.prod-mini:hover{
+  background:#1f1f1f;
+}
+.prod-mini-arrow{
+  border-radius:50%;
+}
+
+/* ===== 5. SOLUTIONS — IBM Carbon principles ===== */
+#solutions *{border-radius:0}
+.sol-row{
+  border-left:3px solid transparent;
+  transition:background .2s,border-left-color .2s;
+}
+.sol-row:hover{
+  background:rgba(255,255,255,.025);
+  border-left-color:rgba(34,197,94,.6);
+}
+.sol-name{
+  font-weight:300;
+  letter-spacing:-.01em;
+}
+.sol-badge{
+  border-radius:0;
+  border:1px solid rgba(34,197,94,.35);
+  padding:4px 12px;
+  color:var(--green);
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  align-self:center;
+  margin:26px 22px;
+}
+
+/* ===== 6. STATS — NVIDIA principles ===== */
+.stat-block{
+  border-radius:0;
+  position:relative;
+}
+.stat-block::after{
+  content:'';
+  position:absolute;
+  bottom:20px;
+  right:20px;
+  width:12px;
+  height:12px;
+  background:#22c55e;
+  opacity:.5;
+}
+.stat-val{
+  letter-spacing:-.025em;
+}
+
+/* ===== 7. PROJECTS — Airbnb principles ===== */
+.proj-card{
+  border-radius:14px;
+  overflow:hidden;
+}
+.bento{
+  border-radius:14px;
+  overflow:hidden;
+}
+.proj-thumb img{
+  border-radius:0;
+}
+.proj-body{
+  padding:28px 28px 32px;
+}
+.proj-body h3{
+  font-size:17px;
+  font-weight:600;
+  letter-spacing:-.02em;
+}
+.proj-card:hover{
+  background:var(--surface-2);
+  box-shadow:0 12px 40px rgba(0,0,0,.4);
+}
+.proj-badge{
+  border-radius:999px;
+}
+
+/* ===== 8. CTA — Starbucks principles ===== */
+.cta-band{
+  background:linear-gradient(135deg,#0f1f14 0%,#111111 100%);
+}
+.cta-band::before{
+  background:radial-gradient(circle,rgba(34,197,94,.18) 0%,transparent 65%);
+}
+.btn-green{
+  border-radius:50px;
+  padding:18px 36px;
+  font-size:15px;
+  font-weight:700;
+  box-shadow:0 4px 20px rgba(34,197,94,.2);
+}
+.btn-ghost{
+  border-radius:50px;
+  padding:17px 34px;
+}
+
+/* ===== 9. FOOTER — IBM Carbon principles ===== */
+footer{
+  background:#161616;
+  border-top:2px solid #22c55e;
+}
+.footer-col h4{
+  letter-spacing:.15em;
+  font-size:11px;
+}
+.footer-col a{
+  font-size:14px;
+  letter-spacing:.16px;
+}
+.footer-bottom{
+  font-size:12px;
+  letter-spacing:.32px;
+}
+.social a{
+  border-radius:0;
+}
 </style>
 </head>
 <body data-lang="th">
