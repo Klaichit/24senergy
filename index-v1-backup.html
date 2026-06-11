@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>24sEnergy — Clean Energy, Powering Industry</title>
+<meta name="description" content="ผู้นำด้านระบบกักเก็บพลังงาน BESS และ Solar PV สำหรับโรงงานและอุตสาหกรรม">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#6A2DAF;
+    --brand-dark:#4d1f80;
+    --brand-light:#8b4dd6;
+    --brand-soft:#f1e9fb;
+    --brand-2:#3F3F3F;
+    --ink:#1a1a1a;
+    --ink-2:#4a4a4a;
+    --muted:#8a8a8a;
+    --line:#e8e8ec;
+    --bg:#ffffff;
+    --bg-soft:#fafafb;
+    --bg-dark:#1a1a1f;
+    --accent:#22c55e;
+    --solar:#fbbf24;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.04);
+    --shadow:0 4px 16px rgba(0,0,0,.06), 0 12px 40px rgba(0,0,0,.08);
+    --shadow-lg:0 20px 60px rgba(106,45,175,.18), 0 8px 24px rgba(0,0,0,.06);
+    --mono:'JetBrains Mono', 'SF Mono', Menlo, monospace;
+    --radius:16px;
+    --radius-sm:10px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'IBM Plex Sans Thai','IBM Plex Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.65;font-size:16px;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body[data-lang="th"]{font-family:'IBM Plex Sans Thai','IBM Plex Sans',sans-serif}
+  body[data-lang="en"]{font-family:'IBM Plex Sans','IBM Plex Sans Thai',sans-serif}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+
+  /* Bilingual */
+  .bi .th, .bi .en{display:inline}
+  body[data-lang="th"] .bi .en{display:none}
+  body[data-lang="en"] .bi .th{display:none}
+
+  /* ===== Top Nav ===== */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    transition:all .3s ease;
+    padding:18px 0;
+  }
+  .nav.scrolled{
+    background:rgba(255,255,255,.95);
+    backdrop-filter:saturate(180%) blur(16px);
+    box-shadow:0 1px 0 rgba(0,0,0,.06);
+    padding:12px 0;
+  }
+  .nav-inner{display:flex;align-items:center;gap:32px}
+  .nav-logo{height:38px;transition:height .3s ease}
+  .nav.scrolled .nav-logo{height:34px}
+  .nav-logo img{height:100%;width:auto;transition:filter .3s ease}
+  .nav:not(.scrolled) .nav-logo img{filter:brightness(0) invert(1)}
+  .nav-links{display:flex;gap:6px;margin-left:auto}
+  .nav-links a{
+    padding:9px 16px;border-radius:8px;font-size:14.5px;font-weight:500;
+    color:rgba(255,255,255,.9);transition:all .2s;position:relative;
+  }
+  .nav.scrolled .nav-links a{color:var(--ink-2)}
+  .nav-links a:hover{background:rgba(255,255,255,.15);color:#fff}
+  .nav.scrolled .nav-links a:hover{background:var(--brand-soft);color:var(--brand)}
+  .nav-right{display:flex;align-items:center;gap:14px;margin-left:14px}
+  .lang-toggle{
+    display:flex;background:rgba(255,255,255,.15);border-radius:8px;padding:3px;
+    font-family:var(--mono);font-size:12px;font-weight:600;
+  }
+  .nav.scrolled .lang-toggle{background:#f0f0f3}
+  .lang-toggle button{padding:6px 12px;border-radius:6px;color:rgba(255,255,255,.7);transition:all .2s}
+  .nav.scrolled .lang-toggle button{color:var(--muted)}
+  .lang-toggle button.active{background:var(--brand);color:#fff !important;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+  .btn-cta{
+    background:var(--brand);color:#fff;padding:11px 22px;border-radius:8px;
+    font-weight:600;font-size:14px;transition:all .2s;
+    box-shadow:0 4px 14px rgba(106,45,175,.35);
+    white-space:nowrap;
+  }
+  .btn-cta:hover{background:var(--brand-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(106,45,175,.45)}
+  .nav-burger{display:none;width:30px;height:30px;flex-direction:column;justify-content:center;gap:5px}
+  .nav-burger span{display:block;height:2px;background:#fff;border-radius:2px;transition:.3s}
+  .nav.scrolled .nav-burger span{background:var(--ink)}
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;min-height:100vh;
+    background:
+      radial-gradient(ellipse at top right, rgba(106,45,175,.4) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom left, rgba(34,197,94,.15) 0%, transparent 50%),
+      linear-gradient(135deg, #1a1a1f 0%, #2d1a4a 50%, #1a1a1f 100%);
+    color:#fff;display:flex;align-items:center;
+    padding:140px 0 100px;overflow:hidden;
+  }
+  .hero::before{
+    content:'';position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size:60px 60px;
+    mask-image:radial-gradient(ellipse at center, #000 30%, transparent 70%);
+    -webkit-mask-image:radial-gradient(ellipse at center, #000 30%, transparent 70%);
+  }
+  .hero::after{
+    content:'';position:absolute;top:20%;right:-5%;width:600px;height:600px;
+    background:radial-gradient(circle, rgba(106,45,175,.4) 0%, transparent 60%);
+    filter:blur(60px);animation:pulse 8s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{transform:scale(1);opacity:.6}
+    50%{transform:scale(1.15);opacity:.9}
+  }
+  .hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:8px 16px;background:rgba(106,45,175,.25);border:1px solid rgba(139,77,214,.4);
+    border-radius:999px;font-size:13px;font-weight:600;margin-bottom:24px;
+    backdrop-filter:blur(10px);
+  }
+  .hero-eyebrow .dot{width:8px;height:8px;background:var(--accent);border-radius:50%;
+    box-shadow:0 0 12px var(--accent);animation:blink 2s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+  .hero h1{
+    font-size:clamp(36px,5.5vw,68px);font-weight:800;line-height:1.05;
+    letter-spacing:-1.5px;margin-bottom:24px;
+  }
+  .hero h1 .accent{
+    background:linear-gradient(135deg,#c8a8ff 0%, #fff 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lede{
+    font-size:18px;color:rgba(255,255,255,.78);max-width:540px;
+    margin-bottom:36px;line-height:1.65;
+  }
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+  .btn-primary{
+    background:#fff;color:var(--brand-2);padding:15px 30px;border-radius:10px;
+    font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:10px;
+    transition:all .25s;box-shadow:0 8px 24px rgba(0,0,0,.2);
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.3)}
+  .btn-primary svg{transition:transform .25s}
+  .btn-primary:hover svg{transform:translateX(4px)}
+  .btn-ghost{
+    background:rgba(255,255,255,.08);color:#fff;padding:15px 30px;border-radius:10px;
+    font-weight:600;font-size:15px;border:1px solid rgba(255,255,255,.2);
+    display:inline-flex;align-items:center;gap:10px;transition:all .25s;
+    backdrop-filter:blur(10px);
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.4)}
+
+  /* Hero visual — animated energy illustration */
+  .hero-visual{position:relative;height:480px;display:flex;align-items:center;justify-content:center}
+  .energy-orb{
+    position:relative;width:380px;height:380px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .energy-orb .ring{
+    position:absolute;border-radius:50%;border:1.5px solid rgba(139,77,214,.3);
+    animation:spin 30s linear infinite;
+  }
+  .energy-orb .ring.r1{width:100%;height:100%}
+  .energy-orb .ring.r2{width:75%;height:75%;animation-duration:20s;animation-direction:reverse;border-color:rgba(34,197,94,.3)}
+  .energy-orb .ring.r3{width:50%;height:50%;animation-duration:15s;border-color:rgba(251,191,36,.3)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .energy-orb .ring::before{
+    content:'';position:absolute;top:-6px;left:50%;
+    width:12px;height:12px;border-radius:50%;
+    transform:translateX(-50%);
+    box-shadow:0 0 20px currentColor;
+  }
+  .energy-orb .ring.r1::before{background:var(--brand-light);color:var(--brand-light)}
+  .energy-orb .ring.r2::before{background:var(--accent);color:var(--accent)}
+  .energy-orb .ring.r3::before{background:var(--solar);color:var(--solar)}
+  .energy-orb .core{
+    width:160px;height:160px;border-radius:50%;
+    background:radial-gradient(circle, #fff 0%, var(--brand-light) 40%, var(--brand) 100%);
+    box-shadow:0 0 80px rgba(139,77,214,.6), inset 0 0 40px rgba(255,255,255,.3);
+    display:flex;align-items:center;justify-content:center;
+    animation:pulse-core 3s ease-in-out infinite;
+  }
+  @keyframes pulse-core{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+  .energy-orb .core-inner{
+    font-family:var(--mono);font-size:42px;font-weight:700;color:#fff;
+    text-shadow:0 2px 8px rgba(0,0,0,.3);
+  }
+  .energy-orb .core-inner small{font-size:14px;display:block;opacity:.85;margin-top:2px;letter-spacing:1px}
+
+  /* Scroll cue */
+  .scroll-cue{
+    position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+    color:rgba(255,255,255,.5);font-size:12px;letter-spacing:2px;text-transform:uppercase;
+    display:flex;flex-direction:column;align-items:center;gap:8px;animation:float 2.5s ease-in-out infinite;
+  }
+  @keyframes float{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+  .scroll-cue .mouse{width:22px;height:36px;border:1.5px solid rgba(255,255,255,.4);border-radius:14px;position:relative}
+  .scroll-cue .mouse::after{
+    content:'';position:absolute;top:7px;left:50%;width:3px;height:7px;
+    background:rgba(255,255,255,.6);border-radius:2px;transform:translateX(-50%);
+    animation:scroll-dot 1.8s ease-in-out infinite;
+  }
+  @keyframes scroll-dot{0%{opacity:0;transform:translate(-50%,0)}50%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
+
+  /* ===== KPI strip ===== */
+  .kpi-strip{
+    background:#fff;margin-top:60px;position:relative;z-index:2;
+    border-radius:var(--radius);box-shadow:var(--shadow-lg);
+    padding:36px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+  }
+  .kpi{text-align:center;padding:8px 16px;position:relative}
+  .kpi:not(:last-child)::after{
+    content:'';position:absolute;right:0;top:20%;height:60%;width:1px;background:var(--line);
+  }
+  .kpi .num{
+    font-family:var(--mono);font-size:42px;font-weight:700;color:var(--brand);
+    line-height:1;margin-bottom:8px;letter-spacing:-1px;
+  }
+  .kpi .num .unit{font-size:24px;color:var(--brand-light);margin-left:2px}
+  .kpi .label{font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.3px}
+
+  /* ===== Section base ===== */
+  section{padding:100px 0;position:relative}
+  .section-head{text-align:center;max-width:720px;margin:0 auto 56px}
+  .section-tag{
+    display:inline-block;padding:6px 14px;background:var(--brand-soft);
+    color:var(--brand);font-size:12.5px;font-weight:600;border-radius:999px;
+    letter-spacing:.5px;text-transform:uppercase;margin-bottom:16px;
+  }
+  .section-head h2{
+    font-size:clamp(28px,3.5vw,42px);font-weight:800;line-height:1.15;
+    color:var(--ink);letter-spacing:-.5px;margin-bottom:14px;
+  }
+  .section-head p{color:var(--ink-2);font-size:17px;line-height:1.65}
+
+  /* ===== Products section ===== */
+  #products{background:var(--bg-soft)}
+  .products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  .product-card{
+    background:#fff;border-radius:var(--radius);padding:36px 32px;
+    border:1px solid var(--line);transition:all .3s ease;cursor:pointer;
+    position:relative;overflow:hidden;
+    display:block;text-decoration:none;color:inherit;
+  }
+  .product-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:4px;
+    background:linear-gradient(90deg, var(--brand), var(--brand-light));
+    transform:scaleX(0);transform-origin:left;transition:transform .4s ease;
+  }
+  .product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
+  .product-card:hover::before{transform:scaleX(1)}
+  .product-card .icon{
+    width:64px;height:64px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    margin-bottom:24px;transition:transform .3s ease;
+  }
+  .product-card:hover .icon{transform:scale(1.08) rotate(-3deg)}
+  .product-card.bess .icon{background:linear-gradient(135deg,#f1e9fb,#e0cef5);color:var(--brand)}
+  .product-card.solar .icon{background:linear-gradient(135deg,#fef3c7,#fde68a);color:#d97706}
+  .product-card.ev .icon{background:linear-gradient(135deg,#d1fae5,#a7f3d0);color:#059669}
+
+  /* Mockup image at top of product card */
+  .product-card .mockup{
+    position:relative;height:200px;margin:-36px -32px 24px;overflow:hidden;
+    border-radius:14px 14px 0 0;
+  }
+  .product-card .mockup img{
+    width:100%;height:100%;object-fit:cover;object-position:center 25%;
+    display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1);
+  }
+  .product-card:hover .mockup img{transform:scale(1.06)}
+  .product-card .mockup::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(255,255,255,.95) 100%),
+               var(--mockup-tint, linear-gradient(135deg, rgba(106,45,175,.18), rgba(26,26,31,.1)));
+    pointer-events:none;
+  }
+  .product-card .mockup .tag{
+    position:absolute;top:14px;left:14px;z-index:2;
+    background:rgba(255,255,255,.95);color:var(--brand);
+    padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;
+    letter-spacing:.4px;text-transform:uppercase;
+  }
+  .product-card.bess .mockup{--mockup-tint:linear-gradient(135deg, rgba(106,45,175,.22), rgba(77,31,128,.15))}
+  .product-card.solar .mockup{--mockup-tint:linear-gradient(135deg, rgba(217,119,6,.22), rgba(124,45,18,.15))}
+  .product-card.ev .mockup{--mockup-tint:linear-gradient(135deg, rgba(5,150,105,.22), rgba(6,78,59,.15))}
+  .product-card.monitor .icon{background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:#2563eb}
+  .product-card.monitor .mockup{--mockup-tint:linear-gradient(135deg, rgba(37,99,235,.22), rgba(30,64,175,.15))}
+  .product-card h3{font-size:20px;font-weight:700;color:var(--ink);margin-bottom:10px}
+  .product-card p{color:var(--ink-2);font-size:14.5px;margin-bottom:20px;min-height:46px}
+  .product-card .specs{display:flex;gap:16px;padding-top:18px;border-top:1px solid var(--line);font-size:13px}
+  .product-card .specs > div{flex:1}
+  .product-card .specs .v{font-weight:700;color:var(--ink);font-family:var(--mono);font-size:15px;display:block}
+  .product-card .specs .l{color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+  .product-card .link{
+    margin-top:24px;font-size:14px;color:var(--brand);font-weight:600;
+    display:inline-flex;align-items:center;gap:6px;transition:gap .2s;
+  }
+  .product-card:hover .link{gap:10px}
+
+  /* ===== Solutions section ===== */
+  .solutions-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  .solution-card{
+    padding:32px;border-radius:var(--radius);background:#fff;
+    border:1px solid var(--line);transition:all .3s ease;cursor:pointer;
+    display:flex;gap:20px;align-items:flex-start;
+  }
+  .solution-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--brand-soft)}
+  .solution-card .s-icon{
+    width:52px;height:52px;border-radius:12px;flex-shrink:0;
+    background:var(--brand-soft);color:var(--brand);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .solution-card h3{font-size:17px;font-weight:700;margin-bottom:6px;color:var(--ink)}
+  .solution-card p{color:var(--ink-2);font-size:14px;line-height:1.6}
+
+  /* ===== Projects section ===== */
+  #projects{
+    background:linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+    position:relative;overflow:hidden;
+  }
+  .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .project-card{
+    border-radius:var(--radius);overflow:hidden;background:#fff;
+    box-shadow:var(--shadow-sm);transition:all .3s ease;cursor:pointer;
+    border:1px solid var(--line);
+  }
+  .project-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+  .project-img{
+    height:220px;position:relative;overflow:hidden;
+    display:flex;align-items:flex-end;padding:20px;color:#fff;
+  }
+  .project-img::before{
+    content:'';position:absolute;inset:0;
+    background-image:
+      linear-gradient(180deg, transparent 30%, rgba(0,0,0,.78) 100%),
+      var(--bg-tint, linear-gradient(135deg, rgba(106,45,175,.55), rgba(26,26,31,.55))),
+      var(--bg-img, none);
+    background-size:cover, cover, cover;
+    background-position:center, center, center 20%;
+    background-repeat:no-repeat;
+    transition:transform .5s ease;
+  }
+  .project-card:hover .project-img::before{transform:scale(1.08)}
+  /* MOCKUP IMAGES — 01-04.png used as project visuals */
+  .project-img.p1{
+    --bg-tint:linear-gradient(135deg, rgba(74,58,142,.55), rgba(26,26,74,.7));
+    --bg-img:url('01.png');
+  }
+  .project-img.p2{
+    --bg-tint:linear-gradient(135deg, rgba(217,119,6,.55), rgba(124,45,18,.7));
+    --bg-img:url('02.png');
+  }
+  .project-img.p3{
+    --bg-tint:linear-gradient(135deg, rgba(5,150,105,.5), rgba(6,78,59,.7));
+    --bg-img:url('03.png');
+  }
+  .project-img.p4{
+    --bg-tint:linear-gradient(135deg, rgba(106,45,175,.55), rgba(77,31,128,.7));
+    --bg-img:url('04.png');
+  }
+  .project-img .badge{
+    position:relative;z-index:1;
+    background:rgba(255,255,255,.92);color:var(--brand);
+    padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;
+    align-self:flex-start;margin-right:auto;
+  }
+  .project-img .stats{
+    position:absolute;right:20px;bottom:20px;z-index:1;text-align:right;
+  }
+  .project-img .stats .big{font-family:var(--mono);font-size:32px;font-weight:700;letter-spacing:-1px;line-height:1}
+  .project-img .stats .small{font-size:12px;opacity:.85;margin-top:4px}
+  .project-body{padding:24px}
+  .project-body h3{font-size:17px;font-weight:700;margin-bottom:8px;color:var(--ink)}
+  .project-body .meta{display:flex;gap:12px;font-size:13px;color:var(--muted);margin-bottom:12px}
+  .project-body .meta span{display:inline-flex;align-items:center;gap:5px}
+  .project-body p{color:var(--ink-2);font-size:14px;line-height:1.6}
+
+  /* ===== Partners ===== */
+  .partners{padding:60px 0;background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .partners-label{text-align:center;color:var(--muted);font-size:13px;letter-spacing:1.5px;
+    text-transform:uppercase;margin-bottom:32px;font-weight:600}
+  .partners-row{display:flex;gap:60px;justify-content:center;align-items:center;flex-wrap:wrap;opacity:.5}
+  .partners-row > div{
+    font-family:var(--mono);font-size:22px;font-weight:700;color:var(--ink-2);
+    letter-spacing:-1px;transition:all .3s;cursor:default;
+  }
+  .partners-row > div:hover{color:var(--brand);transform:scale(1.05)}
+
+  /* ===== CTA banner ===== */
+  .cta-banner{
+    margin:60px auto;max-width:1180px;
+    background:linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+    border-radius:24px;padding:60px 56px;color:#fff;
+    display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:center;
+    position:relative;overflow:hidden;
+    box-shadow:0 30px 80px rgba(106,45,175,.35);
+  }
+  .cta-banner::before{
+    content:'';position:absolute;top:-40%;right:-10%;width:500px;height:500px;
+    background:radial-gradient(circle, rgba(255,255,255,.15) 0%, transparent 60%);
+    filter:blur(40px);
+  }
+  .cta-banner h2{font-size:34px;font-weight:800;line-height:1.2;letter-spacing:-.5px;margin-bottom:14px;position:relative}
+  .cta-banner p{font-size:16px;opacity:.85;max-width:480px;position:relative}
+  .cta-banner-right{display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
+  .cta-banner .btn-primary{justify-content:center}
+
+  /* ===== Footer ===== */
+  footer{background:var(--bg-dark);color:rgba(255,255,255,.75);padding:80px 0 30px}
+  .footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:40px;margin-bottom:48px}
+  .footer-brand img{height:36px;filter:brightness(0) invert(1);margin-bottom:18px}
+  .footer-brand p{font-size:14px;line-height:1.7;opacity:.65;max-width:280px}
+  .footer-col h4{
+    color:#fff;font-size:13px;font-weight:600;text-transform:uppercase;
+    letter-spacing:1.5px;margin-bottom:18px;
+  }
+  .footer-col a{
+    display:block;font-size:14px;color:rgba(255,255,255,.6);
+    padding:6px 0;transition:color .2s;
+  }
+  .footer-col a:hover{color:#fff}
+  .footer-bottom{
+    padding-top:30px;border-top:1px solid rgba(255,255,255,.08);
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:13px;color:rgba(255,255,255,.4);flex-wrap:wrap;gap:12px;
+  }
+  .social{display:flex;gap:10px}
+  .social a{
+    width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,.06);border-radius:8px;transition:all .2s;
+  }
+  .social a:hover{background:var(--brand);color:#fff}
+
+  /* Reveal animation */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s ease}
+  .reveal.in{opacity:1;transform:translateY(0)}
+
+  /* ===================================================
+     HERO CAROUSEL (.hx) — Anton ghost text + 4-image rotation
+     =================================================== */
+  .hx{
+    position:relative;width:100%;height:100vh;min-height:640px;
+    overflow:hidden;color:#fff;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    isolation:isolate;
+  }
+  body[data-lang="th"] .hx{font-family:'IBM Plex Sans Thai','Inter',sans-serif}
+
+  /* TH: override Anton-styled text (heading + CTA) to use menu-equivalent Thai font */
+  body[data-lang="th"] .hx-heading,
+  body[data-lang="th"] .hx-cta{
+    font-family:'IBM Plex Sans Thai','Inter',sans-serif;
+    font-weight:700;
+    letter-spacing:0;
+  }
+  /* Keep Anton only when EN text is visible inside these elements */
+  body[data-lang="en"] .hx-heading,
+  body[data-lang="en"] .hx-cta{
+    font-family:'Anton',sans-serif;
+  }
+
+  /* 1. Background — solid color base + heavily blurred image + color tint overlay */
+  .hx-bg{
+    position:absolute;inset:0;z-index:1;overflow:hidden;
+    background-color:#6A2DAF;
+    transition:background-color 650ms cubic-bezier(.4,0,.2,1);
+  }
+  /* Blurred image layer (4 imgs stacked, only active is visible) */
+  .hx-bg-blur{
+    position:absolute;top:-15%;left:-15%;width:130%;height:130%;
+    object-fit:cover;object-position:center;
+    filter:blur(80px) saturate(1.5) brightness(1.1);
+    opacity:0;
+    transition:opacity 650ms cubic-bezier(.4,0,.2,1);
+    pointer-events:none;
+    will-change:opacity;
+    transform:translateZ(0);   /* GPU layer for smooth blur */
+  }
+  .hx-bg-blur.is-active{opacity:.6}
+  /* Color tint overlay — blends with brand color on top of blurred image */
+  .hx-bg-overlay{
+    position:absolute;inset:0;
+    background-color:rgba(106,45,175,.4);
+    mix-blend-mode:overlay;
+    transition:background-color 650ms cubic-bezier(.4,0,.2,1);
+    pointer-events:none;
+  }
+
+  /* 2. Grain overlay */
+  .hx-grain{
+    position:absolute;inset:0;z-index:50;pointer-events:none;
+    opacity:.4;mix-blend-mode:overlay;
+  }
+  .hx-grain svg{width:100%;height:100%;display:block}
+
+  /* 3. Brand label top-left */
+  .hx-brand{
+    position:absolute;top:96px;left:36px;z-index:60;
+    font-family:'Inter',sans-serif;
+    font-size:11px;font-weight:600;text-transform:uppercase;
+    letter-spacing:.18em;color:#fff;
+  }
+
+  /* 5. Carousel stage */
+  .hx-stage{position:absolute;inset:0;z-index:3}
+  .hx-item{
+    position:absolute;bottom:0;left:50%;
+    aspect-ratio:.6 / 1;
+    transform:translateX(-50%) scale(1);
+    transition:all 650ms cubic-bezier(.4,0,.2,1);
+    will-change:transform,filter,opacity;
+    pointer-events:none;
+    /* 8px rounded corners on ALL roles, persistent across role swap */
+    border-radius:8px;
+    overflow:hidden;
+    background:rgba(255,255,255,.02);   /* very faint plate so corners visible */
+  }
+  .hx-item img{
+    width:100%;height:100%;display:block;
+    object-fit:cover;                   /* fill the rounded box for clean corners */
+    object-position:center 30%;         /* show upper-mid of subject */
+  }
+  /* Roles — center fills full section; others hidden */
+  .hx-item.is-center{
+    z-index:4;
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    aspect-ratio:unset;
+    left:0;bottom:0;
+    transform:none;
+    border-radius:0;
+    filter:none;opacity:1;
+    box-shadow:none;
+    transition:opacity 650ms cubic-bezier(.4,0,.2,1);
+  }
+  .hx-item.is-left,
+  .hx-item.is-right,
+  .hx-item.is-back{
+    opacity:0;pointer-events:none;
+    position:absolute;inset:0;width:100%;height:100%;
+    aspect-ratio:unset;left:0;bottom:0;transform:none;border-radius:0;
+    transition:opacity 650ms cubic-bezier(.4,0,.2,1);
+  }
+  /* Image fills the box */
+  .hx-item img{object-fit:cover;object-position:center 30%;width:100%;height:100%}
+
+  /* Dark gradient at bottom so heading/body/arrows stay readable */
+  .hx-stage::after{
+    content:'';position:absolute;inset:0;z-index:10;pointer-events:none;
+    background:linear-gradient(
+      to top,
+      rgba(10,8,20,.82) 0%,
+      rgba(10,8,20,.45) 35%,
+      transparent 65%
+    );
+  }
+
+  /* 6. Bottom-left UI */
+  .hx-bottomleft{
+    position:absolute;left:36px;bottom:36px;z-index:60;
+    max-width:420px;
+  }
+  .hx-heading{
+    font-family:'Anton',sans-serif;font-weight:700;
+    text-transform:uppercase;color:#fff;
+    font-size:22px;letter-spacing:.01em;line-height:1.1;
+    margin:0 0 12px;min-height:24px;
+    position:relative;
+  }
+  .hx-heading .bi{display:none}
+  .hx-heading .bi.is-active{display:inline}
+  .hx-body{
+    font-size:14px;color:rgba(255,255,255,.85);line-height:1.6;
+    margin:0 0 20px;font-family:inherit;
+  }
+  .hx-arrows{display:flex;gap:12px}
+  .hx-arrow{
+    width:64px;height:64px;border-radius:50%;border:2px solid #fff;
+    background:transparent;color:#fff;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:transform 150ms ease, background-color 150ms ease;
+  }
+  .hx-arrow:hover{
+    transform:scale(1.08);
+    background:rgba(255,255,255,.12);
+  }
+  .hx-arrow:disabled{opacity:.5;cursor:not-allowed}
+  .hx-arrow:active{transform:scale(.96)}
+
+  /* 7. Bottom-right CTA — prominent pill button */
+  .hx-cta{
+    position:absolute;right:36px;bottom:36px;z-index:60;
+    display:inline-flex;align-items:center;gap:14px;
+    padding:18px 32px 18px 36px;
+    background:#fff;color:#1a1a1a;
+    border-radius:999px;
+    font-family:'Anton',sans-serif;
+    font-size:clamp(16px,2vw,26px);
+    text-transform:uppercase;letter-spacing:-.01em;
+    text-decoration:none;line-height:1;
+    box-shadow:
+      0 10px 40px rgba(0,0,0,.28),
+      0 4px 12px rgba(0,0,0,.18),
+      inset 0 0 0 1px rgba(255,255,255,.7);
+    transition:transform 220ms cubic-bezier(.34,1.56,.64,1), box-shadow 220ms ease, background-color 220ms ease;
+  }
+  .hx-cta:hover{
+    text-decoration:none;
+    transform:translateY(-3px) scale(1.03);
+    background:#fff;color:#000;
+    box-shadow:
+      0 18px 56px rgba(0,0,0,.38),
+      0 8px 20px rgba(0,0,0,.22);
+  }
+  .hx-cta:active{transform:translateY(-1px) scale(1.01)}
+  .hx-cta .hx-cta-arrow{
+    width:42px;height:42px;border-radius:50%;
+    background:#6A2DAF;color:#fff;
+    display:inline-flex;align-items:center;justify-content:center;
+    flex-shrink:0;transition:transform 220ms ease, background-color 220ms ease;
+  }
+  .hx-cta:hover .hx-cta-arrow{
+    background:#4d1f80;transform:translateX(4px) rotate(-8deg);
+  }
+  .hx-cta svg{width:20px;height:20px}
+
+  /* Image fallback if missing — show purple gradient placeholder */
+  .hx-item.no-img img{display:none}
+  .hx-item.no-img::before{
+    content:attr(data-fallback);position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.04));
+    border:2px dashed rgba(255,255,255,.3);border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    color:rgba(255,255,255,.7);font-family:'Anton',sans-serif;font-size:14px;
+    text-align:center;padding:8px;letter-spacing:.05em;
+  }
+
+  /* Mobile (<640px) — single tall portrait crop, no side/back */
+  @media (max-width:640px){
+    .hx{min-height:620px}
+    .hx-brand{top:78px;left:20px;font-size:10px}
+    .hx-bottomleft{
+      left:20px;right:20px;bottom:auto;top:auto;
+      max-width:none;
+      position:absolute;bottom:24px;
+    }
+    .hx-heading{font-size:18px;margin-bottom:10px}
+    .hx-body{display:none}
+    .hx-arrows{margin-top:0}
+    .hx-arrow{width:44px;height:44px}
+    .hx-arrow svg{width:16px;height:16px}
+
+    /* CTA: shift to top-right corner on mobile */
+    .hx-cta{
+      right:20px;bottom:auto;top:78px;
+      padding:10px 16px 10px 18px;
+      font-size:13px;gap:8px;
+      box-shadow:0 6px 20px rgba(0,0,0,.3), 0 2px 6px rgba(0,0,0,.15);
+    }
+    .hx-cta .hx-cta-arrow{width:26px;height:26px}
+    .hx-cta .hx-cta-arrow svg{width:14px;height:14px}
+
+    .hx-item.is-center{
+      inset:0;width:100%;height:100%;
+      left:0;bottom:0;transform:none;border-radius:0;
+    }
+    .hx-item.is-left,
+    .hx-item.is-right,
+    .hx-item.is-back{
+      opacity:0;pointer-events:none;
+      width:0;height:0;
+    }
+  }
+  /* Nav inside hx should stay above ghost text on hx page */
+  .nav{z-index:100}
+
+  /* Responsive */
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr;gap:40px}
+    .hero-visual{height:340px}
+    .energy-orb{width:280px;height:280px}
+    .energy-orb .core{width:120px;height:120px}
+    .energy-orb .core-inner{font-size:32px}
+    .kpi-strip{grid-template-columns:repeat(2,1fr);gap:24px}
+    .kpi:nth-child(2)::after{display:none}
+    .products-grid{grid-template-columns:1fr}
+    .solutions-grid{grid-template-columns:1fr}
+    .projects-grid{grid-template-columns:1fr}
+    .cta-banner{grid-template-columns:1fr;padding:40px 32px}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+    .nav-links,.nav-right .lang-toggle{display:none}
+    .nav-burger{display:flex}
+    section{padding:70px 0}
+  }
+  @media (max-width:520px){
+    .wrap{padding:0 20px}
+    .kpi-strip{grid-template-columns:1fr;padding:24px;margin-top:40px}
+    .kpi:not(:last-child)::after{display:none}
+    .kpi .num{font-size:36px}
+    .footer-grid{grid-template-columns:1fr}
+    .hero{padding:120px 0 80px}
+    .partners-row{gap:30px}
+    .partners-row > div{font-size:17px}
+  }
+</style>
+</head>
+<body data-lang="th">
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="nav-logo"><img src="24sEnergy_png.png" alt="24sEnergy"></a>
+    <div class="nav-links">
+      <a href="products.html"><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></a>
+      <a href="#solutions"><span class="bi"><span class="th">โซลูชัน</span><span class="en">Solutions</span></span></a>
+      <a href="#projects"><span class="bi"><span class="th">โครงการ</span><span class="en">Projects</span></span></a>
+      <a href="news.html"><span class="bi"><span class="th">ข่าวสาร</span><span class="en">News</span></span></a>
+      <a href="#about"><span class="bi"><span class="th">เกี่ยวกับ</span><span class="en">About</span></span></a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button id="btnTH" class="active" onclick="setLang('th')">TH</button>
+        <button id="btnEN" onclick="setLang('en')">EN</button>
+      </div>
+      <a href="#cta" class="btn-cta"><span class="bi"><span class="th">ขอใบเสนอราคา</span><span class="en">Get a Quote</span></span></a>
+      <button class="nav-burger" aria-label="menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO CAROUSEL ===== -->
+<header class="hx" id="hxRoot">
+  <!-- BG: solid color base + heavily blurred image + color tint overlay -->
+  <div class="hx-bg" id="hxBg">
+    <img class="hx-bg-blur is-active" data-idx="0" src="01.png" alt="" aria-hidden="true">
+    <img class="hx-bg-blur" data-idx="1" src="02.png" alt="" aria-hidden="true">
+    <img class="hx-bg-blur" data-idx="2" src="03.png" alt="" aria-hidden="true">
+    <img class="hx-bg-blur" data-idx="3" src="04.png" alt="" aria-hidden="true">
+    <div class="hx-bg-overlay" id="hxBgOverlay"></div>
+  </div>
+
+  <!-- Grain overlay -->
+  <div class="hx-grain" aria-hidden="true">
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <filter id="hxNoise">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#hxNoise)" opacity="0.4"/>
+    </svg>
+  </div>
+
+  <!-- Brand label top-left -->
+  <div class="hx-brand">24SENERGY</div>
+
+  <!-- Carousel items -->
+  <div class="hx-stage">
+    <div class="hx-item" data-idx="0"><img src="01.png" alt="BESS" loading="eager"/></div>
+    <div class="hx-item" data-idx="1"><img src="02.png" alt="Solar PV" loading="eager"/></div>
+    <div class="hx-item" data-idx="2"><img src="03.png" alt="EV Charging" loading="eager"/></div>
+    <div class="hx-item" data-idx="3"><img src="04.png" alt="Monitoring" loading="eager"/></div>
+  </div>
+
+  <!-- Bottom-left UI -->
+  <div class="hx-bottomleft">
+    <h2 class="hx-heading" id="hxHeading">
+      <span class="bi" data-idx="0"><span class="th">ระบบกักเก็บพลังงาน</span><span class="en">BATTERY STORAGE</span></span>
+      <span class="bi" data-idx="1"><span class="th">โซลาร์เซลล์อุตสาหกรรม</span><span class="en">INDUSTRIAL SOLAR</span></span>
+      <span class="bi" data-idx="2"><span class="th">สถานีชาร์จ EV</span><span class="en">EV CHARGING</span></span>
+      <span class="bi" data-idx="3"><span class="th">ระบบมอนิเตอร์</span><span class="en">MONITORING + EMS</span></span>
+    </h2>
+    <p class="hx-body">
+      <span class="bi"><span class="th">โซลูชันพลังงานครบวงจรจาก Hithium และพันธมิตรชั้นนำระดับโลก สำหรับโรงงานและโครงการ Utility-scale</span><span class="en">Complete energy solutions from Hithium and world-class partners — for factories and utility-scale projects.</span></span>
+    </p>
+    <div class="hx-arrows">
+      <button class="hx-arrow" id="hxPrev" aria-label="Previous">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      </button>
+      <button class="hx-arrow" id="hxNext" aria-label="Next">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Bottom-right CTA (prominent pill button) -->
+  <a href="#cta" class="hx-cta">
+    <span class="bi"><span class="th">ขอใบเสนอราคา</span><span class="en">GET A QUOTE</span></span>
+    <span class="hx-cta-arrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </span>
+  </a>
+</header>
+
+<!-- ===== KPI strip ===== -->
+<div class="wrap">
+  <div class="kpi-strip reveal">
+    <div class="kpi">
+      <div class="num" data-target="350">0<span class="unit">+</span></div>
+      <div class="label">MWh <span class="bi"><span class="th">ติดตั้งสะสม</span><span class="en">Installed</span></span></div>
+    </div>
+    <div class="kpi">
+      <div class="num" data-target="120">0<span class="unit">+</span></div>
+      <div class="label"><span class="bi"><span class="th">โครงการสำเร็จ</span><span class="en">Projects Completed</span></span></div>
+    </div>
+    <div class="kpi">
+      <div class="num" data-target="15">0<span class="unit"></span></div>
+      <div class="label"><span class="bi"><span class="th">ปีประสบการณ์</span><span class="en">Years Experience</span></span></div>
+    </div>
+    <div class="kpi">
+      <div class="num" data-target="98">0<span class="unit">%</span></div>
+      <div class="label"><span class="bi"><span class="th">ลูกค้าพอใจ</span><span class="en">Client Satisfaction</span></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PRODUCTS ===== -->
+<section id="products">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag"><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Our Products</span></span></span>
+      <h2><span class="bi"><span class="th">โซลูชันพลังงานครบวงจร</span><span class="en">Complete Energy Solutions</span></span></h2>
+      <p><span class="bi"><span class="th">ตั้งแต่ระบบกักเก็บพลังงานระดับ Utility ไปจนถึงสถานีชาร์จ EV ครบทุกความต้องการของอุตสาหกรรม</span><span class="en">From utility-scale battery storage to EV charging — everything industrial energy needs.</span></span></p>
+    </div>
+    <div class="products-grid">
+      <a class="product-card bess reveal" href="products.html#bess">
+        <div class="mockup">
+          <span class="tag">MOCKUP</span>
+          <img src="01.png" alt="BESS">
+        </div>
+        <div class="icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/><line x1="6" y1="11" x2="6" y2="13"/><line x1="10" y1="11" x2="10" y2="13"/><line x1="14" y1="11" x2="14" y2="13"/></svg>
+        </div>
+        <h3><span class="bi"><span class="th">ระบบกักเก็บพลังงาน (BESS)</span><span class="en">Battery Energy Storage</span></span></h3>
+        <p><span class="bi"><span class="th">ระบบ Liquid-Cooled สำหรับโรงงานและ Utility — Hithium HinerCab</span><span class="en">Liquid-cooled systems for factory & utility — Hithium HinerCab</span></span></p>
+        <div class="specs">
+          <div><span class="v">125 kW</span><span class="l">Power</span></div>
+          <div><span class="v">261 kWh</span><span class="l">Energy</span></div>
+          <div><span class="v">8,000+</span><span class="l">Cycle</span></div>
+        </div>
+        <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
+      </a>
+      <a class="product-card solar reveal" href="products.html#solar">
+        <div class="mockup">
+          <span class="tag">MOCKUP</span>
+          <img src="02.png" alt="Solar PV">
+        </div>
+        <div class="icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </div>
+        <h3><span class="bi"><span class="th">ระบบโซลาร์เซลล์ (PV)</span><span class="en">Solar PV Systems</span></span></h3>
+        <p><span class="bi"><span class="th">Rooftop, Ground-mount, Floating Solar — รองรับทั้ง Commercial และ Utility-scale</span><span class="en">Rooftop, ground-mount, floating solar — for C&I and utility-scale projects</span></span></p>
+        <div class="specs">
+          <div><span class="v">5–50</span><span class="l">MW</span></div>
+          <div><span class="v">25+</span><span class="l"><span class="bi"><span class="th">ปี รับประกัน</span><span class="en">yr warranty</span></span></span></div>
+          <div><span class="v">Tier-1</span><span class="l">Panels</span></div>
+        </div>
+        <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
+      </a>
+      <a class="product-card ev reveal" href="products.html#ev">
+        <div class="mockup">
+          <span class="tag">MOCKUP</span>
+          <img src="03.png" alt="EV Charger">
+        </div>
+        <div class="icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="13" rx="1"/><path d="M16 10h3a2 2 0 0 1 2 2v4M9 13l2-3 2 3"/></svg>
+        </div>
+        <h3><span class="bi"><span class="th">สถานีชาร์จ EV</span><span class="en">EV Charging Stations</span></span></h3>
+        <p><span class="bi"><span class="th">DC Fast Charging สำหรับสถานีบริการ ลานจอด และ Fleet พร้อมระบบ EMS</span><span class="en">DC fast charging for stations, lots, and fleets — with integrated EMS</span></span></p>
+        <div class="specs">
+          <div><span class="v">60–360</span><span class="l">kW</span></div>
+          <div><span class="v">CCS2</span><span class="l">Standard</span></div>
+          <div><span class="v">OCPP 2.0</span><span class="l">Protocol</span></div>
+        </div>
+        <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
+      </a>
+      <a class="product-card monitor reveal" href="products.html#monitoring">
+        <div class="mockup">
+          <span class="tag">MOCKUP</span>
+          <img src="04.png" alt="Monitoring">
+        </div>
+        <div class="icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><polyline points="5 9 9 6 13 9 19 5"/></svg>
+        </div>
+        <h3><span class="bi"><span class="th">ระบบมอนิเตอร์ &amp; EMS</span><span class="en">Monitoring &amp; EMS</span></span></h3>
+        <p><span class="bi"><span class="th">ติดตามพลังงาน Real-time ผ่าน Cloud วิเคราะห์ ROI แจ้งเตือนผ่าน LINE/Email</span><span class="en">Real-time cloud energy monitoring, ROI analytics, LINE & email alerts</span></span></p>
+        <div class="specs">
+          <div><span class="v">24/7</span><span class="l">Monitor</span></div>
+          <div><span class="v">Cloud</span><span class="l">Platform</span></div>
+          <div><span class="v">API</span><span class="l">Modbus</span></div>
+        </div>
+        <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOLUTIONS ===== -->
+<section id="solutions">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag"><span class="bi"><span class="th">โซลูชัน</span><span class="en">Solutions</span></span></span>
+      <h2><span class="bi"><span class="th">ออกแบบตามความต้องการของคุณ</span><span class="en">Built Around Your Needs</span></span></h2>
+      <p><span class="bi"><span class="th">โซลูชันที่ผ่านการพิสูจน์แล้วในไซต์งานจริงทั่วประเทศไทย</span><span class="en">Field-proven solutions deployed across Thailand's industries</span></span></p>
+    </div>
+    <div class="solutions-grid">
+      <div class="solution-card reveal">
+        <div class="s-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+        <div>
+          <h3><span class="bi"><span class="th">Peak Shaving · ลดค่าไฟพีค</span><span class="en">Peak Shaving</span></span></h3>
+          <p><span class="bi"><span class="th">ลด Demand Charge ของโรงงานได้สูงสุด 30% ด้วย BESS ที่ทำงานอัตโนมัติช่วง peak hour</span><span class="en">Reduce factory demand charges by up to 30% with BESS that automatically discharges during peak hours</span></span></p>
+        </div>
+      </div>
+      <div class="solution-card reveal">
+        <div class="s-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></div>
+        <div>
+          <h3><span class="bi"><span class="th">Solar + Storage · ใช้แสงอาทิตย์ 24 ชม.</span><span class="en">Solar + Storage</span></span></h3>
+          <p><span class="bi"><span class="th">เก็บพลังงานช่วงกลางวัน ใช้ตอนกลางคืน เพิ่ม Self-consumption rate ได้ถึง 90%</span><span class="en">Store daytime solar, use at night — boost self-consumption rate up to 90%</span></span></p>
+        </div>
+      </div>
+      <div class="solution-card reveal">
+        <div class="s-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div>
+          <h3><span class="bi"><span class="th">Backup Power · UPS สำหรับโรงงาน</span><span class="en">Factory Backup / UPS</span></span></h3>
+          <p><span class="bi"><span class="th">ป้องกัน Production Loss จากไฟดับ ระยะเวลาสำรองตั้งแต่ 30 นาที ถึง 8 ชั่วโมง</span><span class="en">Prevent production loss from outages — backup duration from 30 min to 8 hours</span></span></p>
+        </div>
+      </div>
+      <div class="solution-card reveal">
+        <div class="s-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22h20M5 22V10l7-7 7 7v12M9 22V14h6v8"/></svg></div>
+        <div>
+          <h3><span class="bi"><span class="th">Microgrid · ระบบจ่ายไฟอิสระ</span><span class="en">Microgrid</span></span></h3>
+          <p><span class="bi"><span class="th">ระบบไฟฟ้าครบวงจรสำหรับพื้นที่ห่างไกล โรงงานในนิคม หรือเกาะ พร้อม EMS</span><span class="en">Self-sufficient power for remote sites, industrial estates, or islands — with EMS</span></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag"><span class="bi"><span class="th">โครงการเด่น</span><span class="en">Featured Projects</span></span></span>
+      <h2><span class="bi"><span class="th">ผลงานที่พูดแทนเรา</span><span class="en">Our Work Speaks for Itself</span></span></h2>
+      <p><span class="bi"><span class="th">โครงการที่ส่งมอบแล้วทั่วประเทศไทย ตั้งแต่อุตสาหกรรมหนักไปจนถึง Utility-scale</span><span class="en">Delivered projects across Thailand — from heavy industry to utility-scale</span></span></p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-img p1">
+          <span class="badge"><span class="bi"><span class="th">ปิโตรเคมี</span><span class="en">Petrochemical</span></span></span>
+          <div class="stats">
+            <div class="big">5<span style="font-size:18px;opacity:.8">MW</span></div>
+            <div class="small">+ 10 MWh BESS</div>
+          </div>
+        </div>
+        <div class="project-body">
+          <h3><span class="bi"><span class="th">โรงงานปิโตรเคมี · ระยอง</span><span class="en">Petrochemical Plant · Rayong</span></span></h3>
+          <div class="meta">
+            <span>📍 <span class="bi"><span class="th">ระยอง</span><span class="en">Rayong</span></span></span>
+            <span>📅 2024</span>
+            <span>⚡ HinerCab</span>
+          </div>
+          <p><span class="bi"><span class="th">ลดค่า demand charge 28% และเป็น backup สำหรับสาย Production หลัก ROI 4.5 ปี</span><span class="en">28% demand charge reduction and backup for main production line. 4.5-year ROI.</span></span></p>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-img p2">
+          <span class="badge">Solar Farm</span>
+          <div class="stats">
+            <div class="big">12<span style="font-size:18px;opacity:.8">MW</span></div>
+            <div class="small">Ground-mount PV</div>
+          </div>
+        </div>
+        <div class="project-body">
+          <h3><span class="bi"><span class="th">นิคมอุตสาหกรรม · ชลบุรี</span><span class="en">Industrial Estate · Chonburi</span></span></h3>
+          <div class="meta">
+            <span>📍 <span class="bi"><span class="th">ชลบุรี</span><span class="en">Chonburi</span></span></span>
+            <span>📅 2024</span>
+            <span>☀ Tier-1 panels</span>
+          </div>
+          <p><span class="bi"><span class="th">ติดตั้ง Solar Farm 12 MW ในพื้นที่ 80 ไร่ ผลิตไฟฟ้า 18 GWh/ปี ป้อนเข้านิคม</span><span class="en">12 MW solar farm on 80-rai land, generating 18 GWh/year for the industrial estate.</span></span></p>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-img p3">
+          <span class="badge"><span class="bi"><span class="th">อาหารแปรรูป</span><span class="en">Food Processing</span></span></span>
+          <div class="stats">
+            <div class="big">2.5<span style="font-size:18px;opacity:.8">MW</span></div>
+            <div class="small">Rooftop + 1 MWh</div>
+          </div>
+        </div>
+        <div class="project-body">
+          <h3><span class="bi"><span class="th">โรงงานอาหาร · นครปฐม</span><span class="en">Food Processing Plant · Nakhon Pathom</span></span></h3>
+          <div class="meta">
+            <span>📍 <span class="bi"><span class="th">นครปฐม</span><span class="en">Nakhon Pathom</span></span></span>
+            <span>📅 2023</span>
+            <span>⚡ Hybrid</span>
+          </div>
+          <p><span class="bi"><span class="th">Solar Rooftop 2.5 MW + BESS 1 MWh ประหยัดค่าไฟ 4.2 ล้านบาท/ปี Self-consumption 87%</span><span class="en">2.5 MW solar rooftop + 1 MWh BESS, saving THB 4.2M/year with 87% self-consumption.</span></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PARTNERS ===== -->
+<div class="partners">
+  <div class="wrap">
+    <div class="partners-label"><span class="bi"><span class="th">พันธมิตรและลูกค้าของเรา</span><span class="en">Our Partners & Clients</span></span></div>
+    <div class="partners-row">
+      <div>HITHIUM</div>
+      <div>EGAT</div>
+      <div>PEA</div>
+      <div>MEA</div>
+      <div>SCG</div>
+      <div>PTT</div>
+      <div>BCPG</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CTA BANNER ===== -->
+<section id="cta" style="padding:30px 0 60px">
+  <div class="wrap">
+    <div class="cta-banner reveal">
+      <div>
+        <h2><span class="bi"><span class="th">พร้อมเริ่มต้นโครงการพลังงานของคุณแล้วหรือยัง?</span><span class="en">Ready to Start Your Energy Project?</span></span></h2>
+        <p><span class="bi"><span class="th">ทีมวิศวกรของเราพร้อมประเมินไซต์งานและคำนวณ ROI ให้ฟรี · ติดต่อกลับภายใน 24 ชั่วโมง</span><span class="en">Our engineers will assess your site and calculate ROI — free of charge. Response within 24 hours.</span></span></p>
+      </div>
+      <div class="cta-banner-right">
+        <a href="#" class="btn-primary">
+          <span class="bi"><span class="th">ขอใบเสนอราคาฟรี</span><span class="en">Get Free Quote</span></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="tel:+6620000000" class="btn-ghost" style="background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);justify-content:center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+          02-XXX-XXXX
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer id="about">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="24sEnergy_png.png" alt="24sEnergy">
+        <p><span class="bi">
+          <span class="th">ผู้นำด้านระบบกักเก็บพลังงานและ Solar PV สำหรับอุตสาหกรรมไทย ขับเคลื่อนด้วยเทคโนโลยีระดับโลก</span>
+          <span class="en">Leading provider of BESS and Solar PV for Thai industry, powered by world-class technology.</span>
+        </span></p>
+      </div>
+      <div class="footer-col">
+        <h4><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></h4>
+        <a href="products.html#bess">BESS</a>
+        <a href="products.html#solar">Solar PV</a>
+        <a href="products.html#ev">EV Charger</a>
+        <a href="products.html#monitoring">Monitoring</a>
+      </div>
+      <div class="footer-col">
+        <h4><span class="bi"><span class="th">บริษัท</span><span class="en">Company</span></span></h4>
+        <a href="#"><span class="bi"><span class="th">เกี่ยวกับเรา</span><span class="en">About Us</span></span></a>
+        <a href="#projects"><span class="bi"><span class="th">โครงการ</span><span class="en">Projects</span></span></a>
+        <a href="news.html"><span class="bi"><span class="th">ข่าวสาร</span><span class="en">News</span></span></a>
+        <a href="#"><span class="bi"><span class="th">ร่วมงาน</span><span class="en">Careers</span></span></a>
+      </div>
+      <div class="footer-col">
+        <h4><span class="bi"><span class="th">ติดต่อ</span><span class="en">Contact</span></span></h4>
+        <a href="tel:+6620000000">📞 02-XXX-XXXX</a>
+        <a href="#">📱 LINE: @24senergy</a>
+        <a href="mailto:info@24senergy.co.th">✉ info@24senergy.co.th</a>
+        <a href="#">📍 <span class="bi"><span class="th">กรุงเทพฯ</span><span class="en">Bangkok</span></span></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 24sEnergy Co., Ltd. <span class="bi"><span class="th">สงวนลิขสิทธิ์</span><span class="en">All rights reserved.</span></span></div>
+      <div class="social">
+        <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ===== Language toggle =====
+  function setLang(lang){
+    document.body.setAttribute('data-lang', lang);
+    document.documentElement.setAttribute('lang', lang);
+    document.getElementById('btnTH').classList.toggle('active', lang==='th');
+    document.getElementById('btnEN').classList.toggle('active', lang==='en');
+  }
+
+  // ===== Nav scroll effect =====
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', ()=>{
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // ===== Reveal on scroll =====
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{threshold:.12, rootMargin:'0px 0px -40px 0px'});
+  reveals.forEach(el => io.observe(el));
+
+  // ===== KPI counter =====
+  const counters = document.querySelectorAll('.kpi .num');
+  const counterIO = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const el = e.target;
+      const target = parseInt(el.dataset.target,10);
+      const unitHTML = el.querySelector('.unit')?.outerHTML || '';
+      let cur = 0;
+      const step = Math.max(1, Math.floor(target/40));
+      const tick = ()=>{
+        cur = Math.min(target, cur + step);
+        el.innerHTML = cur + unitHTML;
+        if(cur < target) requestAnimationFrame(tick);
+      };
+      tick();
+      counterIO.unobserve(el);
+    });
+  },{threshold:.6});
+  counters.forEach(c=>counterIO.observe(c));
+
+  // ===== Smooth anchor scroll offset for sticky nav =====
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const id = a.getAttribute('href');
+      if(id.length>1 && document.querySelector(id)){
+        e.preventDefault();
+        const top = document.querySelector(id).getBoundingClientRect().top + window.scrollY - 70;
+        window.scrollTo({top, behavior:'smooth'});
+      }
+    });
+  });
+
+  // ===== HERO CAROUSEL =====
+  (function(){
+    const ITEMS = [
+      { src:'01.png', bg:'#6A2DAF', label:'BESS' },
+      { src:'02.png', bg:'#1a1a1f', label:'SOLAR' },
+      { src:'03.png', bg:'#3F3F3F', label:'EV CHARGING' },
+      { src:'04.png', bg:'#4d1f80', label:'MONITORING' },
+    ];
+
+    // Preload images
+    ITEMS.forEach(it=>{ const img = new Image(); img.src = it.src; });
+
+    const bg = document.getElementById('hxBg');
+    const bgOverlay = document.getElementById('hxBgOverlay');
+    const bgBlurs = document.querySelectorAll('.hx-bg-blur');
+    const items = document.querySelectorAll('.hx-item');
+    const headingSpans = document.querySelectorAll('.hx-heading .bi');
+    const prevBtn = document.getElementById('hxPrev');
+    const nextBtn = document.getElementById('hxNext');
+    if(!bg || items.length !== 4) return;
+
+    // helper: hex → rgba (preserve solid color across blend layer)
+    function hexToRgba(hex, alpha){
+      const h = hex.replace('#','');
+      const r = parseInt(h.substring(0,2),16);
+      const g = parseInt(h.substring(2,4),16);
+      const b = parseInt(h.substring(4,6),16);
+      return `rgba(${r},${g},${b},${alpha})`;
+    }
+
+    let activeIndex = 0;
+    let isAnimating = false;
+
+    // Fallback for missing images
+    items.forEach((el, i) => {
+      const img = el.querySelector('img');
+      img.addEventListener('error', () => {
+        el.classList.add('no-img');
+        el.setAttribute('data-fallback', ITEMS[i].label);
+      });
+    });
+
+    function applyRoles(){
+      const center = activeIndex;
+      const left = (activeIndex + 3) % 4;
+      const right = (activeIndex + 1) % 4;
+      const back = (activeIndex + 2) % 4;
+      items.forEach((el, i) => {
+        el.classList.remove('is-center','is-left','is-right','is-back');
+        if(i === center) el.classList.add('is-center');
+        else if(i === left) el.classList.add('is-left');
+        else if(i === right) el.classList.add('is-right');
+        else if(i === back) el.classList.add('is-back');
+      });
+      // Update bg base color (solid color behind blur)
+      bg.style.backgroundColor = ITEMS[center].bg;
+      // Crossfade blurred bg image — only active one visible
+      bgBlurs.forEach((img, i) => img.classList.toggle('is-active', i === center));
+      // Color blend overlay — same brand color with alpha on top of blur
+      if(bgOverlay) bgOverlay.style.backgroundColor = hexToRgba(ITEMS[center].bg, .42);
+      // Update heading (show current index)
+      headingSpans.forEach(s => {
+        s.classList.toggle('is-active', parseInt(s.dataset.idx,10) === center);
+      });
+    }
+
+    function navigate(dir){
+      if(isAnimating) return;
+      isAnimating = true;
+      if(dir === 'next') activeIndex = (activeIndex + 1) % 4;
+      else activeIndex = (activeIndex + 3) % 4;
+      applyRoles();
+      setTimeout(() => { isAnimating = false; }, 650);
+    }
+
+    prevBtn.addEventListener('click', () => navigate('prev'));
+    nextBtn.addEventListener('click', () => navigate('next'));
+
+    // Keyboard arrows
+    document.addEventListener('keydown', e => {
+      if(e.target.matches('input, textarea')) return;
+      if(e.key === 'ArrowLeft') navigate('prev');
+      else if(e.key === 'ArrowRight') navigate('next');
+    });
+
+    // Auto-rotate every 5s (pauses on hover/focus)
+    let autoTimer = setInterval(() => navigate('next'), 5000);
+    const root = document.getElementById('hxRoot');
+    root.addEventListener('mouseenter', () => clearInterval(autoTimer));
+    root.addEventListener('mouseleave', () => {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(() => navigate('next'), 5000);
+    });
+
+    // Initial render
+    applyRoles();
+  })();
+</script>
+</body>
+</html>
