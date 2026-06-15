@@ -36,10 +36,10 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
           <div className="pt-4 mt-4 border-t border-white/10">
             <p className="px-3 text-xs font-bold text-white/30 uppercase tracking-widest mb-2">เว็บไซต์</p>
-            <Link href="/" target="_blank" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/70 hover:text-white hover:bg-white/8 transition-colors">
+            <a href="https://24senergy.vercel.app/index.html" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/70 hover:text-white hover:bg-white/8 transition-colors">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
               ดูหน้าเว็บ
-            </Link>
+            </a>
           </div>
         </nav>
       </aside>
