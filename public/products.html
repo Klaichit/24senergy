@@ -435,7 +435,7 @@
     grid.innerHTML = products.map((p, i) => {
       const c = CAT_CFG[p.category] || CAT_CFG.bess;
       const specs = Object.entries(p.specs || {}).slice(0, 3);
-      const page = PAGE_MAP[p.slug] || 'quote.html';
+      const page = `/products/${p.slug}`;
       return `
         <div class="prod-card reveal ${delays[i]||''}" data-cat="${p.category}" data-app="${c.app}">
           <div class="prod-img ${c.img}">${ICONS[p.category]||''}</div>
