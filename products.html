@@ -136,9 +136,13 @@
   .prod-img.has-real-img::before{display:none}
   .prod-img.has-real-img::after{display:none}
   .prod-img.has-real-img svg{display:none}
-  .prod-real-img{width:100%;height:100%;object-fit:contain;padding:20px;display:block;
-    transition:transform .4s cubic-bezier(.25,.46,.45,.94),filter .4s ease}
-  .prod-card:hover .prod-real-img{transform:scale(1.07);filter:drop-shadow(0 16px 32px rgba(0,0,0,.15))}
+  .prod-img-glow{position:absolute;inset:0;background-size:60%;background-position:center 70%;
+    background-repeat:no-repeat;filter:blur(28px) saturate(1.8);opacity:0;
+    transform:scale(1) translateY(12px);transition:opacity .4s ease,transform .4s ease;z-index:0;pointer-events:none}
+  .prod-card:hover .prod-img-glow{opacity:.55;transform:scale(1.1) translateY(16px)}
+  .prod-real-img{width:100%;height:100%;object-fit:contain;padding:20px;display:block;position:relative;z-index:1;
+    transition:transform .4s cubic-bezier(.25,.46,.45,.94)}
+  .prod-card:hover .prod-real-img{transform:scale(1.07)}
   .prod-img svg{color:#fff;opacity:.35;width:100px;height:100px;transition:all .4s;
     filter:drop-shadow(0 2px 8px rgba(0,0,0,.4))}
   .prod-card:hover .prod-img svg{opacity:.55;transform:scale(1.08)}
@@ -446,7 +450,7 @@
       return `
         <div class="prod-card reveal ${delays[i]||''}" data-cat="${p.category}" data-app="${c.app}">
           <div class="prod-img ${p.images&&p.images[0] ? 'has-real-img' : c.img}">
-            ${p.images&&p.images[0] ? `<img class="prod-real-img" src="${p.images[0]}" alt="${p.name_en}">` : ICONS[p.category]||''}
+            ${p.images&&p.images[0] ? `<div class="prod-img-glow" style="background-image:url('${p.images[0]}')"></div><img class="prod-real-img" src="${p.images[0]}" alt="${p.name_en}">` : ICONS[p.category]||''}
           </div>
           <div class="prod-body">
             <div class="prod-cat ${p.category}">${c.label}</div>
