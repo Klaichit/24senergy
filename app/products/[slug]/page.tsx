@@ -4,7 +4,7 @@ import Link from 'next/link'
 import type { Product } from '@/types/database'
 import ImageGallery from './ImageGallery'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 interface Props { params: Promise<{ slug: string }> }
 

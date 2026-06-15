@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import Image from 'next/image'
 
 interface Props {
   images: string[]
@@ -15,7 +16,7 @@ export default function ImageGallery({ images, alt, accent }: Props) {
   return (
     <div className="flex flex-col gap-4 w-full">
       {/* Main image */}
-      <div className="relative w-full flex items-center justify-center" style={{ maxHeight: '420px' }}>
+      <div className="relative w-full" style={{ height: '420px' }}>
         {/* ambient glow — blurred copy behind the image */}
         <div
           aria-hidden="true"
@@ -29,11 +30,14 @@ export default function ImageGallery({ images, alt, accent }: Props) {
             pointerEvents: 'none',
           }}
         />
-        <img
+        <Image
           src={images[active]}
           alt={`${alt} ${active + 1}`}
-          className="w-full object-contain relative"
-          style={{ maxHeight: '420px', zIndex: 1 }}
+          fill
+          sizes="(max-width: 768px) 100vw, 448px"
+          className="object-contain"
+          style={{ zIndex: 1 }}
+          priority={active === 0}
         />
         {/* ground shadow */}
         <div
