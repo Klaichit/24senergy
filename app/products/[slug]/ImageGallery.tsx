@@ -16,7 +16,7 @@ export default function ImageGallery({ images, alt, accent }: Props) {
     <div className="flex flex-col gap-4 w-full">
       {/* Main image */}
       <div className="relative w-full flex items-center justify-center" style={{ maxHeight: '420px' }}>
-        {/* ambient glow — blurred copy of the image rendered behind it */}
+        {/* ambient glow — blurred copy behind the image */}
         <div
           aria-hidden="true"
           style={{
@@ -34,6 +34,20 @@ export default function ImageGallery({ images, alt, accent }: Props) {
           alt={`${alt} ${active + 1}`}
           className="w-full object-contain relative"
           style={{ maxHeight: '420px', zIndex: 1 }}
+        />
+        {/* ground shadow */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute', bottom: 8, left: '50%',
+            transform: 'translateX(-50%)',
+            width: '55%', height: 24,
+            background: 'rgba(0,0,0,0.28)',
+            filter: 'blur(18px)',
+            borderRadius: '50%',
+            zIndex: 0,
+            pointerEvents: 'none',
+          }}
         />
       </div>
 
