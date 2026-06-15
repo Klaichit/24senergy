@@ -1,53 +1,42 @@
-# ===== 24sEnergy — gitignore =====
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Build artifacts / archives
-*.zip
-*.tar
-*.tar.gz
-*.rar
-*.7z
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
-# Skill packaging (kept locally, not in main repo)
-*.skill
-skill/
+# testing
+/coverage
 
-# Source materials (PDFs from vendor — too large / proprietary)
-# Comment out lines below if you DO want PDFs in the repo
-*.pdf
-*.pptx
+# next.js
+/.next/
+/out/
 
-# OS / editor files
+# production
+/build
+
+# misc
 .DS_Store
-Thumbs.db
-desktop.ini
-*.swp
-*.swo
-*~
-.idea/
-.vscode/
-*.sublime-project
-*.sublime-workspace
+*.pem
 
-# Temp files
-*.tmp
-*.temp
-*.bak
-*.log
-ziZzH5jg
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 
-# Environment / secrets
-.env
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
 .env.local
-.env.*.local
-
-# Node (if frontend tooling added later)
-node_modules/
-dist/
-build/
-.cache/
-
-# Python (if backend added later)
-__pycache__/
-*.py[cod]
-.venv/
-venv/
