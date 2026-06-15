@@ -15,11 +15,12 @@ export default function ImageGallery({ images, alt, accent }: Props) {
   return (
     <div className="flex flex-col gap-4 w-full">
       {/* Main image */}
-      <div className="relative w-full aspect-[4/3] flex items-center justify-center">
+      <div className="relative w-full flex items-center justify-center" style={{ maxHeight: '420px' }}>
         <img
           src={images[active]}
           alt={`${alt} ${active + 1}`}
-          className="w-full h-full object-contain"
+          className="w-full object-contain"
+          style={{ maxHeight: '420px' }}
         />
       </div>
 

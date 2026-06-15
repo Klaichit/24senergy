@@ -84,19 +84,19 @@ function ProductPage({ product }: { product: Product }) {
       </nav>
 
       {/* ── Hero ── */}
-      <section className="relative overflow-hidden min-h-[92vh] flex items-center"
+      <section className="relative overflow-hidden flex items-center"
         style={{ background: `radial-gradient(ellipse at 35% 50%, ${theme.glow} 0%, transparent 65%), #fafafa` }}>
 
-        <div className="max-w-7xl mx-auto px-8 w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0 py-16 items-center">
+        <div className="max-w-7xl mx-auto px-8 w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0 py-12 items-center">
 
           {/* Image side */}
           <div className="flex items-center justify-center relative w-full">
             {images.length > 0 ? (
-              <div className="relative z-10 w-full max-w-lg">
+              <div className="relative z-10 w-full max-w-md">
                 <ImageGallery images={images} alt={product.name_en} accent={theme.accent} />
               </div>
             ) : (
-              <div className="w-80 h-80 flex items-center justify-center"
+              <div className="w-64 h-64 flex items-center justify-center"
                 style={{ color: theme.accent, opacity: 0.12 }}>
                 {ICON[product.category]}
               </div>
@@ -104,16 +104,16 @@ function ProductPage({ product }: { product: Product }) {
           </div>
 
           {/* Text side */}
-          <div className="lg:pl-16">
-            <span className="inline-block px-3 py-1.5 rounded-full text-xs font-black mb-6 tracking-widest uppercase"
+          <div className="lg:pl-12">
+            <span className="inline-block px-3 py-1.5 rounded-full text-xs font-black mb-5 tracking-widest uppercase"
               style={{ background: theme.badgeBg, color: theme.badgeText }}>
               {theme.badge}
             </span>
-            <h1 className="text-5xl lg:text-6xl font-black text-gray-900 leading-[1.05] tracking-tight mb-4">
+            <h1 className="text-4xl lg:text-5xl font-black text-gray-900 leading-[1.05] tracking-tight mb-3">
               {product.name_th}
             </h1>
-            <p className="text-base text-gray-400 font-medium mb-6 tracking-wide">{product.name_en}</p>
-            <p className="text-gray-600 leading-relaxed mb-10 max-w-md text-[15px]">
+            <p className="text-sm text-gray-400 font-medium mb-5 tracking-wide">{product.name_en}</p>
+            <p className="text-gray-600 leading-relaxed mb-8 max-w-md text-[15px]">
               {product.description_th}
             </p>
             <div className="flex gap-3 flex-wrap">
