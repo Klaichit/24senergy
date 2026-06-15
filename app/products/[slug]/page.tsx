@@ -66,8 +66,8 @@ function ProductPage({ product }: { product: Product }) {
       {/* ── Navbar ── */}
       <nav style={{ borderBottom: '1px solid #f0f0f0' }}
         className="bg-white/90 backdrop-blur-sm px-8 py-4 flex items-center gap-3 sticky top-0 z-50">
-        <Link href="/index.html" className="font-black text-gray-900 text-lg tracking-tight">
-          24s<span style={{ color: theme.accent }}>Energy</span>
+        <Link href="/index.html">
+          <img src="/24sEnergy_png.png" alt="24sEnergy" className="h-8 w-auto" />
         </Link>
         <span className="text-gray-200 mx-1">/</span>
         <Link href="/products.html" className="text-sm text-gray-400 hover:text-gray-700 transition-colors">ผลิตภัณฑ์</Link>
