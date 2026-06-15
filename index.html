@@ -590,7 +590,7 @@
   }
   .hx-arrows{display:flex;gap:12px}
   .hx-arrow{
-    width:64px;height:64px;border-radius:50%;border:2px solid #fff;
+    width:38px;height:38px;border-radius:50%;border:2px solid #fff;
     background:transparent;color:#fff;cursor:pointer;
     display:flex;align-items:center;justify-content:center;
     transition:transform 150ms ease, background-color 150ms ease;
@@ -605,12 +605,12 @@
   /* 7. Bottom-right CTA — prominent pill button */
   .hx-cta{
     position:absolute;right:36px;bottom:36px;z-index:60;
-    display:inline-flex;align-items:center;gap:14px;
-    padding:18px 32px 18px 36px;
+    display:inline-flex;align-items:center;gap:9px;
+    padding:12px 21px 12px 23px;
     background:#fff;color:#1a1a1a;
     border-radius:999px;
     font-family:'Noto Sans Thai','Noto Sans',sans-serif;
-    font-size:clamp(16px,2vw,26px);
+    font-size:clamp(10px,1.3vw,17px);
     text-transform:uppercase;letter-spacing:-.01em;
     text-decoration:none;line-height:1;
     box-shadow:
@@ -629,7 +629,7 @@
   }
   .hx-cta:active{transform:translateY(-1px) scale(1.01)}
   .hx-cta .hx-cta-arrow{
-    width:42px;height:42px;border-radius:50%;
+    width:27px;height:27px;border-radius:50%;
     background:#6A2DAF;color:#fff;
     display:inline-flex;align-items:center;justify-content:center;
     flex-shrink:0;transition:transform 220ms ease, background-color 220ms ease;
@@ -637,7 +637,7 @@
   .hx-cta:hover .hx-cta-arrow{
     background:#4d1f80;transform:translateX(4px) rotate(-8deg);
   }
-  .hx-cta svg{width:20px;height:20px}
+  .hx-cta svg{width:13px;height:13px}
 
   /* Image fallback if missing — show purple gradient placeholder */
   .hx-item.no-img img{display:none}
@@ -662,18 +662,18 @@
     .hx-heading{font-size:18px;margin-bottom:10px}
     .hx-body{display:none}
     .hx-arrows{margin-top:0}
-    .hx-arrow{width:44px;height:44px}
-    .hx-arrow svg{width:16px;height:16px}
+    .hx-arrow{width:26px;height:26px}
+    .hx-arrow svg{width:10px;height:10px}
 
     /* CTA: shift to top-right corner on mobile */
     .hx-cta{
       right:20px;bottom:auto;top:78px;
-      padding:10px 16px 10px 18px;
-      font-size:13px;gap:8px;
+      padding:7px 10px 7px 12px;
+      font-size:11px;gap:6px;
       box-shadow:0 6px 20px rgba(0,0,0,.3), 0 2px 6px rgba(0,0,0,.15);
     }
-    .hx-cta .hx-cta-arrow{width:26px;height:26px}
-    .hx-cta .hx-cta-arrow svg{width:14px;height:14px}
+    .hx-cta .hx-cta-arrow{width:17px;height:17px}
+    .hx-cta .hx-cta-arrow svg{width:9px;height:9px}
 
     .hx-item.is-center{
       inset:0;width:100%;height:100%;
@@ -788,10 +788,10 @@
     </p>
     <div class="hx-arrows">
       <button class="hx-arrow" id="hxPrev" aria-label="Previous">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
       </button>
       <button class="hx-arrow" id="hxNext" aria-label="Next">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </button>
     </div>
   </div>
