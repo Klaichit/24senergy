@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DC Fast Charger 180 kW — 24sEnergy</title>
+<meta name="description" content="DC Fast Charger 180 kW ตู้ชาร์จเร็ว DC CCS2 CHAdeMO OCPP 2.0 ชาร์จ 10→80% ใน 15 นาที บริหารจัดการผ่าน Cloud">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;700;900&family=Noto+Sans:wght@300;400;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#059669;--brand-dark:#047857;--brand-light:#10b981;--brand-soft:#d1fae5;
+    --ink:#1a1a1a;--ink-2:#4a4a4a;--muted:#8a8a8a;--line:#e8e8ec;
+    --bg:#ffffff;--bg-soft:#fafafb;--bg-dark:#1a1a1f;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.04),0 2px 8px rgba(0,0,0,.04);
+    --shadow:0 4px 16px rgba(0,0,0,.06),0 12px 40px rgba(0,0,0,.08);
+    --shadow-lg:0 20px 60px rgba(5,150,105,.18),0 8px 24px rgba(0,0,0,.06);
+    --mono:'JetBrains Mono','SF Mono',Menlo,monospace;
+    --radius:8px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Noto Sans Thai','Noto Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body[data-lang="th"]{font-family:'Noto Sans Thai','Noto Sans',sans-serif}
+  body[data-lang="en"]{font-family:'Noto Sans','Noto Sans Thai',sans-serif}
+
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+  .bi .th,.bi .en{display:inline}
+  body[data-lang="th"] .bi .en{display:none}
+  body[data-lang="en"] .bi .th{display:none}
+
+  /* ===== NAV ===== */
+  .nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);
+    backdrop-filter:saturate(180%) blur(16px);box-shadow:0 1px 0 rgba(0,0,0,.06);padding:14px 0}
+  .nav-inner{display:flex;align-items:center;gap:32px}
+  .nav-logo{height:36px}.nav-logo img{height:100%;width:auto}
+  .nav-links{display:flex;gap:6px;margin-left:auto}
+  .nav-links a{padding:9px 16px;border-radius:4px;font-size:14.5px;font-weight:400;color:var(--ink-2);transition:all .2s}
+  .nav-links a:hover,.nav-links a.active{background:var(--brand-soft);color:var(--brand)}
+  .nav-right{display:flex;align-items:center;gap:14px;margin-left:14px}
+  .lang-toggle{display:flex;background:#f0f0f3;border-radius:4px;padding:3px;font-family:var(--mono);font-size:12px;font-weight:700}
+  .lang-toggle button{padding:6px 12px;border-radius:3px;color:var(--muted);transition:all .2s}
+  .lang-toggle button.active{background:var(--brand);color:#fff !important;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+  .btn-cta{background:var(--brand);color:#fff;padding:11px 22px;border-radius:4px;font-weight:700;font-size:14px;
+    transition:all .2s;box-shadow:0 4px 14px rgba(5,150,105,.35);white-space:nowrap}
+  .btn-cta:hover{background:var(--brand-dark);transform:translateY(-1px)}
+  .nav-burger{display:none;width:30px;height:30px;flex-direction:column;justify-content:center;gap:5px}
+  .nav-burger span{display:block;height:2px;background:var(--ink);border-radius:2px}
+
+  /* ===== PRODUCT HERO ===== */
+  .prod-hero{background:linear-gradient(135deg,#080f0d 0%,#071a14 45%,#0d2b20 100%);
+    color:#fff;min-height:540px;display:grid;grid-template-columns:1fr 480px;align-items:center;
+    position:relative;overflow:hidden}
+  .prod-hero::before{content:'';position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+    background-size:50px 50px;
+    mask-image:radial-gradient(ellipse 80% 80% at 30% 50%,#000 40%,transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse 80% 80% at 30% 50%,#000 40%,transparent 75%)}
+  .prod-hero::after{content:'';position:absolute;top:-20%;left:-10%;width:700px;height:700px;
+    background:radial-gradient(circle,rgba(5,150,105,.45) 0%,transparent 65%);
+    filter:blur(80px);pointer-events:none}
+  .prod-hero-left{padding:80px 0;position:relative;z-index:2}
+  .breadcrumb{font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.5);
+    margin-bottom:20px;letter-spacing:.5px;display:flex;align-items:center;gap:8px}
+  .breadcrumb a{color:rgba(255,255,255,.5);transition:color .2s}.breadcrumb a:hover{color:#fff}
+  .breadcrumb .sep{opacity:.4}.breadcrumb .current{color:rgba(255,255,255,.85);font-weight:700}
+  .prod-badge{display:inline-flex;align-items:center;gap:8px;
+    background:rgba(5,150,105,.3);border:1px solid rgba(5,150,105,.5);
+    color:#a7f3d0;padding:6px 14px;border-radius:999px;
+    font-size:12px;font-weight:700;letter-spacing:.5px;margin-bottom:18px;
+    font-family:var(--mono);backdrop-filter:blur(8px)}
+  .prod-badge .dot{width:6px;height:6px;background:#10b981;border-radius:50%;
+    box-shadow:0 0 0 3px rgba(16,185,129,.3);animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .prod-hero h1{font-size:clamp(32px,4vw,52px);font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin-bottom:14px}
+  body[data-lang="th"] .prod-hero h1{letter-spacing:-.3px}
+  .prod-hero h1 .model-name{background:linear-gradient(135deg,#a7f3d0 0%,#10b981 50%,#fff 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;display:block}
+  .prod-hero-sub{font-size:17px;color:rgba(255,255,255,.7);max-width:520px;line-height:1.6;margin-bottom:32px}
+  .hero-specs{display:flex;gap:0;margin-bottom:36px;
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+    border-radius:7px;overflow:hidden;backdrop-filter:blur(12px);max-width:480px}
+  .hero-spec{flex:1;padding:18px 14px;text-align:center;border-right:1px solid rgba(255,255,255,.08)}
+  .hero-spec:last-child{border-right:none}
+  .hero-spec .v{display:block;font-family:var(--mono);font-size:19px;font-weight:700;color:#fff;line-height:1;margin-bottom:5px}
+  .hero-spec .l{display:block;font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.8px;font-weight:700}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+  .btn-hero-primary{background:var(--brand);color:#fff;padding:14px 28px;border-radius:5px;
+    font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:10px;
+    transition:all .25s;box-shadow:0 8px 28px rgba(5,150,105,.5)}
+  .btn-hero-primary:hover{background:var(--brand-light);transform:translateY(-2px)}
+  .btn-hero-ghost{background:rgba(255,255,255,.1);color:#fff;padding:14px 24px;border-radius:5px;
+    font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:8px;
+    border:1px solid rgba(255,255,255,.2);transition:all .25s;backdrop-filter:blur(8px)}
+  .btn-hero-ghost:hover{background:rgba(255,255,255,.18)}
+  .prod-hero-img{position:relative;z-index:2;height:100%;min-height:540px;
+    display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .prod-hero-img .img-wrap{width:100%;height:100%;position:absolute;inset:0;
+    background-image:url('03.png');background-size:cover;background-position:center 20%}
+  .prod-hero-img .img-wrap::before{content:'';position:absolute;inset:0;
+    background:linear-gradient(to right,#071a14 0%,rgba(7,26,20,.3) 40%,transparent 70%)}
+  .prod-hero-img .img-wrap::after{content:'MOCKUP';position:absolute;top:16px;right:16px;
+    background:rgba(0,0,0,.55);color:rgba(255,255,255,.9);padding:4px 10px;border-radius:5px;
+    font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.6px;backdrop-filter:blur(6px)}
+  .img-badge{position:absolute;bottom:28px;left:-30px;z-index:3;
+    background:rgba(4,12,10,.85);border:1px solid rgba(5,150,105,.4);
+    border-radius:6px;padding:14px 18px;backdrop-filter:blur(16px);
+    display:flex;align-items:center;gap:12px;min-width:180px}
+  .img-badge .ic{width:36px;height:36px;background:rgba(5,150,105,.25);border-radius:4px;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#a7f3d0}
+  .img-badge .val{font-family:var(--mono);font-size:18px;font-weight:700;color:#fff;line-height:1}
+  .img-badge .label{font-size:11px;color:rgba(255,255,255,.5);margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
+
+  /* ===== FEATURES ===== */
+  .features-section{padding:80px 0;background:var(--bg-soft)}
+  .section-label{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--brand);
+    letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;display:block}
+  .section-title{font-size:clamp(26px,3.5vw,38px);font-weight:900;color:var(--ink);
+    letter-spacing:-.8px;margin-bottom:12px;line-height:1.15}
+  body[data-lang="th"] .section-title{letter-spacing:0}
+  .section-desc{font-size:16px;color:var(--ink-2);max-width:600px;line-height:1.65}
+  .section-head{margin-bottom:52px}
+  .features-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .feat-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px 24px;transition:all .3s;position:relative;overflow:hidden}
+  .feat-card::before{content:'';position:absolute;inset:0;border-radius:var(--radius);
+    background:linear-gradient(135deg,rgba(5,150,105,.06) 0%,transparent 60%);opacity:0;transition:opacity .3s}
+  .feat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:rgba(5,150,105,.25)}
+  .feat-card:hover::before{opacity:1}
+  .feat-icon{width:52px;height:52px;border-radius:7px;background:var(--brand-soft);color:var(--brand);
+    display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+  .feat-card h3{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:10px;line-height:1.3}
+  body[data-lang="th"] .feat-card h3{font-size:16px}
+  .feat-card p{font-size:13.5px;color:var(--ink-2);line-height:1.6}
+
+  /* ===== SPLIT SECTIONS ===== */
+  .split-section{padding:80px 0}
+  .split-section:nth-child(even){background:var(--bg-soft)}
+  .split-inner{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+  .split-inner.reverse{direction:rtl}.split-inner.reverse>*{direction:ltr}
+  .split-text .badge-label{display:inline-flex;align-items:center;gap:6px;background:var(--brand-soft);
+    color:var(--brand);padding:5px 14px;border-radius:999px;font-size:12px;font-weight:700;
+    letter-spacing:.5px;font-family:var(--mono);margin-bottom:18px}
+  .split-text h2{font-size:clamp(24px,3vw,34px);font-weight:900;color:var(--ink);
+    letter-spacing:-.6px;margin-bottom:16px;line-height:1.2}
+  body[data-lang="th"] .split-text h2{letter-spacing:0;font-size:clamp(22px,2.8vw,30px)}
+  .split-text p{font-size:15.5px;color:var(--ink-2);line-height:1.7;margin-bottom:22px}
+  .check-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .check-list li{display:flex;align-items:flex-start;gap:12px;font-size:14.5px;color:var(--ink-2);line-height:1.55}
+  .check-list li .ck{width:20px;height:20px;border-radius:3px;background:var(--brand-soft);
+    color:var(--brand);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+  .split-img{border-radius:var(--radius);overflow:hidden;position:relative;aspect-ratio:4/3;box-shadow:var(--shadow-lg)}
+  .split-img-inner{width:100%;height:100%;background-image:url('03.png');
+    background-size:cover;background-position:center 25%;display:block}
+  .split-img-inner.img2{background-image:url('04.png')}
+  .split-img::before{content:'';position:absolute;inset:0;z-index:1;
+    background:linear-gradient(135deg,rgba(5,150,105,.3),rgba(26,26,31,.45))}
+  .split-img::after{content:'MOCKUP';position:absolute;top:14px;right:14px;z-index:2;
+    background:rgba(0,0,0,.55);color:rgba(255,255,255,.9);padding:4px 10px;border-radius:5px;
+    font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.6px;backdrop-filter:blur(6px)}
+  .split-stat{position:absolute;bottom:20px;left:20px;z-index:2;
+    background:rgba(4,12,10,.8);border:1px solid rgba(5,150,105,.35);
+    border-radius:5px;padding:12px 16px;backdrop-filter:blur(12px)}
+  .split-stat .sv{font-family:var(--mono);font-size:26px;font-weight:700;color:#fff;line-height:1}
+  .split-stat .sl{font-size:11.5px;color:rgba(255,255,255,.55);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+
+  /* ===== SPECS TABLE ===== */
+  .specs-section{padding:80px 0;background:var(--bg)}
+  .specs-wrap{max-width:960px;margin:0 auto}
+  .specs-tabs{display:flex;gap:4px;margin-bottom:32px;background:var(--bg-soft);padding:6px;border-radius:6px;border:1px solid var(--line)}
+  .spec-tab{flex:1;padding:10px 16px;border-radius:4px;font-size:13.5px;font-weight:700;
+    color:var(--muted);cursor:pointer;text-align:center;transition:all .2s}
+  .spec-tab.active{background:#fff;color:var(--brand);box-shadow:var(--shadow-sm)}
+  .specs-table{width:100%;border-collapse:collapse;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
+  .specs-table thead tr{background:linear-gradient(135deg,var(--brand) 0%,var(--brand-dark) 100%);color:#fff}
+  .specs-table thead th{padding:16px 20px;text-align:left;font-size:13px;font-weight:700;letter-spacing:.3px}
+  .specs-table thead th:last-child{text-align:right}
+  .specs-table tbody tr{border-bottom:1px solid var(--line);transition:background .2s}
+  .specs-table tbody tr:last-child{border-bottom:none}
+  .specs-table tbody tr:hover{background:var(--brand-soft)}
+  .specs-table td{padding:14px 20px;font-size:14px;color:var(--ink-2);vertical-align:middle}
+  .specs-table td:first-child{color:var(--muted);font-size:13px;font-weight:700;width:220px}
+  .specs-table td:last-child{text-align:right;font-family:var(--mono);font-weight:700;color:var(--ink);font-size:14px}
+  .specs-table .cat-row td{background:var(--bg-soft);color:var(--brand);font-size:12px;
+    font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:10px 20px}
+  .specs-panel{display:none}.specs-panel.active{display:block}
+
+  /* ===== RELATED PRODUCTS ===== */
+  .related-section{padding:72px 0;background:var(--bg-soft)}
+  .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+  .rel-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;display:flex;align-items:center;gap:18px;transition:all .3s;cursor:pointer}
+  .rel-card:hover{border-color:var(--brand);box-shadow:var(--shadow);transform:translateY(-2px)}
+  .rel-card .rel-img{width:72px;height:72px;border-radius:6px;flex-shrink:0;
+    background-image:url('01.png');background-size:cover;background-position:center 25%;
+    position:relative;overflow:hidden}
+  .rel-card .rel-img::before{content:'';position:absolute;inset:0;background:rgba(106,45,175,.4)}
+  .rel-card.solar .rel-img{background-image:url('02.png')}.rel-card.solar .rel-img::before{background:rgba(217,119,6,.4)}
+  .rel-card.ems .rel-img{background-image:url('04.png')}.rel-card.ems .rel-img::before{background:rgba(37,99,235,.4)}
+  .rel-card .rel-info h4{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px}
+  .rel-card .rel-info p{font-size:12.5px;color:var(--muted)}
+  .rel-card .rel-info .arrow{margin-top:8px;color:var(--brand);font-size:12px;font-weight:700;
+    display:flex;align-items:center;gap:4px}
+
+  /* ===== CTA BAND ===== */
+  .cta-band{background:linear-gradient(135deg,var(--brand) 0%,var(--brand-dark) 100%);
+    padding:72px 0;color:#fff;position:relative;overflow:hidden}
+  .cta-band::before{content:'';position:absolute;top:-50%;right:-10%;width:700px;height:700px;
+    background:radial-gradient(circle,rgba(255,255,255,.12) 0%,transparent 60%);filter:blur(60px)}
+  .cta-band-inner{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;position:relative;z-index:1}
+  .cta-band h2{font-size:clamp(24px,3vw,36px);font-weight:900;margin-bottom:10px;line-height:1.2}
+  .cta-band p{font-size:16px;opacity:.82;max-width:560px;line-height:1.6}
+  .cta-band-btns{display:flex;flex-direction:column;gap:10px;min-width:200px}
+  .btn-white{background:#fff;color:#1a1a1a;padding:14px 28px;border-radius:5px;font-weight:700;font-size:14.5px;
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:all .25s;
+    box-shadow:0 8px 24px rgba(0,0,0,.2);white-space:nowrap}
+  .btn-white:hover{transform:translateY(-2px)}
+  .btn-outline-white{background:transparent;color:#fff;padding:13px 28px;border-radius:5px;
+    border:2px solid rgba(255,255,255,.4);font-weight:700;font-size:14.5px;
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:all .25s;white-space:nowrap}
+  .btn-outline-white:hover{background:rgba(255,255,255,.12)}
+
+  /* ===== FOOTER ===== */
+  footer{background:var(--bg-dark);color:rgba(255,255,255,.75);padding:80px 0 30px}
+  .footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:40px;margin-bottom:48px}
+  .footer-brand img{height:36px;filter:brightness(0) invert(1);margin-bottom:18px}
+  .footer-brand p{font-size:14px;line-height:1.7;opacity:.65;max-width:280px}
+  .footer-col h4{color:#fff;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:18px}
+  .footer-col a{display:block;font-size:14px;color:rgba(255,255,255,.6);padding:6px 0;transition:color .2s}
+  .footer-col a:hover{color:#fff}
+  .footer-bottom{padding-top:30px;border-top:1px solid rgba(255,255,255,.08);display:flex;
+    justify-content:space-between;align-items:center;font-size:13px;color:rgba(255,255,255,.4);flex-wrap:wrap;gap:12px}
+  .social{display:flex;gap:10px}
+  .social a{width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,.06);border-radius:4px;transition:all .2s}
+  .social a:hover{background:var(--brand);color:#fff}
+
+  /* ===== Reveal ===== */
+  .reveal{opacity:0;transform:translateY(50px);transition:opacity .75s cubic-bezier(.22,.68,0,1.2),transform .75s cubic-bezier(.22,.68,0,1.2)}
+  .reveal.in{opacity:1;transform:translateY(0)}
+  .reveal-delay-1{transition-delay:.12s}.reveal-delay-2{transition-delay:.24s}.reveal-delay-3{transition-delay:.36s}
+
+  /* ===== Responsive ===== */
+  @media(max-width:1020px){
+    .prod-hero{grid-template-columns:1fr;min-height:auto}
+    .prod-hero-left{padding:60px 0}
+    .prod-hero-img{display:none}
+    .features-grid{grid-template-columns:repeat(2,1fr)}
+    .split-inner{grid-template-columns:1fr;gap:40px}
+    .split-inner.reverse{direction:ltr}
+    .related-grid{grid-template-columns:repeat(2,1fr)}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+    .cta-band-inner{grid-template-columns:1fr}
+    .cta-band-btns{flex-direction:row;flex-wrap:wrap}
+  }
+  @media(max-width:820px){.nav-links,.nav-right .lang-toggle{display:none}.nav-burger{display:flex}}
+  @media(max-width:640px){
+    .wrap{padding:0 20px}
+    .features-grid{grid-template-columns:1fr}
+    .related-grid{grid-template-columns:1fr}
+    .hero-specs{flex-wrap:wrap}
+    .hero-spec{min-width:50%}
+    .footer-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body data-lang="th">
+
+<!-- ===== NAV ===== -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="nav-logo"><img src="24sEnergy_png.png" alt="24sEnergy"></a>
+    <div class="nav-links">
+      <a href="products.html" class="active"><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></a>
+      <a href="index.html#solutions"><span class="bi"><span class="th">โซลูชัน</span><span class="en">Solutions</span></span></a>
+      <a href="index.html#projects"><span class="bi"><span class="th">โครงการ</span><span class="en">Projects</span></span></a>
+      <a href="news.html"><span class="bi"><span class="th">ข่าวสาร</span><span class="en">News</span></span></a>
+      <a href="index.html#about"><span class="bi"><span class="th">เกี่ยวกับ</span><span class="en">About</span></span></a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button id="btnTH" class="active" onclick="setLang('th')">TH</button>
+        <button id="btnEN" onclick="setLang('en')">EN</button>
+      </div>
+      <a href="quote.html" class="btn-cta"><span class="bi"><span class="th">ขอใบเสนอราคา</span><span class="en">Get a Quote</span></span></a>
+      <button class="nav-burger" aria-label="menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== PRODUCT HERO ===== -->
+<section class="prod-hero">
+  <div class="wrap prod-hero-left">
+    <div class="breadcrumb">
+      <a href="index.html"><span class="bi"><span class="th">หน้าแรก</span><span class="en">Home</span></span></a>
+      <span class="sep">/</span>
+      <a href="products.html"><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></a>
+      <span class="sep">/</span>
+      <span class="current">DC Fast Charger 180 kW</span>
+    </div>
+    <div class="prod-badge">
+      <span class="dot"></span>
+      <span class="bi"><span class="th">พร้อมจัดส่ง</span><span class="en">Ready to Ship</span></span>
+      &nbsp;·&nbsp; OCPP 2.0 Ready
+    </div>
+    <h1>
+      <span class="model-name">DC Fast Charger 180 kW</span>
+      <span class="bi">
+        <span class="th">ชาร์จเร็ว รองรับ<br>EV ทุกค่าย</span>
+        <span class="en">Universal EV<br>Fast Charging</span>
+      </span>
+    </h1>
+    <p class="prod-hero-sub">
+      <span class="bi">
+        <span class="th">กำลังชาร์จ 180 kW แบบ DC รองรับ CCS2 และ CHAdeMO ชาร์จ 10→80% ใน 15 นาที บริหารจัดการผ่าน Cloud ด้วย OCPP 2.0 — IP65 ทนทานกลางแจ้ง</span>
+        <span class="en">180 kW DC charging power with CCS2 and CHAdeMO support. Charges 10→80% in 15 minutes. Cloud-managed via OCPP 2.0 — IP65 weatherproof outdoor installation.</span>
+      </span>
+    </p>
+    <div class="hero-specs">
+      <div class="hero-spec">
+        <span class="v">180 kW</span>
+        <span class="l">Power</span>
+      </div>
+      <div class="hero-spec">
+        <span class="v">2 Ports</span>
+        <span class="l">CCS2</span>
+      </div>
+      <div class="hero-spec">
+        <span class="v">15 min</span>
+        <span class="l">10→80%</span>
+      </div>
+      <div class="hero-spec">
+        <span class="v">OCPP 2.0</span>
+        <span class="l">Protocol</span>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <a href="quote.html" class="btn-hero-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span class="bi"><span class="th">ขอใบเสนอราคา</span><span class="en">Get a Quote</span></span>
+      </a>
+      <a href="#specs" class="btn-hero-ghost">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h6M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg>
+        <span class="bi"><span class="th">ดูสเปก</span><span class="en">View Specs</span></span>
+      </a>
+    </div>
+  </div>
+  <div class="prod-hero-img">
+    <div class="img-wrap"></div>
+    <div class="img-badge">
+      <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="2"/><line x1="10" y1="7" x2="14" y2="7"/><path d="M11 11l-2 4h6l-2 4"/></svg></div>
+      <div>
+        <div class="val">IP65</div>
+        <div class="label">Weatherproof</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="features-section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-label"><span class="bi"><span class="th">จุดเด่น</span><span class="en">Highlights</span></span></span>
+      <h2 class="section-title">
+        <span class="bi">
+          <span class="th">ทำไมต้องเลือก DC Fast Charger 180 kW?</span>
+          <span class="en">Why Choose Our DC Fast Charger 180 kW?</span>
+        </span>
+      </h2>
+      <p class="section-desc">
+        <span class="bi">
+          <span class="th">ออกแบบสำหรับสถานีชาร์จเชิงพาณิชย์ที่ต้องการประสิทธิภาพสูง รองรับรถ EV ทุกรุ่น และบริหารจัดการง่ายจาก Cloud</span>
+          <span class="en">Built for commercial charging stations demanding high throughput — universal EV compatibility and simple cloud-based fleet management.</span>
+        </span>
+      </p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card reveal">
+        <div class="feat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3><span class="bi"><span class="th">ชาร์จเร็ว 180 kW</span><span class="en">180 kW Fast Charge</span></span></h3>
+        <p><span class="bi"><span class="th">กำลังชาร์จ DC 180 kW ชาร์จ Tesla, BYD, MG, Neta ได้ 10→80% ใน 15 นาที — เพิ่มรายได้ต่อช่องชาร์จ</span><span class="en">180 kW DC power charges Tesla, BYD, MG, Neta 10→80% in 15 minutes — maximizing revenue per bay.</span></span></p>
+      </div>
+      <div class="feat-card reveal reveal-delay-1">
+        <div class="feat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Universal Compatibility</h3>
+        <p><span class="bi"><span class="th">CCS2 + CHAdeMO 2 พอร์ตพร้อมกัน รองรับ EV ยุโรป เอเชีย และอเมริกา ไม่มีปัญหาความเข้ากันได้</span><span class="en">Dual CCS2 + CHAdeMO ports simultaneously — supports European, Asian, and American EVs without compatibility issues.</span></span></p>
+      </div>
+      <div class="feat-card reveal reveal-delay-2">
+        <div class="feat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="5 13 9 8 13 11 19 5"/></svg>
+        </div>
+        <h3>OCPP 2.0 Cloud</h3>
+        <p><span class="bi"><span class="th">รองรับ OCPP 2.0 เชื่อมต่อระบบ CPMS ใดก็ได้ บริหาร Fleet, กำหนดราคา, ดู Report แบบ Real-time</span><span class="en">OCPP 2.0 compatible with any CPMS platform — manage fleets, set pricing, and view real-time reports.</span></span></p>
+      </div>
+      <div class="feat-card reveal reveal-delay-3">
+        <div class="feat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3><span class="bi"><span class="th">IP65 ทนทุกสภาพ</span><span class="en">IP65 All-Weather</span></span></h3>
+        <p><span class="bi"><span class="th">เกราะป้องกัน IP65 ทนฝนและฝุ่น ออกแบบสำหรับไทย ทำงานได้ในอุณหภูมิ -20°C ถึง +55°C</span><span class="en">IP65-rated enclosure resists rain and dust — engineered for Thailand's climate, operating -20°C to +55°C.</span></span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPLIT 1: Charging Speed ===== -->
+<section class="split-section">
+  <div class="wrap">
+    <div class="split-inner">
+      <div class="split-text reveal">
+        <div class="badge-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span class="bi"><span class="th">ความเร็วการชาร์จ</span><span class="en">Charging Speed</span></span>
+        </div>
+        <h2>
+          <span class="bi">
+            <span class="th">180 kW DC — ชาร์จ<br>10→80% ใน 15 นาที</span>
+            <span class="en">180 kW DC — Charge<br>10→80% in 15 Minutes</span>
+          </span>
+        </h2>
+        <p>
+          <span class="bi">
+            <span class="th">ด้วยกำลัง 180 kW สามารถชาร์จรถยนต์ไฟฟ้าทั่วไปจาก 10% ถึง 80% ในเวลาเพียง 15 นาที รองรับรถได้ 2 คันพร้อมกัน และระบบ Dynamic Power Sharing จัดสรรกำลังไฟอัตโนมัติ</span>
+            <span class="en">At 180 kW, a typical EV charges from 10% to 80% in just 15 minutes. Serves 2 vehicles simultaneously with dynamic power sharing that allocates power automatically.</span>
+          </span>
+        </p>
+        <ul class="check-list">
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><span class="bi"><span class="th">2 พอร์ต CCS2 + CHAdeMO ใช้พร้อมกัน</span><span class="en">2 simultaneous CCS2 + CHAdeMO ports</span></span></span></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><span class="bi"><span class="th">Dynamic Power Sharing — แบ่งกำลังไฟอัตโนมัติ</span><span class="en">Dynamic power sharing — automatic load balancing</span></span></span></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><span class="bi"><span class="th">หน้าจอสี 7 นิ้ว แสดงสถานะ + การชำระเงิน</span><span class="en">7-inch color display showing status + payment</span></span></span></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><span class="bi"><span class="th">รองรับ RFID, QR Code, App และบัตรเครดิต</span><span class="en">Supports RFID, QR code, app, and credit card payment</span></span></span></li>
+        </ul>
+      </div>
+      <div class="split-img reveal reveal-delay-1">
+        <div class="split-img-inner"></div>
+        <div class="split-stat"><div class="sv">15 min</div><div class="sl">10→80% Charge</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPLIT 2: Smart Management ===== -->
+<section class="split-section" style="background:var(--bg-soft)">
+  <div class="wrap">
+    <div class="split-inner reverse">
+      <div class="split-text reveal">
+        <div class="badge-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="5 13 9 8 13 11 19 5"/></svg>
+          <span class="bi"><span class="th">ระบบบริหารจัดการ</span><span class="en">Smart Management</span></span>
+        </div>
+        <h2>
+          <span class="bi">
+            <span class="th">OCPP 2.0 Cloud<br>บริหารทุกสถานีจากที่เดียว</span>
+            <span class="en">OCPP 2.0 Cloud<br>Manage All Stations Centrally</span>
+          </span>
+        </h2>
+        <p>
+          <span class="bi">
+            <span class="th">ระบบ OCPP 2.0 ช่วยให้คุณบริหารตู้ชาร์จทุกตัวได้จาก Dashboard เดียว กำหนดราคาชาร์จ ดูรายงานการใช้งาน และอัปเดต Firmware แบบ OTA โดยไม่ต้องส่งช่างมา</span>
+            <span class="en">OCPP 2.0 lets you manage every charger from a single dashboard — set pricing, view usage reports, and push OTA firmware updates without sending technicians on site.</span>
+          </span>
+        </p>
+        <ul class="check-list">
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><span class="bi"><span class="th">OCPP 2.0 — ใช้กับ CPMS ใดก็ได้</span><span class="en">OCPP 2.0 — works with any CPMS platform</span></span></span></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><span class="bi"><span class="th">Real-time monitoring: ยอดการชาร์จ, พลังงาน, รายได้</span><span class="en">Real-time monitoring: sessions, energy, revenue</span></span></span></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><span class="bi"><span class="th">OTA Firmware Update — อัปเดตจากระยะไกล</span><span class="en">OTA firmware updates — remote diagnostics and updates</span></span></span></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span><span class="bi"><span class="th">Load management — ป้องกัน Demand ไฟเกิน</span><span class="en">Load management — prevents peak demand overage</span></span></span></li>
+        </ul>
+      </div>
+      <div class="split-img reveal reveal-delay-1">
+        <div class="split-img-inner img2"></div>
+        <div class="split-stat"><div class="sv">OCPP 2.0</div><div class="sl">Protocol</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPECS TABLE ===== -->
+<section class="specs-section" id="specs">
+  <div class="wrap">
+    <div class="section-head reveal" style="text-align:center;max-width:620px;margin:0 auto 40px">
+      <span class="section-label"><span class="bi"><span class="th">ข้อมูลทางเทคนิค</span><span class="en">Technical Data</span></span></span>
+      <h2 class="section-title"><span class="bi"><span class="th">สเปกฉบับเต็ม</span><span class="en">Full Specifications</span></span></h2>
+    </div>
+    <div class="specs-wrap">
+      <div class="specs-tabs">
+        <div class="spec-tab active" onclick="switchTab('elec',this)"><span class="bi"><span class="th">ไฟฟ้า</span><span class="en">Electrical</span></span></div>
+        <div class="spec-tab" onclick="switchTab('conn',this)"><span class="bi"><span class="th">ช่องต่อ</span><span class="en">Connectors</span></span></div>
+        <div class="spec-tab" onclick="switchTab('comm',this)"><span class="bi"><span class="th">การสื่อสาร</span><span class="en">Communication</span></span></div>
+      </div>
+      <div class="specs-panel active" id="panel-elec">
+        <table class="specs-table">
+          <thead><tr><th><span class="bi"><span class="th">พารามิเตอร์</span><span class="en">Parameter</span></span></th><th></th><th><span class="bi"><span class="th">ค่าที่กำหนด</span><span class="en">Specification</span></span></th></tr></thead>
+          <tbody>
+            <tr class="cat-row"><td colspan="3">DC Output</td></tr>
+            <tr><td><span class="bi"><span class="th">กำลังชาร์จรวม</span><span class="en">Total Charging Power</span></span></td><td></td><td>180 kW</td></tr>
+            <tr><td><span class="bi"><span class="th">กำลังต่อพอร์ต</span><span class="en">Power per Port</span></span></td><td></td><td>Up to 180 kW (single) / 2×90 kW (dual)</td></tr>
+            <tr><td><span class="bi"><span class="th">แรงดันออก DC</span><span class="en">DC Output Voltage</span></span></td><td></td><td>200 – 1,000 V DC</td></tr>
+            <tr><td><span class="bi"><span class="th">กระแสออกสูงสุด</span><span class="en">Max Output Current</span></span></td><td></td><td>400 A per port</td></tr>
+            <tr class="cat-row"><td colspan="3">AC Input</td></tr>
+            <tr><td><span class="bi"><span class="th">แรงดันไฟเข้า</span><span class="en">Input Voltage</span></span></td><td></td><td>380/400 V 3-phase AC</td></tr>
+            <tr><td><span class="bi"><span class="th">ความถี่</span><span class="en">Frequency</span></span></td><td></td><td>50 / 60 Hz</td></tr>
+            <tr><td><span class="bi"><span class="th">ประสิทธิภาพ</span><span class="en">Efficiency</span></span></td><td></td><td>≥ 95%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="specs-panel" id="panel-conn">
+        <table class="specs-table">
+          <thead><tr><th><span class="bi"><span class="th">พารามิเตอร์</span><span class="en">Parameter</span></span></th><th></th><th><span class="bi"><span class="th">ค่าที่กำหนด</span><span class="en">Specification</span></span></th></tr></thead>
+          <tbody>
+            <tr class="cat-row"><td colspan="3">Charging Ports</td></tr>
+            <tr><td><span class="bi"><span class="th">จำนวนพอร์ต</span><span class="en">Number of Ports</span></span></td><td></td><td>2 ports</td></tr>
+            <tr><td>Port 1</td><td></td><td>CCS2 (Combined Charging System)</td></tr>
+            <tr><td>Port 2</td><td></td><td>CHAdeMO 2.0</td></tr>
+            <tr><td><span class="bi"><span class="th">ใช้งานพร้อมกัน</span><span class="en">Simultaneous Use</span></span></td><td></td><td>✓ <span class="bi"><span class="th">ทั้ง 2 พอร์ตพร้อมกัน</span><span class="en">Both ports simultaneously</span></span></td></tr>
+            <tr class="cat-row"><td colspan="3">Physical</td></tr>
+            <tr><td>IP Rating</td><td></td><td>IP65</td></tr>
+            <tr><td><span class="bi"><span class="th">อุณหภูมิทำงาน</span><span class="en">Operating Temp</span></span></td><td></td><td>-20°C to +55°C</td></tr>
+            <tr><td><span class="bi"><span class="th">จอแสดงผล</span><span class="en">Display</span></span></td><td></td><td>7" TFT Color Touch Screen</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="specs-panel" id="panel-comm">
+        <table class="specs-table">
+          <thead><tr><th><span class="bi"><span class="th">พารามิเตอร์</span><span class="en">Parameter</span></span></th><th></th><th><span class="bi"><span class="th">ค่าที่กำหนด</span><span class="en">Specification</span></span></th></tr></thead>
+          <tbody>
+            <tr class="cat-row"><td colspan="3">Network</td></tr>
+            <tr><td><span class="bi"><span class="th">โปรโตคอล</span><span class="en">Protocol</span></span></td><td></td><td>OCPP 2.0 / OCPP 1.6J</td></tr>
+            <tr><td><span class="bi"><span class="th">การเชื่อมต่อ</span><span class="en">Connectivity</span></span></td><td></td><td>4G LTE · Ethernet · Wi-Fi</td></tr>
+            <tr class="cat-row"><td colspan="3">Payment & Auth</td></tr>
+            <tr><td><span class="bi"><span class="th">วิธีชำระเงิน</span><span class="en">Payment Methods</span></span></td><td></td><td>RFID · QR Code · Mobile App · Credit Card</td></tr>
+            <tr><td>OTA Update</td><td></td><td>✓ <span class="bi"><span class="th">อัปเดต Firmware จากระยะไกล</span><span class="en">Remote firmware update</span></span></td></tr>
+            <tr class="cat-row"><td colspan="3">Safety</td></tr>
+            <tr><td>Certifications</td><td></td><td>CE · IEC 61851 · ISO 15118</td></tr>
+            <tr><td><span class="bi"><span class="th">ป้องกัน</span><span class="en">Protection</span></span></td><td></td><td>Over-voltage · Over-current · Short circuit · Ground fault</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RELATED PRODUCTS ===== -->
+<section class="related-section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-label"><span class="bi"><span class="th">ผลิตภัณฑ์ที่เกี่ยวข้อง</span><span class="en">Related Products</span></span></span>
+      <h2 class="section-title"><span class="bi"><span class="th">ผลิตภัณฑ์อื่นจาก 24sEnergy</span><span class="en">More from 24sEnergy</span></span></h2>
+    </div>
+    <div class="related-grid">
+      <a href="product-heroee8.html" class="rel-card">
+        <div class="rel-img"></div>
+        <div class="rel-info">
+          <h4>HeroEE 8 AIO</h4>
+          <p>BESS · 8 kWh · All-in-One</p>
+          <div class="arrow"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">View Details</span></span> →</div>
+        </div>
+      </a>
+      <a href="product-solar.html" class="rel-card solar">
+        <div class="rel-img"></div>
+        <div class="rel-info">
+          <h4><span class="bi"><span class="th">Solar Rooftop อุตสาหกรรม</span><span class="en">Solar Rooftop Industrial</span></span></h4>
+          <p>Solar PV · 0.5–5 MW · EPC</p>
+          <div class="arrow"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">View Details</span></span> →</div>
+        </div>
+      </a>
+      <a href="product-ems.html" class="rel-card ems">
+        <div class="rel-img"></div>
+        <div class="rel-info">
+          <h4>24sCloud EMS</h4>
+          <p>Monitoring · Cloud · Mobile App</p>
+          <div class="arrow"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">View Details</span></span> →</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA BAND ===== -->
+<section class="cta-band" id="cta">
+  <div class="wrap cta-band-inner">
+    <div>
+      <h2><span class="bi"><span class="th">พร้อมติดตั้งสถานีชาร์จ EV</span><span class="en">Ready to Build Your EV Station?</span></span></h2>
+      <p><span class="bi"><span class="th">ทีมของเราจะสำรวจไซต์ ออกแบบระบบไฟฟ้า และจัดการติดตั้งครบวงจร — เริ่มดำเนินการได้ภายใน 4 สัปดาห์</span><span class="en">Our team handles site survey, electrical system design, and complete installation — up and running within 4 weeks.</span></span></p>
+    </div>
+    <div class="cta-band-btns">
+      <a href="#" class="btn-white">
+        <span class="bi"><span class="th">ขอใบเสนอราคา</span><span class="en">Get a Quote</span></span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="products.html" class="btn-outline-white">
+        <span class="bi"><span class="th">ดูผลิตภัณฑ์ทั้งหมด</span><span class="en">All Products</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="24sEnergy_png.png" alt="24sEnergy">
+        <p><span class="bi"><span class="th">ผู้นำด้านระบบกักเก็บพลังงานและ Solar PV สำหรับอุตสาหกรรมไทย</span><span class="en">Leading provider of BESS and Solar PV for Thai industry.</span></span></p>
+      </div>
+      <div class="footer-col">
+        <h4><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></h4>
+        <a href="product-heroee8.html">HeroEE 8 AIO</a>
+        <a href="product-solar.html">Solar Rooftop</a>
+        <a href="product-ev.html">EV Charger 180 kW</a>
+        <a href="product-ems.html">24sCloud EMS</a>
+      </div>
+      <div class="footer-col">
+        <h4><span class="bi"><span class="th">บริษัท</span><span class="en">Company</span></span></h4>
+        <a href="index.html#about"><span class="bi"><span class="th">เกี่ยวกับเรา</span><span class="en">About Us</span></span></a>
+        <a href="index.html#projects"><span class="bi"><span class="th">โครงการ</span><span class="en">Projects</span></span></a>
+        <a href="news.html"><span class="bi"><span class="th">ข่าวสาร</span><span class="en">News</span></span></a>
+      </div>
+      <div class="footer-col">
+        <h4><span class="bi"><span class="th">ติดต่อ</span><span class="en">Contact</span></span></h4>
+        <a href="tel:+6620000000">📞 02-XXX-XXXX</a>
+        <a href="#">📱 LINE: @24senergy</a>
+        <a href="mailto:info@24senergy.co.th">✉ info@24senergy.co.th</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 24sEnergy Co., Ltd.</div>
+      <div class="social">
+        <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function setLang(l){
+    document.body.setAttribute('data-lang',l);document.documentElement.setAttribute('lang',l);
+    document.getElementById('btnTH').classList.toggle('active',l==='th');
+    document.getElementById('btnEN').classList.toggle('active',l==='en');
+  }
+  function switchTab(id,el){
+    document.querySelectorAll('.spec-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.specs-panel').forEach(p=>p.classList.remove('active'));
+    el.classList.add('active');document.getElementById('panel-'+id).classList.add('active');
+  }
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
