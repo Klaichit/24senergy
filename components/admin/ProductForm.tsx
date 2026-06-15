@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import type { Product, ProductCategory } from '@/types/database'
@@ -10,6 +10,8 @@ const CATEGORIES: { value: ProductCategory; label: string }[] = [
   { value: 'ev', label: 'EV Charger' },
   { value: 'ems', label: 'EMS / Monitoring' },
 ]
+
+const BUCKET = 'product-images'
 
 type Props = { product?: Product }
 
@@ -30,11 +32,41 @@ export default function ProductForm({ product }: Props) {
     sort_order:     product?.sort_order ?? 0,
   })
 
+  const [images, setImages] = useState<string[]>(product?.images ?? [])
+  const [uploading, setUploading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const [error, setError] = useState('')
+  const fileRef = useRef<HTMLInputElement>(null)
 
   const set = (k: string, v: unknown) => setForm(f => ({ ...f, [k]: v }))
+
+  async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files ?? [])
+    if (!files.length) return
+    setUploading(true)
+    setError('')
+
+    const slug = form.slug || `product-${Date.now()}`
+    const urls: string[] = []
+
+    for (const file of files) {
+      const ext = file.name.split('.').pop()
+      const path = `${slug}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+      const { error: upErr } = await supabase.storage.from(BUCKET).upload(path, file, { upsert: true })
+      if (upErr) { setError(`อัปโหลดไม่สำเร็จ: ${upErr.message}`); setUploading(false); return }
+      const { data } = supabase.storage.from(BUCKET).getPublicUrl(path)
+      urls.push(data.publicUrl)
+    }
+
+    setImages(prev => [...prev, ...urls])
+    setUploading(false)
+    if (fileRef.current) fileRef.current.value = ''
+  }
+
+  function removeImage(url: string) {
+    setImages(prev => prev.filter(u => u !== url))
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -50,7 +82,7 @@ export default function ProductForm({ product }: Props) {
       description_th: form.description_th,
       description_en: form.description_en,
       specs:          specsObj,
-      images:         product?.images ?? [],
+      images,
       pdf_url:        form.pdf_url || null,
       is_published:   form.is_published,
       sort_order:     Number(form.sort_order),
@@ -108,6 +140,47 @@ export default function ProductForm({ product }: Props) {
         </Field>
       </div>
 
+      {/* Image Upload */}
+      <div className="bg-white border border-gray-200 rounded-2xl p-6 space-y-4">
+        <h2 className="font-bold text-gray-800 mb-1">รูปภาพผลิตภัณฑ์</h2>
+
+        {images.length > 0 && (
+          <div className="grid grid-cols-3 gap-3">
+            {images.map((url, i) => (
+              <div key={url} className="relative group aspect-square rounded-xl overflow-hidden bg-gray-50 border border-gray-200">
+                <img src={url} alt={`Product image ${i + 1}`} className="w-full h-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => removeImage(url)}
+                  className="absolute top-1.5 right-1.5 w-6 h-6 bg-red-500 text-white rounded-full text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                >×</button>
+                {i === 0 && (
+                  <span className="absolute bottom-1.5 left-1.5 bg-black/60 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md">หลัก</span>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div
+          onClick={() => fileRef.current?.click()}
+          className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center cursor-pointer hover:border-purple-300 hover:bg-purple-50/30 transition-colors"
+        >
+          {uploading ? (
+            <p className="text-sm text-purple-600 font-medium">กำลังอัปโหลด...</p>
+          ) : (
+            <>
+              <svg className="mx-auto mb-2 text-gray-300 w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              <p className="text-sm text-gray-500">คลิกเพื่ออัปโหลดรูปภาพ</p>
+              <p className="text-xs text-gray-400 mt-1">JPG, PNG, WebP — เลือกหลายรูปพร้อมกันได้</p>
+            </>
+          )}
+        </div>
+        <input ref={fileRef} type="file" accept="image/*" multiple className="hidden" onChange={handleUpload} />
+      </div>
+
       <div className="bg-white border border-gray-200 rounded-2xl p-6 space-y-5">
         <h2 className="font-bold text-gray-800 mb-1">Specs &amp; ไฟล์</h2>
         <Field label='Specs (JSON) เช่น {"Power":"180 kW","Ports":"2"}'>
@@ -134,7 +207,7 @@ export default function ProductForm({ product }: Props) {
       </div>
 
       <div className="flex items-center gap-3">
-        <button type="submit" disabled={saving}
+        <button type="submit" disabled={saving || uploading}
           className="px-6 py-2.5 bg-purple-600 text-white rounded-xl font-bold text-sm hover:bg-purple-700 disabled:opacity-50 transition-colors">
           {saving ? 'กำลังบันทึก...' : isEdit ? 'บันทึกการแก้ไข' : 'เพิ่มผลิตภัณฑ์'}
         </button>
