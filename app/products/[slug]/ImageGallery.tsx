@@ -15,12 +15,11 @@ export default function ImageGallery({ images, alt, accent }: Props) {
   return (
     <div className="flex flex-col gap-4 w-full">
       {/* Main image */}
-      <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gray-50 flex items-center justify-center">
+      <div className="relative w-full aspect-[4/3] flex items-center justify-center">
         <img
           src={images[active]}
           alt={`${alt} ${active + 1}`}
           className="w-full h-full object-contain"
-          style={{ filter: 'drop-shadow(0 20px 60px rgba(0,0,0,0.10))' }}
         />
       </div>
 
