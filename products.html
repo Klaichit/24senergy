@@ -449,9 +449,9 @@
       const page = `https://24senergy.vercel.app/products/${p.slug}`;
       return `
         <div class="prod-card reveal ${delays[i]||''}" data-cat="${p.category}" data-app="${c.app}">
-          <div class="prod-img ${p.images&&p.images[0] ? 'has-real-img' : c.img}">
+          <a href="${page}" class="prod-img ${p.images&&p.images[0] ? 'has-real-img' : c.img}" style="display:flex;align-items:center;justify-content:center;text-decoration:none">
             ${p.images&&p.images[0] ? `<div class="prod-img-glow" style="background-image:url('${p.images[0]}')"></div><img class="prod-real-img" src="${p.images[0]}" alt="${p.name_en}">` : ICONS[p.category]||''}
-          </div>
+          </a>
           <div class="prod-body">
             <div class="prod-cat ${p.category}">${c.label}</div>
             <h3><span class="bi"><span class="th">${p.name_th}</span><span class="en">${p.name_en}</span></span></h3>
