@@ -1,68 +1,36 @@
-# 24sEnergy Website
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-เว็บไซต์อย่างเป็นทางการของ **24sEnergy** — ผู้นำด้านระบบกักเก็บพลังงาน (BESS) และ Solar PV สำหรับอุตสาหกรรมไทย ขับเคลื่อนด้วยเทคโนโลยี Hithium และพันธมิตรชั้นนำระดับโลก
+## Getting Started
 
-🇹🇭 รองรับสองภาษา (ไทย/อังกฤษ) — สลับได้ทันทีบน toolbar
+First, run the development server:
 
-## โครงสร้าง
-
-```
-24senergy/
-├── index.html                       — หน้าแรก (Hero carousel, KPI, Products, Solutions, Projects)
-├── products.html                    — แคตตาล็อกผลิตภัณฑ์ 11 รายการ (BESS, Solar, EV, Monitoring)
-├── news.html                        — Magazine layout (Featured + Grid + Sidebar)
-├── 24sEnergy_png.png                — โลโก้
-├── 01.png – 04.png                  — ภาพ mockup product (portrait PNG)
-├── 24sEnergy_Website_Analysis.html  — Sitemap + Wireframes + i18n Strategy
-├── 24sEnergy_CMS_Recommendation.html — แนะนำ Sanity stack
-├── 24sEnergy_Hostatom_Options.html  — 4 ทางเลือกการใช้ Hostatom
-└── 24sEnergy_Image_Prompts.html     — 6 AI image prompts สำหรับ hero
-```
-
-## เทคโนโลยี
-
-- **Pure HTML/CSS/JS** — ไม่มี build step ไม่ต้อง npm install
-- **Google Fonts** — IBM Plex Sans Thai, Inter, Anton, JetBrains Mono
-- **Vanilla JavaScript** — ไม่ใช้ React/Vue/jQuery
-- **Responsive** — รองรับ desktop, tablet, mobile (breakpoints: 1020, 980, 820, 640, 520px)
-
-## Brand System
-
-| Token | Value | Usage |
-|---|---|---|
-| Primary | `#6A2DAF` | Purple — CTA, accents |
-| Secondary | `#3F3F3F` | Charcoal — headlines, footer |
-| Brand Dark | `#4d1f80` | Hover, gradients |
-| Brand Light | `#8b4dd6` | Highlights |
-
-## วิธีเปิด
-
-เปิดไฟล์ `index.html` ใน browser ได้ทันที (double-click) — ไม่ต้องตั้ง server
-
-หรือถ้าต้องการ live reload:
 ```bash
-# Python 3
-python -m http.server 8000
-
-# หรือ Node.js
-npx serve
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-แล้วเปิด `http://localhost:8000`
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Deploy
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-### Option 1: Static hosting (แนะนำ)
-- **Vercel** / **Netlify** / **Cloudflare Pages** — drag & drop folder
-- **GitHub Pages** — push และเปิด Pages settings
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-### Option 2: Hostatom Shared Hosting
-- อัพไฟล์ทั้งหมดขึ้น `public_html/` ผ่าน cPanel File Manager
-- ไม่ต้องตั้ง PHP/MySQL
+## Learn More
 
-### Option 3: Production-ready stack
-ดูคำแนะนำใน `24sEnergy_CMS_Recommendation.html` (Sanity + Next.js + Vercel)
+To learn more about Next.js, take a look at the following resources:
 
-## License
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-© 2026 24sEnergy Co., Ltd. — All rights reserved.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
