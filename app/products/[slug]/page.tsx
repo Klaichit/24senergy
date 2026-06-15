@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabase'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import type { Product } from '@/types/database'
+import ImageGallery from './ImageGallery'
 
 export const dynamic = 'force-dynamic'
 
@@ -56,7 +57,8 @@ const ICON: Record<string, React.ReactNode> = {
 function ProductPage({ product }: { product: Product }) {
   const theme = THEME[product.category as keyof typeof THEME] ?? THEME.bess
   const specs = Object.entries(product.specs ?? {})
-  const hasImage = !!product.images?.[0]
+  const images = product.images ?? []
+  const pdfUrl = product.pdf_url?.trim() || null
 
   return (
     <div className="min-h-screen bg-white" style={{ fontFamily: "'Noto Sans Thai','Noto Sans',sans-serif" }}>
@@ -88,21 +90,14 @@ function ProductPage({ product }: { product: Product }) {
         <div className="max-w-7xl mx-auto px-8 w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0 py-16 items-center">
 
           {/* Image side */}
-          <div className="flex items-center justify-center relative">
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none"
-              style={{ color: theme.accent }}>
-              {ICON[product.category]}
-            </div>
-            {hasImage ? (
-              <img
-                src={product.images[0]}
-                alt={product.name_en}
-                className="relative z-10 max-h-[520px] w-full object-contain drop-shadow-2xl"
-                style={{ filter: 'drop-shadow(0 40px 80px rgba(0,0,0,0.12))' }}
-              />
+          <div className="flex items-center justify-center relative w-full">
+            {images.length > 0 ? (
+              <div className="relative z-10 w-full max-w-lg">
+                <ImageGallery images={images} alt={product.name_en} accent={theme.accent} />
+              </div>
             ) : (
               <div className="w-80 h-80 flex items-center justify-center"
-                style={{ color: theme.accent, opacity: 0.15 }}>
+                style={{ color: theme.accent, opacity: 0.12 }}>
                 {ICON[product.category]}
               </div>
             )}
@@ -128,12 +123,17 @@ function ProductPage({ product }: { product: Product }) {
                 ขอใบเสนอราคา
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </a>
-              {product.pdf_url && (
-                <a href={product.pdf_url} target="_blank" rel="noopener noreferrer"
+              {pdfUrl ? (
+                <a href={pdfUrl} target="_blank" rel="noopener noreferrer"
                   className="px-7 py-3.5 bg-white text-gray-700 font-bold rounded-2xl text-sm hover:bg-gray-50 transition-colors inline-flex items-center gap-2 border border-gray-200">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  Datasheet
+                  ดาวน์โหลด Datasheet
                 </a>
+              ) : (
+                <span className="px-7 py-3.5 bg-gray-100 text-gray-400 font-bold rounded-2xl text-sm inline-flex items-center gap-2 cursor-not-allowed select-none">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Datasheet (ยังไม่มี)
+                </span>
               )}
             </div>
           </div>
@@ -178,8 +178,8 @@ function ProductPage({ product }: { product: Product }) {
             <p className="text-gray-500 leading-relaxed text-[15px]">
               {product.description_en}
             </p>
-            {product.pdf_url && (
-              <a href={product.pdf_url} target="_blank" rel="noopener noreferrer"
+            {pdfUrl && (
+              <a href={pdfUrl} target="_blank" rel="noopener noreferrer"
                 className="mt-8 inline-flex items-center gap-2 text-sm font-bold"
                 style={{ color: theme.accent }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
