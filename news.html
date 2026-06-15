@@ -464,11 +464,8 @@
 <!-- ===== CATEGORY TABS ===== -->
 <div class="cat-tabs">
   <div class="wrap cat-tabs-inner">
-    <div class="cat-tab active" data-cat="all"><span class="bi"><span class="th">ทั้งหมด</span><span class="en">All</span></span> <span class="count">7</span></div>
-    <div class="cat-tab" data-cat="industry"><span class="bi"><span class="th">อุตสาหกรรม</span><span class="en">Industry</span></span> <span class="count">2</span></div>
-    <div class="cat-tab" data-cat="tech"><span class="bi"><span class="th">เทคโนโลยี</span><span class="en">Technology</span></span> <span class="count">3</span></div>
-    <div class="cat-tab" data-cat="company"><span class="bi"><span class="th">บริษัท</span><span class="en">Company</span></span> <span class="count">1</span></div>
-    <div class="cat-tab" data-cat="esg"><span class="bi"><span class="th">ESG &amp; ความยั่งยืน</span><span class="en">ESG &amp; Sustainability</span></span> <span class="count">1</span></div>
+    <div class="cat-tab active" data-cat="all"><span class="bi"><span class="th">ทั้งหมด</span><span class="en">All</span></span> <span class="count" id="visibleCount">7</span></div>
+    <div class="cat-tab" data-cat="today"><span class="bi"><span class="th">วันนี้</span><span class="en">Today</span></span></div>
   </div>
 </div>
 
@@ -476,14 +473,14 @@
 <div class="wrap main">
 
   <!-- FEATURED ARTICLE -->
-  <a href="#" class="featured reveal" data-cat="industry">
+  <a href="#" class="featured reveal" data-cat="industry" data-date="2026-06-15">
     <div class="featured-img">
       <span class="mockup-tag">MOCKUP</span>
     </div>
     <div class="featured-body">
       <div class="article-meta">
         <span class="cat-badge industry"><span class="bi"><span class="th">อุตสาหกรรม</span><span class="en">Industry</span></span></span>
-        <span><span class="bi"><span class="th">12 พ.ค. 2026</span><span class="en">May 12, 2026</span></span></span>
+        <span><span class="bi"><span class="th">15 มิ.ย. 2026</span><span class="en">Jun 15, 2026</span></span></span>
         <span class="dot"></span>
         <span>8 min read</span>
       </div>
@@ -851,17 +848,23 @@
   const featured = document.querySelector('.featured');
   const visibleCount = document.getElementById('visibleCount');
 
+  const todayStr = new Date().toISOString().slice(0,10); // "YYYY-MM-DD"
+
   function applyFilter(cat){
     tabs.forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
     let n = 0;
     articles.forEach(a => {
-      const show = cat === 'all' || a.dataset.cat === cat;
+      const show = cat === 'all' || (cat === 'today' && a.dataset.date === todayStr);
       a.classList.toggle('hide', !show);
       if(show) n++;
     });
-    // Hide featured if it doesn't match
-    if(featured) featured.style.display = (cat === 'all' || featured.dataset.cat === cat) ? '' : 'none';
-    visibleCount.textContent = n;
+    // Featured article
+    if(featured){
+      const featShow = cat === 'all' || (cat === 'today' && featured.dataset.date === todayStr);
+      featured.style.display = featShow ? '' : 'none';
+      if(featShow) n++;
+    }
+    if(visibleCount) visibleCount.textContent = cat === 'all' ? document.querySelectorAll('.articles .article').length + (featured ? 1 : 0) : n;
   }
   tabs.forEach(t => t.addEventListener('click', () => applyFilter(t.dataset.cat)));
   // Sidebar category links also filter
