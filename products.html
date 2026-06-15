@@ -132,10 +132,11 @@
   .prod-img.bg-solar{background-image:url('02.png');--tint:linear-gradient(135deg,rgba(217,119,6,.6),rgba(251,191,36,.5))}
   .prod-img.bg-ev{background-image:url('03.png');--tint:linear-gradient(135deg,rgba(5,150,105,.6),rgba(16,185,129,.5))}
   .prod-img.bg-ems{background-image:url('04.png');--tint:linear-gradient(135deg,rgba(37,99,235,.6),rgba(96,165,250,.5))}
-  .prod-img.has-real-img{background-size:cover;background-position:center;--tint:linear-gradient(to top,rgba(0,0,0,.45) 0%,transparent 60%)}
+  .prod-img.has-real-img{background:#f5f5f7;--tint:none}
   .prod-img.has-real-img::before{display:none}
   .prod-img.has-real-img::after{display:none}
   .prod-img.has-real-img svg{display:none}
+  .prod-real-img{width:100%;height:100%;object-fit:contain;padding:20px;display:block}
   .prod-img svg{color:#fff;opacity:.35;width:100px;height:100px;transition:all .4s;
     filter:drop-shadow(0 2px 8px rgba(0,0,0,.4))}
   .prod-card:hover .prod-img svg{opacity:.55;transform:scale(1.08)}
@@ -442,7 +443,9 @@
       const page = `https://24senergy.vercel.app/products/${p.slug}`;
       return `
         <div class="prod-card reveal ${delays[i]||''}" data-cat="${p.category}" data-app="${c.app}">
-          <div class="prod-img ${p.images&&p.images[0] ? 'has-real-img' : c.img}" ${p.images&&p.images[0] ? `style="background-image:url('${p.images[0]}')"` : ''}>${ICONS[p.category]||''}</div>
+          <div class="prod-img ${p.images&&p.images[0] ? 'has-real-img' : c.img}">
+            ${p.images&&p.images[0] ? `<img class="prod-real-img" src="${p.images[0]}" alt="${p.name_en}">` : ICONS[p.category]||''}
+          </div>
           <div class="prod-body">
             <div class="prod-cat ${p.category}">${c.label}</div>
             <h3><span class="bi"><span class="th">${p.name_th}</span><span class="en">${p.name_en}</span></span></h3>
