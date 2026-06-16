@@ -1283,6 +1283,63 @@
     // Initial render
     applyRoles();
   })();
+
+  // ===== Supabase dynamic data =====
+  const SB_URL = 'https://cocmcinqcywqrqdxwdof.supabase.co';
+  const SB_KEY = 'sb_publishable_oEeXvdWPNAt0wmUDuvACfg_tDlTxkhu';
+
+  async function sbFetch(path) {
+    const r = await fetch(SB_URL + path, { headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY } });
+    return r.json();
+  }
+
+  // Load KPI values
+  async function loadKPI() {
+    try {
+      const data = await sbFetch('/rest/v1/site_config?key=in.(kpi_mwh,kpi_projects,kpi_years,kpi_satisfaction)&select=key,value');
+      if (!Array.isArray(data)) return;
+      const map = Object.fromEntries(data.map(d => [d.key, d.value]));
+      const targets = { kpi_mwh: 0, kpi_projects: 1, kpi_years: 2, kpi_satisfaction: 3 };
+      const counters = document.querySelectorAll('.kpi .num');
+      for (const [key, idx] of Object.entries(targets)) {
+        if (map[key] && counters[idx]) counters[idx].dataset.target = map[key];
+      }
+    } catch(e) {}
+  }
+
+  // Load projects
+  async function loadProjects() {
+    try {
+      const data = await sbFetch('/rest/v1/projects?is_featured=eq.true&order=sort_order.asc&select=*');
+      if (!Array.isArray(data) || data.length === 0) return;
+      const grid = document.querySelector('.projects-grid');
+      if (!grid) return;
+      grid.innerHTML = data.map(p => `
+        <div class="project-card reveal">
+          <div class="project-img" style="${p.image_url ? `background-image:url('${p.image_url}');background-size:cover;background-position:center` : 'background:linear-gradient(135deg,#1a1a2e,#16213e)'}">
+            <span class="badge"><span class="bi"><span class="th">${p.category}</span><span class="en">${p.category}</span></span></span>
+            <div class="stats">
+              <div class="big">${p.capacity_value ?? '—'}<span style="font-size:18px;opacity:.8">${p.capacity_unit ?? ''}</span></div>
+              ${p.capacity_detail ? `<div class="small">${p.capacity_detail}</div>` : ''}
+            </div>
+          </div>
+          <div class="project-body">
+            <h3><span class="bi"><span class="th">${p.title_th}</span><span class="en">${p.title_en}</span></span></h3>
+            <div class="meta">
+              ${p.location_th ? `<span>📍 <span class="bi"><span class="th">${p.location_th}</span><span class="en">${p.location_en}</span></span></span>` : ''}
+              ${p.year ? `<span>📅 ${p.year}</span>` : ''}
+              ${p.product_tag ? `<span>⚡ ${p.product_tag}</span>` : ''}
+            </div>
+            <p><span class="bi"><span class="th">${p.description_th}</span><span class="en">${p.description_en}</span></span></p>
+          </div>
+        </div>`).join('');
+      // re-observe new cards for reveal
+      grid.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    } catch(e) {}
+  }
+
+  loadKPI();
+  loadProjects();
 </script>
 </body>
 </html>

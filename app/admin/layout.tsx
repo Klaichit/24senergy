@@ -34,6 +34,16 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             ใบเสนอราคา
           </Link>
 
+          <Link href="/admin/projects" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/70 hover:text-white hover:bg-white/8 transition-colors">
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 2 7 12 12 22 7"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            โครงการ
+          </Link>
+
+          <Link href="/admin/site-config" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/70 hover:text-white hover:bg-white/8 transition-colors">
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 0 0 4.93 19.07M4.93 4.93a10 10 0 0 0 14.14 14.14"/></svg>
+            ตั้งค่าเว็บ
+          </Link>
+
           <div className="pt-4 mt-4 border-t border-white/10">
             <p className="px-3 text-xs font-bold text-white/30 uppercase tracking-widest mb-2">เว็บไซต์</p>
             <a href="https://24senergy.vercel.app/index.html" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/70 hover:text-white hover:bg-white/8 transition-colors">

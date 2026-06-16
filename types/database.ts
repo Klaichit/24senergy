@@ -36,30 +36,40 @@ export interface Quote {
   created_at: string
 }
 
-type ProductInsert = Omit<Product, 'id' | 'created_at' | 'updated_at'>
-type ProductUpdate = Partial<ProductInsert>
-type QuoteInsert = Omit<Quote, 'id' | 'created_at' | 'status'> & { status?: QuoteStatus }
-type QuoteUpdate = Partial<Omit<Quote, 'id' | 'created_at'>>
+export interface Project {
+  id: string
+  title_th: string
+  title_en: string
+  location_th: string
+  location_en: string
+  year: number | null
+  category: string
+  capacity_value: number | null
+  capacity_unit: string
+  capacity_detail: string
+  description_th: string
+  description_en: string
+  image_url: string | null
+  product_tag: string
+  roi_text: string
+  is_featured: boolean
+  sort_order: number
+  created_at: string
+}
 
-export type Database = {
-  public: {
-    Tables: {
-      products: {
-        Row: Product
-        Insert: ProductInsert
-        Update: ProductUpdate
-        Relationships: []
-      }
-      quotes: {
-        Row: Quote
-        Insert: QuoteInsert
-        Update: QuoteUpdate
-        Relationships: []
-      }
-    }
-    Views: Record<never, never>
-    Functions: Record<never, never>
-    Enums: Record<never, never>
-    CompositeTypes: Record<never, never>
-  }
+export interface HeroSlide {
+  id: string
+  title_th: string
+  title_en: string
+  image_url: string | null
+  sort_order: number
+  is_active: boolean
+  created_at: string
+}
+
+export interface SiteConfig {
+  key: string
+  value: string
+  label: string
+  updated_at: string
 }
