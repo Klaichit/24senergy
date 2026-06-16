@@ -1,0 +1,18 @@
+name: Supabase Keep-Alive
+
+on:
+  schedule:
+    - cron: '0 8 */5 * *'  # ทุก 5 วัน เวลา 08:00 UTC
+  workflow_dispatch:         # กด run ด้วยตัวเองได้
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase
+        run: |
+          curl -s -o /dev/null -w "%{http_code}" \
+            "https://cocmcinqcywqrqdxwdof.supabase.co/rest/v1/products?limit=1&select=id" \
+            -H "apikey: sb_publishable_oEeXvdWPNAt0wmUDuvACfg_tDlTxkhu" \
+            -H "Authorization: Bearer sb_publishable_oEeXvdWPNAt0wmUDuvACfg_tDlTxkhu"
+          echo " — Supabase pinged successfully"
