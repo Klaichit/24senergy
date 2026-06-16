@@ -27,7 +27,8 @@ export default function SiteConfigPage() {
   }
 
   const kpis = configs.filter(c => c.key.startsWith('kpi_'))
-  const contacts = configs.filter(c => !c.key.startsWith('kpi_'))
+  const videos = configs.filter(c => c.key.startsWith('video_'))
+  const contacts = configs.filter(c => !c.key.startsWith('kpi_') && !c.key.startsWith('video_'))
 
   return (
     <div className="p-8 max-w-2xl">
@@ -60,6 +61,34 @@ export default function SiteConfigPage() {
             ))}
           </div>
         </div>
+
+        {videos.length > 0 && (
+          <div className="bg-white border border-gray-200 rounded-2xl p-6">
+            <h2 className="font-bold text-gray-800 mb-1">วิดีโอ (YouTube)</h2>
+            <p className="text-xs text-gray-400 mb-5">section วิดีโอบนหน้าแรก — ซ่อนอัตโนมัติถ้าไม่ได้ใส่ URL</p>
+            <div className="space-y-4">
+              {videos.map(c => (
+                <div key={c.key} className="flex flex-col gap-1.5">
+                  <label className="text-sm font-semibold text-gray-700">{c.label}</label>
+                  <div className="flex gap-2">
+                    <input
+                      className="input flex-1"
+                      value={c.value}
+                      placeholder={c.key === 'video_youtube_url' ? 'https://www.youtube.com/watch?v=...' : ''}
+                      onChange={e => updateValue(c.key, e.target.value)}
+                      onBlur={() => save(c.key, c.value)}
+                    />
+                    <button onClick={() => save(c.key, c.value)}
+                      disabled={saving === c.key}
+                      className="px-3 py-2 bg-purple-50 text-purple-700 rounded-lg text-xs font-bold hover:bg-purple-100 transition-colors disabled:opacity-50">
+                      {saved === c.key ? '✓' : saving === c.key ? '...' : 'บันทึก'}
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="bg-white border border-gray-200 rounded-2xl p-6">
           <h2 className="font-bold text-gray-800 mb-5">ข้อมูลติดต่อ</h2>
