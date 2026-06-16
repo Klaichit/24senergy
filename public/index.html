@@ -409,12 +409,14 @@
   .partners{padding:60px 0;background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .partners-label{text-align:center;color:var(--muted);font-size:13px;letter-spacing:1.5px;
     text-transform:uppercase;margin-bottom:32px;font-weight:700}
-  .partners-row{display:flex;gap:60px;justify-content:center;align-items:center;flex-wrap:wrap;opacity:.5}
-  .partners-row > div{
+  .partners-row{display:flex;gap:48px;justify-content:center;align-items:center;flex-wrap:wrap;opacity:.55}
+  .partners-row > div, .partners-row > a{
     font-family:var(--mono);font-size:22px;font-weight:700;color:var(--ink-2);
-    letter-spacing:-1px;transition:all .3s;cursor:default;
+    letter-spacing:-1px;transition:all .3s;cursor:default;text-decoration:none;
   }
-  .partners-row > div:hover{color:var(--brand);transform:scale(1.05)}
+  .partners-row > div:hover, .partners-row > a:hover{color:var(--brand);transform:scale(1.05);opacity:1}
+  .partners-row .p-logo{height:40px;width:auto;max-width:120px;object-fit:contain;filter:grayscale(100%);transition:filter .3s}
+  .partners-row > a:hover .p-logo, .partners-row > div:hover .p-logo{filter:grayscale(0%)}
 
   /* ===== CTA banner ===== */
   .cta-banner{
@@ -729,8 +731,9 @@
     .kpi .num{font-size:36px}
     .footer-grid{grid-template-columns:1fr}
     .hero{padding:120px 0 80px}
-    .partners-row{gap:30px}
-    .partners-row > div{font-size:17px}
+    .partners-row{gap:24px}
+    .partners-row > div, .partners-row > a{font-size:17px}
+    .partners-row .p-logo{height:32px}
   }
 </style>
 </head>
@@ -1051,7 +1054,7 @@
 <div class="partners">
   <div class="wrap">
     <div class="partners-label"><span class="bi"><span class="th">พันธมิตรและลูกค้าของเรา</span><span class="en">Our Partners & Clients</span></span></div>
-    <div class="partners-row">
+    <div class="partners-row" id="partners-row">
       <div>HITHIUM</div>
       <div>EGAT</div>
       <div>PEA</div>
@@ -1338,8 +1341,27 @@
     } catch(e) {}
   }
 
+  // Load partners
+  async function loadPartners() {
+    try {
+      const data = await sbFetch('/rest/v1/partners?is_active=eq.true&order=sort_order.asc&select=*');
+      if (!Array.isArray(data) || data.length === 0) return;
+      const row = document.getElementById('partners-row');
+      if (!row) return;
+      row.innerHTML = data.map(p => {
+        const inner = p.logo_url
+          ? `<img class="p-logo" src="${p.logo_url}" alt="${p.name}" loading="lazy">`
+          : p.name;
+        return p.website
+          ? `<a href="${p.website}" target="_blank" rel="noopener noreferrer">${inner}</a>`
+          : `<div>${inner}</div>`;
+      }).join('');
+    } catch(e) {}
+  }
+
   loadKPI();
   loadProjects();
+  loadPartners();
 </script>
 </body>
 </html>

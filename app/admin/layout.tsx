@@ -44,6 +44,16 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             ตั้งค่าเว็บ
           </Link>
 
+          <Link href="/admin/hero" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/70 hover:text-white hover:bg-white/8 transition-colors">
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Hero Carousel
+          </Link>
+
+          <Link href="/admin/partners" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/70 hover:text-white hover:bg-white/8 transition-colors">
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Partners
+          </Link>
+
           <div className="pt-4 mt-4 border-t border-white/10">
             <p className="px-3 text-xs font-bold text-white/30 uppercase tracking-widest mb-2">เว็บไซต์</p>
             <a href="https://24senergy.vercel.app/index.html" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/70 hover:text-white hover:bg-white/8 transition-colors">
