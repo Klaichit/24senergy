@@ -1190,102 +1190,100 @@
   });
 
   // ===== HERO CAROUSEL =====
-  (function(){
-    const ITEMS = [
-      { src:'01.png', bg:'#6A2DAF', label:'BESS' },
-      { src:'02.png', bg:'#1a1a1f', label:'SOLAR' },
-      { src:'03.png', bg:'#3F3F3F', label:'EV CHARGING' },
-      { src:'04.png', bg:'#4d1f80', label:'MONITORING' },
-    ];
+  let _hxTimer;
+  function initHeroCarousel(ITEMS) {
+    const n = ITEMS.length;
+    if (n < 1) return;
 
-    // Preload images
-    ITEMS.forEach(it=>{ const img = new Image(); img.src = it.src; });
-
+    // Rebuild DOM
     const bg = document.getElementById('hxBg');
-    const bgOverlay = document.getElementById('hxBgOverlay');
-    const bgBlurs = document.querySelectorAll('.hx-bg-blur');
-    const items = document.querySelectorAll('.hx-item');
-    const headingSpans = document.querySelectorAll('.hx-heading .bi');
-    const prevBtn = document.getElementById('hxPrev');
-    const nextBtn = document.getElementById('hxNext');
-    if(!bg || items.length !== 4) return;
+    const stage = document.querySelector('.hx-stage');
+    const heading = document.getElementById('hxHeading');
+    if (!bg || !stage || !heading) return;
 
-    // helper: hex → rgba (preserve solid color across blend layer)
-    function hexToRgba(hex, alpha){
+    bg.innerHTML = ITEMS.map((it, i) =>
+      `<img class="hx-bg-blur${i===0?' is-active':''}" data-idx="${i}" src="${it.src}" alt="" aria-hidden="true">`
+    ).join('') + '<div class="hx-bg-overlay" id="hxBgOverlay"></div>';
+
+    stage.innerHTML = ITEMS.map((it, i) =>
+      `<div class="hx-item" data-idx="${i}"><img src="${it.src}" alt="${it.label}" loading="${i===0?'eager':'lazy'}"/></div>`
+    ).join('');
+
+    heading.innerHTML = ITEMS.map((it, i) =>
+      `<span class="bi" data-idx="${i}"><span class="th">${it.title_th}</span><span class="en">${it.title_en}</span></span>`
+    ).join('');
+
+    // Re-query after rebuild
+    const bgBlurs = bg.querySelectorAll('.hx-bg-blur');
+    const bgOverlay = document.getElementById('hxBgOverlay');
+    const stageItems = stage.querySelectorAll('.hx-item');
+    const headingSpans = heading.querySelectorAll('.bi');
+
+    stageItems.forEach((el, i) => {
+      const img = el.querySelector('img');
+      if (img) img.onerror = () => { el.classList.add('no-img'); el.dataset.fallback = ITEMS[i].label; };
+    });
+
+    let activeIndex = 0, isAnimating = false;
+
+    function hexToRgba(hex, alpha) {
       const h = hex.replace('#','');
-      const r = parseInt(h.substring(0,2),16);
-      const g = parseInt(h.substring(2,4),16);
-      const b = parseInt(h.substring(4,6),16);
+      const r = parseInt(h.substring(0,2),16), g = parseInt(h.substring(2,4),16), b = parseInt(h.substring(4,6),16);
       return `rgba(${r},${g},${b},${alpha})`;
     }
 
-    let activeIndex = 0;
-    let isAnimating = false;
-
-    // Fallback for missing images
-    items.forEach((el, i) => {
-      const img = el.querySelector('img');
-      img.addEventListener('error', () => {
-        el.classList.add('no-img');
-        el.setAttribute('data-fallback', ITEMS[i].label);
-      });
-    });
-
-    function applyRoles(){
-      const center = activeIndex;
-      const left = (activeIndex + 3) % 4;
-      const right = (activeIndex + 1) % 4;
-      const back = (activeIndex + 2) % 4;
-      items.forEach((el, i) => {
+    function applyRoles() {
+      stageItems.forEach((el, i) => {
         el.classList.remove('is-center','is-left','is-right','is-back');
-        if(i === center) el.classList.add('is-center');
-        else if(i === left) el.classList.add('is-left');
-        else if(i === right) el.classList.add('is-right');
-        else if(i === back) el.classList.add('is-back');
+        const offset = (i - activeIndex + n) % n;
+        if (offset === 0) el.classList.add('is-center');
+        else if (offset === 1) el.classList.add('is-right');
+        else if (offset === n - 1) el.classList.add('is-left');
+        else el.classList.add('is-back');
       });
-      // Update bg base color (solid color behind blur)
-      bg.style.backgroundColor = ITEMS[center].bg;
-      // Crossfade blurred bg image — only active one visible
-      bgBlurs.forEach((img, i) => img.classList.toggle('is-active', i === center));
-      // Color blend overlay — same brand color with alpha on top of blur
-      if(bgOverlay) bgOverlay.style.backgroundColor = hexToRgba(ITEMS[center].bg, .42);
-      // Update heading (show current index)
-      headingSpans.forEach(s => {
-        s.classList.toggle('is-active', parseInt(s.dataset.idx,10) === center);
-      });
+      bg.style.backgroundColor = ITEMS[activeIndex].bg;
+      bgBlurs.forEach((img, i) => img.classList.toggle('is-active', i === activeIndex));
+      if (bgOverlay) bgOverlay.style.backgroundColor = hexToRgba(ITEMS[activeIndex].bg, .42);
+      headingSpans.forEach(s => s.classList.toggle('is-active', parseInt(s.dataset.idx,10) === activeIndex));
     }
 
-    function navigate(dir){
-      if(isAnimating) return;
+    function navigate(dir) {
+      if (isAnimating) return;
       isAnimating = true;
-      if(dir === 'next') activeIndex = (activeIndex + 1) % 4;
-      else activeIndex = (activeIndex + 3) % 4;
+      activeIndex = dir === 'next' ? (activeIndex + 1) % n : (activeIndex + n - 1) % n;
       applyRoles();
       setTimeout(() => { isAnimating = false; }, 650);
     }
 
-    prevBtn.addEventListener('click', () => navigate('prev'));
-    nextBtn.addEventListener('click', () => navigate('next'));
+    if (_hxTimer) clearInterval(_hxTimer);
+    const prevBtn = document.getElementById('hxPrev');
+    const nextBtn = document.getElementById('hxNext');
+    if (prevBtn) prevBtn.onclick = () => navigate('prev');
+    if (nextBtn) nextBtn.onclick = () => navigate('next');
 
-    // Keyboard arrows
-    document.addEventListener('keydown', e => {
-      if(e.target.matches('input, textarea')) return;
-      if(e.key === 'ArrowLeft') navigate('prev');
-      else if(e.key === 'ArrowRight') navigate('next');
-    });
+    document.onkeydown = e => {
+      if (e.target.matches('input, textarea')) return;
+      if (e.key === 'ArrowLeft') navigate('prev');
+      else if (e.key === 'ArrowRight') navigate('next');
+    };
 
-    // Auto-rotate every 5s (pauses on hover/focus)
-    let autoTimer = setInterval(() => navigate('next'), 5000);
+    _hxTimer = setInterval(() => navigate('next'), 5000);
     const root = document.getElementById('hxRoot');
-    root.addEventListener('mouseenter', () => clearInterval(autoTimer));
-    root.addEventListener('mouseleave', () => {
-      clearInterval(autoTimer);
-      autoTimer = setInterval(() => navigate('next'), 5000);
-    });
+    if (root) {
+      root.onmouseenter = () => clearInterval(_hxTimer);
+      root.onmouseleave = () => { clearInterval(_hxTimer); _hxTimer = setInterval(() => navigate('next'), 5000); };
+    }
 
-    // Initial render
     applyRoles();
-  })();
+  }
+
+  // Static fallback (shown immediately, replaced if DB has slides)
+  initHeroCarousel([
+    { src:'/01.png', bg:'#6A2DAF', title_th:'ระบบกักเก็บพลังงาน', title_en:'BATTERY STORAGE', label:'BESS' },
+    { src:'/02.png', bg:'#1a1a1f', title_th:'โซลาร์เซลล์อุตสาหกรรม', title_en:'INDUSTRIAL SOLAR', label:'SOLAR' },
+    { src:'/03.png', bg:'#3F3F3F', title_th:'สถานีชาร์จ EV', title_en:'EV CHARGING', label:'EV' },
+    { src:'/04.png', bg:'#4d1f80', title_th:'ระบบมอนิเตอร์', title_en:'MONITORING + EMS', label:'EMS' },
+  ]);
 
   // ===== Supabase dynamic data =====
   const SB_URL = 'https://cocmcinqcywqrqdxwdof.supabase.co';
@@ -1359,9 +1357,25 @@
     } catch(e) {}
   }
 
+  // Load hero slides from DB
+  async function loadHeroSlides() {
+    try {
+      const data = await sbFetch('/rest/v1/hero_slides?is_active=eq.true&order=sort_order.asc&select=*');
+      if (!Array.isArray(data) || data.length === 0) return;
+      initHeroCarousel(data.map(s => ({
+        src: s.image_url || '/01.png',
+        bg: '#1a1a1f',
+        title_th: s.title_th || '',
+        title_en: s.title_en || '',
+        label: s.title_en || '',
+      })));
+    } catch(e) {}
+  }
+
   loadKPI();
   loadProjects();
   loadPartners();
+  loadHeroSlides();
 </script>
 </body>
 </html>
