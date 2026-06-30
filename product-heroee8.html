@@ -1285,7 +1285,9 @@
     document.getElementById('btnTH').classList.toggle('active', lang==='th');
     document.getElementById('btnEN').classList.toggle('active', lang==='en');
     localStorage.setItem('24s-lang', lang);
+    localStorage.setItem('lang', lang);
   }
+  (function(){ var s=localStorage.getItem('lang'); if(s) setLang(s); })();
   // Restore saved language
   const savedLang = localStorage.getItem('24s-lang');
   if(savedLang) setLang(savedLang);

@@ -662,7 +662,9 @@
     document.documentElement.setAttribute('lang',l);
     document.getElementById('btnTH').classList.toggle('active',l==='th');
     document.getElementById('btnEN').classList.toggle('active',l==='en');
+  localStorage.setItem('lang',l);
   }
+  (function(){ var s=localStorage.getItem('lang'); if(s) setLang(s); })();
   function switchTab(id,el){
     document.querySelectorAll('.spec-tab').forEach(t=>t.classList.remove('active'));
     document.querySelectorAll('.specs-panel').forEach(p=>p.classList.remove('active'));

@@ -1163,7 +1163,9 @@
     document.documentElement.setAttribute('lang', lang);
     document.getElementById('btnTH').classList.toggle('active', lang==='th');
     document.getElementById('btnEN').classList.toggle('active', lang==='en');
+    localStorage.setItem('lang', lang);
   }
+  (function(){ var s=localStorage.getItem('lang'); if(s) setLang(s); })();
 
   // ===== Nav scroll effect =====
   const nav = document.getElementById('nav');
