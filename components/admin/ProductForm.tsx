@@ -100,7 +100,8 @@ export default function ProductForm({ product }: Props) {
   async function handleDelete() {
     if (!confirm('ลบผลิตภัณฑ์นี้?')) return
     setDeleting(true)
-    await supabase.from('products').delete().eq('id', product!.id)
+    const { error: deleteError } = await supabase.from('products').delete().eq('id', product!.id)
+    if (deleteError) { setError(deleteError.message); setDeleting(false); return }
     router.push('/admin/products')
     router.refresh()
   }

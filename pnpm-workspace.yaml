@@ -1,0 +1,4 @@
+# Platform-specific prebuilt packages supply these binaries; no install scripts are needed.
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver

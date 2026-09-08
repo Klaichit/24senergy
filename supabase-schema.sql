@@ -59,26 +59,23 @@ create policy "Public read published products"
   on products for select
   using (is_published = true);
 
--- Admin: full access to products (anon key — add auth later to restrict)
+-- Admin role must be assigned through trusted Auth app_metadata.
 create policy "Admin manage products"
-  on products for all
-  using (true)
-  with check (true);
+  on products for all to authenticated
+  using (coalesce(auth.jwt() -> 'app_metadata' ->> 'role' = 'admin', false))
+  with check (coalesce(auth.jwt() -> 'app_metadata' ->> 'role' = 'admin', false));
 
--- Public can insert quotes
-create policy "Public insert quotes"
-  on quotes for insert
-  with check (true);
+-- Lead inserts go through /api/leads using a server-only key.
 
 -- Admin: read and update quotes
 create policy "Admin read quotes"
-  on quotes for select
-  using (true);
+  on quotes for select to authenticated
+  using (coalesce(auth.jwt() -> 'app_metadata' ->> 'role' = 'admin', false));
 
 create policy "Admin update quotes"
-  on quotes for update
-  using (true)
-  with check (true);
+  on quotes for update to authenticated
+  using (coalesce(auth.jwt() -> 'app_metadata' ->> 'role' = 'admin', false))
+  with check (coalesce(auth.jwt() -> 'app_metadata' ->> 'role' = 'admin', false));
 
 -- Seed: 4 initial products
 insert into products (slug, name_th, name_en, category, description_th, description_en, specs, images, sort_order) values

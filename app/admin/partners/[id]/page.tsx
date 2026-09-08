@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase'
+import { createSessionClient } from '@/lib/supabase-server'
 import { notFound } from 'next/navigation'
 import PartnerForm from '@/components/admin/PartnerForm'
 
@@ -7,6 +7,7 @@ export const dynamic = 'force-dynamic'
 interface Props { params: Promise<{ id: string }> }
 
 export default async function EditPartnerPage({ params }: Props) {
+  const supabase = await createSessionClient()
   const { id } = await params
   const { data } = await supabase.from('partners').select('*').eq('id', id).single()
   if (!data) notFound()

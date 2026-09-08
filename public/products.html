@@ -128,10 +128,10 @@
     background:rgba(0,0,0,.55);color:rgba(255,255,255,.95);padding:3px 9px;border-radius:5px;
     font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.6px;
     backdrop-filter:blur(6px);pointer-events:none}
-  .prod-img.bg-bess{background-image:url('01.png');--tint:linear-gradient(135deg,rgba(63,63,63,.6),rgba(106,45,175,.75))}
-  .prod-img.bg-solar{background-image:url('02.png');--tint:linear-gradient(135deg,rgba(217,119,6,.6),rgba(251,191,36,.5))}
-  .prod-img.bg-ev{background-image:url('03.png');--tint:linear-gradient(135deg,rgba(5,150,105,.6),rgba(16,185,129,.5))}
-  .prod-img.bg-ems{background-image:url('04.png');--tint:linear-gradient(135deg,rgba(37,99,235,.6),rgba(96,165,250,.5))}
+  .prod-img.bg-bess{background-image:url('01.webp');--tint:linear-gradient(135deg,rgba(63,63,63,.6),rgba(106,45,175,.75))}
+  .prod-img.bg-solar{background-image:url('02.webp');--tint:linear-gradient(135deg,rgba(217,119,6,.6),rgba(251,191,36,.5))}
+  .prod-img.bg-ev{background-image:url('03.webp');--tint:linear-gradient(135deg,rgba(5,150,105,.6),rgba(16,185,129,.5))}
+  .prod-img.bg-ems{background-image:url('04.webp');--tint:linear-gradient(135deg,rgba(37,99,235,.6),rgba(96,165,250,.5))}
   .prod-img.has-real-img{background:#f5f5f7;--tint:none}
   .prod-img.has-real-img::before{display:none}
   .prod-img.has-real-img::after{display:none}
@@ -219,6 +219,15 @@
     .page-head{padding:60px 0 80px}
   }
 </style>
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js"></script>
+<link rel="canonical" href="https://24senergy.vercel.app/products.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Products — 24sEnergy">
+<meta property="og:description" content="4 ผลิตภัณฑ์หลักจาก 24sEnergy — BESS, Solar PV, EV Charger และ Energy Management System">
+<meta property="og:url" content="https://24senergy.vercel.app/products.html">
+<meta property="og:image" content="https://24senergy.vercel.app/24sEnergy_png.png">
+<meta name="twitter:card" content="summary">
 </head>
 <body data-lang="th">
 <script>try{var _ll=localStorage.getItem('lang');if(_ll)document.body.setAttribute('data-lang',_ll);}catch(e){}</script>
@@ -246,7 +255,7 @@
 
 <!-- ===== PAGE HEAD ===== -->
 <header class="page-head">
-  <div class="ph-mockup" aria-hidden="true"><img src="04.png" alt=""></div>
+  <div class="ph-mockup" aria-hidden="true"><img src="04.webp" alt=""></div>
   <div class="wrap page-head-inner">
     <div class="breadcrumb">
       <a href="index.html"><span class="bi"><span class="th">หน้าแรก</span><span class="en">Home</span></span></a>
@@ -343,10 +352,10 @@
       <p><span class="bi"><span class="th">ทีมวิศวกรของเราพร้อมประเมินไซต์ คำนวณ ROI และแนะนำผลิตภัณฑ์ที่เหมาะที่สุดสำหรับธุรกิจของคุณ — ฟรี</span><span class="en">Our engineers will assess your site, calculate ROI, and recommend the best fit for your business — for free.</span></span></p>
     </div>
     <div class="cta-banner-right">
-      <a href="#" class="btn-primary-white">
+      <span>
         <span class="bi"><span class="th">ปรึกษาฟรี</span><span class="en">Free Consultation</span></span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-      </a>
+      </span>
     </div>
   </div>
 </div>
@@ -364,22 +373,22 @@
       </div>
       <div class="footer-col">
         <h4><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></h4>
-        <a href="product-heroee8.html">HeroEE 8 AIO</a>
-        <a href="product-solar.html"><span class="bi"><span class="th">Solar Rooftop</span><span class="en">Solar Rooftop</span></span></a>
-        <a href="product-ev.html">EV Charger 180 kW</a>
-        <a href="product-ems.html">24sCloud EMS</a>
+        <a href="/products/heroee8-aio">HeroEE 8 AIO</a>
+        <a href="/products/solar-rooftop-industrial"><span class="bi"><span class="th">Solar Rooftop</span><span class="en">Solar Rooftop</span></span></a>
+        <a href="/products/dc-fast-charger-180kw">EV Charger 180 kW</a>
+        <a href="/products/24scloud-ems">24sCloud EMS</a>
       </div>
       <div class="footer-col">
         <h4><span class="bi"><span class="th">บริษัท</span><span class="en">Company</span></span></h4>
         <a href="contact.html"><span class="bi"><span class="th">ติดต่อเรา</span><span class="en">Contact Us</span></span></a>
         <a href="index.html#projects"><span class="bi"><span class="th">โครงการ</span><span class="en">Projects</span></span></a>
         <a href="news.html"><span class="bi"><span class="th">ข่าวสาร</span><span class="en">News</span></span></a>
-        <a href="#"><span class="bi"><span class="th">ร่วมงาน</span><span class="en">Careers</span></span></a>
+        <span><span class="bi"><span class="th">ร่วมงาน</span><span class="en">Careers</span></span></span>
       </div>
       <div class="footer-col">
         <h4><span class="bi"><span class="th">ติดต่อ</span><span class="en">Contact</span></span></h4>
-        <a href="tel:+6620000000">📞 02-XXX-XXXX</a>
-        <a href="#">📱 LINE: @24senergy</a>
+        <span>โทรศัพท์: อยู่ระหว่างอัปเดต / Phone: coming soon</span>
+        <span>📱 LINE: @24senergy</span>
         <a href="mailto:info@24senergy.co.th">✉ info@24senergy.co.th</a>
         <a href="#">📍 <span class="bi"><span class="th">กรุงเทพฯ</span><span class="en">Bangkok</span></span></a>
       </div>
@@ -387,9 +396,9 @@
     <div class="footer-bottom">
       <div>© 2026 24sEnergy Co., Ltd. <span class="bi"><span class="th">สงวนลิขสิทธิ์</span><span class="en">All rights reserved.</span></span></div>
       <div class="social">
-        <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></a>
-        <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg></a>
-        <a href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3z"/></svg></a>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg></span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3z"/></svg></span>
       </div>
     </div>
   </div>
@@ -423,9 +432,9 @@
     document.documentElement.setAttribute('lang',lang);
     document.getElementById('btnTH').classList.toggle('active',lang==='th');
     document.getElementById('btnEN').classList.toggle('active',lang==='en');
-    localStorage.setItem('lang', lang);
+    try { localStorage.setItem('lang', lang); } catch {}
   }
-  (function(){ var s=localStorage.getItem('lang'); if(s) setLang(s); })();
+  (function(){ try { var s=localStorage.getItem('lang'); if(s==='th'||s==='en') setLang(s); } catch {} })();
 
   function applyFilters(){
     const cats=[...document.querySelectorAll('[data-filter="cat"]:checked')].map(c=>c.value);
@@ -448,18 +457,18 @@
     grid.innerHTML = products.map((p, i) => {
       const c = CAT_CFG[p.category] || CAT_CFG.bess;
       const specs = Object.entries(p.specs || {}).slice(0, 3);
-      const page = `https://24senergy.vercel.app/products/${p.slug}`;
+      const page = `/products/${encodeURIComponent(p.slug)}`;
       return `
-        <div class="prod-card reveal ${delays[i]||''}" data-cat="${p.category}" data-app="${c.app}">
+        <div class="prod-card reveal ${delays[i]||''}" data-cat="${escapeHTML(p.category)}" data-app="${c.app}">
           <a href="${page}" class="prod-img ${p.images&&p.images[0] ? 'has-real-img' : c.img}" style="display:flex;align-items:center;justify-content:center;text-decoration:none">
-            ${p.images&&p.images[0] ? `<div class="prod-img-glow" style="background-image:url('${p.images[0]}')"></div><img class="prod-real-img" src="${p.images[0]}" alt="${p.name_en}" loading="lazy" decoding="async">` : ICONS[p.category]||''}
+            ${p.images&&p.images[0] ? `<div class="prod-img-glow" style="background-image:url(&quot;${escapeHTML(safeURL(p.images[0]).replaceAll('\"', '%22').replaceAll('\\', '%5C'))}&quot;)"></div><img class="prod-real-img" src="${escapeHTML(safeURL(p.images[0]))}" alt="${escapeHTML(p.name_en)}" loading="lazy" decoding="async">` : ICONS[p.category]||''}
           </a>
           <div class="prod-body">
-            <div class="prod-cat ${p.category}">${c.label}</div>
-            <h3><span class="bi"><span class="th">${p.name_th}</span><span class="en">${p.name_en}</span></span></h3>
-            <div class="model">${p.slug}</div>
-            <p><span class="bi"><span class="th">${p.description_th}</span><span class="en">${p.description_en}</span></span></p>
-            ${specs.length ? `<div class="prod-specs">${specs.map(([k,v])=>`<div><span class="v">${v}</span><span class="l">${k}</span></div>`).join('')}</div>` : ''}
+            <div class="prod-cat ${escapeHTML(p.category)}">${c.label}</div>
+            <h3><span class="bi"><span class="th">${escapeHTML(p.name_th)}</span><span class="en">${escapeHTML(p.name_en)}</span></span></h3>
+            <div class="model">${escapeHTML(p.slug)}</div>
+            <p><span class="bi"><span class="th">${escapeHTML(p.description_th)}</span><span class="en">${escapeHTML(p.description_en)}</span></span></p>
+            ${specs.length ? `<div class="prod-specs">${specs.map(([k,v])=>`<div><span class="v">${escapeHTML(v)}</span><span class="l">${escapeHTML(k)}</span></div>`).join('')}</div>` : ''}
             <div class="prod-foot">
               <a href="${page}" class="btn ${c.btn}"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">View Details</span></span></a>
               <a href="quote.html" class="btn ${c.ghost}"><span class="bi"><span class="th">ขอราคา</span><span class="en">Get Quote</span></span></a>
@@ -481,10 +490,12 @@
         `${SB_URL}/rest/v1/products?is_published=eq.true&order=sort_order.asc&select=*`,
         {headers:{apikey:SB_KEY,Authorization:`Bearer ${SB_KEY}`}}
       );
+      if (!res.ok) throw new Error('Products unavailable');
       const data = await res.json();
       renderProducts(Array.isArray(data) ? data : []);
     }catch(e){
-      console.error('Failed to load products',e);
+      const grid = document.getElementById('products-grid');
+      grid.textContent = document.body.dataset.lang === 'en' ? 'Unable to load products. Please reload or contact us.' : 'โหลดสินค้าไม่สำเร็จ กรุณาโหลดหน้าใหม่หรือติดต่อเรา';
     }
   }
 

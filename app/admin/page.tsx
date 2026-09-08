@@ -1,10 +1,11 @@
-import { supabase } from '@/lib/supabase'
+import { createSessionClient } from '@/lib/supabase-server'
 import Link from 'next/link'
 import type { Quote } from '@/types/database'
 
 export const dynamic = 'force-dynamic'
 
 export default async function AdminDashboard() {
+  const supabase = await createSessionClient()
   const [{ count: productCount }, { count: quoteCount }, { data }] = await Promise.all([
     supabase.from('products').select('*', { count: 'exact', head: true }),
     supabase.from('quotes').select('*', { count: 'exact', head: true }),

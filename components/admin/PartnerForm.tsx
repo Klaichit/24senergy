@@ -46,7 +46,8 @@ export default function PartnerForm({ partner }: Props) {
 
   async function handleDelete() {
     if (!confirm('ลบ partner นี้?')) return
-    await supabase.from('partners').delete().eq('id', partner!.id)
+    const { error: deleteError } = await supabase.from('partners').delete().eq('id', partner!.id)
+    if (deleteError) { setError(deleteError.message); return }
     router.push('/admin/partners'); router.refresh()
   }
 

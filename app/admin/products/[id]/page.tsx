@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase'
+import { createSessionClient } from '@/lib/supabase-server'
 import ProductForm from '@/components/admin/ProductForm'
 import { notFound } from 'next/navigation'
 import type { Product } from '@/types/database'
@@ -10,6 +10,7 @@ interface Props {
 }
 
 export default async function EditProductPage({ params }: Props) {
+  const supabase = await createSessionClient()
   const { id } = await params
   const { data } = await supabase
     .from('products')

@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase'
+import { createSessionClient } from '@/lib/supabase-server'
 import { notFound } from 'next/navigation'
 import ProjectForm from '@/components/admin/ProjectForm'
 import type { Project } from '@/types/database'
@@ -8,6 +8,7 @@ export const dynamic = 'force-dynamic'
 interface Props { params: Promise<{ id: string }> }
 
 export default async function EditProjectPage({ params }: Props) {
+  const supabase = await createSessionClient()
   const { id } = await params
   const { data } = await supabase.from('projects').select('*').eq('id', id).single()
   if (!data) notFound()

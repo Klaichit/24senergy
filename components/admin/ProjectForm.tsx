@@ -85,7 +85,8 @@ export default function ProjectForm({ project }: Props) {
   async function handleDelete() {
     if (!confirm('ลบโครงการนี้?')) return
     setDeleting(true)
-    await supabase.from('projects').delete().eq('id', project!.id)
+    const { error: deleteError } = await supabase.from('projects').delete().eq('id', project!.id)
+    if (deleteError) { setError(deleteError.message); setDeleting(false); return }
     router.push('/admin/projects')
     router.refresh()
   }

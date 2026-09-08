@@ -7,6 +7,7 @@ export default function SiteConfigPage() {
   const [configs, setConfigs] = useState<SiteConfig[]>([])
   const [saving, setSaving] = useState<string | null>(null)
   const [saved, setSaved] = useState<string | null>(null)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     supabase.from('site_config').select('*').order('key').then(({ data }) => {
@@ -20,8 +21,10 @@ export default function SiteConfigPage() {
 
   async function save(key: string, value: string) {
     setSaving(key)
-    await supabase.from('site_config').update({ value, updated_at: new Date().toISOString() }).eq('key', key)
+    setError('')
+    const { error } = await supabase.from('site_config').update({ value, updated_at: new Date().toISOString() }).eq('key', key)
     setSaving(null)
+    if (error) { setError('บันทึกไม่สำเร็จ กรุณาลองใหม่'); return }
     setSaved(key)
     setTimeout(() => setSaved(null), 2000)
   }
@@ -32,6 +35,7 @@ export default function SiteConfigPage() {
 
   return (
     <div className="p-8 max-w-2xl">
+      {error && <p role="alert" className="text-red-700 mb-4">{error}</p>}
       <div className="mb-8">
         <h1 className="text-2xl font-black text-gray-900">ตั้งค่าเว็บไซต์</h1>
         <p className="text-sm text-gray-400 mt-1">KPI และข้อมูลติดต่อบนหน้าแรก</p>

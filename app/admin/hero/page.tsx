@@ -1,10 +1,11 @@
-import { supabase } from '@/lib/supabase'
+import { createSessionClient } from '@/lib/supabase-server'
 import Link from 'next/link'
 import type { HeroSlide } from '@/types/database'
 
 export const dynamic = 'force-dynamic'
 
 export default async function HeroPage() {
+  const supabase = await createSessionClient()
   const { data } = await supabase.from('hero_slides').select('*').order('sort_order')
   const slides = (data ?? []) as HeroSlide[]
 

@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase'
+import { createSessionClient } from '@/lib/supabase-server'
 import Link from 'next/link'
 import type { Product } from '@/types/database'
 
@@ -12,6 +12,7 @@ const categoryColor: Record<string, string> = {
 }
 
 export default async function ProductsAdmin() {
+  const supabase = await createSessionClient()
   const { data: products } = await supabase
     .from('products')
     .select('*')

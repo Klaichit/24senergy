@@ -371,22 +371,22 @@
     transition:transform .5s ease;
   }
   .project-card:hover .project-img::before{transform:scale(1.08)}
-  /* MOCKUP IMAGES — 01-04.png used as project visuals */
+  /* MOCKUP IMAGES — 01-04.webp used as project visuals */
   .project-img.p1{
     --bg-tint:linear-gradient(135deg, rgba(74,58,142,.55), rgba(26,26,74,.7));
-    --bg-img:url('/01.png');
+    --bg-img:url('/01.webp');
   }
   .project-img.p2{
     --bg-tint:linear-gradient(135deg, rgba(217,119,6,.55), rgba(124,45,18,.7));
-    --bg-img:url('/02.png');
+    --bg-img:url('/02.webp');
   }
   .project-img.p3{
     --bg-tint:linear-gradient(135deg, rgba(5,150,105,.5), rgba(6,78,59,.7));
-    --bg-img:url('/03.png');
+    --bg-img:url('/03.webp');
   }
   .project-img.p4{
     --bg-tint:linear-gradient(135deg, rgba(106,45,175,.55), rgba(77,31,128,.7));
-    --bg-img:url('/04.png');
+    --bg-img:url('/04.webp');
   }
   .project-img .badge{
     position:relative;z-index:1;
@@ -747,6 +747,15 @@
     .partners-row .p-logo{height:32px}
   }
 </style>
+<link rel="stylesheet" href="/site.css">
+<script src="/site.js"></script>
+<link rel="canonical" href="https://24senergy.vercel.app/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="24sEnergy — Clean Energy, Powering Industry">
+<meta property="og:description" content="ผู้นำด้านระบบกักเก็บพลังงาน BESS และ Solar PV สำหรับโรงงานและอุตสาหกรรม">
+<meta property="og:url" content="https://24senergy.vercel.app/index.html">
+<meta property="og:image" content="https://24senergy.vercel.app/24sEnergy_png.png">
+<meta name="twitter:card" content="summary">
 </head>
 <body data-lang="th">
 <script>try{var _ll=localStorage.getItem('lang');if(_ll)document.body.setAttribute('data-lang',_ll);}catch(e){}</script>
@@ -754,7 +763,7 @@
 <!-- ===== NAVIGATION ===== -->
 <nav class="nav" id="nav">
   <div class="wrap nav-inner">
-    <a href="#" class="nav-logo"><img src="/24sEnergy_png.png" alt="24sEnergy"></a>
+    <a href="/index.html" class="nav-logo"><img src="/24sEnergy_png.png" alt="24sEnergy"></a>
     <div class="nav-links">
       <a href="products.html"><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></a>
       <a href="#projects"><span class="bi"><span class="th">โครงการ</span><span class="en">Projects</span></span></a>
@@ -776,10 +785,10 @@
 <header class="hx" id="hxRoot">
   <!-- BG: solid color base + heavily blurred image + color tint overlay -->
   <div class="hx-bg" id="hxBg">
-    <img class="hx-bg-blur is-active" data-idx="0" src="/01.png" alt="" aria-hidden="true">
-    <img class="hx-bg-blur" data-idx="1" src="/02.png" alt="" aria-hidden="true">
-    <img class="hx-bg-blur" data-idx="2" src="/03.png" alt="" aria-hidden="true">
-    <img class="hx-bg-blur" data-idx="3" src="/04.png" alt="" aria-hidden="true">
+    <img class="hx-bg-blur is-active" data-idx="0" src="/01.webp" alt="" aria-hidden="true">
+    <img class="hx-bg-blur" data-idx="1" src="/02.webp" alt="" aria-hidden="true">
+    <img class="hx-bg-blur" data-idx="2" src="/03.webp" alt="" aria-hidden="true">
+    <img class="hx-bg-blur" data-idx="3" src="/04.webp" alt="" aria-hidden="true">
     <div class="hx-bg-overlay" id="hxBgOverlay"></div>
   </div>
 
@@ -797,20 +806,20 @@
 
   <!-- Carousel items -->
   <div class="hx-stage">
-    <div class="hx-item" data-idx="0"><img src="/01.png" alt="BESS" loading="eager"/></div>
-    <div class="hx-item" data-idx="1"><img src="/02.png" alt="Solar PV" loading="eager"/></div>
-    <div class="hx-item" data-idx="2"><img src="/03.png" alt="EV Charging" loading="eager"/></div>
-    <div class="hx-item" data-idx="3"><img src="/04.png" alt="Monitoring" loading="eager"/></div>
+    <div class="hx-item" data-idx="0"><img src="/01.webp" alt="BESS" loading="eager"/></div>
+    <div class="hx-item" data-idx="1"><img src="/02.webp" alt="Solar PV" loading="eager"/></div>
+    <div class="hx-item" data-idx="2"><img src="/03.webp" alt="EV Charging" loading="eager"/></div>
+    <div class="hx-item" data-idx="3"><img src="/04.webp" alt="Monitoring" loading="eager"/></div>
   </div>
 
   <!-- Bottom-left UI -->
   <div class="hx-bottomleft">
-    <h2 class="hx-heading" id="hxHeading">
+    <h1 class="hx-heading" id="hxHeading">
       <span class="bi" data-idx="0"><span class="th">ระบบกักเก็บพลังงาน</span><span class="en">BATTERY STORAGE</span></span>
       <span class="bi" data-idx="1"><span class="th">โซลาร์เซลล์อุตสาหกรรม</span><span class="en">INDUSTRIAL SOLAR</span></span>
       <span class="bi" data-idx="2"><span class="th">สถานีชาร์จ EV</span><span class="en">EV CHARGING</span></span>
       <span class="bi" data-idx="3"><span class="th">ระบบมอนิเตอร์</span><span class="en">MONITORING + EMS</span></span>
-    </h2>
+    </h1>
     <p class="hx-body">
       <span class="bi"><span class="th">โซลูชันพลังงานครบวงจรจาก Hithium และพันธมิตรชั้นนำระดับโลก สำหรับโรงงานและโครงการ Utility-scale</span><span class="en">Complete energy solutions from Hithium and world-class partners — for factories and utility-scale projects.</span></span>
     </p>
@@ -868,7 +877,7 @@
       <a class="product-card bess reveal" href="products.html#bess">
         <div class="mockup">
           <span class="tag">MOCKUP</span>
-          <img src="/01.png" alt="BESS">
+          <img src="/01.webp" alt="BESS">
         </div>
         <div class="card-content">
           <div class="icon">
@@ -889,7 +898,7 @@
       <a class="product-card solar reveal reveal-d1" href="products.html#solar">
         <div class="mockup">
           <span class="tag">MOCKUP</span>
-          <img src="/02.png" alt="Solar PV">
+          <img src="/02.webp" alt="Solar PV">
         </div>
         <div class="card-content">
           <div class="icon">
@@ -910,7 +919,7 @@
       <a class="product-card ev reveal reveal-d2" href="products.html#ev">
         <div class="mockup">
           <span class="tag">MOCKUP</span>
-          <img src="/03.png" alt="EV Charger">
+          <img src="/03.webp" alt="EV Charger">
         </div>
         <div class="card-content">
           <div class="icon">
@@ -931,7 +940,7 @@
       <a class="product-card monitor reveal reveal-d3" href="products.html#monitoring">
         <div class="mockup">
           <span class="tag">MOCKUP</span>
-          <img src="/04.png" alt="Monitoring">
+          <img src="/04.webp" alt="Monitoring">
         </div>
         <div class="card-content">
           <div class="icon">
@@ -1104,10 +1113,7 @@
           <span class="bi"><span class="th">ขอใบเสนอราคาฟรี</span><span class="en">Get Free Quote</span></span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
-        <a href="tel:+6620000000" class="btn-ghost" style="background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);justify-content:center">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
-          02-XXX-XXXX
-        </a>
+        <span>โทรศัพท์: อยู่ระหว่างอัปเดต / Phone: coming soon</span>
       </div>
     </div>
   </div>
@@ -1136,12 +1142,12 @@
         <a href="contact.html"><span class="bi"><span class="th">ติดต่อเรา</span><span class="en">Contact Us</span></span></a>
         <a href="#projects"><span class="bi"><span class="th">โครงการ</span><span class="en">Projects</span></span></a>
         <a href="news.html"><span class="bi"><span class="th">ข่าวสาร</span><span class="en">News</span></span></a>
-        <a href="#"><span class="bi"><span class="th">ร่วมงาน</span><span class="en">Careers</span></span></a>
+        <span><span class="bi"><span class="th">ร่วมงาน</span><span class="en">Careers</span></span></span>
       </div>
       <div class="footer-col">
         <h4><span class="bi"><span class="th">ติดต่อ</span><span class="en">Contact</span></span></h4>
-        <a href="tel:+6620000000">📞 02-XXX-XXXX</a>
-        <a href="#">📱 LINE: @24senergy</a>
+        <span>โทรศัพท์: อยู่ระหว่างอัปเดต / Phone: coming soon</span>
+        <span>📱 LINE: @24senergy</span>
         <a href="mailto:info@24senergy.co.th">✉ info@24senergy.co.th</a>
         <a href="#">📍 <span class="bi"><span class="th">กรุงเทพฯ</span><span class="en">Bangkok</span></span></a>
       </div>
@@ -1149,9 +1155,9 @@
     <div class="footer-bottom">
       <div>© 2026 24sEnergy Co., Ltd. <span class="bi"><span class="th">สงวนลิขสิทธิ์</span><span class="en">All rights reserved.</span></span></div>
       <div class="social">
-        <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></a>
-        <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg></a>
-        <a href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3z"/></svg></a>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg></span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3z"/></svg></span>
       </div>
     </div>
   </div>
@@ -1164,9 +1170,9 @@
     document.documentElement.setAttribute('lang', lang);
     document.getElementById('btnTH').classList.toggle('active', lang==='th');
     document.getElementById('btnEN').classList.toggle('active', lang==='en');
-    localStorage.setItem('lang', lang);
+    try { localStorage.setItem('lang', lang); } catch {}
   }
-  (function(){ var s=localStorage.getItem('lang'); if(s) setLang(s); })();
+  (function(){ try { var s=localStorage.getItem('lang'); if(s==='th'||s==='en') setLang(s); } catch {} })();
 
   // ===== Nav scroll effect =====
   const nav = document.getElementById('nav');
@@ -1229,15 +1235,15 @@
     if (!bg || !stage || !heading) return;
 
     bg.innerHTML = ITEMS.map((it, i) =>
-      `<img class="hx-bg-blur${i===0?' is-active':''}" data-idx="${i}" src="${it.src}" alt="" aria-hidden="true">`
+      `<img class="hx-bg-blur${i===0?' is-active':''}" data-idx="${i}" src="${escapeHTML(safeURL(it.src))}" alt="" aria-hidden="true">`
     ).join('') + '<div class="hx-bg-overlay" id="hxBgOverlay"></div>';
 
     stage.innerHTML = ITEMS.map((it, i) =>
-      `<div class="hx-item" data-idx="${i}"><img src="${it.src}" alt="${it.label}" loading="${i===0?'eager':'lazy'}"/></div>`
+      `<div class="hx-item" data-idx="${i}"><img src="${escapeHTML(safeURL(it.src))}" alt="${escapeHTML(it.label)}" loading="${i===0?'eager':'lazy'}"/></div>`
     ).join('');
 
     heading.innerHTML = ITEMS.map((it, i) =>
-      `<span class="bi" data-idx="${i}"><span class="th">${it.title_th}</span><span class="en">${it.title_en}</span></span>`
+      `<span class="bi" data-idx="${i}"><span class="th">${escapeHTML(it.title_th)}</span><span class="en">${escapeHTML(it.title_en)}</span></span>`
     ).join('');
 
     // Re-query after rebuild
@@ -1294,11 +1300,13 @@
       else if (e.key === 'ArrowRight') navigate('next');
     };
 
-    _hxTimer = setInterval(() => navigate('next'), 5000);
+    clearInterval(_hxTimer);
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reducedMotion) _hxTimer = setInterval(() => navigate('next'), 5000);
     const root = document.getElementById('hxRoot');
     if (root) {
       root.onmouseenter = () => clearInterval(_hxTimer);
-      root.onmouseleave = () => { clearInterval(_hxTimer); _hxTimer = setInterval(() => navigate('next'), 5000); };
+      root.onmouseleave = () => { clearInterval(_hxTimer); if (!reducedMotion) _hxTimer = setInterval(() => navigate('next'), 5000); };
     }
 
     applyRoles();
@@ -1306,10 +1314,10 @@
 
   // Static fallback (shown immediately, replaced if DB has slides)
   initHeroCarousel([
-    { src:'/01.png', bg:'#6A2DAF', title_th:'ระบบกักเก็บพลังงาน', title_en:'BATTERY STORAGE', label:'BESS' },
-    { src:'/02.png', bg:'#1a1a1f', title_th:'โซลาร์เซลล์อุตสาหกรรม', title_en:'INDUSTRIAL SOLAR', label:'SOLAR' },
-    { src:'/03.png', bg:'#3F3F3F', title_th:'สถานีชาร์จ EV', title_en:'EV CHARGING', label:'EV' },
-    { src:'/04.png', bg:'#4d1f80', title_th:'ระบบมอนิเตอร์', title_en:'MONITORING + EMS', label:'EMS' },
+    { src:'/01.webp', bg:'#6A2DAF', title_th:'ระบบกักเก็บพลังงาน', title_en:'BATTERY STORAGE', label:'BESS' },
+    { src:'/02.webp', bg:'#1a1a1f', title_th:'โซลาร์เซลล์อุตสาหกรรม', title_en:'INDUSTRIAL SOLAR', label:'SOLAR' },
+    { src:'/03.webp', bg:'#3F3F3F', title_th:'สถานีชาร์จ EV', title_en:'EV CHARGING', label:'EV' },
+    { src:'/04.webp', bg:'#4d1f80', title_th:'ระบบมอนิเตอร์', title_en:'MONITORING + EMS', label:'EMS' },
   ]);
 
   // ===== Supabase dynamic data =====
@@ -1318,6 +1326,7 @@
 
   async function sbFetch(path) {
     const r = await fetch(SB_URL + path, { headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY } });
+    if (!r.ok) throw new Error('Content unavailable');
     return r.json();
   }
 
@@ -1344,21 +1353,21 @@
       if (!grid) return;
       grid.innerHTML = data.map(p => `
         <div class="project-card reveal">
-          <div class="project-img" style="${p.image_url ? `background-image:url('${p.image_url}');background-size:cover;background-position:center` : 'background:linear-gradient(135deg,#1a1a2e,#16213e)'}">
-            <span class="badge"><span class="bi"><span class="th">${p.category}</span><span class="en">${p.category}</span></span></span>
+          <div class="project-img" style="${p.image_url ? `background-image:url(&quot;${escapeHTML(safeURL(p.image_url).replaceAll('\"', '%22').replaceAll('\\', '%5C'))}&quot;);background-size:cover;background-position:center` : 'background:linear-gradient(135deg,#1a1a2e,#16213e)'}">
+            <span class="badge"><span class="bi"><span class="th">${escapeHTML(p.category)}</span><span class="en">${escapeHTML(p.category)}</span></span></span>
             <div class="stats">
-              <div class="big">${p.capacity_value ?? '—'}<span style="font-size:18px;opacity:.8">${p.capacity_unit ?? ''}</span></div>
-              ${p.capacity_detail ? `<div class="small">${p.capacity_detail}</div>` : ''}
+              <div class="big">${escapeHTML(p.capacity_value ?? '—')}<span style="font-size:18px;opacity:.8">${escapeHTML(p.capacity_unit ?? '')}</span></div>
+              ${p.capacity_detail ? `<div class="small">${escapeHTML(p.capacity_detail)}</div>` : ''}
             </div>
           </div>
           <div class="project-body">
-            <h3><span class="bi"><span class="th">${p.title_th}</span><span class="en">${p.title_en}</span></span></h3>
+            <h3><span class="bi"><span class="th">${escapeHTML(p.title_th)}</span><span class="en">${escapeHTML(p.title_en)}</span></span></h3>
             <div class="meta">
-              ${p.location_th ? `<span>📍 <span class="bi"><span class="th">${p.location_th}</span><span class="en">${p.location_en}</span></span></span>` : ''}
-              ${p.year ? `<span>📅 ${p.year}</span>` : ''}
-              ${p.product_tag ? `<span>⚡ ${p.product_tag}</span>` : ''}
+              ${p.location_th ? `<span>📍 <span class="bi"><span class="th">${escapeHTML(p.location_th)}</span><span class="en">${escapeHTML(p.location_en)}</span></span></span>` : ''}
+              ${p.year ? `<span>📅 ${escapeHTML(p.year)}</span>` : ''}
+              ${p.product_tag ? `<span>⚡ ${escapeHTML(p.product_tag)}</span>` : ''}
             </div>
-            <p><span class="bi"><span class="th">${p.description_th}</span><span class="en">${p.description_en}</span></span></p>
+            <p><span class="bi"><span class="th">${escapeHTML(p.description_th)}</span><span class="en">${escapeHTML(p.description_en)}</span></span></p>
           </div>
         </div>`).join('');
       // re-observe new cards for reveal
@@ -1375,10 +1384,10 @@
       if (!row) return;
       row.innerHTML = data.map(p => {
         const inner = p.logo_url
-          ? `<img class="p-logo" src="${p.logo_url}" alt="${p.name}" loading="lazy">`
-          : p.name;
+          ? `<img class="p-logo" src="${escapeHTML(safeURL(p.logo_url))}" alt="${escapeHTML(p.name)}" loading="lazy">`
+          : escapeHTML(p.name);
         return p.website
-          ? `<a href="${p.website}" target="_blank" rel="noopener noreferrer">${inner}</a>`
+          ? `<a href="${escapeHTML(safeURL(p.website))}" target="_blank" rel="noopener noreferrer">${inner}</a>`
           : `<div>${inner}</div>`;
       }).join('');
     } catch(e) {}
@@ -1390,7 +1399,7 @@
       const data = await sbFetch('/rest/v1/hero_slides?is_active=eq.true&order=sort_order.asc&select=*');
       if (!Array.isArray(data) || data.length === 0) return;
       initHeroCarousel(data.map(s => ({
-        src: s.image_url || '/01.png',
+        src: s.image_url || '/01.webp',
         bg: '#1a1a1f',
         title_th: s.title_th || '',
         title_en: s.title_en || '',
@@ -1414,6 +1423,7 @@
       const url = map['video_youtube_url'];
       if (!url) return;
       const vid = getYouTubeId(url);
+      if (!/^[A-Za-z0-9_-]{11}$/.test(vid || '')) return;
       if (!vid) return;
 
       const lang = document.body.dataset.lang || 'th';
@@ -1427,9 +1437,9 @@
       const frameEl = document.getElementById('videoFrame');
       const section = document.getElementById('video');
 
-      if (titleEl) titleEl.innerHTML = `<span class="bi"><span class="th">${titleTh}</span><span class="en">${titleEn}</span></span>`;
+      if (titleEl) titleEl.innerHTML = `<span class="bi"><span class="th">${escapeHTML(titleTh)}</span><span class="en">${escapeHTML(titleEn)}</span></span>`;
       if (descEl && (descTh || descEn)) {
-        descEl.innerHTML = `<span class="bi"><span class="th">${descTh}</span><span class="en">${descEn}</span></span>`;
+        descEl.innerHTML = `<span class="bi"><span class="th">${escapeHTML(descTh)}</span><span class="en">${escapeHTML(descEn)}</span></span>`;
         descEl.style.display = '';
       }
       if (frameEl) frameEl.innerHTML = `<iframe src="https://www.youtube.com/embed/${vid}?rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;

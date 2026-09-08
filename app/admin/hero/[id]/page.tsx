@@ -1,10 +1,11 @@
-import { supabase } from '@/lib/supabase'
+import { createSessionClient } from '@/lib/supabase-server'
 import { notFound } from 'next/navigation'
 import HeroSlideForm from '@/components/admin/HeroSlideForm'
 import type { HeroSlide } from '@/types/database'
 export const dynamic = 'force-dynamic'
 interface Props { params: Promise<{ id: string }> }
 export default async function EditHeroPage({ params }: Props) {
+  const supabase = await createSessionClient()
   const { id } = await params
   const { data } = await supabase.from('hero_slides').select('*').eq('id', id).single()
   if (!data) notFound()

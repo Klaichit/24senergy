@@ -1,4 +1,7 @@
-import { supabase } from '@/lib/supabase'
+import { createPublicClient } from '@/lib/public-data'
+import { cache } from 'react'
+import ProductLanguage from '@/components/ProductLanguage'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import type { Product } from '@/types/database'
@@ -8,18 +11,33 @@ export const revalidate = 60
 
 interface Props { params: Promise<{ slug: string }> }
 
+const getProduct = cache(async (slug: string) => {
+  const { data, error } = await createPublicClient().from('products').select('*').eq('slug', slug).eq('is_published', true).maybeSingle()
+  if (error) throw new Error('Unable to load product')
+  return data as Product | null
+})
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const product = await getProduct(slug)
+  if (!product) return { title: 'Product not found — 24sEnergy', robots: { index: false } }
+  const site = process.env.NEXT_PUBLIC_SITE_URL || 'https://24senergy.vercel.app'
+  const url = `${site}/products/${encodeURIComponent(slug)}`
+  return { title: `${product.name_th} — 24sEnergy`, description: product.description_th,
+    alternates: { canonical: url }, openGraph: { title: product.name_th, description: product.description_th, url, images: product.images?.slice(0, 1) || [] } }
+}
+
 export default async function ProductDetailPage({ params }: Props) {
   const { slug } = await params
-  const { data } = await supabase
-    .from('products')
-    .select('*')
-    .eq('slug', slug)
-    .eq('is_published', true)
-    .single()
+  const product = await getProduct(slug)
+  if (!product) notFound()
+  const json = JSON.stringify({ '@context': 'https://schema.org', '@type': 'Product', name: product.name_th,
+    description: product.description_th, image: product.images, brand: { '@type': 'Brand', name: '24sEnergy' } }).replace(/</g, '\\u003c')
+  return <ProductLanguage><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: json }} /><ProductPage product={product} /></ProductLanguage>
+}
 
-  if (!data) notFound()
-  const product = data as Product
-  return <ProductPage product={product} />
+function Bi({ th, en }: { th: string; en: string }) {
+  return <span className="bi"><span className="th">{th}</span><span className="en">{en}</span></span>
 }
 
 /* ── Theme per category ─────────────────────────────────────────── */
@@ -58,27 +76,27 @@ function ProductPage({ product }: { product: Product }) {
   const theme = THEME[product.category as keyof typeof THEME] ?? THEME.bess
   const specs = Object.entries(product.specs ?? {})
   const images = product.images ?? []
-  const pdfUrl = product.pdf_url?.trim() || null
+  const pdfUrl = product.pdf_url && /^(https?:\/\/|\/(?!\/))/.test(product.pdf_url) ? product.pdf_url : null
 
   return (
-    <div className="min-h-screen bg-white" style={{ fontFamily: "'Noto Sans Thai','Noto Sans',sans-serif" }}>
+    <div className="min-h-screen bg-white" style={{ fontFamily: "'IBM Plex Sans Thai',Arial,sans-serif" }}>
 
       {/* ── Navbar ── */}
       <nav style={{ borderBottom: '1px solid #f0f0f0' }}
-        className="bg-white/90 backdrop-blur-sm px-8 py-4 flex items-center gap-3 sticky top-0 z-50">
+        className="bg-white/90 backdrop-blur-sm px-4 md:px-8 py-4 flex flex-wrap items-center gap-3 sticky top-0 z-50">
         <Link href="/index.html">
           <img src="/24sEnergy_png.png" alt="24sEnergy" className="h-8 w-auto" />
         </Link>
         <span className="text-gray-200 mx-1">/</span>
-        <Link href="/products.html" className="text-sm text-gray-400 hover:text-gray-700 transition-colors">ผลิตภัณฑ์</Link>
+        <Link href="/products.html" className="text-sm text-gray-400 hover:text-gray-700 transition-colors"><Bi th="ผลิตภัณฑ์" en="Products" /></Link>
         <span className="text-gray-200 mx-1">/</span>
-        <span className="text-sm text-gray-700 font-medium">{product.name_th}</span>
+        <span className="text-sm text-gray-700 font-medium"><Bi th={product.name_th} en={product.name_en} /></span>
         <div className="ml-auto flex items-center gap-3">
-          <Link href="/products.html" className="text-sm text-gray-400 hover:text-gray-700 transition-colors">← กลับ</Link>
-          <a href="/quote.html"
+          <Link href="/products.html" className="text-sm text-gray-400 hover:text-gray-700 transition-colors"><Bi th="← กลับ" en="← Back" /></Link>
+          <a href={`/quote.html?product=${product.category}`}
             style={{ background: theme.accent }}
             className="px-5 py-2 text-white text-sm font-bold rounded-xl hover:opacity-90 transition-opacity">
-            ขอใบเสนอราคา
+            <Bi th="ขอใบเสนอราคา" en="Get a Quote" />
           </a>
         </div>
       </nav>
@@ -110,29 +128,29 @@ function ProductPage({ product }: { product: Product }) {
               {theme.badge}
             </span>
             <h1 className="text-4xl lg:text-5xl font-black text-gray-900 leading-[1.05] tracking-tight mb-3">
-              {product.name_th}
+              <Bi th={product.name_th} en={product.name_en} />
             </h1>
             <p className="text-sm text-gray-400 font-medium mb-5 tracking-wide">{product.name_en}</p>
             <p className="text-gray-600 leading-relaxed mb-8 max-w-md text-[15px]">
-              {product.description_th}
+              <Bi th={product.description_th} en={product.description_en} />
             </p>
             <div className="flex gap-3 flex-wrap">
-              <a href="/quote.html"
+              <a href={`/quote.html?product=${product.category}`}
                 style={{ background: theme.accent }}
                 className="px-7 py-3.5 text-white font-bold rounded-2xl text-sm hover:opacity-90 transition-opacity inline-flex items-center gap-2">
-                ขอใบเสนอราคา
+                <Bi th="ขอใบเสนอราคา" en="Get a Quote" />
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </a>
               {pdfUrl ? (
                 <a href={pdfUrl} target="_blank" rel="noopener noreferrer"
                   className="px-7 py-3.5 bg-white text-gray-700 font-bold rounded-2xl text-sm hover:bg-gray-50 transition-colors inline-flex items-center gap-2 border border-gray-200">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  ดาวน์โหลด Datasheet
+                  <Bi th="ดาวน์โหลด Datasheet" en="Download Datasheet" />
                 </a>
               ) : (
                 <span className="px-7 py-3.5 bg-gray-100 text-gray-400 font-bold rounded-2xl text-sm inline-flex items-center gap-2 cursor-not-allowed select-none">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  Datasheet (ยังไม่มี)
+                  <Bi th="Datasheet (ยังไม่มี)" en="Datasheet (unavailable)" />
                 </span>
               )}
             </div>
@@ -163,12 +181,12 @@ function ProductPage({ product }: { product: Product }) {
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.2em] mb-5"
-              style={{ color: theme.accent }}>รายละเอียดผลิตภัณฑ์</p>
+              style={{ color: theme.accent }}><Bi th="รายละเอียดผลิตภัณฑ์" en="Product details" /></p>
             <h2 className="text-3xl font-black text-gray-900 leading-tight mb-5">
-              {product.name_th}
+              <Bi th={product.name_th} en={product.name_en} />
             </h2>
             <p className="text-gray-600 leading-relaxed text-[15px]">
-              {product.description_th}
+              <Bi th={product.description_th} en={product.description_en} />
             </p>
           </div>
           <div>
@@ -183,7 +201,7 @@ function ProductPage({ product }: { product: Product }) {
                 className="mt-8 inline-flex items-center gap-2 text-sm font-bold"
                 style={{ color: theme.accent }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                ดาวน์โหลด Product Datasheet →
+                <Bi th="ดาวน์โหลด Product Datasheet →" en="Download Product Datasheet →" />
               </a>
             )}
           </div>
@@ -193,12 +211,12 @@ function ProductPage({ product }: { product: Product }) {
       {/* ── CTA ── */}
       <section className="py-20 px-8 bg-white border-t border-gray-100 text-center">
         <p className="text-xs font-black uppercase tracking-[0.2em] mb-4 text-gray-400">Ready to get started?</p>
-        <h2 className="text-3xl font-black text-gray-900 mb-3">สนใจผลิตภัณฑ์นี้?</h2>
-        <p className="text-gray-500 mb-8 text-sm">ทีมวิศวกรพร้อมให้คำปรึกษาและเสนอราคาฟรี ไม่มีข้อผูกมัด</p>
-        <a href="/quote.html"
+        <h2 className="text-3xl font-black text-gray-900 mb-3"><Bi th="สนใจผลิตภัณฑ์นี้?" en="Interested in this product?" /></h2>
+        <p className="text-gray-500 mb-8 text-sm"><Bi th="ทีมวิศวกรพร้อมให้คำปรึกษาและเสนอราคาฟรี ไม่มีข้อผูกมัด" en="Our engineers can help with advice and a no-obligation quote." /></p>
+        <a href={`/quote.html?product=${product.category}`}
           style={{ background: theme.accent }}
           className="inline-block px-10 py-4 text-white font-black rounded-2xl text-sm hover:opacity-90 transition-opacity">
-          ขอใบเสนอราคา →
+          <Bi th="ขอใบเสนอราคา →" en="Get a Quote →" />
         </a>
       </section>
 

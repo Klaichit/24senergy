@@ -2,14 +2,14 @@ import Link from 'next/link'
 import { ReactNode } from 'react'
 import LogoutButton from '@/components/admin/LogoutButton'
 
-export const metadata = { title: 'Admin — 24sEnergy' }
+export const metadata = { title: 'Admin — 24sEnergy', robots: { index: false, follow: false } }
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex h-screen overflow-hidden bg-gray-50">
 
       {/* Sidebar */}
-      <aside className="w-60 bg-[#1a1a1f] text-white flex flex-col flex-shrink-0">
+      <aside className="w-44 md:w-60 bg-[#1a1a1f] text-white flex flex-col flex-shrink-0">
         <div className="px-6 py-5 border-b border-white/10">
           <Link href="/" className="block">
             <span className="text-white font-bold text-lg">24s<span className="text-purple-400">Energy</span></span>
@@ -34,6 +34,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
             ใบเสนอราคา
           </Link>
+          <Link href="/admin/inquiries" className="block px-3 py-2.5 text-sm text-white/70">ข้อความ / Newsletter</Link>
 
           <Link href="/admin/projects" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/70 hover:text-white hover:bg-white/8 transition-colors">
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 2 7 12 12 22 7"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
@@ -57,7 +58,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
           <div className="pt-4 mt-4 border-t border-white/10">
             <p className="px-3 text-xs font-bold text-white/30 uppercase tracking-widest mb-2">เว็บไซต์</p>
-            <a href="https://24senergy.vercel.app/index.html" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/70 hover:text-white hover:bg-white/8 transition-colors">
+            <a href="/index.html" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/70 hover:text-white hover:bg-white/8 transition-colors">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
               ดูหน้าเว็บ
             </a>
@@ -70,7 +71,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       </aside>
 
       {/* Main */}
-      <main className="flex-1 overflow-y-auto">
+      <main className="min-w-0 flex-1 overflow-y-auto">
         {children}
       </main>
 

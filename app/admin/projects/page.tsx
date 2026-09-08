@@ -1,10 +1,11 @@
-import { supabase } from '@/lib/supabase'
+import { createSessionClient } from '@/lib/supabase-server'
 import Link from 'next/link'
 import type { Project } from '@/types/database'
 
 export const dynamic = 'force-dynamic'
 
 export default async function ProjectsPage() {
+  const supabase = await createSessionClient()
   const { data } = await supabase.from('projects').select('*').order('sort_order')
   const projects = (data ?? []) as Project[]
 

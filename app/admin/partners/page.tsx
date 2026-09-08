@@ -1,10 +1,11 @@
-import { supabase } from '@/lib/supabase'
+import { createSessionClient } from '@/lib/supabase-server'
 import Link from 'next/link'
 import type { Partner } from '@/types/database'
 
 export const dynamic = 'force-dynamic'
 
 export default async function PartnersPage() {
+  const supabase = await createSessionClient()
   const { data } = await supabase.from('partners').select('*').order('sort_order')
   const partners = (data ?? []) as Partner[]
 

@@ -49,7 +49,8 @@ export default function HeroSlideForm({ slide }: Props) {
 
   async function handleDelete() {
     if (!confirm('ลบ slide นี้?')) return
-    await supabase.from('hero_slides').delete().eq('id', slide!.id)
+    const { error: deleteError } = await supabase.from('hero_slides').delete().eq('id', slide!.id)
+    if (deleteError) { setError(deleteError.message); return }
     router.push('/admin/hero'); router.refresh()
   }
 

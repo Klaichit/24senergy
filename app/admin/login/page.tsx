@@ -21,6 +21,11 @@ export default function AdminLoginPage() {
     setError('')
     const { error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) { setError('อีเมลหรือรหัสผ่านไม่ถูกต้อง'); setLoading(false); return }
+    const { data: { user } } = await supabase.auth.getUser()
+    if (user?.app_metadata?.role !== 'admin') {
+      await supabase.auth.signOut()
+      setError('บัญชีนี้ไม่มีสิทธิ์ผู้ดูแลระบบ'); setLoading(false); return
+    }
     router.push('/admin')
     router.refresh()
   }
