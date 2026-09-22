@@ -157,11 +157,6 @@
     background:#ef4444;color:#fff;padding:5px 12px;border-radius:6px;
     font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.5px;
   }
-  .featured-img .mockup-tag{
-    position:absolute;top:20px;right:20px;z-index:2;
-    background:rgba(0,0,0,.55);color:#fff;padding:3px 9px;border-radius:5px;
-    font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.6px;
-  }
   .featured-body{
     padding:48px 44px;display:flex;flex-direction:column;justify-content:center;
   }
@@ -173,10 +168,11 @@
     background:var(--brand-soft);color:var(--brand);padding:4px 11px;border-radius:6px;
     font-size:12px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;
   }
-  .cat-badge.industry{background:#e0e7ff;color:#3730a3}
-  .cat-badge.tech{background:#f1e9fb;color:var(--brand)}
-  .cat-badge.company{background:#d1fae5;color:#065f46}
-  .cat-badge.esg{background:#fef3c7;color:#92400e}
+  .cat-badge.solar{background:#fef3c7;color:#92400e}
+  .cat-badge.policy{background:#e0e7ff;color:#3730a3}
+  .cat-badge.battery{background:#f1e9fb;color:var(--brand)}
+  .cat-badge.market{background:#d1fae5;color:#065f46}
+  .cat-badge.ev{background:#dbeafe;color:#1e40af}
   .article-meta .dot{width:3px;height:3px;background:var(--muted);border-radius:50%}
   .featured-body h2{
     font-size:30px;font-weight:900;line-height:1.2;letter-spacing:-.5px;
@@ -253,7 +249,15 @@
     margin-top:auto;font-size:12.5px;color:var(--muted);
   }
   .article-foot .date{font-family:var(--mono)}
-  .article-foot .read{display:inline-flex;align-items:center;gap:5px}
+  .article-foot .src{
+    max-width:55%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+    text-align:right;
+  }
+  .source-note{
+    margin-top:18px;font-size:12.5px;color:var(--muted);
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .source-note::before{content:'↗';font-family:var(--mono)}
 
   /* ===== Sidebar ===== */
   .sidebar{display:flex;flex-direction:column;gap:24px}
@@ -268,7 +272,7 @@
   .widget h4 .pip{width:6px;height:14px;background:var(--brand);border-radius:2px}
 
   /* Popular posts */
-  .pop-item{
+  .pop-item{text-decoration:none;color:inherit;
     display:flex;gap:14px;padding:12px 0;
     border-bottom:1px solid var(--line);transition:all .2s;cursor:pointer;
   }
@@ -473,8 +477,12 @@
 <!-- ===== CATEGORY TABS ===== -->
 <div class="cat-tabs">
   <div class="wrap cat-tabs-inner">
-    <div class="cat-tab active" data-cat="all"><span class="bi"><span class="th">ทั้งหมด</span><span class="en">All</span></span> <span class="count" id="visibleCount">7</span></div>
-    <div class="cat-tab" data-cat="today"><span class="bi"><span class="th">วันนี้</span><span class="en">Today</span></span></div>
+    <div class="cat-tab active" data-cat="all"><span class="bi"><span class="th">ทั้งหมด</span><span class="en">All</span></span> <span class="count">19</span></div>
+    <div class="cat-tab" data-cat="solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span> <span class="count">9</span></div>
+    <div class="cat-tab" data-cat="policy"><span class="bi"><span class="th">นโยบายรัฐ</span><span class="en">Policy</span></span> <span class="count">4</span></div>
+    <div class="cat-tab" data-cat="battery"><span class="bi"><span class="th">แบตเตอรี่</span><span class="en">Battery</span></span> <span class="count">4</span></div>
+    <div class="cat-tab" data-cat="market"><span class="bi"><span class="th">ตลาดพลังงาน</span><span class="en">Energy Market</span></span> <span class="count">1</span></div>
+    <div class="cat-tab" data-cat="ev"><span class="bi"><span class="th">EV</span><span class="en">EV</span></span> <span class="count">1</span></div>
   </div>
 </div>
 
@@ -482,36 +490,22 @@
 <div class="wrap main">
 
   <!-- FEATURED ARTICLE -->
-  <a href="#" class="featured reveal" data-cat="industry" data-date="2026-06-15">
-    <div class="featured-img">
-      <span class="mockup-tag">MOCKUP</span>
-    </div>
+  <a href="https://www.prd.go.th/th/content/category/detail/id/33/iid/542862" target="_blank" rel="noopener noreferrer" class="featured reveal" data-cat="solar" data-date="2026-09-18">
+    <div class="featured-img"></div>
     <div class="featured-body">
       <div class="article-meta">
-        <span class="cat-badge industry"><span class="bi"><span class="th">อุตสาหกรรม</span><span class="en">Industry</span></span></span>
-        <span><span class="bi"><span class="th">15 มิ.ย. 2026</span><span class="en">Jun 15, 2026</span></span></span>
+        <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
+        <span><span class="bi"><span class="th">18 ก.ย. 2026</span><span class="en">Sep 18, 2026</span></span></span>
         <span class="dot"></span>
-        <span>8 min read</span>
+        <span>สำนักงานประชาสัมพันธ์ (PRD) / THE STANDARD</span>
       </div>
       <h2>
-        <span class="bi">
-          <span class="th">ERC อนุมัติ BESS ขนาด 100 MW เข้าโครงข่ายไฟฟ้าครั้งแรกในไทย</span>
-          <span class="en">ERC Approves First 100 MW BESS for Thai Grid Integration</span>
-        </span>
+        <span class="bi"><span class="th">กพช. ขยายโซลาร์ประชาชนเป็น 10,000 MW รับซื้อไฟ 2.20 บาท นาน 20 ปี</span><span class="en">NEPC expands the people’s solar scheme to 10,000 MW at THB 2.20 per unit for 20 years</span></span>
       </h2>
       <p>
-        <span class="bi">
-          <span class="th">การไฟฟ้าฝ่ายผลิตและคณะกรรมการกำกับกิจการพลังงาน (กกพ.) อนุมัติโครงการระบบกักเก็บพลังงานขนาดใหญ่ที่สุดในประเทศ พลิกโฉมตลาด Ancillary Services ในไทย — เปิดทางให้ภาคเอกชนเข้าร่วม</span>
-          <span class="en">EGAT and ERC have approved Thailand's largest battery energy storage project, transforming the Ancillary Services market and opening doors for private sector participation.</span>
-        </span>
+        <span class="bi"><span class="th">กพช. ครั้งที่ 177 (18 ก.ย. 2569) มีนายเอกนิติ นิติทัณฑ์ประภาศ เป็นประธาน เห็นชอบขยายโครงการโซลาร์ภาคประชาชนเป็น 10,000 MW รับซื้อไฟส่วนเกิน 2.20 บาท/หน่วยแบบ Net Billing สัญญา 20 ปี ขายได้ไม่เกิน 5 kW ต่อมิเตอร์ ติดตั้งได้บนหลังคา พื้นดิน และผิวน้ำ ครอบคลุมปี 2569-2571 มอบหมายให้เตรียมโครงข่าย สมาร์ตมิเตอร์ และระบบกักเก็บพลังงานให้พร้อมภายใน 1 เดือน และให้ กกพ. ออกระเบียบพร้อมลดขั้นตอนเป็น One Stop Service</span><span class="en">The National Energy Policy Council approved an expansion of the household solar programme to 10,000 MW, buying surplus power at THB 2.20 per unit on a net billing basis under 20-year contracts.</span></span>
       </p>
-      <div class="author">
-        <div class="avatar">ส</div>
-        <div class="info">
-          <span class="name">สมชาย พลังงาน</span>
-          <span class="role"><span class="bi"><span class="th">ผู้เชี่ยวชาญด้าน Grid</span><span class="en">Grid Specialist</span></span></span>
-        </div>
-      </div>
+      <div class="source-note"><span class="bi"><span class="th">อ่านต้นฉบับที่แหล่งข่าว</span><span class="en">Read the original at the source</span></span></div>
     </div>
   </a>
 
@@ -524,215 +518,400 @@
 
     <div class="articles">
 
-      <!-- Article 2 -->
-      <a href="#" class="article reveal img-03" data-cat="company">
+      <a href="https://www.prd.go.th/th/content/category/detail/id/39/iid/541767" target="_blank" rel="noopener noreferrer" class="article reveal img-01" data-cat="solar" data-date="2026-09-16">
         <div class="article-img">
-          <span class="cat-badge company"><span class="bi"><span class="th">บริษัท</span><span class="en">Company</span></span></span>
+          <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
         </div>
         <div class="article-body">
           <h3>
-            <span class="bi">
-              <span class="th">24sEnergy ส่งมอบ Solar Farm 50 MW ที่อยุธยา</span>
-              <span class="en">24sEnergy Delivers 50 MW Solar Farm in Ayutthaya</span>
-            </span>
+            <span class="bi"><span class="th">โซลาร์ 1.5 ล้านหลัง ไม่ได้มีแค่เรื่องเงินอุดหนุน มาตรฐานติดตั้งจะเป็นอีกโจทย์ใหญ่</span><span class="en">The 1.5 million-home solar push is not only about subsidy — installation standards are the other problem</span></span>
           </h3>
           <p>
-            <span class="bi">
-              <span class="th">โครงการใหญ่ที่สุดของเราในปีนี้ ผลิตไฟฟ้า 75 GWh/ปี ลด CO2 ได้ 35,000 ตัน/ปี — ส่งมอบเร็วกว่าแผน 2 เดือน</span>
-              <span class="en">Our biggest project this year — 75 GWh/yr output, 35,000 tCO2/yr reduction. Delivered 2 months ahead of schedule.</span>
-            </span>
+            <span class="bi"><span class="th">กระทรวงอุตสาหกรรมระบุว่าจะคุมมาตรฐาน Solar Rooftop เพื่อรองรับโครงการ 1.5 ล้านครัวเรือนที่คาดว่าเปิดลงทะเบียนกลางเดือนตุลาคม โดยมองทั้งความปลอดภัย คุณภาพอุปกรณ์ และซัพพลายเชนไทย</span><span class="en">The Ministry of Industry says it will regulate rooftop solar standards ahead of the 1.5 million household programme, covering safety, equipment quality and the Thai supply chain.</span></span>
           </p>
           <div class="article-foot">
-            <span class="date"><span class="bi"><span class="th">7 พ.ค. 2026</span><span class="en">May 7, 2026</span></span></span>
-            <span class="read">⏱ 4 min</span>
+            <span class="date"><span class="bi"><span class="th">16 ก.ย. 2026</span><span class="en">Sep 16, 2026</span></span></span>
+            <span class="src">กรมประชาสัมพันธ์ / กระทรวงอุตสาหกรรม</span>
           </div>
         </div>
       </a>
 
-      <!-- Article 3 -->
-      <a href="#" class="article reveal img-04" data-cat="tech">
+      <a href="https://www.thairath.co.th/news/politic/2959340" target="_blank" rel="noopener noreferrer" class="article reveal img-02" data-cat="solar" data-date="2026-09-13">
         <div class="article-img">
-          <span class="cat-badge tech"><span class="bi"><span class="th">เทคโนโลยี</span><span class="en">Technology</span></span></span>
+          <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
         </div>
         <div class="article-body">
           <h3>
-            <span class="bi">
-              <span class="th">BESS กับ Demand Charge: คำนวณ ROI แบบจริง</span>
-              <span class="en">BESS &amp; Demand Charge: Real-World ROI Calculation</span>
-            </span>
+            <span class="bi"><span class="th">ขายไฟคืนได้ 1,000 หรือ 1,650 บาทต่อเดือน — ทำไมสองตัวเลขนี้ถึงไม่ตรงกัน</span><span class="en">Selling power back at THB 1,000 or THB 1,650 a month — why the two figures disagree</span></span>
           </h3>
           <p>
-            <span class="bi">
-              <span class="th">วิเคราะห์ลึก ROI ของการติด BESS ในโรงงาน รวม case study 3 ไซต์ — payback period 3.8-5.2 ปี</span>
-              <span class="en">Deep-dive ROI analysis with 3 real-world case studies — payback period 3.8-5.2 years.</span>
-            </span>
+            <span class="bi"><span class="th">13 ก.ย. 2569 นายธนกร วังบุญคงชนะ ส.ส.บัญชีรายชื่อ พรรคภูมิใจไทย และอดีตรัฐมนตรีว่าการกระทรวงอุตสาหกรรม แสดงความเห็นสนับสนุนนโยบายโซลาร์รูฟท็อปภาคครัวเรือนของรัฐบาลภายใต้นายกรัฐมนตรีอนุทิน ชาญวีรกูล</span><span class="en">Two circulating estimates of monthly income from household rooftop solar rest on different assumptions about system size and export volume.</span></span>
           </p>
           <div class="article-foot">
-            <span class="date"><span class="bi"><span class="th">5 พ.ค. 2026</span><span class="en">May 5, 2026</span></span></span>
-            <span class="read">⏱ 12 min</span>
+            <span class="date"><span class="bi"><span class="th">13 ก.ย. 2026</span><span class="en">Sep 13, 2026</span></span></span>
+            <span class="src">ไทยรัฐ / ผู้จัดการออนไลน์</span>
           </div>
         </div>
       </a>
 
-      <!-- Article 4 -->
-      <a href="#" class="article reveal img-01" data-cat="esg">
+      <a href="https://www.thansettakij.com/finance/668841" target="_blank" rel="noopener noreferrer" class="article reveal img-03" data-cat="policy" data-date="2026-09-13">
         <div class="article-img">
-          <span class="cat-badge esg">ESG</span>
+          <span class="cat-badge policy"><span class="bi"><span class="th">นโยบายรัฐ</span><span class="en">Policy</span></span></span>
         </div>
         <div class="article-body">
           <h3>
-            <span class="bi">
-              <span class="th">ESG Report 2025: ลด CO2 ของลูกค้ารวม 4,500 ตัน</span>
-              <span class="en">ESG Report 2025: Combined 4,500 tCO2 Reduction</span>
-            </span>
+            <span class="bi"><span class="th">Data Center 16 แห่ง กินไฟเกิน 800 MW สิ่งที่โรงงานควรอ่านจากร่าง PDP2026</span><span class="en">Sixteen data centres draw over 800 MW — what factories should read in the draft PDP2026</span></span>
           </h3>
           <p>
-            <span class="bi">
-              <span class="th">รายงานความยั่งยืนประจำปี ครอบคลุม 120 โครงการ ลด carbon footprint ภาคอุตสาหกรรมต่อเนื่อง</span>
-              <span class="en">Annual sustainability report covering 120 projects, continuously reducing industrial carbon footprint.</span>
-            </span>
+            <span class="bi"><span class="th">13 ก.ย. 2569 ฐานเศรษฐกิจรายงานบทวิเคราะห์ตลาดเกี่ยวกับร่างแผนพัฒนากำลังผลิตไฟฟ้า PDP2026</span><span class="en">Analysis of the draft power development plan: the renewable share is targeted to rise from around 51% to 60–80% by 2050, with data centre demand reshaping the load picture.</span></span>
           </p>
           <div class="article-foot">
-            <span class="date"><span class="bi"><span class="th">1 พ.ค. 2026</span><span class="en">May 1, 2026</span></span></span>
-            <span class="read">⏱ 7 min</span>
+            <span class="date"><span class="bi"><span class="th">13 ก.ย. 2026</span><span class="en">Sep 13, 2026</span></span></span>
+            <span class="src">ฐานเศรษฐกิจ</span>
           </div>
         </div>
       </a>
 
-      <!-- Article 5 -->
-      <a href="#" class="article reveal img-02" data-cat="industry">
+      <a href="https://www.dailynews.co.th/news/6182832/" target="_blank" rel="noopener noreferrer" class="article reveal img-04" data-cat="battery" data-date="2026-09-12">
         <div class="article-img">
-          <span class="cat-badge industry"><span class="bi"><span class="th">อุตสาหกรรม</span><span class="en">Industry</span></span></span>
+          <span class="cat-badge battery"><span class="bi"><span class="th">แบตเตอรี่</span><span class="en">Battery</span></span></span>
         </div>
         <div class="article-body">
           <h3>
-            <span class="bi">
-              <span class="th">Carbon Credit Market ในไทยปี 2026 เปลี่ยนอะไรบ้าง</span>
-              <span class="en">Thailand's 2026 Carbon Credit Market — What's Changing</span>
-            </span>
+            <span class="bi"><span class="th">ติดโซลาร์แล้วไฟไม่ดับจริงไหม — คำตอบอยู่ที่แบตเตอรี่ ไม่ใช่แผง</span><span class="en">Does solar really keep the lights on? The answer is the battery, not the panel</span></span>
           </h3>
           <p>
-            <span class="bi">
-              <span class="th">กฎใหม่ของ TGO ส่งผลต่อโครงการ Solar/BESS อย่างไร โอกาส รายได้เสริม สำหรับเจ้าของโครงการ</span>
-              <span class="en">How TGO's new rules affect Solar/BESS projects — opportunities and additional revenue for asset owners.</span>
-            </span>
+            <span class="bi"><span class="th">12 ก.ย. 2569 เดลินิวส์รายงานโครงการ &quot;GULF Sparks, Life Starts เติมพลังไฟให้ชีวิต&quot; ซึ่งติดตั้งระบบโซลาร์เซลล์ให้ชุมชนที่สายส่งไฟฟ้าเข้าไม่ถึง</span><span class="en">A community solar project for households beyond the grid shows why storage, not panel capacity, determines whether power stays on.</span></span>
           </p>
           <div class="article-foot">
-            <span class="date"><span class="bi"><span class="th">28 เม.ย. 2026</span><span class="en">Apr 28, 2026</span></span></span>
-            <span class="read">⏱ 9 min</span>
+            <span class="date"><span class="bi"><span class="th">12 ก.ย. 2026</span><span class="en">Sep 12, 2026</span></span></span>
+            <span class="src">เดลินิวส์</span>
           </div>
         </div>
       </a>
 
-      <!-- Article 6 -->
-      <a href="#" class="article reveal img-03" data-cat="tech">
+      <a href="https://www.prachachat.net/economic/news-2065633" target="_blank" rel="noopener noreferrer" class="article reveal img-01" data-cat="battery" data-date="2026-09-12">
         <div class="article-img">
-          <span class="cat-badge tech"><span class="bi"><span class="th">เทคโนโลยี</span><span class="en">Technology</span></span></span>
+          <span class="cat-badge battery"><span class="bi"><span class="th">แบตเตอรี่</span><span class="en">Battery</span></span></span>
         </div>
         <div class="article-body">
           <h3>
-            <span class="bi">
-              <span class="th">LFP vs NMC: เลือกแบตเตอรี่อะไรดีสำหรับ C&amp;I BESS</span>
-              <span class="en">LFP vs NMC: Choosing the Right Battery for C&amp;I BESS</span>
-            </span>
+            <span class="bi"><span class="th">PDP 2026: ไฟฟ้าสีเขียว 73% กับค่าไฟ 3.8364 บาท — ตัวเลขนี้ยังไม่ใช่คำตอบสุดท้าย</span><span class="en">PDP 2026: 73% green power at THB 3.8364 — the figure is not final yet</span></span>
           </h3>
           <p>
-            <span class="bi">
-              <span class="th">เปรียบเทียบเชิงเทคนิคและการลงทุนระหว่าง 2 เคมีหลัก — ความปลอดภัย cycle life ราคา per kWh</span>
-              <span class="en">Technical and financial comparison between two main chemistries — safety, cycle life, $/kWh.</span>
-            </span>
+            <span class="bi"><span class="th">12 ก.ย. 2569 ประชาชาติธุรกิจรายงานว่า หลังเวทีรับฟังความเห็น PDP 2026 มีเสียงจากภาคเอกชนและนักวิชาการสนับสนุน “ทางเลือกที่ 4” ซึ่งมีสัดส่วนพลังงานสะอาดราว 73% และค่าไฟเฉลี่ยตามแบบจำลอง 3.8364 บาท/หน่วย</span><span class="en">After the PDP 2026 hearings, industry and academics backed &quot;option 4&quot;, with a clean energy share near 73% and a modelled average tariff of THB 3.8364.</span></span>
           </p>
           <div class="article-foot">
-            <span class="date"><span class="bi"><span class="th">22 เม.ย. 2026</span><span class="en">Apr 22, 2026</span></span></span>
-            <span class="read">⏱ 14 min</span>
+            <span class="date"><span class="bi"><span class="th">12 ก.ย. 2026</span><span class="en">Sep 12, 2026</span></span></span>
+            <span class="src">ประชาชาติธุรกิจ</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.bangkokbiznews.com/economics/1238937" target="_blank" rel="noopener noreferrer" class="article reveal img-02" data-cat="policy" data-date="2026-09-11">
+        <div class="article-img">
+          <span class="cat-badge policy"><span class="bi"><span class="th">นโยบายรัฐ</span><span class="en">Policy</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi"><span class="th">Gastech 2026 เปิดที่กรุงเทพ — ทำไมเรื่อง Grid และความมั่นคงพลังงานถึงเกี่ยวกับธุรกิจไทย</span><span class="en">Gastech 2026 opens in Bangkok — why grid and energy security matter to Thai business</span></span>
+          </h3>
+          <p>
+            <span class="bi"><span class="th">กรุงเทพธุรกิจรายงานความพร้อมงาน Gastech 2026 ซึ่งจัดวันที่ 14–17 ก.ย. 2569 ที่ BITEC กรุงเทพฯ โดยกระทรวงพลังงานร่วมกับภาครัฐและเอกชนเป็นเจ้าภาพ</span><span class="en">Gastech 2026 runs 14–17 September at BITEC Bangkok, hosted by the Ministry of Energy with public and private partners, covering natural gas, LNG and low-carbon technology.</span></span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">11 ก.ย. 2026</span><span class="en">Sep 11, 2026</span></span></span>
+            <span class="src">กรุงเทพธุรกิจ</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.pea.co.th/news/corporate-news/2413" target="_blank" rel="noopener noreferrer" class="article reveal img-03" data-cat="policy" data-date="2026-09-11">
+        <div class="article-img">
+          <span class="cat-badge policy"><span class="bi"><span class="th">นโยบายรัฐ</span><span class="en">Policy</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi"><span class="th">PEA เปิดให้บ้านทะเบียนชั่วคราวยื่นเปลี่ยนอัตราค่าไฟ เริ่ม 15 ก.ย. 2569</span><span class="en">PEA opens tariff reclassification for temporary-registration homes from 15 September</span></span>
+          </h3>
+          <p>
+            <span class="bi"><span class="th">PEA เปิดรับคำร้องตั้งแต่ 15 ก.ย. ให้บ้านที่ใช้ไฟชั่วคราวเพื่ออยู่อาศัยต่อเนื่องและผ่านเงื่อนไข เปลี่ยนเป็นอัตราบ้านอยู่อาศัยแบบก้าวหน้าได้ ผู้ยื่นภายใน 30 ธ.ค. อาจได้รับอัตราใหม่ย้อนหลังตั้งแต่บิลเดือนกันยายน</span><span class="en">From 15 September, homes on a temporary supply used continuously as a residence may apply to move to the progressive residential tariff. Applications filed by 30 December may be backdated.</span></span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">11 ก.ย. 2026</span><span class="en">Sep 11, 2026</span></span></span>
+            <span class="src">การไฟฟ้าส่วนภูมิภาค (PEA)</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.pv-magazine.com/2026/09/10/thailand-paves-the-way-for-10-gw-of-rooftop-solar/" target="_blank" rel="noopener noreferrer" class="article reveal img-04" data-cat="solar" data-date="2026-09-10">
+        <div class="article-img">
+          <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi"><span class="th">ตอนนี้มี 2 มาตรการเดินคู่กัน — ตัวที่เปิดแล้วหมดสิ้น 30 ก.ย. นี้</span><span class="en">Two solar measures are running in parallel — the one already open closes on 30 September</span></span>
+          </h3>
+          <p>
+            <span class="bi"><span class="th">10 ก.ย. 2569 pv magazine รายงานภาพรวมนโยบายโซลาร์รูฟท็อปของไทย ระบุเป้าหมายกำลังผลิตโซลาร์รูฟท็อป 10 GW</span><span class="en">A policy overview of Thailand’s rooftop solar programmes, citing a 10 GW rooftop target and the separate window that closes at the end of September.</span></span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">10 ก.ย. 2026</span><span class="en">Sep 10, 2026</span></span></span>
+            <span class="src">pv magazine</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://investors.solaredge.com/news-releases/news-release-details/solaredge-advances-full-dc-powertrain-ai-data-centers-publishes" target="_blank" rel="noopener noreferrer" class="article reveal img-01" data-cat="market" data-date="2026-09-10">
+        <div class="article-img">
+          <span class="cat-badge market"><span class="bi"><span class="th">ตลาดพลังงาน</span><span class="en">Energy Market</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi"><span class="th">SolarEdge–NVIDIA เผยกรอบป้องกันระบบ 800 VDC สำหรับศูนย์ข้อมูล AI</span><span class="en">SolarEdge and NVIDIA publish an 800 VDC protection framework for AI data centres</span></span>
+          </h3>
+          <p>
+            <span class="bi"><span class="th">SolarEdge ทดสอบชุดแปลงไฟแรงดันปานกลางสู่ 800 VDC ภายใต้โหลดในห้องทดลอง และเผยแพร่กรอบการป้องกัน/กราวด์ร่วมกับ NVIDIA สำหรับศูนย์ข้อมูล AI แต่ระบบยังอยู่ระหว่างพัฒนาและยังไม่วางจำหน่ายทั่วไป</span><span class="en">SolarEdge tested medium-voltage to 800 VDC conversion under load and released a joint protection and grounding framework with NVIDIA. The system is still in development and not generally available.</span></span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">10 ก.ย. 2026</span><span class="en">Sep 10, 2026</span></span></span>
+            <span class="src">SolarEdge Investor Relations</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.matichon.co.th/economy/news_5882575" target="_blank" rel="noopener noreferrer" class="article reveal img-02" data-cat="battery" data-date="2026-09-09">
+        <div class="article-img">
+          <span class="cat-badge battery"><span class="bi"><span class="th">แบตเตอรี่</span><span class="en">Battery</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi"><span class="th">แผนไฟฟ้า 25 ปีของรัฐ วางโซลาร์ไว้ 24,300 MW — แล้วค่าไฟล่ะ ถูกลงไหม</span><span class="en">The 25-year power plan allocates 24,300 MW to solar — but will tariffs fall?</span></span>
+          </h3>
+          <p>
+            <span class="bi"><span class="th">ร่างแผน PDP2026 ของ สนพ. วางกำลังผลิตใหม่รวม 50,900 MW ช่วงปี 2569–2580 แบ่งเป็นโซลาร์ 24,300 MW และระบบกักเก็บพลังงานด้วยแบตเตอรี่ 14,500 MW (Nation Thailand, 5 ก.ย. 69)</span><span class="en">The draft PDP2026 sets 50,900 MW of new capacity for 2026–2037, of which 24,300 MW is solar and 14,500 MW battery storage, across four scenarios.</span></span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">9 ก.ย. 2026</span><span class="en">Sep 9, 2026</span></span></span>
+            <span class="src">มติชน / Nation Thailand / The Standard</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.thairath.co.th/news/politic/2958516" target="_blank" rel="noopener noreferrer" class="article reveal img-03" data-cat="solar" data-date="2026-09-09">
+        <div class="article-img">
+          <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi"><span class="th">อุดหนุนโซลาร์บ้านขยายเป็น 1.5 ล้านครัวเรือน หลังละ 5 หมื่น — เตรียมตัวยังไงก่อนเปิดลงทะเบียน</span><span class="en">Household solar subsidy widens to 1.5 million homes at THB 50,000 each — how to prepare</span></span>
+          </h3>
+          <p>
+            <span class="bi"><span class="th">มหาดไทย+คลังเตรียมขยายเป้าอุดหนุนโซลาร์รูฟท็อปจาก 1 ล้าน เป็น 1.5 ล้านครัวเรือน หลังละ 50,000 บาท ระบบราว 5 kW งบรวมราว 75,000 ล้านบาท คาดเปิดลงทะเบียนกลาง ต.ค. 2569 เงื่อนไขผู้มีสิทธิและวิธีคัดเลือกยังไม่ประกาศ</span><span class="en">Interior and Finance ministries are preparing to raise the rooftop subsidy target from 1 million to 1.5 million households at THB 50,000 each for roughly 5 kW systems, a budget near THB 75 billion, with registration expected in mid-October.</span></span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">9 ก.ย. 2026</span><span class="en">Sep 9, 2026</span></span></span>
+            <span class="src">ไทยรัฐออนไลน์ / กรุงเทพธุรกิจ / อินโฟเควสท์</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.bangkokbiznews.com/news/prnews/1251002" target="_blank" rel="noopener noreferrer" class="article reveal img-04" data-cat="solar" data-date="2026-09-09">
+        <div class="article-img">
+          <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi"><span class="th">โซลาร์ไม่ได้มีแค่บนหลังคา — บทเรียนจากระบบสูบน้ำที่อุดรธานี</span><span class="en">Solar is not only a rooftop product — lessons from a pumping system in Udon Thani</span></span>
+          </h3>
+          <p>
+            <span class="bi"><span class="th">9 ก.ย. 2569 กรุงเทพธุรกิจ (PR News) รายงานผลโครงการโซลาร์เซลล์เพื่อการเกษตรที่บ้านโคกล่าม–บ้านแสงอร่าม จ.อุดรธานี สนับสนุนโดยกลุ่ม GULF ร่วมกับมูลนิธิโครงการหลวงและหน่วยงานที่เกี่ยวข้อง</span><span class="en">An agricultural solar project in Udon Thani, backed by a private group and a royal project foundation, shows solar applied to water pumping rather than roof generation.</span></span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">9 ก.ย. 2026</span><span class="en">Sep 9, 2026</span></span></span>
+            <span class="src">กรุงเทพธุรกิจ (PR News)</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.thansettakij.com/economy/energy/668566" target="_blank" rel="noopener noreferrer" class="article reveal img-01" data-cat="ev" data-date="2026-09-09">
+        <div class="article-img">
+          <span class="cat-badge ev"><span class="bi"><span class="th">EV</span><span class="en">EV</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi"><span class="th">Smart Grid ไทยต้องโตพร้อม Solar, EV และ Data Center — ไม่ใช่แค่เพิ่มสายไฟ</span><span class="en">Thailand’s smart grid has to grow with solar, EVs and data centres — not just more cable</span></span>
+          </h3>
+          <p>
+            <span class="bi"><span class="th">9 ก.ย. 2569 ฐานเศรษฐกิจรายงานมุมมองจาก กฟผ. กฟน. กฟภ. กกพ. และ WHAUP ต่อการยกระดับ Smart Grid เพื่อรองรับโซลาร์ EV ระบบกักเก็บพลังงาน และ Data Center</span><span class="en">Utilities and the regulator set out how the grid must evolve for solar, EVs, storage and data centre load, rather than being treated as a transmission upgrade alone.</span></span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">9 ก.ย. 2026</span><span class="en">Sep 9, 2026</span></span></span>
+            <span class="src">ฐานเศรษฐกิจ</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.tisi.go.th/data/standard/pdf/TIS4_a61730_2_2567.pdf" target="_blank" rel="noopener noreferrer" class="article reveal img-02" data-cat="solar" data-date="2026-09-07">
+        <div class="article-img">
+          <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi"><span class="th">โซลาร์ที่ติดไปแล้วต้องรื้อไหม? เข้าใจ มอก. ใหม่แบบเจ้าของบ้าน</span><span class="en">Do existing solar systems have to be torn out? The new TIS standard for homeowners</span></span>
+          </h3>
+          <p>
+            <span class="bi"><span class="th">มาตรฐาน มอก. 61730 เป็นข้อกำหนดด้านความปลอดภัยของแผงโซลาร์ โดยระบบที่ติดตั้งไปแล้วใช้ได้ตามเดิม ส่วนอุปกรณ์ใหม่ที่ผลิต นำเข้า หรือจำหน่ายต้องตรวจสอบมาตรฐานตามประกาศ สมอ.</span><span class="en">TIS 61730 sets safety requirements for solar panels. Systems already installed may stay as they are; newly manufactured, imported or sold equipment must meet the standard.</span></span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">7 ก.ย. 2026</span><span class="en">Sep 7, 2026</span></span></span>
+            <span class="src">สำนักงานมาตรฐานผลิตภัณฑ์อุตสาหกรรม (สมอ.)</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.dailynews.co.th/news/6170541/" target="_blank" rel="noopener noreferrer" class="article reveal img-03" data-cat="solar" data-date="2026-09-07">
+        <div class="article-img">
+          <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi"><span class="th">มีคนอ้าง &quot;โครงการโซลาร์ของรัฐ&quot; — เช็กก่อนว่าหมายถึงช่องทางไหน</span><span class="en">Someone claims a &quot;government solar programme&quot; — check which channel they mean</span></span>
+          </h3>
+          <p>
+            <span class="bi"><span class="th">7 ก.ย. 2569 เดลินิวส์รายงานว่า น.ส.วทันยา บุนนาค กรรมาธิการวิสามัญพิจารณาร่าง พ.ร.บ.งบประมาณ ตั้งข้อสังเกตต่อการขอเพิ่มงบกองทุนหมู่บ้าน 500 ล้านบาท</span><span class="en">Questions raised in budget scrutiny over a village fund request highlight how loosely the phrase &quot;government solar programme&quot; is used.</span></span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">7 ก.ย. 2026</span><span class="en">Sep 7, 2026</span></span></span>
+            <span class="src">เดลินิวส์</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.erc.or.th/th/news-release/3472" target="_blank" rel="noopener noreferrer" class="article reveal img-04" data-cat="policy" data-date="2026-08-13">
+        <div class="article-img">
+          <span class="cat-badge policy"><span class="bi"><span class="th">นโยบายรัฐ</span><span class="en">Policy</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi"><span class="th">ค่าไฟบ้านโครงสร้างใหม่เริ่มเดือนนี้ — อ่านบิลตัวเองยังไงก่อนคิดเรื่องโซลาร์</span><span class="en">The new residential tariff starts this month — read your bill before considering solar</span></span>
+          </h3>
+          <p>
+            <span class="bi"><span class="th">โครงสร้างค่าไฟใหม่เริ่มกับบิลเดือนกันยายน 2569 ค่าไฟเฉลี่ยทุกประเภทลดเหลือ 3.86 บาทต่อหน่วย และบ้านอยู่อาศัย 200 หน่วยแรกไม่เกิน 3 บาทต่อหน่วย</span><span class="en">The new tariff structure applies from the September 2026 bill. The average across all categories falls to THB 3.86 per unit, with the first 200 residential units under THB 3.</span></span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">13 ส.ค. 2026</span><span class="en">Aug 13, 2026</span></span></span>
+            <span class="src">สำนักงานคณะกรรมการกำกับกิจการพลังงาน (กกพ.)</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.prd.go.th/th/content/category/detail/id/39/iid/528658" target="_blank" rel="noopener noreferrer" class="article reveal img-01" data-cat="solar" data-date="2026-08-05">
+        <div class="article-img">
+          <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi"><span class="th">ขึ้นทะเบียนผู้ติดตั้ง Solar Rooftop ปิด 30 ก.ย. — ช่างและตัวแทนต้องเตรียมอะไร</span><span class="en">Rooftop solar installer registration closes 30 September — what installers and dealers need</span></span>
+          </h3>
+          <p>
+            <span class="bi"><span class="th">MEA และ PEA เปิดรับขึ้นทะเบียนผู้ประกอบการติดตั้งและอุปกรณ์ Solar Rooftop ระหว่าง 3 สิงหาคมถึง 30 กันยายน 2569 พร้อมเงื่อนไขมาตรฐาน IEC/มอก. และบริการหลังการขาย</span><span class="en">MEA and PEA are registering rooftop solar installers and equipment from 3 August to 30 September 2026, with IEC/TIS standard requirements and after-sales conditions.</span></span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">5 ส.ค. 2026</span><span class="en">Aug 5, 2026</span></span></span>
+            <span class="src">กรมประชาสัมพันธ์ / MEA / PEA</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.bangkokbiznews.com/economics/1240821" target="_blank" rel="noopener noreferrer" class="article reveal img-02" data-cat="battery" data-date="2026-06-30">
+        <div class="article-img">
+          <span class="cat-badge battery"><span class="bi"><span class="th">แบตเตอรี่</span><span class="en">Battery</span></span></span>
+        </div>
+        <div class="article-body">
+          <h3>
+            <span class="bi"><span class="th">ก่อนติดโซลาร์ อย่าดูแค่แผง — 5 อุปกรณ์ที่ต้องมี มอก. บังคับ ก.ย. 69</span><span class="en">Before installing solar, look past the panel — five components under mandatory TIS from September</span></span>
+          </h3>
+          <p>
+            <span class="bi"><span class="th">กระทรวงอุตสาหกรรมโดยคณะกรรมการ สมอ. มีมติเพิ่มผลิตภัณฑ์ในระบบโซลาร์เซลล์อีก 5 รายการเข้าเป็นสินค้าที่ต้องเป็นไปตามมาตรฐานบังคับ มีผลเดือนกันยายน 2569 ได้แก่ สายไฟฟ้า แบตเตอรี่ลิเทียม ฟิวส์แรงดันต่ำ อินเวอร์เตอร์ และเครื่องตัดวงจรไฟฟ้ากระแสตรง</span><span class="en">The TIS board added five more solar system products to the mandatory standards list effective September 2026, including cabling, lithium batteries and fuses.</span></span>
+          </p>
+          <div class="article-foot">
+            <span class="date"><span class="bi"><span class="th">30 มิ.ย. 2026</span><span class="en">Jun 30, 2026</span></span></span>
+            <span class="src">กรุงเทพธุรกิจ / แนวหน้า / สมอ.</span>
           </div>
         </div>
       </a>
 
     </div>
 
-    <!-- Pagination -->
-    <div class="pagination">
-      <button class="pg-btn pg-arrow" disabled>←</button>
-      <button class="pg-btn active">1</button>
-      <button class="pg-btn">2</button>
-      <button class="pg-btn">3</button>
-      <button class="pg-btn">…</button>
-      <button class="pg-btn">8</button>
-      <button class="pg-btn pg-arrow">→</button>
-    </div>
   </div>
 
   <!-- RIGHT SIDEBAR -->
   <aside class="sidebar">
 
-    <!-- Popular Posts -->
+    <!-- Recent -->
     <div class="widget reveal">
-      <h4><span class="pip"></span><span class="bi"><span class="th">ยอดนิยม</span><span class="en">Most Popular</span></span></h4>
-      <div class="pop-item">
+      <h4><span class="pip"></span><span class="bi"><span class="th">อ่านล่าสุด</span><span class="en">Recent</span></span></h4>
+      <a class="pop-item" href="https://www.prd.go.th/th/content/category/detail/id/39/iid/541767" target="_blank" rel="noopener noreferrer">
         <div class="pop-num">01</div>
         <div class="pop-info">
-          <h5><span class="bi"><span class="th">5 เหตุผลที่โรงงานควรมี BESS ในปี 2026</span><span class="en">5 Reasons Factories Need BESS in 2026</span></span></h5>
-          <div class="meta">2.4k views · 5 min</div>
+          <h5><span class="bi"><span class="th">โซลาร์ 1.5 ล้านหลัง ไม่ได้มีแค่เรื่องเงินอุดหนุน มาตรฐานติดตั้งจะเป็นอีกโจทย์ใหญ่</span><span class="en">The 1.5 million-home solar push is not only about subsidy — installation standards are the other problem</span></span></h5>
+          <div class="meta"><span class="bi"><span class="th">16 ก.ย. 2026</span><span class="en">Sep 16, 2026</span></span> · กรมประชาสัมพันธ์ / กระทรวงอุตสาหกรรม</div>
         </div>
-      </div>
-      <div class="pop-item">
+      </a>
+      <a class="pop-item" href="https://www.thairath.co.th/news/politic/2959340" target="_blank" rel="noopener noreferrer">
         <div class="pop-num">02</div>
         <div class="pop-info">
-          <h5><span class="bi"><span class="th">วิธีคำนวณ Peak Shaving ROI ใน Excel</span><span class="en">How to Calculate Peak Shaving ROI in Excel</span></span></h5>
-          <div class="meta">1.8k views · 8 min</div>
+          <h5><span class="bi"><span class="th">ขายไฟคืนได้ 1,000 หรือ 1,650 บาทต่อเดือน — ทำไมสองตัวเลขนี้ถึงไม่ตรงกัน</span><span class="en">Selling power back at THB 1,000 or THB 1,650 a month — why the two figures disagree</span></span></h5>
+          <div class="meta"><span class="bi"><span class="th">13 ก.ย. 2026</span><span class="en">Sep 13, 2026</span></span> · ไทยรัฐ / ผู้จัดการออนไลน์</div>
         </div>
-      </div>
-      <div class="pop-item">
+      </a>
+      <a class="pop-item" href="https://www.thansettakij.com/finance/668841" target="_blank" rel="noopener noreferrer">
         <div class="pop-num">03</div>
         <div class="pop-info">
-          <h5><span class="bi"><span class="th">มาตรฐาน UL9540 เข้าใจง่าย ใน 3 นาที</span><span class="en">UL9540 Standard Explained in 3 Minutes</span></span></h5>
-          <div class="meta">1.5k views · 3 min</div>
+          <h5><span class="bi"><span class="th">Data Center 16 แห่ง กินไฟเกิน 800 MW สิ่งที่โรงงานควรอ่านจากร่าง PDP2026</span><span class="en">Sixteen data centres draw over 800 MW — what factories should read in the draft PDP2026</span></span></h5>
+          <div class="meta"><span class="bi"><span class="th">13 ก.ย. 2026</span><span class="en">Sep 13, 2026</span></span> · ฐานเศรษฐกิจ</div>
         </div>
-      </div>
-      <div class="pop-item">
+      </a>
+      <a class="pop-item" href="https://www.dailynews.co.th/news/6182832/" target="_blank" rel="noopener noreferrer">
         <div class="pop-num">04</div>
         <div class="pop-info">
-          <h5><span class="bi"><span class="th">Floating Solar คุ้มจริงหรือไม่? เปรียบเทียบกับ Ground-mount</span><span class="en">Is Floating Solar Worth It? Compared to Ground-mount</span></span></h5>
-          <div class="meta">1.2k views · 7 min</div>
+          <h5><span class="bi"><span class="th">ติดโซลาร์แล้วไฟไม่ดับจริงไหม — คำตอบอยู่ที่แบตเตอรี่ ไม่ใช่แผง</span><span class="en">Does solar really keep the lights on? The answer is the battery, not the panel</span></span></h5>
+          <div class="meta"><span class="bi"><span class="th">12 ก.ย. 2026</span><span class="en">Sep 12, 2026</span></span> · เดลินิวส์</div>
         </div>
-      </div>
-      <div class="pop-item">
+      </a>
+      <a class="pop-item" href="https://www.prachachat.net/economic/news-2065633" target="_blank" rel="noopener noreferrer">
         <div class="pop-num">05</div>
         <div class="pop-info">
-          <h5><span class="bi"><span class="th">ทำไม Liquid-cooled BESS ถึงเป็นมาตรฐานใหม่</span><span class="en">Why Liquid-cooled BESS is the New Standard</span></span></h5>
-          <div class="meta">980 views · 6 min</div>
+          <h5><span class="bi"><span class="th">PDP 2026: ไฟฟ้าสีเขียว 73% กับค่าไฟ 3.8364 บาท — ตัวเลขนี้ยังไม่ใช่คำตอบสุดท้าย</span><span class="en">PDP 2026: 73% green power at THB 3.8364 — the figure is not final yet</span></span></h5>
+          <div class="meta"><span class="bi"><span class="th">12 ก.ย. 2026</span><span class="en">Sep 12, 2026</span></span> · ประชาชาติธุรกิจ</div>
         </div>
-      </div>
+      </a>
     </div>
 
     <!-- Categories -->
     <div class="widget reveal">
       <h4><span class="pip"></span><span class="bi"><span class="th">หมวดหมู่</span><span class="en">Categories</span></span></h4>
       <div class="cat-list">
-        <a class="cat-link" data-cat="industry">
-          <span><span class="bi"><span class="th">อุตสาหกรรม</span><span class="en">Industry</span></span></span>
-          <span class="cnt">2</span>
+        <a class="cat-link" data-cat="solar">
+          <span><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
+          <span class="cnt">9</span>
         </a>
-        <a class="cat-link" data-cat="tech">
-          <span><span class="bi"><span class="th">เทคโนโลยี</span><span class="en">Technology</span></span></span>
-          <span class="cnt">3</span>
+        <a class="cat-link" data-cat="policy">
+          <span><span class="bi"><span class="th">นโยบายรัฐ</span><span class="en">Policy</span></span></span>
+          <span class="cnt">4</span>
         </a>
-        <a class="cat-link" data-cat="company">
-          <span><span class="bi"><span class="th">บริษัท</span><span class="en">Company</span></span></span>
+        <a class="cat-link" data-cat="battery">
+          <span><span class="bi"><span class="th">แบตเตอรี่</span><span class="en">Battery</span></span></span>
+          <span class="cnt">4</span>
+        </a>
+        <a class="cat-link" data-cat="market">
+          <span><span class="bi"><span class="th">ตลาดพลังงาน</span><span class="en">Energy Market</span></span></span>
           <span class="cnt">1</span>
         </a>
-        <a class="cat-link" data-cat="esg">
-          <span><span class="bi"><span class="th">ESG &amp; ความยั่งยืน</span><span class="en">ESG &amp; Sustainability</span></span></span>
+        <a class="cat-link" data-cat="ev">
+          <span><span class="bi"><span class="th">EV</span><span class="en">EV</span></span></span>
           <span class="cnt">1</span>
-        </a>
-        <a class="cat-link">
-          <span><span class="bi"><span class="th">กรณีศึกษา</span><span class="en">Case Studies</span></span></span>
-          <span class="cnt">12</span>
-        </a>
-        <a class="cat-link">
-          <span><span class="bi"><span class="th">วิดีโอ</span><span class="en">Videos</span></span></span>
-          <span class="cnt">8</span>
         </a>
       </div>
     </div>
@@ -834,23 +1013,21 @@
   const featured = document.querySelector('.featured');
   const visibleCount = document.getElementById('visibleCount');
 
-  const todayStr = new Date().toISOString().slice(0,10); // "YYYY-MM-DD"
-
   function applyFilter(cat){
     tabs.forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
     let n = 0;
     articles.forEach(a => {
-      const show = cat === 'all' || (cat === 'today' && a.dataset.date === todayStr);
+      const show = cat === 'all' || a.dataset.cat === cat;
       a.classList.toggle('hide', !show);
       if(show) n++;
     });
     // Featured article
     if(featured){
-      const featShow = cat === 'all' || (cat === 'today' && featured.dataset.date === todayStr);
+      const featShow = cat === 'all' || featured.dataset.cat === cat;
       featured.style.display = featShow ? '' : 'none';
       if(featShow) n++;
     }
-    if(visibleCount) visibleCount.textContent = cat === 'all' ? document.querySelectorAll('.articles .article').length + (featured ? 1 : 0) : n;
+    if(visibleCount) visibleCount.textContent = n;
   }
   tabs.forEach(t => t.addEventListener('click', () => applyFilter(t.dataset.cat)));
   // Sidebar category links also filter
