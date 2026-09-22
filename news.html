@@ -144,7 +144,7 @@
   .featured:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
   .featured-img{
     height:420px;position:relative;overflow:hidden;
-    background-image:url('/01.webp');
+    background-image:var(--news-img, none), url('/01.webp');
     background-size:cover;background-position:center 30%;
   }
   .featured-img::before{
@@ -212,6 +212,7 @@
   .article:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:transparent}
   .article-img{
     height:200px;position:relative;overflow:hidden;
+    background-image:var(--news-img, none), var(--ph, none);
     background-size:cover;background-position:center 25%;background-repeat:no-repeat;
   }
   .article-img::before{
@@ -220,20 +221,14 @@
     transition:opacity .35s ease;
   }
   .article:hover .article-img::before{opacity:.78}
-  .article-img::after{
-    content:'MOCKUP';position:absolute;top:12px;right:12px;
-    background:rgba(0,0,0,.55);color:rgba(255,255,255,.95);
-    padding:3px 9px;border-radius:5px;
-    font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.6px;
-  }
   .article-img .cat-badge{
     position:absolute;top:14px;left:14px;z-index:2;
   }
-  /* Use 01-04.webp cycling */
-  .article.img-01 .article-img{background-image:url('/01.webp');--tint:linear-gradient(135deg, rgba(106,45,175,.6), rgba(45,26,74,.75))}
-  .article.img-02 .article-img{background-image:url('/02.webp');--tint:linear-gradient(135deg, rgba(217,119,6,.55), rgba(146,64,14,.7))}
-  .article.img-03 .article-img{background-image:url('/03.webp');--tint:linear-gradient(135deg, rgba(5,150,105,.6), rgba(6,78,59,.7))}
-  .article.img-04 .article-img{background-image:url('/04.webp');--tint:linear-gradient(135deg, rgba(37,99,235,.55), rgba(30,64,175,.7))}
+  /* Placeholders, cycled until a real image is uploaded for the article */
+  .article.img-01 .article-img{--ph:url('/01.webp');--tint:linear-gradient(135deg, rgba(106,45,175,.6), rgba(45,26,74,.75))}
+  .article.img-02 .article-img{--ph:url('/02.webp');--tint:linear-gradient(135deg, rgba(217,119,6,.55), rgba(146,64,14,.7))}
+  .article.img-03 .article-img{--ph:url('/03.webp');--tint:linear-gradient(135deg, rgba(5,150,105,.6), rgba(6,78,59,.7))}
+  .article.img-04 .article-img{--ph:url('/04.webp');--tint:linear-gradient(135deg, rgba(37,99,235,.55), rgba(30,64,175,.7))}
 
   .article-body{padding:22px 22px 24px;flex:1;display:flex;flex-direction:column}
   .article-body h3{
@@ -490,7 +485,7 @@
 <div class="wrap main">
 
   <!-- FEATURED ARTICLE -->
-  <a href="https://www.prd.go.th/th/content/category/detail/id/33/iid/542862" target="_blank" rel="noopener noreferrer" class="featured reveal" data-cat="solar" data-date="2026-09-18">
+  <a href="https://www.prd.go.th/th/content/category/detail/id/33/iid/542862" target="_blank" rel="noopener noreferrer" class="featured reveal" data-cat="solar" data-date="2026-09-18" data-slug="nepc177-solar-people-10000mw-2.20thb-20yr-rooftop-ground-floating-2026-09-18" style="--news-img:url('/news/nepc177-solar-people-10000mw-2.20thb-20yr-rooftop-ground-floating-2026-09-18.webp')">
     <div class="featured-img"></div>
     <div class="featured-body">
       <div class="article-meta">
@@ -518,7 +513,7 @@
 
     <div class="articles">
 
-      <a href="https://www.prd.go.th/th/content/category/detail/id/39/iid/541767" target="_blank" rel="noopener noreferrer" class="article reveal img-01" data-cat="solar" data-date="2026-09-16">
+      <a href="https://www.prd.go.th/th/content/category/detail/id/39/iid/541767" target="_blank" rel="noopener noreferrer" class="article reveal img-01" data-cat="solar" data-date="2026-09-16" data-slug="th-industry-ministry-tisi-solar-rooftop-standards-1.5m-households-mid-oct-2026-09-16" style="--news-img:url('/news/th-industry-ministry-tisi-solar-rooftop-standards-1.5m-households-mid-oct-2026-09-16.webp')">
         <div class="article-img">
           <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
         </div>
@@ -536,7 +531,7 @@
         </div>
       </a>
 
-      <a href="https://www.thairath.co.th/news/politic/2959340" target="_blank" rel="noopener noreferrer" class="article reveal img-02" data-cat="solar" data-date="2026-09-13">
+      <a href="https://www.thairath.co.th/news/politic/2959340" target="_blank" rel="noopener noreferrer" class="article reveal img-02" data-cat="solar" data-date="2026-09-13" data-slug="thanakorn-rooftop-solar-5kw-750units-1650baht-month-figure-conflict-2026-09-13" style="--news-img:url('/news/thanakorn-rooftop-solar-5kw-750units-1650baht-month-figure-conflict-2026-09-13.webp')">
         <div class="article-img">
           <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
         </div>
@@ -554,7 +549,7 @@
         </div>
       </a>
 
-      <a href="https://www.thansettakij.com/finance/668841" target="_blank" rel="noopener noreferrer" class="article reveal img-03" data-cat="policy" data-date="2026-09-13">
+      <a href="https://www.thansettakij.com/finance/668841" target="_blank" rel="noopener noreferrer" class="article reveal img-03" data-cat="policy" data-date="2026-09-13" data-slug="pdp2026-analysis-clean-power-datacenter-16-sites-800mw-direct-ppa-65bn-2026-09-13" style="--news-img:url('/news/pdp2026-analysis-clean-power-datacenter-16-sites-800mw-direct-ppa-65bn-2026-09-13.webp')">
         <div class="article-img">
           <span class="cat-badge policy"><span class="bi"><span class="th">นโยบายรัฐ</span><span class="en">Policy</span></span></span>
         </div>
@@ -572,7 +567,7 @@
         </div>
       </a>
 
-      <a href="https://www.dailynews.co.th/news/6182832/" target="_blank" rel="noopener noreferrer" class="article reveal img-04" data-cat="battery" data-date="2026-09-12">
+      <a href="https://www.dailynews.co.th/news/6182832/" target="_blank" rel="noopener noreferrer" class="article reveal img-04" data-cat="battery" data-date="2026-09-12" data-slug="gulf-sparks-offgrid-solar-battery-ban-huai-ta-uttaradit-2026-09-12" style="--news-img:url('/news/gulf-sparks-offgrid-solar-battery-ban-huai-ta-uttaradit-2026-09-12.webp')">
         <div class="article-img">
           <span class="cat-badge battery"><span class="bi"><span class="th">แบตเตอรี่</span><span class="en">Battery</span></span></span>
         </div>
@@ -590,7 +585,7 @@
         </div>
       </a>
 
-      <a href="https://www.prachachat.net/economic/news-2065633" target="_blank" rel="noopener noreferrer" class="article reveal img-01" data-cat="battery" data-date="2026-09-12">
+      <a href="https://www.prachachat.net/economic/news-2065633" target="_blank" rel="noopener noreferrer" class="article reveal img-01" data-cat="battery" data-date="2026-09-12" data-slug="pdp2026-option4-73pct-green-power-3.8364-tariff-pending-final-2026-09-12" style="--news-img:url('/news/pdp2026-option4-73pct-green-power-3.8364-tariff-pending-final-2026-09-12.webp')">
         <div class="article-img">
           <span class="cat-badge battery"><span class="bi"><span class="th">แบตเตอรี่</span><span class="en">Battery</span></span></span>
         </div>
@@ -608,7 +603,7 @@
         </div>
       </a>
 
-      <a href="https://www.bangkokbiznews.com/economics/1238937" target="_blank" rel="noopener noreferrer" class="article reveal img-02" data-cat="policy" data-date="2026-09-11">
+      <a href="https://www.bangkokbiznews.com/economics/1238937" target="_blank" rel="noopener noreferrer" class="article reveal img-02" data-cat="policy" data-date="2026-09-11" data-slug="gastech-2026-bangkok-energy-security-ai-grid-modernization-2026-09-11" style="--news-img:url('/news/gastech-2026-bangkok-energy-security-ai-grid-modernization-2026-09-11.webp')">
         <div class="article-img">
           <span class="cat-badge policy"><span class="bi"><span class="th">นโยบายรัฐ</span><span class="en">Policy</span></span></span>
         </div>
@@ -626,7 +621,7 @@
         </div>
       </a>
 
-      <a href="https://www.pea.co.th/news/corporate-news/2413" target="_blank" rel="noopener noreferrer" class="article reveal img-03" data-cat="policy" data-date="2026-09-11">
+      <a href="https://www.pea.co.th/news/corporate-news/2413" target="_blank" rel="noopener noreferrer" class="article reveal img-03" data-cat="policy" data-date="2026-09-11" data-slug="th-pea-residential-progressive-rate-application-2026-09-11" style="--news-img:url('/news/th-pea-residential-progressive-rate-application-2026-09-11.webp')">
         <div class="article-img">
           <span class="cat-badge policy"><span class="bi"><span class="th">นโยบายรัฐ</span><span class="en">Policy</span></span></span>
         </div>
@@ -644,7 +639,7 @@
         </div>
       </a>
 
-      <a href="https://www.pv-magazine.com/2026/09/10/thailand-paves-the-way-for-10-gw-of-rooftop-solar/" target="_blank" rel="noopener noreferrer" class="article reveal img-04" data-cat="solar" data-date="2026-09-10">
+      <a href="https://www.pv-magazine.com/2026/09/10/thailand-paves-the-way-for-10-gw-of-rooftop-solar/" target="_blank" rel="noopener noreferrer" class="article reveal img-04" data-cat="solar" data-date="2026-09-10" data-slug="th-10gw-rooftop-target-6842mw-installed-netbilling-500mw-deadline-sep30-2026-09-10" style="--news-img:url('/news/th-10gw-rooftop-target-6842mw-installed-netbilling-500mw-deadline-sep30-2026-09-10.webp')">
         <div class="article-img">
           <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
         </div>
@@ -662,7 +657,7 @@
         </div>
       </a>
 
-      <a href="https://investors.solaredge.com/news-releases/news-release-details/solaredge-advances-full-dc-powertrain-ai-data-centers-publishes" target="_blank" rel="noopener noreferrer" class="article reveal img-01" data-cat="market" data-date="2026-09-10">
+      <a href="https://investors.solaredge.com/news-releases/news-release-details/solaredge-advances-full-dc-powertrain-ai-data-centers-publishes" target="_blank" rel="noopener noreferrer" class="article reveal img-01" data-cat="market" data-date="2026-09-10" data-slug="solaredge-800vdc-ai-data-center-nvidia-framework-2026-09-10" style="--news-img:url('/news/solaredge-800vdc-ai-data-center-nvidia-framework-2026-09-10.webp')">
         <div class="article-img">
           <span class="cat-badge market"><span class="bi"><span class="th">ตลาดพลังงาน</span><span class="en">Energy Market</span></span></span>
         </div>
@@ -680,7 +675,7 @@
         </div>
       </a>
 
-      <a href="https://www.matichon.co.th/economy/news_5882575" target="_blank" rel="noopener noreferrer" class="article reveal img-02" data-cat="battery" data-date="2026-09-09">
+      <a href="https://www.matichon.co.th/economy/news_5882575" target="_blank" rel="noopener noreferrer" class="article reveal img-02" data-cat="battery" data-date="2026-09-09" data-slug="th-pdp2026-solar-24300mw-bess-14500mw-lcoe-criticism-2026-09-09" style="--news-img:url('/news/th-pdp2026-solar-24300mw-bess-14500mw-lcoe-criticism-2026-09-09.webp')">
         <div class="article-img">
           <span class="cat-badge battery"><span class="bi"><span class="th">แบตเตอรี่</span><span class="en">Battery</span></span></span>
         </div>
@@ -698,7 +693,7 @@
         </div>
       </a>
 
-      <a href="https://www.thairath.co.th/news/politic/2958516" target="_blank" rel="noopener noreferrer" class="article reveal img-03" data-cat="solar" data-date="2026-09-09">
+      <a href="https://www.thairath.co.th/news/politic/2958516" target="_blank" rel="noopener noreferrer" class="article reveal img-03" data-cat="solar" data-date="2026-09-09" data-slug="th-rooftop-solar-subsidy-1.5m-homes-50k-baht-2026-09-09" style="--news-img:url('/news/th-rooftop-solar-subsidy-1.5m-homes-50k-baht-2026-09-09.webp')">
         <div class="article-img">
           <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
         </div>
@@ -716,7 +711,7 @@
         </div>
       </a>
 
-      <a href="https://www.bangkokbiznews.com/news/prnews/1251002" target="_blank" rel="noopener noreferrer" class="article reveal img-04" data-cat="solar" data-date="2026-09-09">
+      <a href="https://www.bangkokbiznews.com/news/prnews/1251002" target="_blank" rel="noopener noreferrer" class="article reveal img-04" data-cat="solar" data-date="2026-09-09" data-slug="gulf-agri-solar-water-pump-greenhouse-udonthani-32k-baht-2026-09-09" style="--news-img:url('/news/gulf-agri-solar-water-pump-greenhouse-udonthani-32k-baht-2026-09-09.webp')">
         <div class="article-img">
           <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
         </div>
@@ -734,7 +729,7 @@
         </div>
       </a>
 
-      <a href="https://www.thansettakij.com/economy/energy/668566" target="_blank" rel="noopener noreferrer" class="article reveal img-01" data-cat="ev" data-date="2026-09-09">
+      <a href="https://www.thansettakij.com/economy/energy/668566" target="_blank" rel="noopener noreferrer" class="article reveal img-01" data-cat="ev" data-date="2026-09-09" data-slug="thai-smart-grid-egat-mea-pea-erc-solar-ev-tpa-ugt-2026-09-09" style="--news-img:url('/news/thai-smart-grid-egat-mea-pea-erc-solar-ev-tpa-ugt-2026-09-09.webp')">
         <div class="article-img">
           <span class="cat-badge ev"><span class="bi"><span class="th">EV</span><span class="en">EV</span></span></span>
         </div>
@@ -752,7 +747,7 @@
         </div>
       </a>
 
-      <a href="https://www.tisi.go.th/data/standard/pdf/TIS4_a61730_2_2567.pdf" target="_blank" rel="noopener noreferrer" class="article reveal img-02" data-cat="solar" data-date="2026-09-07">
+      <a href="https://www.tisi.go.th/data/standard/pdf/TIS4_a61730_2_2567.pdf" target="_blank" rel="noopener noreferrer" class="article reveal img-02" data-cat="solar" data-date="2026-09-07" data-slug="tisi-61730-solar-safety-2026" style="--news-img:url('/news/tisi-61730-solar-safety-2026.webp')">
         <div class="article-img">
           <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
         </div>
@@ -770,7 +765,7 @@
         </div>
       </a>
 
-      <a href="https://www.dailynews.co.th/news/6170541/" target="_blank" rel="noopener noreferrer" class="article reveal img-03" data-cat="solar" data-date="2026-09-07">
+      <a href="https://www.dailynews.co.th/news/6170541/" target="_blank" rel="noopener noreferrer" class="article reveal img-03" data-cat="solar" data-date="2026-09-07" data-slug="village-fund-500m-solar-budget-duplication-sml-scrutiny-2026-09-07" style="--news-img:url('/news/village-fund-500m-solar-budget-duplication-sml-scrutiny-2026-09-07.webp')">
         <div class="article-img">
           <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
         </div>
@@ -788,7 +783,7 @@
         </div>
       </a>
 
-      <a href="https://www.erc.or.th/th/news-release/3472" target="_blank" rel="noopener noreferrer" class="article reveal img-04" data-cat="policy" data-date="2026-08-13">
+      <a href="https://www.erc.or.th/th/news-release/3472" target="_blank" rel="noopener noreferrer" class="article reveal img-04" data-cat="policy" data-date="2026-08-13" data-slug="erc-residential-progressive-tariff-sep-2026" style="--news-img:url('/news/erc-residential-progressive-tariff-sep-2026.webp')">
         <div class="article-img">
           <span class="cat-badge policy"><span class="bi"><span class="th">นโยบายรัฐ</span><span class="en">Policy</span></span></span>
         </div>
@@ -806,7 +801,7 @@
         </div>
       </a>
 
-      <a href="https://www.prd.go.th/th/content/category/detail/id/39/iid/528658" target="_blank" rel="noopener noreferrer" class="article reveal img-01" data-cat="solar" data-date="2026-08-05">
+      <a href="https://www.prd.go.th/th/content/category/detail/id/39/iid/528658" target="_blank" rel="noopener noreferrer" class="article reveal img-01" data-cat="solar" data-date="2026-08-05" data-slug="thai-solar-vendor-registry-2026-08-05" style="--news-img:url('/news/thai-solar-vendor-registry-2026-08-05.webp')">
         <div class="article-img">
           <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
         </div>
@@ -824,7 +819,7 @@
         </div>
       </a>
 
-      <a href="https://www.bangkokbiznews.com/economics/1240821" target="_blank" rel="noopener noreferrer" class="article reveal img-02" data-cat="battery" data-date="2026-06-30">
+      <a href="https://www.bangkokbiznews.com/economics/1240821" target="_blank" rel="noopener noreferrer" class="article reveal img-02" data-cat="battery" data-date="2026-06-30" data-slug="tisi-5-solar-equipment-mandatory-standard-sep-2026" style="--news-img:url('/news/tisi-5-solar-equipment-mandatory-standard-sep-2026.webp')">
         <div class="article-img">
           <span class="cat-badge battery"><span class="bi"><span class="th">แบตเตอรี่</span><span class="en">Battery</span></span></span>
         </div>
