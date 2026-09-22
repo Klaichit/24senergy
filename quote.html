@@ -118,6 +118,7 @@
     opacity:0;transition:opacity .15s}
   .check-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
   .dot-bess{background:var(--brand)}.dot-solar{background:#d97706}
+  .dot-inverter{background:#2563eb}
   .dot-ev{background:#059669}.dot-ems{background:#2563eb}
   .check-label{font-size:14px;font-weight:700;color:var(--ink)}
   .check-sub{font-size:12px;color:var(--muted);margin-top:1px}
@@ -353,22 +354,13 @@
                   <div class="check-sub"><span class="bi"><span class="th">ระบบโซลาร์เซลล์</span><span class="en">Solar Rooftop / Ground</span></span></div>
                 </div>
               </label>
-              <label class="prod-check">
-                <input type="checkbox" name="products" value="ev">
+              <label class="check-item">
+                <input type="checkbox" name="products" value="inverter">
                 <span class="check-box"></span>
-                <span class="check-dot dot-ev"></span>
+                <span class="check-dot dot-inverter"></span>
                 <div>
-                  <div class="check-label">EV Charger</div>
-                  <div class="check-sub"><span class="bi"><span class="th">สถานีชาร์จยานยนต์ไฟฟ้า</span><span class="en">EV Charging Station</span></span></div>
-                </div>
-              </label>
-              <label class="prod-check">
-                <input type="checkbox" name="products" value="ems">
-                <span class="check-box"></span>
-                <span class="check-dot dot-ems"></span>
-                <div>
-                  <div class="check-label">EMS / Monitoring</div>
-                  <div class="check-sub"><span class="bi"><span class="th">ระบบจัดการพลังงาน</span><span class="en">Energy Management</span></span></div>
+                  <div class="check-label">Inverter</div>
+                  <div class="check-sub"><span class="bi"><span class="th">อินเวอร์เตอร์ / Hybrid</span><span class="en">String &amp; hybrid inverters</span></span></div>
                 </div>
               </label>
             </div>
