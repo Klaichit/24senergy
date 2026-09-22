@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Products — 24sEnergy</title>
-<meta name="description" content="4 ผลิตภัณฑ์หลักจาก 24sEnergy — BESS, Solar PV, EV Charger และ Energy Management System">
+<meta name="description" content="ผลิตภัณฑ์จาก 24sEnergy — ระบบกักเก็บพลังงาน BESS, โซลาร์เซลล์ และอินเวอร์เตอร์">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;700;900&family=Noto+Sans:wght@300;400;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -225,7 +225,7 @@
 <link rel="canonical" href="https://24senergy.vercel.app/products.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Products — 24sEnergy">
-<meta property="og:description" content="4 ผลิตภัณฑ์หลักจาก 24sEnergy — BESS, Solar PV, EV Charger และ Energy Management System">
+<meta property="og:description" content="ผลิตภัณฑ์จาก 24sEnergy — ระบบกักเก็บพลังงาน BESS, โซลาร์เซลล์ และอินเวอร์เตอร์">
 <meta property="og:url" content="https://24senergy.vercel.app/products.html">
 <meta property="og:image" content="https://24senergy.vercel.app/24sEnergy_png.png">
 <meta name="twitter:card" content="summary">
@@ -271,8 +271,7 @@
     </h1>
     <p>
       <span class="bi">
-        <span class="th">4 ผลิตภัณฑ์หลักที่ครอบคลุมทุกความต้องการด้านพลังงาน — BESS, Solar PV, EV Charger และ Energy Management System จากพันธมิตรชั้นนำระดับโลก</span>
-        <span class="en">4 core products covering all your energy needs — BESS, Solar PV, EV Charger, and Energy Management System from world-class partners.</span>
+        <span class="th">ระบบกักเก็บพลังงาน BESS โซลาร์เซลล์ และอินเวอร์เตอร์ จากแบรนด์ที่ผ่านการคัดเลือก สำหรับบ้าน ฟาร์ม และโรงงาน</span><span class="en">Battery storage, solar PV and inverters from selected brands — for homes, farms and factories.</span>
       </span>
     </p>
   </div>
@@ -482,6 +481,9 @@
       const data = await res.json();
       renderProducts(Array.isArray(data) ? data : []);
     }catch(e){
+      // Without this the page shows a generic Thai error and swallows the cause,
+      // which is how a 404 on /site.js looked like a broken product catalogue.
+      console.error('loadProducts failed:', e);
       const grid = document.getElementById('products-grid');
       grid.textContent = document.body.dataset.lang === 'en' ? 'Unable to load products. Please reload or contact us.' : 'โหลดสินค้าไม่สำเร็จ กรุณาโหลดหน้าใหม่หรือติดต่อเรา';
     }

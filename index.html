@@ -1304,7 +1304,7 @@
         title_en: s.title_en || '',
         label: s.title_en || '',
       })));
-    } catch(e) {}
+    } catch(e) { console.error('Supabase load failed:', e); }
   }
 
   // Load video from site_config
@@ -1346,7 +1346,7 @@
         section.style.display = '';
         section.querySelectorAll('.reveal').forEach(el => io.observe(el));
       }
-    } catch(e) {}
+    } catch(e) { console.error('Supabase load failed:', e); }
   }
 
   loadHeroSlides();

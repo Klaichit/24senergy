@@ -2,12 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   async redirects() {
-    return Object.entries({
-      'product-heroee8.html': 'heroee8-aio',
-      'product-solar.html': 'solar-rooftop-industrial',
-      'product-ev.html': 'dc-fast-charger-180kw',
-      'product-ems.html': '24scloud-ems',
-    }).map(([source, slug]) => ({ source: `/${source}`, destination: `/products/${slug}`, permanent: true }))
+    // These pages covered products that are no longer sold, so they used to
+    // redirect to product slugs that are now unpublished — a dead end. Send
+    // them to the catalogue instead.
+    return ['product-heroee8.html', 'product-solar.html', 'product-ev.html', 'product-ems.html']
+      .map(source => ({ source: `/${source}`, destination: '/products.html', permanent: true }))
   },
   async headers() {
     return [{ source: '/:path*', headers: [
