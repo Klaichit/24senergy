@@ -7,8 +7,7 @@ import type { Product, ProductCategory } from '@/types/database'
 const CATEGORIES: { value: ProductCategory; label: string }[] = [
   { value: 'bess', label: 'BESS — ระบบกักเก็บพลังงาน' },
   { value: 'solar', label: 'Solar PV' },
-  { value: 'ev', label: 'EV Charger' },
-  { value: 'ems', label: 'EMS / Monitoring' },
+  { value: 'inverter', label: 'Inverter' },
 ]
 
 const BUCKET = 'product-images'

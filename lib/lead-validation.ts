@@ -1,5 +1,5 @@
 export type LeadKind = 'quote' | 'contact' | 'newsletter'
-const categories = new Set(['bess', 'solar', 'ev', 'ems'])
+const categories = new Set(['bess', 'solar', 'inverter', 'ev', 'ems'])
 
 export function validateLead(value: unknown): { kind: LeadKind; row: Record<string, unknown> } {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('Invalid body')

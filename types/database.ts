@@ -1,4 +1,5 @@
-export type ProductCategory = 'bess' | 'solar' | 'ev' | 'ems'
+// 'ev' and 'ems' are retired lines kept so existing unpublished rows still type-check.
+export type ProductCategory = 'bess' | 'solar' | 'inverter' | 'ev' | 'ems'
 export type QuoteStatus = 'new' | 'contacted' | 'quoted' | 'closed'
 
 export interface Product {
