@@ -287,9 +287,18 @@
     display:flex;flex-direction:column;justify-content:flex-end;
     color:#fff;text-decoration:none;
     transition:transform .35s ease,box-shadow .35s ease;
+    box-shadow:0 1px 2px rgba(26,26,46,.08), 0 10px 28px rgba(26,26,46,.13);
   }
-  .product-card{box-shadow:var(--shadow-sm)}
-  .product-card:hover{transform:translateY(-6px);box-shadow:0 18px 48px rgba(26,26,46,.28)}
+  /* rim light along the top and a hairline all round */
+  .product-card::after{
+    content:'';position:absolute;inset:0;z-index:3;pointer-events:none;
+    border-radius:inherit;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.16), inset 0 0 0 1px rgba(255,255,255,.07);
+  }
+  .product-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 3px 6px rgba(26,26,46,.10), 0 26px 56px rgba(26,26,46,.30);
+  }
   /* full-bleed image */
   .product-card .mockup{
     position:absolute;inset:0;z-index:0;
@@ -297,17 +306,18 @@
   .product-card .mockup img{
     width:100%;height:100%;object-fit:cover;object-position:center 20%;
     display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1);
+    filter:saturate(1.08) contrast(1.07) brightness(.95);
   }
   .product-card:hover .mockup img{transform:scale(1.08)}
   /* gradient overlay */
   .product-card .mockup::after{
     content:'';position:absolute;inset:0;z-index:1;
-    background:linear-gradient(180deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,.20) 38%,rgba(0,0,0,.62) 68%,rgba(0,0,0,.88) 100%);
-    transition:background .35s ease;
+    background:
+      radial-gradient(130% 85% at 0% 100%, rgba(0,0,0,.58) 0%, rgba(0,0,0,.18) 55%, transparent 75%),
+      linear-gradient(180deg,rgba(0,0,0,.06) 0%,rgba(0,0,0,.18) 38%,rgba(0,0,0,.58) 68%,rgba(0,0,0,.86) 100%);
+    transition:opacity .35s ease;
   }
-  .product-card:hover .mockup::after{
-    background:linear-gradient(180deg,rgba(0,0,0,.1) 0%,rgba(0,0,0,.26) 38%,rgba(0,0,0,.68) 68%,rgba(0,0,0,.92) 100%);
-  }
+  .product-card:hover .mockup::after{opacity:.88}
   /* tint per category */
   .product-card.bess .mockup::before{content:'';position:absolute;inset:0;z-index:1;
     background:linear-gradient(135deg,rgba(106,45,175,.35) 0%,transparent 60%);pointer-events:none}
@@ -322,8 +332,10 @@
   .product-card .icon{
     width:44px;height:44px;border-radius:10px;flex-shrink:0;
     display:flex;align-items:center;justify-content:center;
-    margin-bottom:14px;transition:transform .3s ease;
-    backdrop-filter:blur(8px);
+    margin-bottom:14px;transition:transform .3s ease, box-shadow .3s ease;
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,.20);
+    box-shadow:0 8px 18px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.18);
   }
   .product-card:hover .icon{transform:scale(1.1)}
   .product-card.bess .icon{background:rgba(106,45,175,.55);color:#fff}
@@ -334,11 +346,21 @@
     font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.8px;
     text-transform:uppercase;opacity:.75;margin-bottom:6px;display:block;
   }
-  .product-card h3{font-size:18.5px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.3}
+  .product-card h3{
+    font-size:18.5px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.3;
+    text-shadow:0 1px 12px rgba(0,0,0,.45);
+  }
   .product-card p{font-size:13px;color:rgba(255,255,255,.75);margin-bottom:18px;line-height:1.6;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .product-card .specs{display:flex;gap:14px;margin-bottom:18px;padding-top:16px;
-    border-top:1px solid rgba(255,255,255,.18)}
+  .product-card .specs{
+    display:flex;gap:14px;margin-bottom:18px;padding:12px 14px;
+    background:rgba(10,8,20,.40);
+    -webkit-backdrop-filter:blur(10px) saturate(1.3);
+    backdrop-filter:blur(10px) saturate(1.3);
+    border:1px solid rgba(255,255,255,.13);
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.10);
+  }
   .product-card .specs > div{flex:1}
   .product-card .specs .v{font-weight:700;color:#fff;font-family:var(--mono);font-size:13.5px;
     display:block;letter-spacing:-.3px;font-variant-numeric:tabular-nums}
@@ -800,7 +822,6 @@
     .hl-lead,.hl-wide,.highlights-bento .hl-card{grid-column:span 1}
     .hl-lead{grid-row:span 1;min-height:280px}
     .insights-grid{grid-template-columns:repeat(2,1fr)}
-    .products-grid{grid-template-columns:repeat(2,1fr)}
   }
   @media (max-width:980px){
     .hero-grid{grid-template-columns:1fr;gap:40px}
