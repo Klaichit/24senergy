@@ -1,15 +1,15 @@
 /* Shared behavior for the public HTML pages. */
 window.escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 window.safeURL = value => {
-  try { const url = new URL(String(value || ''), location.origin); return ['http:', 'https:'].includes(url.protocol) ? url.href : ''; }
+  try { const url = new URL(String(value || ''), document.baseURI); return ['http:', 'https:'].includes(url.protocol) ? url.href : ''; }
   catch { return ''; }
 };
 document.addEventListener('DOMContentLoaded', () => {
   const burger = document.querySelector('.nav-burger');
   const links = document.querySelector('.nav-links');
   if (burger && links) {
-    if (!links.querySelector('a[href="/quote.html"]')) {
-      const quote = document.createElement('a'); quote.href = '/quote.html';
+    if (!links.querySelector('a[href="quote.html"]')) {
+      const quote = document.createElement('a'); quote.href = 'quote.html';
       quote.innerHTML = '<span class="bi"><span class="th">ขอใบเสนอราคา</span><span class="en">Get a Quote</span></span>';
       quote.className = 'mobile-quote-link'; links.append(quote);
     }

@@ -19,13 +19,18 @@ const pages = (await readdir('public')).filter(name => name.endsWith('.html'))
 
 const assets = new Set()
 const collect = html => {
-  // src="/x", href="/x" and url('/x') — root-relative only; ignore other pages.
+  // Pages reference their assets relatively ("site.js", "news/x.webp") so they
+  // work whatever directory the server treats as its root. Leading slashes are
+  // still accepted here so the scan keeps working if one creeps back in.
   const refs = [
-    ...html.matchAll(/(?:src|href)="(\/[^"#?]+)"/g),
-    ...html.matchAll(/url\((?:'|"|&quot;)?(\/[^)'"&]+)/g),
+    ...html.matchAll(/(?:src|href)="(\/?[0-9A-Za-z_.\-/]+\.[a-z0-9]+)"/g),
+    ...html.matchAll(/url\((?:'|"|&quot;)?(\/?[0-9A-Za-z_.\-/]+\.[a-z0-9]+)/g),
   ]
-  for (const [, path] of refs) {
-    if (!path.endsWith('.html')) assets.add(path.slice(1))
+  for (const [, ref] of refs) {
+    const path = ref.replace(/^\//, '')
+    // Skip pages (mirrored separately) and anything outside the tree.
+    if (path.endsWith('.html') || path.startsWith('..')) continue
+    assets.add(path)
   }
 }
 
