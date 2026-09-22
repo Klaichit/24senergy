@@ -326,6 +326,11 @@
   .newsletter button[type="submit"]:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.2)}
 
   /* ===== Pagination ===== */
+  .page-status{
+    grid-column:1 / 2;
+    text-align:center;font-size:12.5px;color:var(--muted);margin-top:12px;
+    font-variant-numeric:tabular-nums;
+  }
   .pagination{
     grid-column:1 / 2;
     display:flex;align-items:center;justify-content:center;gap:6px;
@@ -839,6 +844,9 @@
 
     </div>
 
+    <div class="pagination" id="pager" hidden></div>
+    <p class="page-status" id="pageStatus"></p>
+
   </div>
 
   <!-- RIGHT SIDEBAR -->
@@ -962,8 +970,8 @@
         <h4><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></h4>
         <a href="products.html#bess">BESS</a>
         <a href="products.html#solar">Solar PV</a>
-        <a href="products.html#inverter">EV Charger</a>
-        <a href="products.html#bess">Monitoring</a>
+        <a href="products.html#inverter">Inverter</a>
+        <a href="products.html">ดูทั้งหมด</a>
       </div>
       <div class="footer-col">
         <h4><span class="bi"><span class="th">บริษัท</span><span class="en">Company</span></span></h4>
@@ -1008,29 +1016,76 @@
   const featured = document.querySelector('.featured');
   const visibleCount = document.getElementById('visibleCount');
 
-  function applyFilter(cat){
-    tabs.forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
-    let n = 0;
-    articles.forEach(a => {
-      const show = cat === 'all' || a.dataset.cat === cat;
-      a.classList.toggle('hide', !show);
-      if(show) n++;
-    });
-    // Featured article
-    if(featured){
-      const featShow = cat === 'all' || featured.dataset.cat === cat;
-      featured.style.display = featShow ? '' : 'none';
-      if(featShow) n++;
+  const pager = document.getElementById('pager');
+  const pageStatus = document.getElementById('pageStatus');
+  const PER_PAGE = 6;
+  let currentCat = 'all', currentPage = 1;
+
+  const matching = cat => [...articles].filter(a => cat === 'all' || a.dataset.cat === cat);
+
+  function render(){
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.cat === currentCat));
+
+    const inCat = matching(currentCat);
+    const pages = Math.max(1, Math.ceil(inCat.length / PER_PAGE));
+    currentPage = Math.min(currentPage, pages);
+    const start = (currentPage - 1) * PER_PAGE;
+    const onPage = inCat.slice(start, start + PER_PAGE);
+
+    articles.forEach(a => a.classList.add('hide'));
+    onPage.forEach(a => { a.classList.remove('hide'); a.classList.add('in'); });
+
+    // The featured article heads the list, so it belongs on the first page only.
+    const featShow = featured && currentPage === 1 && (currentCat === 'all' || featured.dataset.cat === currentCat);
+    if(featured) featured.style.display = featShow ? '' : 'none';
+
+    const total = inCat.length + (featured && (currentCat === 'all' || featured.dataset.cat === currentCat) ? 1 : 0);
+    if(visibleCount) visibleCount.textContent = total;
+
+    // Pager
+    pager.innerHTML = '';
+    pager.hidden = pages <= 1;
+    if(pages > 1){
+      const btn = (label, page, opts = {}) => {
+        const b = document.createElement('button');
+        b.className = 'pg-btn' + (opts.arrow ? ' pg-arrow' : '') + (opts.active ? ' active' : '');
+        b.textContent = label;
+        if(opts.disabled) b.disabled = true;
+        else b.addEventListener('click', () => { currentPage = page; render(); scrollToTop(); });
+        if(opts.label) b.setAttribute('aria-label', opts.label);
+        return b;
+      };
+      pager.append(btn('←', currentPage - 1, {arrow:true, disabled: currentPage === 1, label:'หน้าก่อนหน้า'}));
+      for(let i = 1; i <= pages; i++) pager.append(btn(String(i), i, {active: i === currentPage}));
+      pager.append(btn('→', currentPage + 1, {arrow:true, disabled: currentPage === pages, label:'หน้าถัดไป'}));
     }
-    if(visibleCount) visibleCount.textContent = n;
+
+    if(pageStatus){
+      const shown = onPage.length + (featShow ? 1 : 0);
+      pageStatus.textContent = total
+        ? `แสดง ${shown} จาก ${total} บทความ · หน้า ${currentPage}/${pages}`
+        : 'ไม่มีบทความในหมวดนี้';
+    }
   }
-  tabs.forEach(t => t.addEventListener('click', () => applyFilter(t.dataset.cat)));
+
+  function scrollToTop(){
+    const anchor = document.querySelector('.cat-tabs');
+    if(anchor) window.scrollTo({top: anchor.offsetTop - 64, behavior:'smooth'});
+  }
+
+  function applyFilter(cat){
+    currentCat = cat;
+    currentPage = 1;
+    render();
+  }
+  tabs.forEach(t => t.addEventListener('click', () => { applyFilter(t.dataset.cat); scrollToTop(); }));
+  render();
   // Sidebar category links also filter
   document.querySelectorAll('.cat-link[data-cat]').forEach(a => {
     a.addEventListener('click', e => {
       e.preventDefault();
       applyFilter(a.dataset.cat);
-      window.scrollTo({top: document.querySelector('.cat-tabs').offsetTop - 64, behavior:'smooth'});
+      scrollToTop();
     });
   });
 
