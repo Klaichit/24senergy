@@ -125,7 +125,6 @@
     transition:opacity .35s ease;pointer-events:none}
   .prod-card:hover .prod-img::before{opacity:.88}
   .prod-img>*{position:relative;z-index:1}
-  .prod-img::after{content:'MOCKUP';position:absolute;top:12px;right:12px;z-index:2;
     background:rgba(0,0,0,.55);color:rgba(255,255,255,.95);padding:3px 9px;border-radius:5px;
     font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.6px;
     backdrop-filter:blur(6px);pointer-events:none}
@@ -368,10 +367,10 @@
       </div>
       <div class="footer-col">
         <h4><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></h4>
-        <a href="/products/heroee8-aio">HeroEE 8 AIO</a>
-        <a href="/products/solar-rooftop-industrial"><span class="bi"><span class="th">Solar Rooftop</span><span class="en">Solar Rooftop</span></span></a>
-        <a href="/products/dc-fast-charger-180kw">EV Charger 180 kW</a>
-        <a href="/products/24scloud-ems">24sCloud EMS</a>
+        <a href="products.html#bess"><span class="bi"><span class="th">ระบบกักเก็บพลังงาน BESS</span><span class="en">Battery Storage</span></span></a>
+        <a href="products.html#solar"><span class="bi"><span class="th">โซลาร์เซลล์</span><span class="en">Solar PV</span></span></a>
+        <a href="products.html#inverter"><span class="bi"><span class="th">อินเวอร์เตอร์</span><span class="en">Inverter</span></span></a>
+        <a href="products.html"><span class="bi"><span class="th">ดูทั้งหมด</span><span class="en">All products</span></span></a>
       </div>
       <div class="footer-col">
         <h4><span class="bi"><span class="th">บริษัท</span><span class="en">Company</span></span></h4>
@@ -468,11 +467,15 @@
       entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io2.unobserve(e.target)}});
     },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
     document.querySelectorAll('#products-grid .reveal').forEach(el=>io2.observe(el));
+    applyHashCategory();
     applyFilters();
   }
 
   async function loadProducts(){
     try{
+      if (typeof window.escapeHTML !== 'function') {
+        throw new Error('/site.js did not load, so escapeHTML is missing. Serve the site from public/, or run `npm run sync:public` to refresh the root mirror.');
+      }
       const res = await fetch(
         `${SB_URL}/rest/v1/products?is_published=eq.true&order=sort_order.asc&select=*`,
         {headers:{apikey:SB_KEY,Authorization:`Bearer ${SB_KEY}`}}
@@ -488,6 +491,16 @@
       grid.textContent = document.body.dataset.lang === 'en' ? 'Unable to load products. Please reload or contact us.' : 'โหลดสินค้าไม่สำเร็จ กรุณาโหลดหน้าใหม่หรือติดต่อเรา';
     }
   }
+
+  // products.html#bess / #solar / #inverter — linked from every footer
+  function applyHashCategory(){
+    const cat=(location.hash||'').replace('#','');
+    const boxes=[...document.querySelectorAll('[data-filter="cat"]')];
+    if(!cat || !boxes.some(b=>b.value===cat)) return;
+    boxes.forEach(b=>b.checked = b.value===cat);
+    applyFilters();
+  }
+  window.addEventListener('hashchange',applyHashCategory);
 
   document.querySelectorAll('[data-filter]').forEach(cb=>cb.addEventListener('change',applyFilters));
   document.getElementById('clearAll').addEventListener('click',()=>{
