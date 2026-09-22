@@ -358,6 +358,28 @@
   @media(max-width:900px){.products-grid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:520px){.products-grid{grid-template-columns:1fr}.product-card{min-height:340px}}
 
+  /* ===== Highlights ===== */
+  #highlights{background:var(--bg-soft);border-top:1px solid var(--line)}
+  .highlights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .hl-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px;display:flex;flex-direction:column;gap:12px;
+    box-shadow:var(--shadow-sm);
+    transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease);
+  }
+  .hl-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--line-strong)}
+  .hl-icon{
+    width:44px;height:44px;border-radius:12px;flex-shrink:0;
+    background:var(--brand-soft);color:var(--brand);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .hl-card h3{font-size:16.5px;font-weight:700;color:var(--ink);line-height:1.45;margin:0}
+  .hl-card p{font-size:14px;color:var(--ink-2);line-height:1.7;margin:0;flex:1}
+  .hl-src{
+    font-family:var(--mono);font-size:11px;letter-spacing:.2px;color:var(--muted);
+    padding-top:12px;border-top:1px solid var(--line);
+  }
+
   /* ===== Solutions section ===== */
   .solutions-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
   .solution-card{
@@ -735,6 +757,7 @@
     .brand-strip{margin-top:48px;padding:28px 18px}
     .brand-row{gap:8px 24px}
     .solutions-grid{grid-template-columns:repeat(2,1fr);gap:20px}
+    .highlights-grid{grid-template-columns:repeat(2,1fr)}
     .insights-grid{grid-template-columns:repeat(2,1fr)}
     .products-grid{grid-template-columns:repeat(2,1fr)}
   }
@@ -745,6 +768,7 @@
     .energy-orb .core{width:120px;height:120px}
     .energy-orb .core-inner{font-size:32px}
     .solutions-grid{grid-template-columns:1fr}
+    .highlights-grid{grid-template-columns:1fr}
     .cta-banner{grid-template-columns:1fr}
     .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
     .nav-links,.nav-right .lang-toggle{display:none}
@@ -982,6 +1006,55 @@
 
     </div>
     <p class="spec-note reveal"><span class="bi"><span class="th">สเปกทั้งหมดอ้างอิงเอกสารของผู้ผลิต และอาจเปลี่ยนแปลงตามรุ่นและเวอร์ชันเอกสาร กรุณายืนยันกับทีมงานก่อนสั่งซื้อ</span><span class="en">All specifications follow manufacturer documentation and may vary by model and revision. Please confirm with our team before ordering.</span></span></p>
+  </div>
+</section>
+
+<!-- ===== HIGHLIGHTS ===== -->
+<section id="highlights">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag"><span class="bi"><span class="th">จุดเด่น</span><span class="en">Why these</span></span></span>
+      <h2><span class="bi"><span class="th">ทำไมถึงเลือกอุปกรณ์ชุดนี้</span><span class="en">Why We Carry These</span></span></h2>
+      <p><span class="bi"><span class="th">เหตุผลที่อยู่เบื้องหลังการคัดเลือกแต่ละแบรนด์ อ้างอิงจากเอกสารผู้ผลิต</span><span class="en">What made each brand worth carrying, taken from the manufacturers&rsquo; own documentation.</span></span></p>
+    </div>
+    <div class="highlights-grid">
+      <div class="hl-card reveal">
+        <div class="hl-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
+        <h3><span class="bi"><span class="th">ไฟดับแล้วกลับมาในเสี้ยววินาที</span><span class="en">Back on in milliseconds</span></span></h3>
+        <p><span class="bi"><span class="th">ระบบสลับเข้าไฟสำรองได้ต่ำกว่า 10 มิลลิวินาทีในรุ่นที่รองรับ สายการผลิตและคอมพิวเตอร์ไม่สะดุด</span><span class="en">Supported models transfer to backup in under 10 milliseconds, so production lines and computers do not drop.</span></span></p>
+        <span class="hl-src">KSTAR BluePulse · TCL BlueArk X1</span>
+      </div>
+      <div class="hl-card reveal">
+        <div class="hl-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3><span class="bi"><span class="th">ความปลอดภัยที่ออกแบบมาตั้งแต่ต้น</span><span class="en">Safety designed in, not added on</span></span></h3>
+        <p><span class="bi"><span class="th">ตู้สำหรับงานพาณิชย์มีระบบดับเพลิงในตัวและผ่าน UL9540A (เฉพาะตู้ BluePulse) ฝั่ง TCL ใช้ BMS สองชั้นและเซนเซอร์อุณหภูมิ 10 จุดต่อ 8 เซลล์</span><span class="en">The commercial cabinet includes fire suppression and is UL9540A tested (BluePulse cabinet only). TCL pairs a dual-layer BMS with ten temperature sensors per eight cells.</span></span></p>
+        <span class="hl-src">KSTAR · TCL BlueArk X1</span>
+      </div>
+      <div class="hl-card reveal">
+        <div class="hl-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h4V9H3zM10 17h4V5h-4zM17 17h4v-6h-4z"/></svg></div>
+        <h3><span class="bi"><span class="th">เริ่มเท่าที่จำเป็น แล้วค่อยขยาย</span><span class="en">Start small, grow later</span></span></h3>
+        <p><span class="bi"><span class="th">ขยายได้ตั้งแต่ 8 kWh ถึง 128 kWh หรือทยอยต่อขนานสูงสุด 32 ชุด รวม 512 kWh โดยไม่ต้องรื้อระบบเดิม</span><span class="en">Scale from 8 kWh to 128 kWh, or add units in parallel up to 32 for 512 kWh, without replacing what is already installed.</span></span></p>
+        <span class="hl-src">TCL BlueArk X1 · Sunwoda Atrix Max+</span>
+      </div>
+      <div class="hl-card reveal">
+        <div class="hl-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg></div>
+        <h3><span class="bi"><span class="th">เงาบังบางแผง ไม่ฉุดทั้งระบบ</span><span class="en">Shade on one panel stays on one panel</span></span></h3>
+        <p><span class="bi"><span class="th">Power Optimizer ดึงไฟจากแต่ละแผงแยกกันและดูข้อมูลได้ทีละแผง พร้อม SafeDC ที่ลดแรงดันเหลือ 1V ต่อแผงเมื่อปิดระบบ</span><span class="en">Power Optimizers work each panel independently with panel-level monitoring, and SafeDC drops each panel to 1V when the system shuts down.</span></span></p>
+        <span class="hl-src">SolarEdge</span>
+      </div>
+      <div class="hl-card reveal">
+        <div class="hl-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-6 4 3 5-7"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <h3><span class="bi"><span class="th">หาปัญหาได้โดยไม่ต้องขึ้นหลังคา</span><span class="en">Diagnose without climbing the roof</span></span></h3>
+        <p><span class="bi"><span class="th">Smart I-V Curve วินิจฉัยสตริงจากระยะไกล และตรวจอุณหภูมิขั้วต่อ DC/AC เพื่อจับความผิดปกติตั้งแต่เนิ่น</span><span class="en">Smart I-V Curve diagnoses strings remotely, and DC/AC terminal temperature monitoring catches faults early.</span></span></p>
+        <span class="hl-src">Solplanet ASW HT</span>
+      </div>
+      <div class="hl-card reveal">
+        <div class="hl-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M6 20V9l6-5 6 5v11"/><path d="M10 20v-5h4v5"/></svg></div>
+        <h3><span class="bi"><span class="th">แผงที่เสื่อมช้าและทนหน้างานหนัก</span><span class="en">Panels that age slowly and take a beating</span></span></h3>
+        <p><span class="bi"><span class="th">อัตราเสื่อม 0.4% ต่อปี ผ่านทดสอบไอเค็มและแอมโมเนีย (TUV Nord) รับประกันกำลังผลิต 30 ปีตามเงื่อนไขผู้ผลิต</span><span class="en">Degradation of 0.4% per year, salt-mist and ammonia tested (TUV Nord), with a 30-year performance warranty per manufacturer terms.</span></span></p>
+        <span class="hl-src">Leapton N-Type TOPCon</span>
+      </div>
+    </div>
   </div>
 </section>
 
