@@ -1,4 +1,7 @@
-# Platform-specific prebuilt packages supply these binaries; no install scripts are needed.
-ignoredBuiltDependencies:
-  - sharp
-  - unrs-resolver
+# sharp and unrs-resolver ship their binaries as platform-specific prebuilt
+# packages, so their install scripts have nothing to do here. pnpm still needs
+# an explicit decision: left unanswered it fails the install with
+# ERR_PNPM_IGNORED_BUILDS, which is what broke the Vercel deploys.
+allowBuilds:
+  sharp: false
+  unrs-resolver: false
