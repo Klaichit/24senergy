@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>24sEnergy — Clean Energy, Powering Industry</title>
-<meta name="description" content="ผู้นำด้านระบบกักเก็บพลังงาน BESS และ Solar PV สำหรับโรงงานและอุตสาหกรรม">
+<title>24sEnergy — BESS, Solar PV &amp; Inverter</title>
+<meta name="description" content="จัดจำหน่ายและติดตั้งระบบกักเก็บพลังงาน BESS โซลาร์เซลล์ และอินเวอร์เตอร์ สำหรับบ้าน ฟาร์ม และโรงงาน">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;700;900&family=Noto+Sans:wght@300;400;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -58,8 +58,7 @@
   /* Thai glyphs need positive tracking — negative letter-spacing crowds tone marks */
   body[data-lang="th"] h1,
   body[data-lang="th"] h2,
-  body[data-lang="th"] h3,
-  body[data-lang="th"] .kpi .num{letter-spacing:0}
+  body[data-lang="th"] h3{letter-spacing:0}
   body[data-lang="th"] .section-head p,
   body[data-lang="th"] .hero p.lede{line-height:1.8}
   body[data-lang="th"] .bi .en{display:none}
@@ -229,27 +228,32 @@
   }
   @keyframes scroll-dot{0%{opacity:0;transform:translate(-50%,0)}50%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
 
-  /* ===== KPI strip ===== */
-  .kpi-strip{
+  /* ===== Brand strip ===== */
+  .brand-strip{
     background:#fff;margin-top:clamp(48px,6vw,72px);position:relative;z-index:2;
     border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);
     border:1px solid rgba(255,255,255,.6);
-    padding:40px 28px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+    padding:32px 28px;
   }
-  .kpi{text-align:center;padding:8px 20px;position:relative}
-  .kpi:not(:last-child)::after{
-    content:'';position:absolute;right:0;top:18%;height:64%;width:1px;
-    background:linear-gradient(180deg,transparent,var(--line-strong),transparent);
+  .brand-strip-label{
+    text-align:center;color:var(--muted);font-size:12px;letter-spacing:1.6px;
+    text-transform:uppercase;font-weight:700;margin-bottom:22px;
   }
-  .kpi .num{
-    font-family:var(--mono);font-size:clamp(34px,3.6vw,44px);font-weight:700;color:var(--brand);
-    line-height:1;margin-bottom:10px;letter-spacing:-1.5px;
-    font-variant-numeric:tabular-nums;
+  .brand-row{
+    display:flex;flex-wrap:wrap;justify-content:center;
+    gap:10px 34px;
   }
-  .kpi .num .unit{font-size:.58em;color:var(--brand-light);margin-left:3px;letter-spacing:0}
-  .kpi .label{
-    font-size:12.5px;color:var(--muted);font-weight:400;letter-spacing:.4px;
-    line-height:1.5;
+  .brand-item{
+    display:flex;flex-direction:column;align-items:center;gap:3px;
+    padding:6px 10px;border-radius:var(--radius-sm);transition:background .25s var(--ease);
+  }
+  .brand-item:hover{background:var(--bg-soft)}
+  .brand-item .b-name{
+    font-family:var(--mono);font-size:16px;font-weight:700;color:var(--ink);
+    letter-spacing:-.4px;white-space:nowrap;
+  }
+  .brand-item .b-cat{
+    font-size:10.5px;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;
   }
 
   /* ===== Section base ===== */
@@ -276,7 +280,7 @@
 
   /* ===== Products section ===== */
   #products{background:var(--bg-soft)}
-  .products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
   .product-card{
     border-radius:var(--radius);overflow:hidden;cursor:pointer;
     position:relative;min-height:420px;
@@ -311,10 +315,10 @@
     background:linear-gradient(135deg,rgba(106,45,175,.35) 0%,transparent 60%);pointer-events:none}
   .product-card.solar .mockup::before{content:'';position:absolute;inset:0;z-index:1;
     background:linear-gradient(135deg,rgba(217,119,6,.35) 0%,transparent 60%);pointer-events:none}
-  .product-card.ev .mockup::before{content:'';position:absolute;inset:0;z-index:1;
+  .product-card.ev-unused .mockup::before{content:'';position:absolute;inset:0;z-index:1;
     background:linear-gradient(135deg,rgba(5,150,105,.35) 0%,transparent 60%);pointer-events:none}
-  .product-card.monitor .mockup::before{content:'';position:absolute;inset:0;z-index:1;
-    background:linear-gradient(135deg,rgba(37,99,235,.35) 0%,transparent 60%);pointer-events:none}
+  .product-card.inverter .mockup::before{content:'';position:absolute;inset:0;z-index:1;
+    background:linear-gradient(135deg,rgba(37,99,235,.38) 0%,transparent 60%);pointer-events:none}
   /* content overlay at bottom */
   .card-content{position:relative;z-index:2;padding:24px}
   .product-card .icon{
@@ -326,8 +330,8 @@
   .product-card:hover .icon{transform:scale(1.1)}
   .product-card.bess .icon{background:rgba(106,45,175,.55);color:#fff}
   .product-card.solar .icon{background:rgba(217,119,6,.55);color:#fff}
-  .product-card.ev .icon{background:rgba(5,150,105,.55);color:#fff}
-  .product-card.monitor .icon{background:rgba(37,99,235,.55);color:#fff}
+  .product-card.ev-unused .icon{background:rgba(5,150,105,.55);color:#fff}
+  .product-card.inverter .icon{background:rgba(37,99,235,.55);color:#fff}
   .product-card .cat-label{
     font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.8px;
     text-transform:uppercase;opacity:.75;margin-bottom:6px;display:block;
@@ -346,6 +350,11 @@
     display:inline-flex;align-items:center;gap:6px;transition:gap .2s,color .2s;
   }
   .product-card:hover .link{gap:10px;color:#fff}
+
+  .spec-note{
+    margin:32px auto 0;max-width:760px;text-align:center;
+    font-size:12.5px;line-height:1.7;color:var(--muted);
+  }
 
   /* Responsive */
   @media(max-width:900px){.products-grid{grid-template-columns:repeat(2,1fr)}}
@@ -369,81 +378,46 @@
   .solution-card h3{font-size:17px;font-weight:700;margin-bottom:8px;color:var(--ink);line-height:1.4}
   .solution-card p{color:var(--ink-2);font-size:14.5px;line-height:1.7}
 
-  /* ===== Projects section ===== */
-  #projects{
+  /* ===== Insights / news teaser ===== */
+  #insights{
     background:linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
-    position:relative;overflow:hidden;
+    border-top:1px solid var(--line);
   }
-  .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-  .project-card{
-    border-radius:var(--radius);overflow:hidden;background:#fff;
-    box-shadow:var(--shadow-sm);transition:all .3s ease;cursor:pointer;
-    border:1px solid var(--line);
+  .insights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .insight-card{
+    display:flex;flex-direction:column;gap:14px;
+    padding:28px;border-radius:var(--radius);background:#fff;
+    border:1px solid var(--line);box-shadow:var(--shadow-sm);
+    transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease);
   }
-  .project-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:var(--line-strong)}
-  .project-img{
-    height:220px;position:relative;overflow:hidden;
-    display:flex;align-items:flex-end;padding:20px;color:#fff;
+  .insight-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--line-strong)}
+  .insight-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .insight-tag{
+    padding:4px 11px;border-radius:999px;background:var(--brand-soft);color:var(--brand);
+    font-size:11.5px;font-weight:700;letter-spacing:.4px;
   }
-  .project-img::before{
-    content:'';position:absolute;inset:0;
-    background-image:
-      linear-gradient(180deg, transparent 30%, rgba(0,0,0,.78) 100%),
-      var(--bg-tint, linear-gradient(135deg, rgba(106,45,175,.55), rgba(26,26,31,.55))),
-      var(--bg-img, none);
-    background-size:cover, cover, cover;
-    background-position:center, center, center 20%;
-    background-repeat:no-repeat;
-    transition:transform .5s ease;
+  .insight-meta time{
+    font-family:var(--mono);font-size:11.5px;color:var(--muted);
+    font-variant-numeric:tabular-nums;
   }
-  .project-card:hover .project-img::before{transform:scale(1.08)}
-  /* MOCKUP IMAGES — 01-04.webp used as project visuals */
-  .project-img.p1{
-    --bg-tint:linear-gradient(135deg, rgba(74,58,142,.55), rgba(26,26,74,.7));
-    --bg-img:url('/01.webp');
+  .insight-card h3{
+    font-size:16.5px;font-weight:700;line-height:1.55;color:var(--ink);
+    margin:0;flex:1;
   }
-  .project-img.p2{
-    --bg-tint:linear-gradient(135deg, rgba(217,119,6,.55), rgba(124,45,18,.7));
-    --bg-img:url('/02.webp');
+  .insight-card .link{
+    font-size:13.5px;font-weight:700;color:var(--brand);
+    display:inline-flex;align-items:center;gap:6px;transition:gap .2s var(--ease);
   }
-  .project-img.p3{
-    --bg-tint:linear-gradient(135deg, rgba(5,150,105,.5), rgba(6,78,59,.7));
-    --bg-img:url('/03.webp');
+  .insight-card:hover .link{gap:10px}
+  .insights-more{text-align:center;margin-top:36px}
+  .btn-outline{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:13px 28px;border-radius:10px;
+    border:1px solid var(--line-strong);background:#fff;color:var(--ink);
+    font-weight:700;font-size:14.5px;
+    transition:border-color .25s var(--ease),color .25s var(--ease),box-shadow .25s var(--ease);
   }
-  .project-img.p4{
-    --bg-tint:linear-gradient(135deg, rgba(106,45,175,.55), rgba(77,31,128,.7));
-    --bg-img:url('/04.webp');
-  }
-  .project-img .badge{
-    position:relative;z-index:1;
-    background:rgba(255,255,255,.92);color:var(--brand);
-    padding:5px 12px;border-radius:6px;font-size:12px;font-weight:700;
-    align-self:flex-start;margin-right:auto;
-  }
-  .project-img .stats{
-    position:absolute;right:20px;bottom:20px;z-index:1;text-align:right;
-  }
-  .project-img .stats .big{font-family:var(--mono);font-size:30px;font-weight:700;letter-spacing:-1px;
-    line-height:1;font-variant-numeric:tabular-nums}
-  .project-img .stats .small{font-size:12px;opacity:.85;margin-top:4px}
-  .project-body{padding:24px}
-  .project-body h3{font-size:17px;font-weight:700;margin-bottom:10px;color:var(--ink);line-height:1.4}
-  .project-body .meta{display:flex;gap:14px;font-size:12.5px;color:var(--muted);margin-bottom:12px;flex-wrap:wrap}
-  .project-body .meta span{display:inline-flex;align-items:center;gap:5px}
-  .project-body p{color:var(--ink-2);font-size:14.5px;line-height:1.7}
-
-  /* ===== Partners ===== */
-  .partners{padding:64px 0;background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .partners-label{text-align:center;color:var(--muted);font-size:12px;letter-spacing:1.6px;
-    text-transform:uppercase;margin-bottom:36px;font-weight:700}
-  .partners-row{display:flex;gap:56px;justify-content:center;align-items:center;flex-wrap:wrap;opacity:.6}
-  .partners-row > div, .partners-row > a{
-    font-family:var(--mono);font-size:22px;font-weight:700;color:var(--ink-2);
-    letter-spacing:-1px;transition:all .3s;cursor:default;text-decoration:none;
-  }
-  .partners-row > div:hover, .partners-row > a:hover{color:var(--brand);transform:scale(1.05);opacity:1}
-  .partners-row .p-logo{height:40px;width:auto;max-width:120px;object-fit:contain;filter:grayscale(100%);transition:filter .3s}
-  .partners-row > a:hover .p-logo, .partners-row > div:hover .p-logo{filter:grayscale(0%)}
+  .btn-outline:hover{border-color:var(--brand);color:var(--brand);box-shadow:var(--shadow-sm)}
 
   /* ===== Video Section ===== */
   .video-section{padding:80px 0;background:#0a0a0f}
@@ -760,9 +734,10 @@
 
   /* Responsive */
   @media (max-width:1020px){
-    .kpi-strip{margin-top:48px;padding:32px 20px}
+    .brand-strip{margin-top:48px;padding:28px 18px}
+    .brand-row{gap:8px 24px}
     .solutions-grid{grid-template-columns:repeat(2,1fr);gap:20px}
-    .projects-grid{grid-template-columns:repeat(2,1fr)}
+    .insights-grid{grid-template-columns:repeat(2,1fr)}
     .products-grid{grid-template-columns:repeat(2,1fr)}
   }
   @media (max-width:980px){
@@ -771,8 +746,6 @@
     .energy-orb{width:280px;height:280px}
     .energy-orb .core{width:120px;height:120px}
     .energy-orb .core-inner{font-size:32px}
-    .kpi-strip{grid-template-columns:repeat(2,1fr);gap:24px}
-    .kpi:nth-child(2)::after{display:none}
     .solutions-grid{grid-template-columns:1fr}
     .cta-banner{grid-template-columns:1fr}
     .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
@@ -781,28 +754,23 @@
     section{padding:70px 0}
   }
   @media (max-width:760px){
-    .projects-grid{grid-template-columns:1fr}
+    .insights-grid{grid-template-columns:1fr}
   }
   @media (max-width:520px){
     .wrap{padding:0 20px}
-    .kpi-strip{grid-template-columns:repeat(2,1fr);padding:26px 16px;margin-top:36px;gap:18px 0}
-    .kpi:nth-child(odd)::after{display:block}
-    .kpi:nth-child(even)::after{display:none}
-    .kpi:not(:last-child)::after{display:none}
-    .kpi .num{font-size:36px}
+    .brand-strip{padding:24px 14px;margin-top:36px}
+    .brand-row{gap:6px 18px}
+    .brand-item .b-name{font-size:14.5px}
     .footer-grid{grid-template-columns:1fr}
     .hero{padding:120px 0 80px}
-    .partners-row{gap:24px}
-    .partners-row > div, .partners-row > a{font-size:17px}
-    .partners-row .p-logo{height:32px}
   }
 </style>
 <link rel="stylesheet" href="/site.css">
 <script src="/site.js"></script>
 <link rel="canonical" href="https://24senergy.vercel.app/index.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="24sEnergy — Clean Energy, Powering Industry">
-<meta property="og:description" content="ผู้นำด้านระบบกักเก็บพลังงาน BESS และ Solar PV สำหรับโรงงานและอุตสาหกรรม">
+<meta property="og:title" content="24sEnergy — BESS, Solar PV &amp; Inverter">
+<meta property="og:description" content="จัดจำหน่ายและติดตั้งระบบกักเก็บพลังงาน BESS โซลาร์เซลล์ และอินเวอร์เตอร์ สำหรับบ้าน ฟาร์ม และโรงงาน">
 <meta property="og:url" content="https://24senergy.vercel.app/index.html">
 <meta property="og:image" content="https://24senergy.vercel.app/24sEnergy_png.png">
 <meta name="twitter:card" content="summary">
@@ -816,7 +784,7 @@
     <a href="/index.html" class="nav-logo"><img src="/24sEnergy_png.png" alt="24sEnergy"></a>
     <div class="nav-links">
       <a href="products.html"><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></a>
-      <a href="#projects"><span class="bi"><span class="th">โครงการ</span><span class="en">Projects</span></span></a>
+      <a href="#solutions"><span class="bi"><span class="th">โซลูชัน</span><span class="en">Solutions</span></span></a>
       <a href="news.html"><span class="bi"><span class="th">ข่าวสาร</span><span class="en">News</span></span></a>
       <a href="contact.html"><span class="bi"><span class="th">ติดต่อ</span><span class="en">Contact</span></span></a>
     </div>
@@ -871,7 +839,7 @@
       <span class="bi" data-idx="3"><span class="th">ระบบมอนิเตอร์</span><span class="en">MONITORING + EMS</span></span>
     </h1>
     <p class="hx-body">
-      <span class="bi"><span class="th">โซลูชันพลังงานครบวงจรจาก Hithium และพันธมิตรชั้นนำระดับโลก สำหรับโรงงานและโครงการ Utility-scale</span><span class="en">Complete energy solutions from Hithium and world-class partners — for factories and utility-scale projects.</span></span>
+      <span class="bi"><span class="th">ระบบกักเก็บพลังงาน โซลาร์เซลล์ และอินเวอร์เตอร์ จากแบรนด์ที่คัดเลือกแล้ว สำหรับบ้าน ฟาร์ม และโรงงาน</span><span class="en">Battery storage, solar PV and inverters from selected brands — for homes, farms and factories.</span></span>
     </p>
     <div class="hx-arrows">
       <button class="hx-arrow" id="hxPrev" aria-label="Previous">
@@ -892,24 +860,18 @@
   </a>
 </header>
 
-<!-- ===== KPI strip ===== -->
+<!-- ===== BRAND STRIP ===== -->
 <div class="wrap">
-  <div class="kpi-strip reveal">
-    <div class="kpi">
-      <div class="num" data-target="350">0<span class="unit">+</span></div>
-      <div class="label">MWh <span class="bi"><span class="th">ติดตั้งสะสม</span><span class="en">Installed</span></span></div>
-    </div>
-    <div class="kpi">
-      <div class="num" data-target="120">0<span class="unit">+</span></div>
-      <div class="label"><span class="bi"><span class="th">โครงการสำเร็จ</span><span class="en">Projects Completed</span></span></div>
-    </div>
-    <div class="kpi">
-      <div class="num" data-target="15">0<span class="unit"></span></div>
-      <div class="label"><span class="bi"><span class="th">ปีประสบการณ์</span><span class="en">Years Experience</span></span></div>
-    </div>
-    <div class="kpi">
-      <div class="num" data-target="98">0<span class="unit">%</span></div>
-      <div class="label"><span class="bi"><span class="th">ลูกค้าพอใจ</span><span class="en">Client Satisfaction</span></span></div>
+  <div class="brand-strip reveal">
+    <div class="brand-strip-label"><span class="bi"><span class="th">แบรนด์ที่เราจัดจำหน่าย</span><span class="en">Brands We Distribute</span></span></div>
+    <div class="brand-row">
+      <div class="brand-item"><span class="b-name">SolarEdge</span><span class="b-cat">Inverter · Optimizer</span></div>
+      <div class="brand-item"><span class="b-name">KSTAR</span><span class="b-cat">BESS</span></div>
+      <div class="brand-item"><span class="b-name">Leapton Energy</span><span class="b-cat">Solar PV</span></div>
+      <div class="brand-item"><span class="b-name">Solplanet</span><span class="b-cat">Inverter</span></div>
+      <div class="brand-item"><span class="b-name">Sunwoda Energy</span><span class="b-cat">BESS</span></div>
+      <div class="brand-item"><span class="b-name">TCL Digital Power</span><span class="b-cat">BESS</span></div>
+      <div class="brand-item"><span class="b-name">Solar PPM</span><span class="b-cat">Solar PV</span></div>
     </div>
   </div>
 </div>
@@ -919,96 +881,109 @@
   <div class="wrap">
     <div class="section-head reveal">
       <span class="section-tag"><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Our Products</span></span></span>
-      <h2><span class="bi"><span class="th">โซลูชันพลังงานครบวงจร</span><span class="en">Complete Energy Solutions</span></span></h2>
-      <p><span class="bi"><span class="th">ตั้งแต่ระบบกักเก็บพลังงานระดับ Utility ไปจนถึงสถานีชาร์จ EV ครบทุกความต้องการของอุตสาหกรรม</span><span class="en">From utility-scale battery storage to EV charging — everything industrial energy needs.</span></span></p>
+      <h2><span class="bi"><span class="th">BESS · Solar PV · Inverter</span><span class="en">BESS · Solar PV · Inverter</span></span></h2>
+      <p><span class="bi"><span class="th">เราจัดจำหน่ายและติดตั้งอุปกรณ์จากแบรนด์ที่ผ่านการคัดเลือก สำหรับบ้าน ฟาร์ม และโรงงาน</span><span class="en">Selected equipment for homes, farms and factories — supplied and installed.</span></span></p>
     </div>
     <div class="products-grid">
 
       <a class="product-card bess reveal" href="products.html#bess">
         <div class="mockup">
-          <span class="tag">MOCKUP</span>
-          <img src="/01.webp" alt="BESS">
+          <img src="/01.webp" alt="Sunwoda Atrix Max+" loading="lazy">
         </div>
         <div class="card-content">
           <div class="icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/><line x1="6" y1="11" x2="6" y2="13"/><line x1="10" y1="11" x2="10" y2="13"/><line x1="14" y1="11" x2="14" y2="13"/></svg>
           </div>
-          <span class="cat-label">BESS</span>
-          <h3><span class="bi"><span class="th">ระบบกักเก็บพลังงาน</span><span class="en">Battery Energy Storage</span></span></h3>
-          <p><span class="bi"><span class="th">Liquid-Cooled สำหรับโรงงานและ Utility — Hithium HinerCab</span><span class="en">Liquid-cooled for factory & utility-scale — Hithium HinerCab</span></span></p>
-          <div class="specs">
-            <div><span class="v">125 kW</span><span class="l">Power</span></div>
-            <div><span class="v">261 kWh</span><span class="l">Energy</span></div>
-            <div><span class="v">8,000+</span><span class="l">Cycles</span></div>
-          </div>
+          <span class="cat-label">BESS · Sunwoda</span>
+          <h3><span class="bi"><span class="th">Sunwoda Atrix Max+</span><span class="en">Sunwoda Atrix Max+</span></span></h3>
+          <p><span class="bi"><span class="th">แบตเตอรี่ LFP 16 kWh สำหรับบ้าน ฟาร์ม และธุรกิจขนาดเล็ก ต่อขยายระบบได้</span><span class="en">16 kWh LFP battery for homes, farms and small business — expandable</span></span></p>
+          <div class="specs"><div><span class="v">16 kWh</span><span class="l">Usable</span></div><div><span class="v">512 kWh</span><span class="l"><span class="bi"><span class="th">สูงสุด</span><span class="en">Max</span></span></span></div><div><span class="v">IP65</span><span class="l">Rating</span></div></div>
           <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
         </div>
       </a>
 
-      <a class="product-card solar reveal reveal-d1" href="products.html#solar">
+      <a class="product-card bess reveal reveal-d1" href="products.html#bess">
         <div class="mockup">
-          <span class="tag">MOCKUP</span>
-          <img src="/02.webp" alt="Solar PV">
+          <img src="/04.webp" alt="KSTAR BluE-S & BluePulse" loading="lazy">
+        </div>
+        <div class="card-content">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/><line x1="6" y1="11" x2="6" y2="13"/><line x1="10" y1="11" x2="10" y2="13"/><line x1="14" y1="11" x2="14" y2="13"/></svg>
+          </div>
+          <span class="cat-label">BESS · KSTAR</span>
+          <h3><span class="bi"><span class="th">KSTAR BluE-S &amp; BluePulse</span><span class="en">KSTAR BluE-S &amp; BluePulse</span></span></h3>
+          <p><span class="bi"><span class="th">ระบบกักเก็บพลังงานครบตั้งแต่บ้าน 3.68–10 kW ถึงตู้ C&amp;I 107 kWh</span><span class="en">Storage from 3.68–10 kW residential up to a 107 kWh C&I cabinet</span></span></p>
+          <div class="specs"><div><span class="v">3.68–10 kW</span><span class="l">Home</span></div><div><span class="v">20–50 kW</span><span class="l">C&amp;I</span></div><div><span class="v">107 kWh</span><span class="l">Cabinet</span></div></div>
+          <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
+        </div>
+      </a>
+
+      <a class="product-card bess reveal reveal-d2" href="products.html#bess">
+        <div class="mockup">
+          <img src="/03.webp" alt="TCL BlueArk X1" loading="lazy">
+        </div>
+        <div class="card-content">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/><line x1="6" y1="11" x2="6" y2="13"/><line x1="10" y1="11" x2="10" y2="13"/><line x1="14" y1="11" x2="14" y2="13"/></svg>
+          </div>
+          <span class="cat-label">BESS · TCL</span>
+          <h3><span class="bi"><span class="th">TCL BlueArk X1</span><span class="en">TCL BlueArk X1</span></span></h3>
+          <p><span class="bi"><span class="th">ชุด Hybrid Inverter + แบตเตอรี่โมดูล ขยายได้ 8–128 kWh ติดตั้งภายนอกได้</span><span class="en">Hybrid inverter + modular battery, 8–128 kWh, outdoor-rated</span></span></p>
+          <div class="specs"><div><span class="v">3–16 kW</span><span class="l">Hybrid</span></div><div><span class="v">8–128 kWh</span><span class="l">Storage</span></div><div><span class="v">IP66</span><span class="l">Rating</span></div></div>
+          <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
+        </div>
+      </a>
+
+      <a class="product-card solar reveal reveal-d3" href="products.html#solar">
+        <div class="mockup">
+          <img src="/02.webp" alt="Leapton N-Type TOPCon Bifacial" loading="lazy">
         </div>
         <div class="card-content">
           <div class="icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
           </div>
-          <span class="cat-label">Solar PV</span>
-          <h3><span class="bi"><span class="th">ระบบโซลาร์เซลล์</span><span class="en">Solar PV Systems</span></span></h3>
-          <p><span class="bi"><span class="th">Rooftop, Ground-mount, Floating — Commercial & Utility-scale</span><span class="en">Rooftop, ground-mount, floating — C&I and utility-scale</span></span></p>
-          <div class="specs">
-            <div><span class="v">5–50 MW</span><span class="l">Capacity</span></div>
-            <div><span class="v">25+</span><span class="l"><span class="bi"><span class="th">ปี</span><span class="en">yr</span></span></span></div>
-            <div><span class="v">Tier-1</span><span class="l">Panels</span></div>
-          </div>
+          <span class="cat-label">Solar PV · Leapton</span>
+          <h3><span class="bi"><span class="th">Leapton N-Type TOPCon Bifacial</span><span class="en">Leapton N-Type TOPCon Bifacial</span></span></h3>
+          <p><span class="bi"><span class="th">แผงกำลังสูง 610–725W กระจก 2 ชั้น รับแสงสองด้าน ทนไอเค็มและแอมโมเนีย</span><span class="en">610–725W dual-glass bifacial panels, salt-mist and ammonia rated</span></span></p>
+          <div class="specs"><div><span class="v">610–725 W</span><span class="l">Power</span></div><div><span class="v">23.34%</span><span class="l"><span class="bi"><span class="th">สูงสุด</span><span class="en">Max eff.</span></span></span></div><div><span class="v">80±5%</span><span class="l">Bifaciality</span></div></div>
           <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
         </div>
       </a>
 
-      <a class="product-card ev reveal reveal-d2" href="products.html#ev">
+      <a class="product-card inverter reveal" href="products.html#inverter">
         <div class="mockup">
-          <span class="tag">MOCKUP</span>
-          <img src="/03.webp" alt="EV Charger">
+          <img src="/01.webp" alt="SolarEdge Home Hub & Optimizer" loading="lazy">
         </div>
         <div class="card-content">
           <div class="icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="13" rx="1"/><path d="M16 10h3a2 2 0 0 1 2 2v4M9 13l2-3 2 3"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 12h3l2-3 2 6 2-3h1"/></svg>
           </div>
-          <span class="cat-label">EV Charger</span>
-          <h3><span class="bi"><span class="th">สถานีชาร์จ EV</span><span class="en">EV Charging Stations</span></span></h3>
-          <p><span class="bi"><span class="th">DC Fast Charging สำหรับสถานีบริการ ลานจอด และ Fleet</span><span class="en">DC fast charging for stations, fleets & parking lots</span></span></p>
-          <div class="specs">
-            <div><span class="v">180 kW</span><span class="l">Max Power</span></div>
-            <div><span class="v">CCS2</span><span class="l">Standard</span></div>
-            <div><span class="v">OCPP 2.0</span><span class="l">Protocol</span></div>
-          </div>
+          <span class="cat-label">Inverter · SolarEdge</span>
+          <h3><span class="bi"><span class="th">SolarEdge Home Hub &amp; Optimizer</span><span class="en">SolarEdge Home Hub &amp; Optimizer</span></span></h3>
+          <p><span class="bi"><span class="th">ระบบควบคุมทีละแผง ดูข้อมูลรายแผง พร้อม SafeDC และแบตเตอรี่ในตัว</span><span class="en">Panel-level control and monitoring with SafeDC and integrated battery</span></span></p>
+          <div class="specs"><div><span class="v">3–10 kVA</span><span class="l">Home Hub</span></div><div><span class="v">99.5%</span><span class="l"><span class="bi"><span class="th">สูงสุด</span><span class="en">Peak eff.</span></span></span></div><div><span class="v">9.7 kWh</span><span class="l">Battery</span></div></div>
           <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
         </div>
       </a>
 
-      <a class="product-card monitor reveal reveal-d3" href="products.html#monitoring">
+      <a class="product-card inverter reveal" href="products.html#inverter">
         <div class="mockup">
-          <span class="tag">MOCKUP</span>
-          <img src="/04.webp" alt="Monitoring">
+          <img src="/02.webp" alt="Solplanet ASW HT Series" loading="lazy">
         </div>
         <div class="card-content">
           <div class="icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><polyline points="5 9 9 6 13 9 19 5"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 12h3l2-3 2 6 2-3h1"/></svg>
           </div>
-          <span class="cat-label">EMS · Monitoring</span>
-          <h3><span class="bi"><span class="th">ระบบมอนิเตอร์ &amp; EMS</span><span class="en">Monitoring &amp; EMS</span></span></h3>
-          <p><span class="bi"><span class="th">Real-time Cloud Dashboard วิเคราะห์ ROI แจ้งเตือน LINE/Email</span><span class="en">Real-time cloud dashboard, ROI analytics, LINE & email alerts</span></span></p>
-          <div class="specs">
-            <div><span class="v">24/7</span><span class="l">Monitor</span></div>
-            <div><span class="v">Cloud</span><span class="l">Platform</span></div>
-            <div><span class="v">Modbus</span><span class="l">API</span></div>
-          </div>
+          <span class="cat-label">Inverter · Solplanet</span>
+          <h3><span class="bi"><span class="th">Solplanet ASW HT Series</span><span class="en">Solplanet ASW HT Series</span></span></h3>
+          <p><span class="bi"><span class="th">Inverter 3 เฟสสำหรับโซลาร์ฟาร์มและโรงงานระดับ MW พร้อม Rapid Shutdown</span><span class="en">Three-phase inverters for utility and MW-scale sites, with rapid shutdown</span></span></p>
+          <div class="specs"><div><span class="v">250–360 kW</span><span class="l">Power</span></div><div><span class="v">99.01%</span><span class="l"><span class="bi"><span class="th">สูงสุด</span><span class="en">Max eff.</span></span></span></div><div><span class="v">75 A</span><span class="l">per MPPT</span></div></div>
           <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
         </div>
       </a>
 
     </div>
+    <p class="spec-note reveal"><span class="bi"><span class="th">สเปกทั้งหมดอ้างอิงเอกสารของผู้ผลิต และอาจเปลี่ยนแปลงตามรุ่นและเวอร์ชันเอกสาร กรุณายืนยันกับทีมงานก่อนสั่งซื้อ</span><span class="en">All specifications follow manufacturer documentation and may vary by model and revision. Please confirm with our team before ordering.</span></span></p>
   </div>
 </section>
 
@@ -1017,105 +992,78 @@
   <div class="wrap">
     <div class="section-head reveal">
       <span class="section-tag"><span class="bi"><span class="th">โซลูชัน</span><span class="en">Solutions</span></span></span>
-      <h2><span class="bi"><span class="th">ออกแบบตามความต้องการของคุณ</span><span class="en">Built Around Your Needs</span></span></h2>
-      <p><span class="bi"><span class="th">โซลูชันที่ผ่านการพิสูจน์แล้วในไซต์งานจริงทั่วประเทศไทย</span><span class="en">Field-proven solutions deployed across Thailand's industries</span></span></p>
+      <h2><span class="bi"><span class="th">เลือกระบบตามการใช้งานจริง</span><span class="en">Built Around How You Use Power</span></span></h2>
+      <p><span class="bi"><span class="th">ตั้งแต่บ้านและฟาร์ม ไปจนถึงโรงงานและงานตัวแทนจำหน่าย</span><span class="en">From homes and farms to factories and the dealer channel.</span></span></p>
     </div>
     <div class="solutions-grid">
       <div class="solution-card reveal">
-        <div class="s-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+        <div class="s-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
         <div>
-          <h3><span class="bi"><span class="th">Peak Shaving · ลดค่าไฟพีค</span><span class="en">Peak Shaving</span></span></h3>
-          <p><span class="bi"><span class="th">ลด Demand Charge ของโรงงานได้สูงสุด 30% ด้วย BESS ที่ทำงานอัตโนมัติช่วง peak hour</span><span class="en">Reduce factory demand charges by up to 30% with BESS that automatically discharges during peak hours</span></span></p>
+          <h3><span class="bi"><span class="th">โรงงาน &amp; อาคาร</span><span class="en">Factory &amp; Building</span></span></h3>
+          <p><span class="bi"><span class="th">เก็บพลังงานไว้ใช้ช่วงค่าไฟแพง (Peak shaving / TOU) ขนาดระบบที่เหมาะสมขึ้นกับโหลดจริงของแต่ละไซต์</span><span class="en">Peak shaving and TOU operation. System sizing depends on each site’s actual load profile.</span></span></p>
         </div>
       </div>
       <div class="solution-card reveal">
         <div class="s-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></div>
         <div>
-          <h3><span class="bi"><span class="th">Solar + Storage · ใช้แสงอาทิตย์ 24 ชม.</span><span class="en">Solar + Storage</span></span></h3>
-          <p><span class="bi"><span class="th">เก็บพลังงานช่วงกลางวัน ใช้ตอนกลางคืน เพิ่ม Self-consumption rate ได้ถึง 90%</span><span class="en">Store daytime solar, use at night — boost self-consumption rate up to 90%</span></span></p>
+          <h3><span class="bi"><span class="th">บ้าน &amp; ฟาร์ม</span><span class="en">Home &amp; Farm</span></span></h3>
+          <p><span class="bi"><span class="th">Solar + Battery เก็บไฟกลางวันไว้ใช้กลางคืน รองรับพื้นที่ไฟไม่เสถียรและต่อเครื่องปั่นไฟได้</span><span class="en">Solar + battery: store daytime generation for night use, with genset support for unstable grids.</span></span></p>
         </div>
       </div>
       <div class="solution-card reveal">
         <div class="s-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <div>
-          <h3><span class="bi"><span class="th">Backup Power · UPS สำหรับโรงงาน</span><span class="en">Factory Backup / UPS</span></span></h3>
-          <p><span class="bi"><span class="th">ป้องกัน Production Loss จากไฟดับ ระยะเวลาสำรองตั้งแต่ 30 นาที ถึง 8 ชั่วโมง</span><span class="en">Prevent production loss from outages — backup duration from 30 min to 8 hours</span></span></p>
+          <h3><span class="bi"><span class="th">ไฟสำรอง / UPS</span><span class="en">Backup Power / UPS</span></span></h3>
+          <p><span class="bi"><span class="th">สลับเข้าไฟสำรองได้เร็วระดับมิลลิวินาทีในรุ่นที่รองรับ ระยะเวลาสำรองขึ้นกับขนาดแบตและโหลดที่ต่อ</span><span class="en">Millisecond transfer on supported models. Backup duration depends on battery size and connected load.</span></span></p>
         </div>
       </div>
       <div class="solution-card reveal">
-        <div class="s-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22h20M5 22V10l7-7 7 7v12M9 22V14h6v8"/></svg></div>
+        <div class="s-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div>
-          <h3><span class="bi"><span class="th">Microgrid · ระบบจ่ายไฟอิสระ</span><span class="en">Microgrid</span></span></h3>
-          <p><span class="bi"><span class="th">ระบบไฟฟ้าครบวงจรสำหรับพื้นที่ห่างไกล โรงงานในนิคม หรือเกาะ พร้อม EMS</span><span class="en">Self-sufficient power for remote sites, industrial estates, or islands — with EMS</span></span></p>
+          <h3><span class="bi"><span class="th">ช่าง &amp; ตัวแทนจำหน่าย</span><span class="en">Installers &amp; Dealers</span></span></h3>
+          <p><span class="bi"><span class="th">ราคาตัวแทน เอกสาร datasheet และการสนับสนุนด้านเทคนิคสำหรับผู้ติดตั้งและร้านค้า</span><span class="en">Dealer pricing, datasheets and technical support for installers and resellers.</span></span></p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== PROJECTS ===== -->
-<section id="projects">
+<!-- ===== INSIGHTS / NEWS ===== -->
+<section id="insights">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="section-tag"><span class="bi"><span class="th">โครงการเด่น</span><span class="en">Featured Projects</span></span></span>
-      <h2><span class="bi"><span class="th">ผลงานที่พูดแทนเรา</span><span class="en">Our Work Speaks for Itself</span></span></h2>
-      <p><span class="bi"><span class="th">โครงการที่ส่งมอบแล้วทั่วประเทศไทย ตั้งแต่อุตสาหกรรมหนักไปจนถึง Utility-scale</span><span class="en">Delivered projects across Thailand — from heavy industry to utility-scale</span></span></p>
+      <span class="section-tag"><span class="bi"><span class="th">ข่าว &amp; ความรู้</span><span class="en">News &amp; Insights</span></span></span>
+      <h2><span class="bi"><span class="th">เกาะติดนโยบายและค่าไฟ</span><span class="en">Tracking Policy and Power Prices</span></span></h2>
+      <p><span class="bi"><span class="th">สรุปข่าวพลังงาน นโยบายรัฐ และมาตรฐานที่มีผลกับการติดตั้งจริง อัปเดตต่อเนื่อง</span><span class="en">Energy news, government policy and the standards that affect real installations.</span></span></p>
     </div>
-    <div class="projects-grid">
-      <div class="project-card reveal">
-        <div class="project-img p1">
-          <span class="badge"><span class="bi"><span class="th">ปิโตรเคมี</span><span class="en">Petrochemical</span></span></span>
-          <div class="stats">
-            <div class="big">5<span style="font-size:18px;opacity:.8">MW</span></div>
-            <div class="small">+ 10 MWh BESS</div>
-          </div>
+    <div class="insights-grid">
+      <a class="insight-card reveal" href="news.html">
+        <div class="insight-meta">
+          <span class="insight-tag"><span class="bi"><span class="th">นโยบายรัฐ</span><span class="en">Policy</span></span></span>
+          <time datetime="2026-09-12">2026-09-12</time>
         </div>
-        <div class="project-body">
-          <h3><span class="bi"><span class="th">โรงงานปิโตรเคมี · ระยอง</span><span class="en">Petrochemical Plant · Rayong</span></span></h3>
-          <div class="meta">
-            <span>📍 <span class="bi"><span class="th">ระยอง</span><span class="en">Rayong</span></span></span>
-            <span>📅 2024</span>
-            <span>⚡ HinerCab</span>
-          </div>
-          <p><span class="bi"><span class="th">ลดค่า demand charge 28% และเป็น backup สำหรับสาย Production หลัก ROI 4.5 ปี</span><span class="en">28% demand charge reduction and backup for main production line. 4.5-year ROI.</span></span></p>
+        <h3><span class="bi"><span class="th">PDP 2026: ไฟฟ้าสีเขียว 73% กับค่าไฟ 3.8364 บาท — ตัวเลขนี้ยังไม่ใช่คำตอบสุดท้าย</span><span class="en">PDP 2026: 73% green power at THB 3.8364 — the figure is not final yet</span></span></h3>
+        <span class="link"><span class="bi"><span class="th">อ่านต่อ</span><span class="en">Read more</span></span> →</span>
+      </a>
+      <a class="insight-card reveal" href="news.html">
+        <div class="insight-meta">
+          <span class="insight-tag"><span class="bi"><span class="th">เงินอุดหนุน</span><span class="en">Subsidy</span></span></span>
+          <time datetime="2026-09-12">2026-09-12</time>
         </div>
-      </div>
-      <div class="project-card reveal">
-        <div class="project-img p2">
-          <span class="badge">Solar Farm</span>
-          <div class="stats">
-            <div class="big">12<span style="font-size:18px;opacity:.8">MW</span></div>
-            <div class="small">Ground-mount PV</div>
-          </div>
+        <h3><span class="bi"><span class="th">เงินอุดหนุนขยับแล้ว — เข้าบอร์ดกลั่นกรองแล้ว ขอ 7.5 หมื่นล้าน เพดานระบบ 5 kW</span><span class="en">Solar subsidy advances to review board: THB 75bn requested, 5 kW system cap</span></span></h3>
+        <span class="link"><span class="bi"><span class="th">อ่านต่อ</span><span class="en">Read more</span></span> →</span>
+      </a>
+      <a class="insight-card reveal" href="news.html">
+        <div class="insight-meta">
+          <span class="insight-tag"><span class="bi"><span class="th">มาตรฐาน</span><span class="en">Standards</span></span></span>
+          <time datetime="2026-09-07">2026-09-07</time>
         </div>
-        <div class="project-body">
-          <h3><span class="bi"><span class="th">นิคมอุตสาหกรรม · ชลบุรี</span><span class="en">Industrial Estate · Chonburi</span></span></h3>
-          <div class="meta">
-            <span>📍 <span class="bi"><span class="th">ชลบุรี</span><span class="en">Chonburi</span></span></span>
-            <span>📅 2024</span>
-            <span>☀ Tier-1 panels</span>
-          </div>
-          <p><span class="bi"><span class="th">ติดตั้ง Solar Farm 12 MW ในพื้นที่ 80 ไร่ ผลิตไฟฟ้า 18 GWh/ปี ป้อนเข้านิคม</span><span class="en">12 MW solar farm on 80-rai land, generating 18 GWh/year for the industrial estate.</span></span></p>
-        </div>
-      </div>
-      <div class="project-card reveal">
-        <div class="project-img p3">
-          <span class="badge"><span class="bi"><span class="th">อาหารแปรรูป</span><span class="en">Food Processing</span></span></span>
-          <div class="stats">
-            <div class="big">2.5<span style="font-size:18px;opacity:.8">MW</span></div>
-            <div class="small">Rooftop + 1 MWh</div>
-          </div>
-        </div>
-        <div class="project-body">
-          <h3><span class="bi"><span class="th">โรงงานอาหาร · นครปฐม</span><span class="en">Food Processing Plant · Nakhon Pathom</span></span></h3>
-          <div class="meta">
-            <span>📍 <span class="bi"><span class="th">นครปฐม</span><span class="en">Nakhon Pathom</span></span></span>
-            <span>📅 2023</span>
-            <span>⚡ Hybrid</span>
-          </div>
-          <p><span class="bi"><span class="th">Solar Rooftop 2.5 MW + BESS 1 MWh ประหยัดค่าไฟ 4.2 ล้านบาท/ปี Self-consumption 87%</span><span class="en">2.5 MW solar rooftop + 1 MWh BESS, saving THB 4.2M/year with 87% self-consumption.</span></span></p>
-        </div>
-      </div>
+        <h3><span class="bi"><span class="th">โซลาร์ที่ติดไปแล้วต้องรื้อไหม? เข้าใจ มอก. ใหม่แบบเจ้าของบ้าน</span><span class="en">Do existing solar systems need rework? The new TIS standard, explained</span></span></h3>
+        <span class="link"><span class="bi"><span class="th">อ่านต่อ</span><span class="en">Read more</span></span> →</span>
+      </a>
+    </div>
+    <div class="insights-more reveal">
+      <a class="btn-outline" href="news.html"><span class="bi"><span class="th">ดูข่าวทั้งหมด</span><span class="en">All news</span></span></a>
     </div>
   </div>
 </section>
@@ -1134,21 +1082,6 @@
   </div>
 </section>
 
-<!-- ===== PARTNERS ===== -->
-<div class="partners">
-  <div class="wrap">
-    <div class="partners-label"><span class="bi"><span class="th">พันธมิตรและลูกค้าของเรา</span><span class="en">Our Partners & Clients</span></span></div>
-    <div class="partners-row" id="partners-row">
-      <div>HITHIUM</div>
-      <div>EGAT</div>
-      <div>PEA</div>
-      <div>MEA</div>
-      <div>SCG</div>
-      <div>PTT</div>
-      <div>BCPG</div>
-    </div>
-  </div>
-</div>
 
 <!-- ===== CTA BANNER ===== -->
 <section id="cta" style="padding:30px 0 60px">
@@ -1184,13 +1117,13 @@
         <h4><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></h4>
         <a href="products.html#bess">BESS</a>
         <a href="products.html#solar">Solar PV</a>
-        <a href="products.html#ev">EV Charger</a>
-        <a href="products.html#monitoring">Monitoring</a>
+        <a href="products.html#inverter">EV Charger</a>
+        <a href="products.html#bess">Monitoring</a>
       </div>
       <div class="footer-col">
         <h4><span class="bi"><span class="th">บริษัท</span><span class="en">Company</span></span></h4>
         <a href="contact.html"><span class="bi"><span class="th">ติดต่อเรา</span><span class="en">Contact Us</span></span></a>
-        <a href="#projects"><span class="bi"><span class="th">โครงการ</span><span class="en">Projects</span></span></a>
+        <a href="#solutions"><span class="bi"><span class="th">โซลูชัน</span><span class="en">Solutions</span></span></a>
         <a href="news.html"><span class="bi"><span class="th">ข่าวสาร</span><span class="en">News</span></span></a>
         <span><span class="bi"><span class="th">ร่วมงาน</span><span class="en">Careers</span></span></span>
       </div>
@@ -1238,27 +1171,6 @@
     });
   },{threshold:.12, rootMargin:'0px 0px -40px 0px'});
   reveals.forEach(el => io.observe(el));
-
-  // ===== KPI counter =====
-  const counters = document.querySelectorAll('.kpi .num');
-  const counterIO = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(!e.isIntersecting) return;
-      const el = e.target;
-      const target = parseInt(el.dataset.target,10);
-      const unitHTML = el.querySelector('.unit')?.outerHTML || '';
-      let cur = 0;
-      const step = Math.max(1, Math.floor(target/40));
-      const tick = ()=>{
-        cur = Math.min(target, cur + step);
-        el.innerHTML = cur + unitHTML;
-        if(cur < target) requestAnimationFrame(tick);
-      };
-      tick();
-      counterIO.unobserve(el);
-    });
-  },{threshold:.6});
-  counters.forEach(c=>counterIO.observe(c));
 
   // ===== Smooth anchor scroll offset for sticky nav =====
   document.querySelectorAll('a[href^="#"]').forEach(a=>{
@@ -1380,69 +1292,6 @@
     return r.json();
   }
 
-  // Load KPI values
-  async function loadKPI() {
-    try {
-      const data = await sbFetch('/rest/v1/site_config?key=in.(kpi_mwh,kpi_projects,kpi_years,kpi_satisfaction)&select=key,value');
-      if (!Array.isArray(data)) return;
-      const map = Object.fromEntries(data.map(d => [d.key, d.value]));
-      const targets = { kpi_mwh: 0, kpi_projects: 1, kpi_years: 2, kpi_satisfaction: 3 };
-      const counters = document.querySelectorAll('.kpi .num');
-      for (const [key, idx] of Object.entries(targets)) {
-        if (map[key] && counters[idx]) counters[idx].dataset.target = map[key];
-      }
-    } catch(e) {}
-  }
-
-  // Load projects
-  async function loadProjects() {
-    try {
-      const data = await sbFetch('/rest/v1/projects?is_featured=eq.true&order=sort_order.asc&select=*');
-      if (!Array.isArray(data) || data.length === 0) return;
-      const grid = document.querySelector('.projects-grid');
-      if (!grid) return;
-      grid.innerHTML = data.map(p => `
-        <div class="project-card reveal">
-          <div class="project-img" style="${p.image_url ? `background-image:url(&quot;${escapeHTML(safeURL(p.image_url).replaceAll('\"', '%22').replaceAll('\\', '%5C'))}&quot;);background-size:cover;background-position:center` : 'background:linear-gradient(135deg,#1a1a2e,#16213e)'}">
-            <span class="badge"><span class="bi"><span class="th">${escapeHTML(p.category)}</span><span class="en">${escapeHTML(p.category)}</span></span></span>
-            <div class="stats">
-              <div class="big">${escapeHTML(p.capacity_value ?? '—')}<span style="font-size:18px;opacity:.8">${escapeHTML(p.capacity_unit ?? '')}</span></div>
-              ${p.capacity_detail ? `<div class="small">${escapeHTML(p.capacity_detail)}</div>` : ''}
-            </div>
-          </div>
-          <div class="project-body">
-            <h3><span class="bi"><span class="th">${escapeHTML(p.title_th)}</span><span class="en">${escapeHTML(p.title_en)}</span></span></h3>
-            <div class="meta">
-              ${p.location_th ? `<span>📍 <span class="bi"><span class="th">${escapeHTML(p.location_th)}</span><span class="en">${escapeHTML(p.location_en)}</span></span></span>` : ''}
-              ${p.year ? `<span>📅 ${escapeHTML(p.year)}</span>` : ''}
-              ${p.product_tag ? `<span>⚡ ${escapeHTML(p.product_tag)}</span>` : ''}
-            </div>
-            <p><span class="bi"><span class="th">${escapeHTML(p.description_th)}</span><span class="en">${escapeHTML(p.description_en)}</span></span></p>
-          </div>
-        </div>`).join('');
-      // re-observe new cards for reveal
-      grid.querySelectorAll('.reveal').forEach(el => io.observe(el));
-    } catch(e) {}
-  }
-
-  // Load partners
-  async function loadPartners() {
-    try {
-      const data = await sbFetch('/rest/v1/partners?is_active=eq.true&order=sort_order.asc&select=*');
-      if (!Array.isArray(data) || data.length === 0) return;
-      const row = document.getElementById('partners-row');
-      if (!row) return;
-      row.innerHTML = data.map(p => {
-        const inner = p.logo_url
-          ? `<img class="p-logo" src="${escapeHTML(safeURL(p.logo_url))}" alt="${escapeHTML(p.name)}" loading="lazy">`
-          : escapeHTML(p.name);
-        return p.website
-          ? `<a href="${escapeHTML(safeURL(p.website))}" target="_blank" rel="noopener noreferrer">${inner}</a>`
-          : `<div>${inner}</div>`;
-      }).join('');
-    } catch(e) {}
-  }
-
   // Load hero slides from DB
   async function loadHeroSlides() {
     try {
@@ -1500,9 +1349,6 @@
     } catch(e) {}
   }
 
-  loadKPI();
-  loadProjects();
-  loadPartners();
   loadHeroSlides();
   loadVideo();
 </script>
