@@ -42,10 +42,9 @@ function Bi({ th, en }: { th: string; en: string }) {
 
 /* ── Theme per category ─────────────────────────────────────────── */
 const THEME = {
-  bess:  { accent: '#7C3AED', glow: 'rgba(124,58,237,0.18)', badge: 'BESS · Energy Storage',      badgeBg: '#f3effe', badgeText: '#6d28d9' },
-  solar: { accent: '#D97706', glow: 'rgba(217,119,6,0.15)',  badge: 'Solar PV · Rooftop',          badgeBg: '#fffbeb', badgeText: '#b45309' },
-  ev:    { accent: '#059669', glow: 'rgba(5,150,105,0.15)',  badge: 'EV Charger · DC Fast Charge', badgeBg: '#ecfdf5', badgeText: '#065f46' },
-  ems:   { accent: '#2563EB', glow: 'rgba(37,99,235,0.15)',  badge: 'EMS · Cloud Monitoring',      badgeBg: '#eff6ff', badgeText: '#1d4ed8' },
+  bess:     { accent: '#7C3AED', glow: 'rgba(124,58,237,0.18)', badge: 'BESS · Energy Storage', badgeBg: '#f3effe', badgeText: '#6d28d9' },
+  solar:    { accent: '#D97706', glow: 'rgba(217,119,6,0.15)',  badge: 'Solar PV · Modules',    badgeBg: '#fffbeb', badgeText: '#b45309' },
+  inverter: { accent: '#2563EB', glow: 'rgba(37,99,235,0.15)',  badge: 'Inverter',              badgeBg: '#eff6ff', badgeText: '#1d4ed8' },
 } as const
 
 const ICON: Record<string, React.ReactNode> = {
@@ -59,14 +58,9 @@ const ICON: Record<string, React.ReactNode> = {
       <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
     </svg>
   ),
-  ev: (
+  inverter: (
     <svg className="w-48 h-48 opacity-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6">
-      <rect x="6" y="3" width="12" height="18" rx="2"/><line x1="10" y1="7" x2="14" y2="7"/><path d="M11 11l-2 4h6l-2 4"/>
-    </svg>
-  ),
-  ems: (
-    <svg className="w-48 h-48 opacity-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.6">
-      <rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="5 13 9 8 13 11 19 5"/>
+      <rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 12h3l2-3 2 6 2-3h1"/>
     </svg>
   ),
 }
@@ -116,7 +110,7 @@ function ProductPage({ product }: { product: Product }) {
             ) : (
               <div className="w-64 h-64 flex items-center justify-center"
                 style={{ color: theme.accent, opacity: 0.12 }}>
-                {ICON[product.category]}
+                {ICON[product.category] ?? ICON.bess}
               </div>
             )}
           </div>
