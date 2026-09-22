@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const product = await getProduct(slug)
   if (!product) return { title: 'Product not found — 24sEnergy', robots: { index: false } }
-  const site = process.env.NEXT_PUBLIC_SITE_URL || 'https://24senergy.vercel.app'
+  const site = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.24senergy.co.th'
   const url = `${site}/products/${encodeURIComponent(slug)}`
   return { title: `${product.name_th} — 24sEnergy`, description: product.description_th,
     alternates: { canonical: url }, openGraph: { title: product.name_th, description: product.description_th, url, images: product.images?.slice(0, 1) || [] } }
