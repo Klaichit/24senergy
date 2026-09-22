@@ -14,6 +14,18 @@ cp .env.example .env.local
 pnpm dev
 ```
 
+### Previewing
+
+Use `pnpm dev` and open `http://localhost:3000`. It serves everything: the
+static pages in `public/`, their assets, `/products/<slug>`, `/api/leads` and
+`/admin`.
+
+A plain static server such as VS Code Live Server is not enough. Product detail
+pages are not files — `/products/<slug>` is rendered per request from CMS data —
+so a static server answers 404 for every "ดูรายละเอียด" link, and `/api/leads`
+is missing too. Pages themselves render, which makes the gap easy to misread as
+broken content.
+
 Set the public Supabase values and the **server-only** `SUPABASE_SERVICE_ROLE_KEY`. Never prefix the service key with `NEXT_PUBLIC_`, commit it, or place it in HTML. Set `NEXT_PUBLIC_SITE_URL` to the canonical production origin without a trailing slash.
 
 ## Database rollout
@@ -30,9 +42,11 @@ Forms return success only after saving. Missing configuration, migrations, netwo
 
 ## Source ownership
 
-- Edit public HTML in `public/` only. Root HTML files are generated mirrors for legacy handoff; run `pnpm sync:public` after editing. CI checks drift.
+- Edit public HTML in `public/` only. Root files are generated mirrors for legacy handoff; run `pnpm sync:public` after editing. CI checks drift. The mirror carries the referenced assets as well as the pages, so it is servable on its own — a mirror with the HTML but not `site.js` loses `escapeHTML`, and every CMS-backed list on it fails.
+- Pages reference assets relatively (`site.js`, `01.webp`), so they work whatever directory a server treats as its root. `safeURL` resolves against `document.baseURI` for the same reason. Keep both that way; absolute `/asset` paths break as soon as the served root moves.
 - `public/site.js` and `public/site.css` own shared mobile navigation, forms, focus styling and escaping utilities.
-- `/products/[slug]` reads published CMS data. Legacy `product-*.html` URLs redirect there through Next.js.
+- `/products/[slug]` reads published CMS data, so every published product has a detail page with no per-product file to maintain. Categories are `bess`, `solar` and `inverter`; adding another means adding it to the page's THEME and ICON maps too.
+- The four legacy `product-*.html` URLs redirect to `/products.html`. They used to point at individual products, all since retired.
 - Serve HTML through Next.js for `/api/leads` and redirects. Opening files with `file://` does not provide the backend.
 - Public Supabase URL/key in `public/index.html` and `public/products.html` must match the deployment's public configuration. They are public identifiers, not administrative credentials.
 - Static canonical/Open Graph tags use `https://24senergy.vercel.app`. Update them together with `NEXT_PUBLIC_SITE_URL` when assigning a production domain.
