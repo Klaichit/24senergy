@@ -149,9 +149,13 @@
   .prod-body{padding:26px;flex:1;display:flex;flex-direction:column}
   .prod-body h3{font-size:21px;font-weight:900;color:var(--ink);margin-bottom:6px;line-height:1.25}
   .prod-body .model{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-bottom:12px;letter-spacing:.3px}
-  .prod-body p{font-size:14px;color:var(--ink-2);margin-bottom:18px;line-height:1.6;flex:1}
+  .prod-body p{
+    font-size:14px;color:var(--ink-2);margin-bottom:18px;line-height:1.6;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  }
   .prod-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
-    padding:14px;background:var(--bg-soft);border-radius:10px;margin-bottom:18px}
+    padding:14px;background:var(--bg-soft);border-radius:10px;margin-bottom:18px;
+    margin-top:auto}
   .prod-specs>div{text-align:center}
   .prod-specs .v{display:block;font-family:var(--mono);font-weight:700;color:var(--ink);font-size:14.5px}
   .prod-specs .l{display:block;font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:3px}
@@ -403,7 +407,7 @@
   const SB_KEY  = 'sb_publishable_oEeXvdWPNAt0wmUDuvACfg_tDlTxkhu';
 
   const CAT_CFG = {
-    bess:  {label:'BESS · All-in-One',  img:'bg-bess',  btn:'btn-brand', ghost:'btn-ghost-brand', app:'residential commercial'},
+    bess:  {label:'BESS · Energy Storage', img:'bg-bess',  btn:'btn-brand', ghost:'btn-ghost-brand', app:'residential commercial'},
     solar: {label:'Solar PV',           img:'bg-solar', btn:'btn-solar', ghost:'btn-ghost-solar', app:'industrial commercial'},
     inverter: {label:'Inverter',        img:'bg-ems',  btn:'btn-ems',  ghost:'btn-ghost-ems',  app:'industrial commercial residential'},
   };
