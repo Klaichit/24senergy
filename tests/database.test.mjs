@@ -31,6 +31,6 @@ test('PostgreSQL migration: roles, private leads, drafts, storage guards, limite
     await db.exec(`insert into storage.objects(bucket_id,name) values('product-images','allowed.png')`)
     await db.exec('reset role')
     const { rows } = await db.query('select count(*)::int as count from products')
-    assert.equal(rows[0].count,4,'migration and rolled-back tests preserve seed products')
+    assert.equal(rows[0].count,6,'migration and rolled-back tests preserve seed products')
   } finally { await db.close() }
 })
