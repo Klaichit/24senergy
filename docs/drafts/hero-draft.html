@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>24sEnergy — BESS, Solar PV &amp; Inverter</title>
+<meta name="description" content="จัดจำหน่ายและติดตั้งระบบกักเก็บพลังงาน BESS โซลาร์เซลล์ และอินเวอร์เตอร์ สำหรับบ้าน ฟาร์ม และโรงงาน">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Charmonman:wght@700&family=Noto+Sans+Thai:wght@300;400;700;900&family=Noto+Sans:wght@300;400;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand:#6A2DAF;
+    --brand-dark:#4d1f80;
+    --brand-light:#8b4dd6;
+    --brand-soft:#f1e9fb;
+    --brand-2:#3F3F3F;
+    --ink:#1a1a1a;
+    --ink-2:#4a4a4a;
+    --muted:#8a8a8a;
+    --line:#ececf0;
+    --line-strong:#dcdce4;
+    --bg:#ffffff;
+    --bg-soft:#fafafb;
+    --bg-dark:#1a1a1f;
+    --accent:#22c55e;
+    --solar:#fbbf24;
+    --shadow-sm:0 1px 2px rgba(26,26,46,.04), 0 1px 3px rgba(26,26,46,.03);
+    --shadow:0 2px 6px rgba(26,26,46,.04), 0 12px 28px rgba(26,26,46,.07);
+    --shadow-md:0 4px 12px rgba(26,26,46,.05), 0 20px 44px rgba(26,26,46,.09);
+    --shadow-lg:0 8px 20px rgba(26,26,46,.06), 0 28px 64px rgba(106,45,175,.13);
+    --ease:cubic-bezier(.2,.8,.2,1);
+    --mono:'JetBrains Mono', 'SF Mono', Menlo, monospace;
+    --radius:16px;
+    --radius-sm:10px;
+    --radius-lg:22px;
+    --sec-pad:clamp(72px,8vw,112px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Noto Sans Thai','Noto Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.65;font-size:16px;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body[data-lang="th"]{font-family:'Noto Sans Thai','Noto Sans',sans-serif}
+  body[data-lang="en"]{font-family:'Noto Sans','Noto Sans Thai',sans-serif}
+
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+
+  /* Bilingual */
+  .bi .th, .bi .en{display:inline}
+  /* Thai glyphs need positive tracking — negative letter-spacing crowds tone marks */
+  body[data-lang="th"] h1,
+  body[data-lang="th"] h2,
+  body[data-lang="th"] h3{letter-spacing:0}
+  body[data-lang="th"] .section-head p,
+  body[data-lang="th"] .hero p.lede{line-height:1.8}
+  body[data-lang="th"] .bi .en{display:none}
+  body[data-lang="en"] .bi .th{display:none}
+
+  /* ===== Top Nav ===== */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    transition:all .3s ease;
+    padding:18px 0;
+  }
+  .nav.scrolled{
+    background:rgba(255,255,255,.95);
+    backdrop-filter:saturate(180%) blur(16px);
+    box-shadow:0 1px 0 rgba(0,0,0,.06);
+    padding:12px 0;
+  }
+  .nav-inner{display:flex;align-items:center;gap:32px}
+  .nav-logo{height:38px;transition:height .3s ease}
+  .nav.scrolled .nav-logo{height:34px}
+  .nav-logo img{height:100%;width:auto;transition:filter .3s ease}
+  .nav:not(.scrolled) .nav-logo img{filter:brightness(0) invert(1)}
+  .nav-links{display:flex;gap:6px;margin-left:auto}
+  .nav-links a{
+    padding:9px 16px;border-radius:8px;font-size:14.5px;font-weight:400;
+    color:rgba(255,255,255,.9);transition:all .2s;position:relative;
+  }
+  .nav.scrolled .nav-links a{color:var(--ink-2)}
+  .nav-links a:hover{background:rgba(255,255,255,.15);color:#fff}
+  .nav.scrolled .nav-links a:hover{background:var(--brand-soft);color:var(--brand)}
+  .nav-right{display:flex;align-items:center;gap:14px;margin-left:14px}
+  .lang-toggle{
+    display:flex;background:rgba(255,255,255,.15);border-radius:8px;padding:3px;
+    font-family:var(--mono);font-size:12px;font-weight:700;
+  }
+  .nav.scrolled .lang-toggle{background:#f0f0f3}
+  .lang-toggle button{padding:6px 12px;border-radius:6px;color:rgba(255,255,255,.7);transition:all .2s}
+  .nav.scrolled .lang-toggle button{color:var(--muted)}
+  .lang-toggle button.active{background:var(--brand);color:#fff !important;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+  .btn-cta{
+    background:var(--brand);color:#fff;padding:11px 22px;border-radius:8px;
+    font-weight:700;font-size:14px;transition:all .2s;
+    box-shadow:0 4px 14px rgba(106,45,175,.35);
+    white-space:nowrap;
+  }
+  .btn-cta:hover{background:var(--brand-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(106,45,175,.45)}
+  .nav-burger{display:none;width:30px;height:30px;flex-direction:column;justify-content:center;gap:5px}
+  .nav-burger span{display:block;height:2px;background:#fff;border-radius:2px;transition:.3s}
+  .nav.scrolled .nav-burger span{background:var(--ink)}
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;min-height:100vh;
+    background:
+      radial-gradient(ellipse at top right, rgba(106,45,175,.4) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom left, rgba(34,197,94,.15) 0%, transparent 50%),
+      linear-gradient(135deg, #1a1a1f 0%, #2d1a4a 50%, #1a1a1f 100%);
+    color:#fff;display:flex;align-items:center;
+    padding:140px 0 100px;overflow:hidden;
+  }
+  .hero::before{
+    content:'';position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size:60px 60px;
+    mask-image:radial-gradient(ellipse at center, #000 30%, transparent 70%);
+    -webkit-mask-image:radial-gradient(ellipse at center, #000 30%, transparent 70%);
+  }
+  .hero::after{
+    content:'';position:absolute;top:20%;right:-5%;width:600px;height:600px;
+    background:radial-gradient(circle, rgba(106,45,175,.4) 0%, transparent 60%);
+    filter:blur(60px);animation:pulse 8s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{transform:scale(1);opacity:.6}
+    50%{transform:scale(1.15);opacity:.9}
+  }
+  .hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:8px 16px;background:rgba(106,45,175,.25);border:1px solid rgba(139,77,214,.4);
+    border-radius:999px;font-size:13px;font-weight:700;margin-bottom:24px;
+    backdrop-filter:blur(10px);
+  }
+  .hero-eyebrow .dot{width:8px;height:8px;background:var(--accent);border-radius:50%;
+    box-shadow:0 0 12px var(--accent);animation:blink 2s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+  .hero h1{
+    font-size:clamp(36px,5.5vw,68px);font-weight:900;line-height:1.05;
+    letter-spacing:-1.5px;margin-bottom:24px;
+  }
+  .hero h1 .accent{
+    background:linear-gradient(135deg,#c8a8ff 0%, #fff 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lede{
+    font-size:18px;color:rgba(255,255,255,.78);max-width:540px;
+    margin-bottom:36px;line-height:1.65;
+  }
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+  .btn-primary{
+    background:#fff;color:var(--brand-2);padding:15px 30px;border-radius:10px;
+    font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:10px;
+    transition:all .25s;box-shadow:0 8px 24px rgba(0,0,0,.2);
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.3)}
+  .btn-primary svg{transition:transform .25s}
+  .btn-primary:hover svg{transform:translateX(4px)}
+  .btn-ghost{
+    background:rgba(255,255,255,.08);color:#fff;padding:15px 30px;border-radius:10px;
+    font-weight:700;font-size:15px;border:1px solid rgba(255,255,255,.2);
+    display:inline-flex;align-items:center;gap:10px;transition:all .25s;
+    backdrop-filter:blur(10px);
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.4)}
+
+  /* Hero visual — animated energy illustration */
+  .hero-visual{position:relative;height:480px;display:flex;align-items:center;justify-content:center}
+  .energy-orb{
+    position:relative;width:380px;height:380px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .energy-orb .ring{
+    position:absolute;border-radius:50%;border:1.5px solid rgba(139,77,214,.3);
+    animation:spin 30s linear infinite;
+  }
+  .energy-orb .ring.r1{width:100%;height:100%}
+  .energy-orb .ring.r2{width:75%;height:75%;animation-duration:20s;animation-direction:reverse;border-color:rgba(34,197,94,.3)}
+  .energy-orb .ring.r3{width:50%;height:50%;animation-duration:15s;border-color:rgba(251,191,36,.3)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .energy-orb .ring::before{
+    content:'';position:absolute;top:-6px;left:50%;
+    width:12px;height:12px;border-radius:50%;
+    transform:translateX(-50%);
+    box-shadow:0 0 20px currentColor;
+  }
+  .energy-orb .ring.r1::before{background:var(--brand-light);color:var(--brand-light)}
+  .energy-orb .ring.r2::before{background:var(--accent);color:var(--accent)}
+  .energy-orb .ring.r3::before{background:var(--solar);color:var(--solar)}
+  .energy-orb .core{
+    width:160px;height:160px;border-radius:50%;
+    background:radial-gradient(circle, #fff 0%, var(--brand-light) 40%, var(--brand) 100%);
+    box-shadow:0 0 80px rgba(139,77,214,.6), inset 0 0 40px rgba(255,255,255,.3);
+    display:flex;align-items:center;justify-content:center;
+    animation:pulse-core 3s ease-in-out infinite;
+  }
+  @keyframes pulse-core{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+  .energy-orb .core-inner{
+    font-family:var(--mono);font-size:42px;font-weight:700;color:#fff;
+    text-shadow:0 2px 8px rgba(0,0,0,.3);
+  }
+  .energy-orb .core-inner small{font-size:14px;display:block;opacity:.85;margin-top:2px;letter-spacing:1px}
+
+  /* Scroll cue */
+  .scroll-cue{
+    position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+    color:rgba(255,255,255,.5);font-size:12px;letter-spacing:2px;text-transform:uppercase;
+    display:flex;flex-direction:column;align-items:center;gap:8px;animation:float 2.5s ease-in-out infinite;
+  }
+  @keyframes float{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+  .scroll-cue .mouse{width:22px;height:36px;border:1.5px solid rgba(255,255,255,.4);border-radius:14px;position:relative}
+  .scroll-cue .mouse::after{
+    content:'';position:absolute;top:7px;left:50%;width:3px;height:7px;
+    background:rgba(255,255,255,.6);border-radius:2px;transform:translateX(-50%);
+    animation:scroll-dot 1.8s ease-in-out infinite;
+  }
+  @keyframes scroll-dot{0%{opacity:0;transform:translate(-50%,0)}50%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
+
+  /* ===== Brand strip ===== */
+  .brand-strip{
+    background:#fff;margin-top:clamp(48px,6vw,72px);position:relative;z-index:2;
+    border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);
+    border:1px solid rgba(255,255,255,.6);
+    padding:32px 28px;
+  }
+  .brand-strip-label{
+    text-align:center;color:var(--muted);font-size:12px;letter-spacing:1.6px;
+    text-transform:uppercase;font-weight:700;margin-bottom:22px;
+  }
+  .brand-row{
+    display:flex;flex-wrap:wrap;justify-content:center;
+    gap:10px 34px;
+  }
+  .brand-item{
+    display:flex;flex-direction:column;align-items:center;gap:3px;
+    padding:6px 10px;border-radius:var(--radius-sm);transition:background .25s var(--ease);
+  }
+  .brand-item:hover{background:var(--bg-soft)}
+  .brand-item .b-name{
+    font-family:var(--mono);font-size:16px;font-weight:700;color:var(--ink);
+    letter-spacing:-.4px;white-space:nowrap;
+  }
+  .brand-item .b-cat{
+    font-size:10.5px;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;
+  }
+
+  /* ===== Section base ===== */
+  section{padding:var(--sec-pad) 0;position:relative}
+  .section-head{text-align:center;max-width:680px;margin:0 auto clamp(40px,5vw,60px)}
+  .section-tag{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 15px;background:var(--brand-soft);
+    color:var(--brand);font-size:12px;font-weight:700;border-radius:999px;
+    letter-spacing:.8px;text-transform:uppercase;margin-bottom:18px;
+    border:1px solid rgba(106,45,175,.10);
+  }
+  .section-tag::before{
+    content:'';width:5px;height:5px;border-radius:50%;
+    background:var(--brand);opacity:.7;flex-shrink:0;
+  }
+  .section-head h2{
+    font-size:clamp(28px,3.4vw,40px);font-weight:700;line-height:1.2;
+    color:var(--ink);letter-spacing:-.4px;margin-bottom:14px;text-wrap:balance;
+  }
+  .section-head p{color:var(--ink-2);font-size:16.5px;line-height:1.7;text-wrap:pretty}
+  /* Hairline seams between light sections keep the rhythm readable */
+  #solutions{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+  /* ===== Products section ===== */
+  #products{background:var(--bg-soft)}
+  /* A 6-column bento: one feature card, four standard, one full-width banner.
+     Every card spans an even number of columns so the rows always close. */
+  .products-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+  .product-card{grid-column:span 2}
+  .product-card.feature{grid-column:span 4;min-height:460px}
+  .product-card.wide{grid-column:span 6;min-height:300px}
+  .product-card{
+    border-radius:var(--radius);overflow:hidden;cursor:pointer;
+    position:relative;min-height:420px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    color:#fff;text-decoration:none;
+    transition:transform .35s ease,box-shadow .35s ease;
+    box-shadow:0 1px 2px rgba(26,26,46,.08), 0 10px 28px rgba(26,26,46,.13);
+  }
+  /* rim light along the top and a hairline all round */
+  .product-card::after{
+    content:'';position:absolute;inset:0;z-index:3;pointer-events:none;
+    border-radius:inherit;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.16), inset 0 0 0 1px rgba(255,255,255,.07);
+  }
+  .product-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 3px 6px rgba(26,26,46,.10), 0 26px 56px rgba(26,26,46,.30);
+  }
+  /* full-bleed image */
+  .product-card .mockup{
+    position:absolute;inset:0;z-index:0;
+  }
+  .product-card .mockup img{
+    width:100%;height:100%;object-fit:cover;object-position:center 20%;
+    display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1);
+    filter:saturate(1.08) contrast(1.07) brightness(.95);
+  }
+  .product-card:hover .mockup img{transform:scale(1.08)}
+  /* gradient overlay */
+  .product-card .mockup::after{
+    content:'';position:absolute;inset:0;z-index:1;
+    background:
+      radial-gradient(130% 85% at 0% 100%, rgba(0,0,0,.58) 0%, rgba(0,0,0,.18) 55%, transparent 75%),
+      linear-gradient(180deg,rgba(0,0,0,.06) 0%,rgba(0,0,0,.18) 38%,rgba(0,0,0,.58) 68%,rgba(0,0,0,.86) 100%);
+    transition:opacity .35s ease;
+  }
+  .product-card:hover .mockup::after{opacity:.88}
+  /* tint per category */
+  .product-card.bess .mockup::before{content:'';position:absolute;inset:0;z-index:1;
+    background:linear-gradient(135deg,rgba(106,45,175,.35) 0%,transparent 60%);pointer-events:none}
+  .product-card.solar .mockup::before{content:'';position:absolute;inset:0;z-index:1;
+    background:linear-gradient(135deg,rgba(217,119,6,.35) 0%,transparent 60%);pointer-events:none}
+  .product-card.ev-unused .mockup::before{content:'';position:absolute;inset:0;z-index:1;
+    background:linear-gradient(135deg,rgba(5,150,105,.35) 0%,transparent 60%);pointer-events:none}
+  .product-card.inverter .mockup::before{content:'';position:absolute;inset:0;z-index:1;
+    background:linear-gradient(135deg,rgba(37,99,235,.38) 0%,transparent 60%);pointer-events:none}
+  /* content overlay at bottom */
+  .card-content{position:relative;z-index:2;padding:24px}
+  .product-card .icon{
+    width:44px;height:44px;border-radius:10px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:14px;transition:transform .3s ease, box-shadow .3s ease;
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,.20);
+    box-shadow:0 8px 18px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.18);
+  }
+  .product-card:hover .icon{transform:scale(1.1)}
+  .product-card.bess .icon{background:rgba(106,45,175,.55);color:#fff}
+  .product-card.solar .icon{background:rgba(217,119,6,.55);color:#fff}
+  .product-card.ev-unused .icon{background:rgba(5,150,105,.55);color:#fff}
+  .product-card.inverter .icon{background:rgba(37,99,235,.55);color:#fff}
+  .product-card .cat-label{
+    font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.8px;
+    text-transform:uppercase;opacity:.75;margin-bottom:6px;display:block;
+  }
+  .product-card h3{
+    font-size:18.5px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.3;
+    text-shadow:0 1px 12px rgba(0,0,0,.45);
+  }
+  .product-card p{font-size:13px;color:rgba(255,255,255,.75);margin-bottom:18px;line-height:1.6;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .product-card .specs{
+    display:flex;gap:14px;margin-bottom:18px;padding:12px 14px;
+    background:rgba(10,8,20,.40);
+    -webkit-backdrop-filter:blur(10px) saturate(1.3);
+    backdrop-filter:blur(10px) saturate(1.3);
+    border:1px solid rgba(255,255,255,.13);
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.10);
+  }
+  .product-card .specs > div{flex:1}
+  .product-card .specs .v{font-weight:700;color:#fff;font-family:var(--mono);font-size:13.5px;
+    display:block;letter-spacing:-.3px;font-variant-numeric:tabular-nums}
+  .product-card .specs .l{color:rgba(255,255,255,.55);font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+  .product-card .link{
+    font-size:13.5px;font-weight:700;color:rgba(255,255,255,.9);
+    display:inline-flex;align-items:center;gap:6px;transition:gap .2s,color .2s;
+  }
+  .product-card:hover .link{gap:10px;color:#fff}
+
+  /* Corner chip. Sits above .product-card::after, which shares z-index 3. */
+  .card-flag{
+    position:absolute;top:18px;right:18px;z-index:4;
+    font-family:var(--mono);font-size:10.5px;font-weight:700;
+    letter-spacing:1px;text-transform:uppercase;color:#fff;
+    padding:6px 12px;border-radius:999px;
+    background:rgba(10,8,20,.45);
+    -webkit-backdrop-filter:blur(10px) saturate(1.3);
+    backdrop-filter:blur(10px) saturate(1.3);
+    border:1px solid rgba(255,255,255,.22);
+    box-shadow:0 6px 16px rgba(0,0,0,.30);
+  }
+
+  /* Feature card — same parts, more room */
+  .product-card.feature .card-content{padding:34px}
+  .product-card.feature .icon{width:52px;height:52px;border-radius:12px;margin-bottom:16px}
+  .product-card.feature h3{font-size:27px;line-height:1.22;margin-bottom:10px}
+  .product-card.feature p{font-size:14.5px;-webkit-line-clamp:3;max-width:56ch}
+  .product-card.feature .specs{max-width:460px;padding:14px 16px}
+  .product-card.feature .specs .v{font-size:15px}
+  .product-card.feature .mockup img{object-position:center 35%}
+
+  /* Banner card — text and numbers side by side instead of stacked */
+  .product-card.wide .card-content{
+    display:flex;align-items:flex-end;gap:34px;flex-wrap:wrap;padding:30px 34px;
+  }
+  .product-card.wide .wide-text{flex:1 1 340px;min-width:0}
+  .product-card.wide .wide-aside{flex:0 1 430px;min-width:0}
+  .product-card.wide .icon{margin-bottom:14px}
+  .product-card.wide h3{font-size:22px}
+  .product-card.wide p{-webkit-line-clamp:3;margin-bottom:0;max-width:52ch}
+  .product-card.wide .specs{margin-bottom:14px}
+  .product-card.wide .link{margin-bottom:2px}
+  .product-card.wide .mockup img{object-position:center 45%}
+  .product-card.wide .mockup::after{
+    background:
+      radial-gradient(90% 150% at 0% 100%, rgba(0,0,0,.72) 0%, rgba(0,0,0,.30) 45%, transparent 72%),
+      linear-gradient(180deg,rgba(0,0,0,.10) 0%,rgba(0,0,0,.34) 45%,rgba(0,0,0,.78) 100%);
+  }
+
+  .spec-note{
+    margin:32px auto 0;max-width:760px;text-align:center;
+    font-size:12.5px;line-height:1.7;color:var(--muted);
+  }
+
+  /* ===== Highlights (bento) ===== */
+  #highlights{background:var(--bg-soft);border-top:1px solid var(--line)}
+  .highlights-bento{
+    display:grid;grid-template-columns:repeat(6,1fr);
+    grid-auto-rows:minmax(210px,auto);gap:18px;
+  }
+  /* A wide lead card with two stacked text cards beside it, then a row of
+     three. Keeps the block compact while giving the eye different shapes. */
+  .hl-lead{grid-column:span 4;grid-row:span 2}
+  .hl-wide{grid-column:span 2}
+  .highlights-bento .hl-card{grid-column:span 2}
+
+  /* photo card — the picture carries the message, text sits on top */
+  .hl-photo{
+    position:relative;overflow:hidden;border-radius:var(--radius);
+    display:flex;align-items:flex-end;color:#fff;isolation:isolate;
+    box-shadow:var(--shadow-sm);
+    transition:transform .35s var(--ease),box-shadow .35s var(--ease);
+  }
+  .hl-photo::before{
+    content:'';position:absolute;inset:0;z-index:0;
+    background-image:var(--hl-img, none), var(--hl-ph, none);
+    background-size:cover;background-position:center 30%;
+    transition:transform .6s var(--ease);
+  }
+  .hl-photo::after{
+    content:'';position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,rgba(10,8,20,.18) 0%,rgba(10,8,20,.48) 38%,rgba(10,8,20,.80) 62%,rgba(10,8,20,.93) 100%);
+  }
+  .hl-wide::after{
+    background:linear-gradient(180deg,rgba(10,8,20,.25) 0%,rgba(10,8,20,.70) 30%,rgba(10,8,20,.92) 100%);
+  }
+  .hl-photo:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+  .hl-photo:hover::before{transform:scale(1.06)}
+  .hl-photo-body{position:relative;z-index:2;padding:26px;display:flex;flex-direction:column;gap:10px}
+  .hl-photo h3{font-size:20px;font-weight:700;line-height:1.35;margin:0;text-wrap:balance}
+  .hl-lead h3{font-size:24px}
+  .hl-photo p{font-size:14px;line-height:1.7;margin:0;color:rgba(255,255,255,.82)}
+  .hl-photo .hl-src{border-top-color:rgba(255,255,255,.22);color:rgba(255,255,255,.62)}
+
+  /* text card */
+  .hl-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px;display:flex;flex-direction:column;gap:11px;
+    box-shadow:var(--shadow-sm);
+    transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease);
+  }
+  .hl-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--line-strong)}
+  .hl-icon{
+    width:40px;height:40px;border-radius:11px;flex-shrink:0;
+    background:var(--brand-soft);color:var(--brand);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .hl-card h3{font-size:16px;font-weight:700;color:var(--ink);line-height:1.45;margin:0}
+  .hl-card p{font-size:13.5px;color:var(--ink-2);line-height:1.7;margin:0;flex:1}
+  .hl-src{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.2px;color:var(--muted);
+    padding-top:11px;border-top:1px solid var(--line);margin-top:auto;
+  }
+
+
+  /* ===== Solutions section ===== */
+  .solutions-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  .solution-card{
+    padding:30px;border-radius:var(--radius);background:#fff;
+    border:1px solid var(--line);transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease);
+    display:flex;gap:20px;align-items:flex-start;
+  }
+  .solution-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--line-strong)}
+  .solution-card .s-icon{
+    width:50px;height:50px;border-radius:13px;flex-shrink:0;
+    background:var(--brand-soft);color:var(--brand);
+    display:flex;align-items:center;justify-content:center;
+    transition:background .3s var(--ease),color .3s var(--ease);
+  }
+  .solution-card:hover .s-icon{background:var(--brand);color:#fff}
+  .solution-card h3{font-size:17px;font-weight:700;margin-bottom:8px;color:var(--ink);line-height:1.4}
+  .solution-card p{color:var(--ink-2);font-size:14.5px;line-height:1.7}
+
+  /* ===== Insights / news teaser ===== */
+  #insights{
+    background:linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+    border-top:1px solid var(--line);
+  }
+  .insights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .insight-card{
+    display:flex;flex-direction:column;gap:14px;
+    padding:28px;border-radius:var(--radius);background:#fff;
+    border:1px solid var(--line);box-shadow:var(--shadow-sm);
+    transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease);
+  }
+  .insight-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--line-strong)}
+  .insight-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .insight-tag{
+    padding:4px 11px;border-radius:999px;background:var(--brand-soft);color:var(--brand);
+    font-size:11.5px;font-weight:700;letter-spacing:.4px;
+  }
+  .insight-meta time{
+    font-family:var(--mono);font-size:11.5px;color:var(--muted);
+    font-variant-numeric:tabular-nums;
+  }
+  .insight-card h3{
+    font-size:16.5px;font-weight:700;line-height:1.55;color:var(--ink);
+    margin:0;flex:1;
+  }
+  .insight-card .link{
+    font-size:13.5px;font-weight:700;color:var(--brand);
+    display:inline-flex;align-items:center;gap:6px;transition:gap .2s var(--ease);
+  }
+  .insight-card:hover .link{gap:10px}
+  .insights-more{text-align:center;margin-top:36px}
+  .btn-outline{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:13px 28px;border-radius:10px;
+    border:1px solid var(--line-strong);background:#fff;color:var(--ink);
+    font-weight:700;font-size:14.5px;
+    transition:border-color .25s var(--ease),color .25s var(--ease),box-shadow .25s var(--ease);
+  }
+  .btn-outline:hover{border-color:var(--brand);color:var(--brand);box-shadow:var(--shadow-sm)}
+
+  /* ===== Video Section ===== */
+  .video-section{padding:80px 0;background:#0a0a0f}
+  .video-section .section-head h2{color:#fff}
+  .video-section .section-head p{color:rgba(255,255,255,.55)}
+  .video-section .section-tag{background:rgba(139,92,246,.15);color:#a78bfa;border-color:rgba(139,92,246,.25)}
+  .video-frame{position:relative;width:100%;padding-bottom:56.25%;border-radius:20px;overflow:hidden;
+    box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06)}
+  .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .video-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    background:#111;color:rgba(255,255,255,.25);font-size:14px}
+
+  /* ===== CTA banner ===== */
+  .cta-banner{
+    margin:60px auto;max-width:1180px;
+    background:linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+    border-radius:var(--radius-lg);padding:clamp(40px,5vw,60px) clamp(28px,5vw,56px);color:#fff;
+    display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:center;
+    position:relative;overflow:hidden;
+    box-shadow:0 24px 64px rgba(106,45,175,.26);
+  }
+  /* faint grid keeps the flat purple panel from reading as a plain block */
+  .cta-banner::after{
+    content:'';position:absolute;inset:0;pointer-events:none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:linear-gradient(120deg,#000 0%,transparent 60%);
+    -webkit-mask-image:linear-gradient(120deg,#000 0%,transparent 60%);
+  }
+  .cta-banner::before{
+    content:'';position:absolute;top:-40%;right:-10%;width:500px;height:500px;
+    background:radial-gradient(circle, rgba(255,255,255,.15) 0%, transparent 60%);
+    filter:blur(40px);
+  }
+  .cta-banner h2{font-size:clamp(26px,3.2vw,34px);font-weight:900;line-height:1.25;letter-spacing:-.5px;
+    margin-bottom:14px;position:relative;z-index:1;text-wrap:balance}
+  .cta-banner p{font-size:16px;opacity:.88;max-width:480px;position:relative;z-index:1;line-height:1.7}
+  .cta-banner-right{display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
+  .cta-banner .btn-primary{justify-content:center}
+
+  /* ===== Footer ===== */
+  footer{background:var(--bg-dark);color:rgba(255,255,255,.75);padding:80px 0 30px}
+  .footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:40px;margin-bottom:48px}
+  .footer-brand img{height:36px;filter:brightness(0) invert(1);margin-bottom:18px}
+  .footer-brand p{font-size:14px;line-height:1.7;opacity:.65;max-width:280px}
+  .footer-col h4{
+    color:#fff;font-size:13px;font-weight:700;text-transform:uppercase;
+    letter-spacing:1.5px;margin-bottom:18px;
+  }
+  .footer-col a{
+    display:block;font-size:14px;color:rgba(255,255,255,.62);
+    padding:7px 0;transition:color .2s,padding-left .2s;
+  }
+  .footer-col a:hover{color:#fff;padding-left:4px}
+  .footer-bottom{
+    padding-top:30px;border-top:1px solid rgba(255,255,255,.08);
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:13px;color:rgba(255,255,255,.4);flex-wrap:wrap;gap:12px;
+  }
+  .social{display:flex;gap:10px}
+  .social a{
+    width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,.06);border-radius:8px;transition:all .2s;
+  }
+  .social a:hover{background:var(--brand);color:#fff}
+
+  /* Reveal animation */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease), transform .7s var(--ease)}
+  .reveal.in{opacity:1;transform:translateY(0)}
+  .reveal-d1{transition-delay:.08s}
+  .reveal-d2{transition-delay:.16s}
+  .reveal-d3{transition-delay:.24s}
+
+  /* ===================================================
+     HERO CAROUSEL (.hx) — Anton ghost text + 4-image rotation
+     =================================================== */
+  .hx{
+    position:relative;width:100%;height:100vh;min-height:640px;
+    overflow:hidden;color:#fff;
+    font-family:'Noto Sans Thai','Noto Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+    isolation:isolate;
+  }
+  body[data-lang="th"] .hx{font-family:'Noto Sans Thai','Noto Sans',sans-serif}
+
+  /* TH: override Anton-styled text (heading + CTA) to use menu-equivalent Thai font */
+  body[data-lang="th"] .hx-heading,
+  body[data-lang="th"] .hx-cta{
+    font-family:'Noto Sans Thai','Noto Sans',sans-serif;
+    font-weight:700;
+    letter-spacing:0;
+  }
+  /* Keep Anton only when EN text is visible inside these elements */
+  body[data-lang="en"] .hx-heading,
+  body[data-lang="en"] .hx-cta{
+    font-family:'Noto Sans Thai','Noto Sans',sans-serif;
+  }
+
+  /* 1. Background — solid color base + heavily blurred image + color tint overlay */
+  .hx-bg{
+    position:absolute;inset:0;z-index:1;overflow:hidden;
+    background-color:#6A2DAF;
+    transition:background-color 650ms cubic-bezier(.4,0,.2,1);
+  }
+  /* Blurred image layer (4 imgs stacked, only active is visible) */
+  .hx-bg-blur{
+    position:absolute;top:-15%;left:-15%;width:130%;height:130%;
+    object-fit:cover;object-position:center;
+    filter:blur(80px) saturate(1.5) brightness(1.1);
+    opacity:0;
+    transition:opacity 650ms cubic-bezier(.4,0,.2,1);
+    pointer-events:none;
+    will-change:opacity;
+    transform:translateZ(0);   /* GPU layer for smooth blur */
+  }
+  .hx-bg-blur.is-active{opacity:.6}
+  /* Color tint overlay — blends with brand color on top of blurred image */
+  .hx-bg-overlay{
+    position:absolute;inset:0;
+    background-color:rgba(106,45,175,.4);
+    mix-blend-mode:overlay;
+    transition:background-color 650ms cubic-bezier(.4,0,.2,1);
+    pointer-events:none;
+  }
+  /* readability scrim: heavy left, clear right, plus a foot for the brands */
+  .hx-scrim{
+    position:absolute;inset:0;z-index:55;pointer-events:none;
+    background:
+      linear-gradient(90deg, rgba(8,6,18,.92) 0%, rgba(8,6,18,.80) 28%, rgba(8,6,18,.46) 52%, rgba(8,6,18,.12) 74%, transparent 88%),
+      linear-gradient(0deg, rgba(8,6,18,.70) 0%, transparent 26%);
+  }
+
+  /* 2. Grain overlay */
+  .hx-grain{
+    position:absolute;inset:0;z-index:50;pointer-events:none;
+    opacity:.4;mix-blend-mode:overlay;
+  }
+  .hx-grain svg{width:100%;height:100%;display:block}
+
+  /* 3. Brand label top-left */
+  .hx-brand{
+    position:absolute;top:96px;left:36px;z-index:60;
+    font-family:'Noto Sans Thai','Noto Sans',sans-serif;
+    font-size:11px;font-weight:700;text-transform:uppercase;
+    letter-spacing:.18em;color:#fff;
+  }
+
+  /* 5. Carousel stage */
+  .hx-stage{position:absolute;inset:0;z-index:3}
+  .hx-item{
+    position:absolute;bottom:0;left:50%;
+    aspect-ratio:.6 / 1;
+    transform:translateX(-50%) scale(1);
+    transition:all 650ms cubic-bezier(.4,0,.2,1);
+    will-change:transform,filter,opacity;
+    pointer-events:none;
+    /* 8px rounded corners on ALL roles, persistent across role swap */
+    border-radius:8px;
+    overflow:hidden;
+    background:rgba(255,255,255,.02);   /* very faint plate so corners visible */
+  }
+  .hx-item img{
+    width:100%;height:100%;display:block;
+    object-fit:cover;                   /* fill the rounded box for clean corners */
+    object-position:center 30%;         /* show upper-mid of subject */
+  }
+  /* Roles — center fills full section; others hidden */
+  .hx-item.is-center{
+    z-index:4;
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    aspect-ratio:unset;
+    left:0;bottom:0;
+    transform:none;
+    border-radius:0;
+    filter:none;opacity:1;
+    box-shadow:none;
+    transition:opacity 650ms cubic-bezier(.4,0,.2,1);
+  }
+  .hx-item.is-left,
+  .hx-item.is-right,
+  .hx-item.is-back{
+    opacity:0;pointer-events:none;
+    position:absolute;inset:0;width:100%;height:100%;
+    aspect-ratio:unset;left:0;bottom:0;transform:none;border-radius:0;
+    transition:opacity 650ms cubic-bezier(.4,0,.2,1);
+  }
+  /* Image fills the box */
+  .hx-item img{object-fit:cover;object-position:center 30%;width:100%;height:100%}
+
+  /* Dark gradient at bottom so heading/body/arrows stay readable */
+  .hx-stage::after{
+    content:'';position:absolute;inset:0;z-index:10;pointer-events:none;
+    background:linear-gradient(
+      to top,
+      rgba(10,8,20,.82) 0%,
+      rgba(10,8,20,.45) 35%,
+      transparent 65%
+    );
+  }
+
+  /* 6. Hero statement — anchored left, vertically centred */
+  .hx-bottomleft{
+    position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
+    z-index:60;padding:0 clamp(24px,5vw,72px);
+    max-width:none;
+  }
+  .hx-stmt{max-width:680px}
+
+  /* rotating slide label, replaces the old big per-slide heading */
+  .hx-kicker{
+    font-family:var(--mono);font-size:12.5px;font-weight:700;
+    letter-spacing:2.4px;text-transform:uppercase;
+    color:rgba(255,255,255,.78);margin:0 0 18px;min-height:16px;
+  }
+  .hx-kicker .bi{display:none}
+  .hx-kicker .bi.is-active{display:inline}
+
+  .hx-heading{
+    font-family:'Noto Sans Thai','Noto Sans',sans-serif;font-weight:900;
+    color:#fff;text-transform:none;
+    font-size:clamp(34px,5.4vw,68px);line-height:1.08;letter-spacing:-1.5px;
+    margin:0 0 22px;text-shadow:0 2px 24px rgba(0,0,0,.55);
+  }
+  .hx-heading .soft{color:rgba(255,255,255,.62)}
+  .hx-body{
+    font-size:clamp(15px,1.3vw,18px);color:rgba(255,255,255,.80);
+    line-height:1.7;margin:0 0 30px;max-width:460px;font-family:inherit;
+  }
+
+  /* fact row — three columns separated by hairlines */
+  .hx-facts{
+    display:flex;gap:0;margin:0 0 32px;max-width:520px;
+    border-top:1px solid rgba(255,255,255,.18);
+    border-bottom:1px solid rgba(255,255,255,.18);
+  }
+  .hx-fact{
+    flex:1;padding:16px 18px;
+    display:flex;flex-direction:column;gap:9px;
+  }
+  .hx-fact + .hx-fact{border-left:1px solid rgba(255,255,255,.18)}
+  .hx-fact svg{width:21px;height:21px;color:#fff;opacity:.92;stroke-width:1.5}
+  .hx-fact span{
+    font-size:11.5px;line-height:1.45;color:rgba(255,255,255,.72);
+    letter-spacing:.2px;
+  }
+
+  .hx-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .hx-arrows{display:flex;gap:10px}
+  .hx-arrow{
+    width:38px;height:38px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.45);
+    background:transparent;color:#fff;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:transform 150ms ease, background-color 150ms ease;
+  }
+  .hx-arrow:hover{transform:scale(1.08);background:rgba(255,255,255,.14)}
+  .hx-arrow:disabled{opacity:.5;cursor:not-allowed}
+  .hx-arrow:active{transform:scale(.96)}
+
+  /* 7. CTA now sits under the copy instead of in the far corner */
+  .hx-cta{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:13px 15px 13px 26px;
+    background:#fff;color:#1a1a1a;
+    border-radius:999px;
+    font-family:'Noto Sans Thai','Noto Sans',sans-serif;
+    font-size:15px;font-weight:700;
+    text-decoration:none;line-height:1;
+    box-shadow:0 10px 40px rgba(0,0,0,.28), 0 4px 12px rgba(0,0,0,.18),
+               inset 0 0 0 1px rgba(255,255,255,.7);
+    transition:transform 220ms cubic-bezier(.34,1.56,.64,1), box-shadow 220ms ease;
+  }
+  .hx-cta:hover{
+    text-decoration:none;transform:translateY(-3px) scale(1.03);color:#000;
+    box-shadow:0 18px 56px rgba(0,0,0,.38), 0 8px 20px rgba(0,0,0,.22);
+  }
+  .hx-cta:active{transform:translateY(-1px) scale(1.01)}
+  .hx-cta .hx-cta-arrow{
+    width:27px;height:27px;border-radius:50%;
+    background:#6A2DAF;color:#fff;
+    display:inline-flex;align-items:center;justify-content:center;
+    flex-shrink:0;transition:transform 220ms ease, background-color 220ms ease;
+  }
+  .hx-cta:hover .hx-cta-arrow{background:#4d1f80;transform:translateX(4px) rotate(-8deg)}
+  .hx-cta svg{width:13px;height:13px}
+
+  /* handwritten accent over the photo */
+  .hx-note{
+    position:absolute;z-index:60;
+    right:clamp(24px,7vw,110px);top:26%;
+    color:#fff;text-align:center;
+    font-family:'Charmonman',cursive;font-weight:700;
+    font-size:clamp(19px,2vw,27px);line-height:1.35;
+    text-shadow:0 2px 18px rgba(0,0,0,.55);
+    transform:rotate(-5deg);pointer-events:none;
+  }
+  .hx-note .arrow{
+    display:block;width:74px;height:40px;margin:2px auto 0;
+    opacity:.9;transform:rotate(8deg) translateX(14px);
+  }
+
+  /* brands, low contrast, along the bottom of the photo */
+  .hx-trust{
+    position:absolute;left:0;right:0;bottom:30px;z-index:60;
+    padding:0 clamp(24px,5vw,72px);
+    display:flex;align-items:baseline;gap:26px;flex-wrap:wrap;
+  }
+  .hx-trust .t-label{
+    font-family:var(--mono);font-size:10.5px;font-weight:700;
+    letter-spacing:1.6px;text-transform:uppercase;
+    color:rgba(255,255,255,.52);
+  }
+  .hx-trust .t-names{display:flex;gap:24px;flex-wrap:wrap}
+  .hx-trust .t-names b{
+    font-size:13.5px;font-weight:700;color:rgba(255,255,255,.78);
+    letter-spacing:.2px;
+  }
+
+  /* Image fallback if missing — show purple gradient placeholder */
+  .hx-item.no-img img{display:none}
+  .hx-item.no-img::before{
+    content:attr(data-fallback);position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.04));
+    border:2px dashed rgba(255,255,255,.3);border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    color:rgba(255,255,255,.7);font-family:'Noto Sans Thai','Noto Sans',sans-serif;font-size:14px;
+    text-align:center;padding:8px;letter-spacing:.05em;
+  }
+
+  /* Mobile (<640px) — single tall portrait crop, no side/back */
+  @media (max-width:640px){
+    .hx{min-height:620px}
+    .hx-brand{top:78px;left:20px;font-size:10px}
+    .hx{min-height:100svh}
+    .hx-bottomleft{padding:0 20px}
+    .hx-heading{font-size:33px;letter-spacing:-.8px;margin-bottom:16px}
+    .hx-kicker{font-size:11px;letter-spacing:1.8px;margin-bottom:14px}
+    .hx-body{font-size:14.5px;margin-bottom:22px}
+    .hx-facts{max-width:none;margin-bottom:24px}
+    .hx-fact{padding:13px 11px;gap:7px}
+    .hx-fact svg{width:18px;height:18px}
+    .hx-fact span{font-size:10.5px}
+    .hx-arrow{width:34px;height:34px}
+    .hx-note{top:13%;right:20px;font-size:17px}
+    .hx-note .arrow{width:52px;height:28px}
+    .hx-trust{bottom:20px;padding:0 20px;gap:10px}
+    .hx-trust .t-names{gap:14px}
+    .hx-trust .t-names b{font-size:11.5px}
+
+    .hx-item.is-center{
+      inset:0;width:100%;height:100%;
+      left:0;bottom:0;transform:none;border-radius:0;
+    }
+    .hx-item.is-left,
+    .hx-item.is-right,
+    .hx-item.is-back{
+      opacity:0;pointer-events:none;
+      width:0;height:0;
+    }
+  }
+  /* Nav inside hx should stay above ghost text on hx page */
+  .nav{z-index:100}
+
+  /* Responsive */
+  @media (max-width:1020px){
+    .brand-strip{margin-top:48px;padding:28px 18px}
+    .brand-row{gap:8px 24px}
+    .solutions-grid{grid-template-columns:repeat(2,1fr);gap:20px}
+    .highlights-bento{grid-template-columns:repeat(2,1fr)}
+    .hl-lead,.hl-wide,.highlights-bento .hl-card{grid-column:span 1}
+    .hl-lead{grid-row:span 1;min-height:280px}
+    .insights-grid{grid-template-columns:repeat(2,1fr)}
+    /* 4 columns: feature and banner go full-width, the rest stay half */
+    .products-grid{grid-template-columns:repeat(4,1fr)}
+    .product-card.feature{grid-column:span 4;min-height:400px}
+    .product-card.wide{grid-column:span 4}
+    .product-card.feature h3{font-size:24px}
+  }
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr;gap:40px}
+    .hero-visual{height:340px}
+    .energy-orb{width:280px;height:280px}
+    .energy-orb .core{width:120px;height:120px}
+    .energy-orb .core-inner{font-size:32px}
+    .solutions-grid{grid-template-columns:1fr}
+    .cta-banner{grid-template-columns:1fr}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+    .nav-links,.nav-right .lang-toggle{display:none}
+    .nav-burger{display:flex}
+    section{padding:70px 0}
+  }
+  @media (max-width:760px){
+    .products-grid{grid-template-columns:repeat(2,1fr);gap:16px}
+    .product-card{grid-column:span 1;min-height:380px}
+    .product-card.feature{grid-column:span 2;min-height:360px}
+    .product-card.wide{grid-column:span 2;min-height:320px}
+    .product-card.feature .card-content,
+    .product-card.wide .card-content{padding:26px}
+    .product-card.wide .card-content{display:block}
+    .product-card.wide p{margin-bottom:18px}
+    .product-card.feature{min-height:420px}
+    .insights-grid{grid-template-columns:1fr}
+    .highlights-bento{grid-template-columns:1fr;grid-auto-rows:auto}
+    .hl-photo{min-height:260px}
+    .hl-lead h3{font-size:21px}
+  }
+  @media (min-width:521px) and (max-width:760px){
+    .product-card .specs{flex-direction:column;gap:9px;padding:11px 13px}
+    .product-card .specs > div{
+      display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+    }
+    .product-card .specs .l{margin-top:0}
+    .product-card.wide .specs{flex-direction:row}
+    .product-card.wide .specs > div{display:block}
+  }
+  @media (max-width:520px){
+    .products-grid{grid-template-columns:1fr}
+    .product-card,
+    .product-card.feature,
+    .product-card.wide{grid-column:span 1;min-height:340px}
+    .product-card.feature h3{font-size:21px}
+    .wrap{padding:0 20px}
+    .brand-strip{padding:24px 14px;margin-top:36px}
+    .brand-row{gap:6px 18px}
+    .brand-item .b-name{font-size:14.5px}
+    .footer-grid{grid-template-columns:1fr}
+    .hero{padding:120px 0 80px}
+  }
+</style>
+<link rel="stylesheet" href="site.css">
+<script src="site.js"></script>
+<link rel="canonical" href="https://www.24senergy.co.th/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="24sEnergy — BESS, Solar PV &amp; Inverter">
+<meta property="og:description" content="จัดจำหน่ายและติดตั้งระบบกักเก็บพลังงาน BESS โซลาร์เซลล์ และอินเวอร์เตอร์ สำหรับบ้าน ฟาร์ม และโรงงาน">
+<meta property="og:url" content="https://www.24senergy.co.th/index.html">
+<meta property="og:image" content="https://www.24senergy.co.th/24sEnergy_png.png">
+<meta name="twitter:card" content="summary">
+</head>
+<body data-lang="th">
+<script>try{var _ll=localStorage.getItem('lang');if(_ll)document.body.setAttribute('data-lang',_ll);}catch(e){}</script>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="nav-logo"><img src="24sEnergy_png.png" alt="24sEnergy"></a>
+    <div class="nav-links">
+      <a href="products.html"><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></a>
+      <a href="#solutions"><span class="bi"><span class="th">โซลูชัน</span><span class="en">Solutions</span></span></a>
+      <a href="news.html"><span class="bi"><span class="th">ข่าวสาร</span><span class="en">News</span></span></a>
+      <a href="contact.html"><span class="bi"><span class="th">ติดต่อ</span><span class="en">Contact</span></span></a>
+    </div>
+    <div class="nav-right">
+      <a href="quote.html" class="btn-cta"><span class="bi"><span class="th">ขอใบเสนอราคา</span><span class="en">Get a Quote</span></span></a>
+      <div class="lang-toggle">
+        <button id="btnTH" class="active" onclick="setLang('th')">TH</button>
+        <button id="btnEN" onclick="setLang('en')">EN</button>
+      </div>
+      <button class="nav-burger" aria-label="menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO CAROUSEL ===== -->
+<header class="hx" id="hxRoot">
+  <!-- BG: solid color base + heavily blurred image + color tint overlay -->
+  <div class="hx-bg" id="hxBg">
+    <img class="hx-bg-blur is-active" data-idx="0" src="01.webp" alt="" aria-hidden="true">
+    <img class="hx-bg-blur" data-idx="1" src="02.webp" alt="" aria-hidden="true">
+    <img class="hx-bg-blur" data-idx="2" src="03.webp" alt="" aria-hidden="true">
+    <img class="hx-bg-blur" data-idx="3" src="04.webp" alt="" aria-hidden="true">
+    <div class="hx-bg-overlay" id="hxBgOverlay"></div>
+    <div class="hx-scrim"></div>
+  </div>
+
+  <!-- Grain overlay -->
+  <div class="hx-grain" aria-hidden="true">
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <filter id="hxNoise">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#hxNoise)" opacity="0.4"/>
+    </svg>
+  </div>
+
+  <!-- Brand label top-left -->
+
+  <!-- Carousel items -->
+  <div class="hx-stage">
+    <div class="hx-item" data-idx="0"><img src="01.webp" alt="BESS" loading="eager"/></div>
+    <div class="hx-item" data-idx="1"><img src="02.webp" alt="Solar PV" loading="eager"/></div>
+    <div class="hx-item" data-idx="2"><img src="03.webp" alt="Inverters" loading="eager"/></div>
+    <div class="hx-item" data-idx="3"><img src="04.webp" alt="Home and farm solar" loading="eager"/></div>
+  </div>
+
+  <!-- Hero statement -->
+  <div class="hx-bottomleft">
+    <div class="hx-stmt">
+      <p class="hx-kicker" id="hxHeading">
+        <span class="bi" data-idx="0"><span class="th">ระบบกักเก็บพลังงาน</span><span class="en">Battery Storage</span></span>
+        <span class="bi" data-idx="1"><span class="th">โซลาร์เซลล์อุตสาหกรรม</span><span class="en">Industrial Solar</span></span>
+        <span class="bi" data-idx="2"><span class="th">อินเวอร์เตอร์</span><span class="en">Inverters</span></span>
+        <span class="bi" data-idx="3"><span class="th">โซลาร์สำหรับบ้านและฟาร์ม</span><span class="en">Home &amp; Farm Solar</span></span>
+      </p>
+
+      <h1 class="hx-heading">
+        <span class="bi"><span class="th">ระบบพลังงาน<br><span class="soft">ที่คุณเป็นเจ้าของ</span></span><span class="en">Energy systems<br><span class="soft">you actually own</span></span></span>
+      </h1>
+
+      <p class="hx-body">
+        <span class="bi"><span class="th">ระบบกักเก็บพลังงาน โซลาร์เซลล์ และอินเวอร์เตอร์ จากแบรนด์ที่คัดเลือกแล้ว สำหรับบ้าน ฟาร์ม และโรงงาน</span><span class="en">Battery storage, solar PV and inverters from selected brands — for homes, farms and factories.</span></span>
+      </p>
+
+      <div class="hx-facts">
+        <div class="hx-fact">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/><line x1="6" y1="11" x2="6" y2="13"/><line x1="10" y1="11" x2="10" y2="13"/></svg>
+          <span class="bi"><span class="th">แบตเตอรี่ LFP<br>เคมีปลอดภัย</span><span class="en">LFP chemistry<br>battery cells</span></span>
+        </div>
+        <div class="hx-fact">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V6z"/></svg>
+          <span class="bi"><span class="th">IP65–IP66<br>ติดตั้งภายนอกได้</span><span class="en">IP65–IP66<br>outdoor rated</span></span>
+        </div>
+        <div class="hx-fact">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
+          <span class="bi"><span class="th">6 แบรนด์<br>ที่จัดจำหน่ายจริง</span><span class="en">6 brands<br>we actually supply</span></span>
+        </div>
+      </div>
+
+      <div class="hx-actions">
+        <a href="quote.html" class="hx-cta">
+          <span class="bi"><span class="th">ขอใบเสนอราคา</span><span class="en">Get a quote</span></span>
+          <span class="hx-cta-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+        <div class="hx-arrows">
+          <button class="hx-arrow" id="hxPrev" aria-label="Previous">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          </button>
+          <button class="hx-arrow" id="hxNext" aria-label="Next">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- handwritten accent -->
+  <div class="hx-note" aria-hidden="true">
+    <span class="bi"><span class="th">ไม่ใช่แค่<br>แผงโซลาร์</span><span class="en">More than<br>just panels</span></span>
+    <svg class="arrow" viewBox="0 0 80 44" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M4 6c14 24 38 34 68 30" />
+      <path d="M62 28l10 8-12 4" />
+    </svg>
+  </div>
+
+  <!-- brands along the bottom of the photo -->
+  <div class="hx-trust">
+    <span class="t-label"><span class="bi"><span class="th">แบรนด์ที่เราจัดจำหน่าย</span><span class="en">Brands we supply</span></span></span>
+    <span class="t-names">
+      <b>Sunwoda</b><b>KSTAR</b><b>TCL</b><b>Leapton</b><b>SolarEdge</b><b>Solplanet</b>
+    </span>
+  </div>
+</header>
+
+<!-- ===== BRAND STRIP ===== -->
+<div class="wrap">
+  <div class="brand-strip reveal">
+    <div class="brand-strip-label"><span class="bi"><span class="th">แบรนด์ที่เราจัดจำหน่าย</span><span class="en">Brands We Distribute</span></span></div>
+    <div class="brand-row">
+      <div class="brand-item"><span class="b-name">SolarEdge</span><span class="b-cat">Inverter · Optimizer</span></div>
+      <div class="brand-item"><span class="b-name">KSTAR</span><span class="b-cat">BESS</span></div>
+      <div class="brand-item"><span class="b-name">Leapton Energy</span><span class="b-cat">Solar PV</span></div>
+      <div class="brand-item"><span class="b-name">Solplanet</span><span class="b-cat">Inverter</span></div>
+      <div class="brand-item"><span class="b-name">Sunwoda Energy</span><span class="b-cat">BESS</span></div>
+      <div class="brand-item"><span class="b-name">TCL Digital Power</span><span class="b-cat">BESS</span></div>
+      <div class="brand-item"><span class="b-name">Solar PPM</span><span class="b-cat">Solar PV</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PRODUCTS ===== -->
+<section id="products">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag"><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Our Products</span></span></span>
+      <h2><span class="bi"><span class="th">BESS · Solar PV · Inverter</span><span class="en">BESS · Solar PV · Inverter</span></span></h2>
+      <p><span class="bi"><span class="th">เราจัดจำหน่ายและติดตั้งอุปกรณ์จากแบรนด์ที่ผ่านการคัดเลือก สำหรับบ้าน ฟาร์ม และโรงงาน</span><span class="en">Selected equipment for homes, farms and factories — supplied and installed.</span></span></p>
+    </div>
+    <div class="products-grid">
+
+      <a class="product-card bess feature reveal" href="products.html#bess">
+        <div class="mockup">
+          <img src="01.webp" alt="Sunwoda Atrix Max+" loading="lazy">
+        </div>
+        <span class="card-flag"><span class="bi"><span class="th">รุ่นแนะนำ</span><span class="en">Flagship</span></span></span>
+        <div class="card-content">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/><line x1="6" y1="11" x2="6" y2="13"/><line x1="10" y1="11" x2="10" y2="13"/><line x1="14" y1="11" x2="14" y2="13"/></svg>
+          </div>
+          <span class="cat-label">BESS · Sunwoda</span>
+          <h3><span class="bi"><span class="th">Sunwoda Atrix Max+</span><span class="en">Sunwoda Atrix Max+</span></span></h3>
+          <p><span class="bi"><span class="th">แบตเตอรี่ LFP 16 kWh สำหรับบ้าน ฟาร์ม และธุรกิจขนาดเล็ก ต่อขยายระบบได้</span><span class="en">16 kWh LFP battery for homes, farms and small business — expandable</span></span></p>
+          <div class="specs"><div><span class="v">16 kWh</span><span class="l">Usable</span></div><div><span class="v">512 kWh</span><span class="l"><span class="bi"><span class="th">สูงสุด</span><span class="en">Max</span></span></span></div><div><span class="v">IP65</span><span class="l">Rating</span></div></div>
+          <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
+        </div>
+      </a>
+
+      <a class="product-card bess reveal reveal-d1" href="products.html#bess">
+        <div class="mockup">
+          <img src="04.webp" alt="KSTAR BluE-S & BluePulse" loading="lazy">
+        </div>
+        <div class="card-content">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/><line x1="6" y1="11" x2="6" y2="13"/><line x1="10" y1="11" x2="10" y2="13"/><line x1="14" y1="11" x2="14" y2="13"/></svg>
+          </div>
+          <span class="cat-label">BESS · KSTAR</span>
+          <h3><span class="bi"><span class="th">KSTAR BluE-S &amp; BluePulse</span><span class="en">KSTAR BluE-S &amp; BluePulse</span></span></h3>
+          <p><span class="bi"><span class="th">ระบบกักเก็บพลังงานครบตั้งแต่บ้าน 3.68–10 kW ถึงตู้ C&amp;I 107 kWh</span><span class="en">Storage from 3.68–10 kW residential up to a 107 kWh C&I cabinet</span></span></p>
+          <div class="specs"><div><span class="v">3.68–10 kW</span><span class="l">Home</span></div><div><span class="v">20–50 kW</span><span class="l">C&amp;I</span></div><div><span class="v">107 kWh</span><span class="l">Cabinet</span></div></div>
+          <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
+        </div>
+      </a>
+
+      <a class="product-card bess reveal reveal-d1" href="products.html#bess">
+        <div class="mockup">
+          <img src="03.webp" alt="TCL BlueArk X1" loading="lazy">
+        </div>
+        <div class="card-content">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><line x1="22" y1="11" x2="22" y2="13"/><line x1="6" y1="11" x2="6" y2="13"/><line x1="10" y1="11" x2="10" y2="13"/><line x1="14" y1="11" x2="14" y2="13"/></svg>
+          </div>
+          <span class="cat-label">BESS · TCL</span>
+          <h3><span class="bi"><span class="th">TCL BlueArk X1</span><span class="en">TCL BlueArk X1</span></span></h3>
+          <p><span class="bi"><span class="th">ชุด Hybrid Inverter + แบตเตอรี่โมดูล ขยายได้ 8–128 kWh ติดตั้งภายนอกได้</span><span class="en">Hybrid inverter + modular battery, 8–128 kWh, outdoor-rated</span></span></p>
+          <div class="specs"><div><span class="v">3–16 kW</span><span class="l">Hybrid</span></div><div><span class="v">8–128 kWh</span><span class="l">Storage</span></div><div><span class="v">IP66</span><span class="l">Rating</span></div></div>
+          <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
+        </div>
+      </a>
+
+      <a class="product-card solar reveal reveal-d2" href="products.html#solar">
+        <div class="mockup">
+          <img src="02.webp" alt="Leapton N-Type TOPCon Bifacial" loading="lazy">
+        </div>
+        <div class="card-content">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          </div>
+          <span class="cat-label">Solar PV · Leapton</span>
+          <h3><span class="bi"><span class="th">Leapton N-Type TOPCon Bifacial</span><span class="en">Leapton N-Type TOPCon Bifacial</span></span></h3>
+          <p><span class="bi"><span class="th">แผงกำลังสูง 610–725W กระจก 2 ชั้น รับแสงสองด้าน ทนไอเค็มและแอมโมเนีย</span><span class="en">610–725W dual-glass bifacial panels, salt-mist and ammonia rated</span></span></p>
+          <div class="specs"><div><span class="v">610–725 W</span><span class="l">Power</span></div><div><span class="v">23.34%</span><span class="l"><span class="bi"><span class="th">สูงสุด</span><span class="en">Max eff.</span></span></span></div><div><span class="v">80±5%</span><span class="l">Bifaciality</span></div></div>
+          <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
+        </div>
+      </a>
+
+      <a class="product-card inverter reveal reveal-d3" href="products.html#inverter">
+        <div class="mockup">
+          <img src="01.webp" alt="SolarEdge Home Hub & Optimizer" loading="lazy">
+        </div>
+        <div class="card-content">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 12h3l2-3 2 6 2-3h1"/></svg>
+          </div>
+          <span class="cat-label">Inverter · SolarEdge</span>
+          <h3><span class="bi"><span class="th">SolarEdge Home Hub &amp; Optimizer</span><span class="en">SolarEdge Home Hub &amp; Optimizer</span></span></h3>
+          <p><span class="bi"><span class="th">ระบบควบคุมทีละแผง ดูข้อมูลรายแผง พร้อม SafeDC และแบตเตอรี่ในตัว</span><span class="en">Panel-level control and monitoring with SafeDC and integrated battery</span></span></p>
+          <div class="specs"><div><span class="v">3–10 kVA</span><span class="l">Home Hub</span></div><div><span class="v">99.5%</span><span class="l"><span class="bi"><span class="th">สูงสุด</span><span class="en">Peak eff.</span></span></span></div><div><span class="v">9.7 kWh</span><span class="l">Battery</span></div></div>
+          <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
+        </div>
+      </a>
+
+      <a class="product-card inverter wide reveal" href="products.html#inverter">
+        <div class="mockup">
+          <img src="02.webp" alt="Solplanet ASW HT Series" loading="lazy">
+        </div>
+        <span class="card-flag"><span class="bi"><span class="th">ระดับโรงงาน</span><span class="en">Utility scale</span></span></span>
+        <div class="card-content">
+          <div class="wide-text">
+            <div class="icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 12h3l2-3 2 6 2-3h1"/></svg>
+            </div>
+            <span class="cat-label">Inverter · Solplanet</span>
+            <h3><span class="bi"><span class="th">Solplanet ASW HT Series</span><span class="en">Solplanet ASW HT Series</span></span></h3>
+            <p><span class="bi"><span class="th">Inverter 3 เฟสสำหรับโซลาร์ฟาร์มและโรงงานระดับ MW พร้อม Rapid Shutdown</span><span class="en">Three-phase inverters for utility and MW-scale sites, with rapid shutdown</span></span></p>
+          </div>
+          <div class="wide-aside">
+            <div class="specs"><div><span class="v">250–360 kW</span><span class="l">Power</span></div><div><span class="v">99.01%</span><span class="l"><span class="bi"><span class="th">สูงสุด</span><span class="en">Max eff.</span></span></span></div><div><span class="v">75 A</span><span class="l">per MPPT</span></div></div>
+            <span class="link"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">Learn more</span></span> →</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+    <p class="spec-note reveal"><span class="bi"><span class="th">สเปกทั้งหมดอ้างอิงเอกสารของผู้ผลิต และอาจเปลี่ยนแปลงตามรุ่นและเวอร์ชันเอกสาร กรุณายืนยันกับทีมงานก่อนสั่งซื้อ</span><span class="en">All specifications follow manufacturer documentation and may vary by model and revision. Please confirm with our team before ordering.</span></span></p>
+  </div>
+</section>
+
+<!-- ===== HIGHLIGHTS ===== -->
+<section id="highlights">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag"><span class="bi"><span class="th">จุดเด่น</span><span class="en">Why these</span></span></span>
+      <h2><span class="bi"><span class="th">ทำไมถึงเลือกอุปกรณ์ชุดนี้</span><span class="en">Why We Carry These</span></span></h2>
+      <p><span class="bi"><span class="th">เหตุผลเบื้องหลังการคัดเลือกแต่ละแบรนด์ อ้างอิงจากเอกสารผู้ผลิต</span><span class="en">What made each brand worth carrying, taken from the manufacturers&rsquo; own documentation.</span></span></p>
+    </div>
+    <div class="highlights-bento">
+      <article class="hl-photo hl-lead reveal" data-slot="photo" style="--hl-img:url('highlights/bess.webp');--hl-ph:url('01.webp')">
+        <div class="hl-photo-body">
+          <h3><span class="bi"><span class="th">ไฟดับแล้วกลับมาในเสี้ยววินาที</span><span class="en">Back on in milliseconds</span></span></h3>
+          <p><span class="bi"><span class="th">ระบบสลับเข้าไฟสำรองได้ต่ำกว่า 10 มิลลิวินาทีในรุ่นที่รองรับ สายการผลิตและคอมพิวเตอร์ไม่สะดุด</span><span class="en">Supported models transfer to backup in under 10 milliseconds, so production lines and computers do not drop.</span></span></p>
+          <span class="hl-src">KSTAR BluePulse · TCL BlueArk X1</span>
+        </div>
+      </article>
+
+      <article class="hl-card reveal" data-slot="text">
+        <div class="hl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3><span class="bi"><span class="th">ความปลอดภัยที่ออกแบบมาตั้งแต่ต้น</span><span class="en">Safety designed in</span></span></h3>
+        <p><span class="bi"><span class="th">ตู้งานพาณิชย์มีระบบดับเพลิงในตัวและผ่าน UL9540A (เฉพาะตู้ BluePulse) ฝั่ง TCL ใช้ BMS สองชั้นและเซนเซอร์อุณหภูมิ 10 จุดต่อ 8 เซลล์</span><span class="en">The commercial cabinet has fire suppression and is UL9540A tested (BluePulse cabinet only). TCL pairs a dual-layer BMS with ten temperature sensors per eight cells.</span></span></p>
+        <span class="hl-src">KSTAR · TCL BlueArk X1</span>
+      </article>
+
+      <article class="hl-card reveal" data-slot="text">
+        <div class="hl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg></div>
+        <h3><span class="bi"><span class="th">เงาบังบางแผง ไม่ฉุดทั้งระบบ</span><span class="en">Shade stays on one panel</span></span></h3>
+        <p><span class="bi"><span class="th">Power Optimizer ดึงไฟจากแต่ละแผงแยกกันและดูข้อมูลได้ทีละแผง พร้อม SafeDC ลดแรงดันเหลือ 1V ต่อแผงเมื่อปิดระบบ</span><span class="en">Power Optimizers work each panel independently with panel-level monitoring, and SafeDC drops each panel to 1V at shutdown.</span></span></p>
+        <span class="hl-src">SolarEdge</span>
+      </article>
+
+      <article class="hl-photo hl-wide reveal" data-slot="photo" style="--hl-img:url('highlights/bess.webp');--hl-ph:url('04.webp')">
+        <div class="hl-photo-body">
+          <h3><span class="bi"><span class="th">เริ่มเท่าที่จำเป็น แล้วค่อยขยาย</span><span class="en">Start small, grow later</span></span></h3>
+          <p><span class="bi"><span class="th">ขยายได้ตั้งแต่ 8 kWh ถึง 128 kWh หรือต่อขนานสูงสุด 32 ชุด รวม 512 kWh โดยไม่ต้องรื้อของเดิม</span><span class="en">Scale from 8 kWh to 128 kWh, or up to 32 units in parallel for 512 kWh, without replacing what is installed.</span></span></p>
+          <span class="hl-src">TCL BlueArk X1 · Sunwoda Atrix Max+</span>
+        </div>
+      </article>
+
+      <article class="hl-photo hl-wide reveal" data-slot="photo" style="--hl-img:url('highlights/solar.webp');--hl-ph:url('02.webp')">
+        <div class="hl-photo-body">
+          <h3><span class="bi"><span class="th">แผงที่เสื่อมช้าและทนหน้างานหนัก</span><span class="en">Panels that age slowly</span></span></h3>
+          <p><span class="bi"><span class="th">อัตราเสื่อม 0.4% ต่อปี ผ่านทดสอบไอเค็มและแอมโมเนีย (TUV Nord) รับประกันกำลังผลิต 30 ปีตามเงื่อนไขผู้ผลิต</span><span class="en">Degradation of 0.4% per year, salt-mist and ammonia tested (TUV Nord), 30-year performance warranty per manufacturer terms.</span></span></p>
+          <span class="hl-src">Leapton N-Type TOPCon</span>
+        </div>
+      </article>
+
+      <article class="hl-card reveal" data-slot="text">
+        <div class="hl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-6 4 3 5-7"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <h3><span class="bi"><span class="th">หาปัญหาได้โดยไม่ต้องขึ้นหลังคา</span><span class="en">Diagnose without the roof</span></span></h3>
+        <p><span class="bi"><span class="th">Smart I-V Curve วินิจฉัยสตริงจากระยะไกล และตรวจอุณหภูมิขั้วต่อ DC/AC เพื่อจับความผิดปกติตั้งแต่เนิ่น</span><span class="en">Smart I-V Curve diagnoses strings remotely, and DC/AC terminal temperature monitoring catches faults early.</span></span></p>
+        <span class="hl-src">Solplanet ASW HT</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOLUTIONS ===== -->
+<section id="solutions">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag"><span class="bi"><span class="th">โซลูชัน</span><span class="en">Solutions</span></span></span>
+      <h2><span class="bi"><span class="th">เลือกระบบตามการใช้งานจริง</span><span class="en">Built Around How You Use Power</span></span></h2>
+      <p><span class="bi"><span class="th">ตั้งแต่บ้านและฟาร์ม ไปจนถึงโรงงานและงานตัวแทนจำหน่าย</span><span class="en">From homes and farms to factories and the dealer channel.</span></span></p>
+    </div>
+    <div class="solutions-grid">
+      <div class="solution-card reveal">
+        <div class="s-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+        <div>
+          <h3><span class="bi"><span class="th">โรงงาน &amp; อาคาร</span><span class="en">Factory &amp; Building</span></span></h3>
+          <p><span class="bi"><span class="th">เก็บพลังงานไว้ใช้ช่วงค่าไฟแพง (Peak shaving / TOU) ขนาดระบบที่เหมาะสมขึ้นกับโหลดจริงของแต่ละไซต์</span><span class="en">Peak shaving and TOU operation. System sizing depends on each site’s actual load profile.</span></span></p>
+        </div>
+      </div>
+      <div class="solution-card reveal">
+        <div class="s-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></div>
+        <div>
+          <h3><span class="bi"><span class="th">บ้าน &amp; ฟาร์ม</span><span class="en">Home &amp; Farm</span></span></h3>
+          <p><span class="bi"><span class="th">Solar + Battery เก็บไฟกลางวันไว้ใช้กลางคืน รองรับพื้นที่ไฟไม่เสถียรและต่อเครื่องปั่นไฟได้</span><span class="en">Solar + battery: store daytime generation for night use, with genset support for unstable grids.</span></span></p>
+        </div>
+      </div>
+      <div class="solution-card reveal">
+        <div class="s-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div>
+          <h3><span class="bi"><span class="th">ไฟสำรอง / UPS</span><span class="en">Backup Power / UPS</span></span></h3>
+          <p><span class="bi"><span class="th">สลับเข้าไฟสำรองได้เร็วระดับมิลลิวินาทีในรุ่นที่รองรับ ระยะเวลาสำรองขึ้นกับขนาดแบตและโหลดที่ต่อ</span><span class="en">Millisecond transfer on supported models. Backup duration depends on battery size and connected load.</span></span></p>
+        </div>
+      </div>
+      <div class="solution-card reveal">
+        <div class="s-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div>
+          <h3><span class="bi"><span class="th">ช่าง &amp; ตัวแทนจำหน่าย</span><span class="en">Installers &amp; Dealers</span></span></h3>
+          <p><span class="bi"><span class="th">ราคาตัวแทน เอกสาร datasheet และการสนับสนุนด้านเทคนิคสำหรับผู้ติดตั้งและร้านค้า</span><span class="en">Dealer pricing, datasheets and technical support for installers and resellers.</span></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INSIGHTS / NEWS ===== -->
+<section id="insights">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag"><span class="bi"><span class="th">ข่าว &amp; ความรู้</span><span class="en">News &amp; Insights</span></span></span>
+      <h2><span class="bi"><span class="th">เกาะติดนโยบายและค่าไฟ</span><span class="en">Tracking Policy and Power Prices</span></span></h2>
+      <p><span class="bi"><span class="th">สรุปข่าวพลังงาน นโยบายรัฐ และมาตรฐานที่มีผลกับการติดตั้งจริง อัปเดตต่อเนื่อง</span><span class="en">Energy news, government policy and the standards that affect real installations.</span></span></p>
+    </div>
+    <div class="insights-grid">
+      <a class="insight-card reveal" href="news.html">
+        <div class="insight-meta">
+          <span class="insight-tag"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
+          <time datetime="2026-09-18">2026-09-18</time>
+        </div>
+        <h3><span class="bi"><span class="th">กพช. ขยายโซลาร์ประชาชนเป็น 10,000 MW รับซื้อไฟ 2.20 บาท นาน 20 ปี</span><span class="en">NEPC expands the people’s solar scheme to 10,000 MW at THB 2.20 per unit for 20 years</span></span></h3>
+        <span class="link"><span class="bi"><span class="th">อ่านต่อ</span><span class="en">Read more</span></span> →</span>
+      </a>
+      <a class="insight-card reveal" href="news.html">
+        <div class="insight-meta">
+          <span class="insight-tag"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
+          <time datetime="2026-09-16">2026-09-16</time>
+        </div>
+        <h3><span class="bi"><span class="th">โซลาร์ 1.5 ล้านหลัง ไม่ได้มีแค่เรื่องเงินอุดหนุน มาตรฐานติดตั้งจะเป็นอีกโจทย์ใหญ่</span><span class="en">The 1.5 million-home solar push is not only about subsidy — installation standards are the other problem</span></span></h3>
+        <span class="link"><span class="bi"><span class="th">อ่านต่อ</span><span class="en">Read more</span></span> →</span>
+      </a>
+      <a class="insight-card reveal" href="news.html">
+        <div class="insight-meta">
+          <span class="insight-tag"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
+          <time datetime="2026-09-13">2026-09-13</time>
+        </div>
+        <h3><span class="bi"><span class="th">ขายไฟคืนได้ 1,000 หรือ 1,650 บาทต่อเดือน — ทำไมสองตัวเลขนี้ถึงไม่ตรงกัน</span><span class="en">Selling power back at THB 1,000 or THB 1,650 a month — why the two figures disagree</span></span></h3>
+        <span class="link"><span class="bi"><span class="th">อ่านต่อ</span><span class="en">Read more</span></span> →</span>
+      </a>
+    </div>
+    <div class="insights-more reveal">
+      <a class="btn-outline" href="news.html"><span class="bi"><span class="th">ดูข่าวทั้งหมด</span><span class="en">All news</span></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VIDEO ===== -->
+<section id="video" class="video-section" style="display:none">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag" id="videoTag">VIDEO</span>
+      <h2 id="videoTitle"></h2>
+      <p id="videoDesc" style="display:none"></p>
+    </div>
+    <div class="video-frame reveal" id="videoFrame">
+      <div class="video-placeholder">กำลังโหลดวิดีโอ...</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== CTA BANNER ===== -->
+<section id="cta" style="padding:30px 0 60px">
+  <div class="wrap">
+    <div class="cta-banner reveal">
+      <div>
+        <h2><span class="bi"><span class="th">พร้อมเริ่มต้นโครงการพลังงานของคุณแล้วหรือยัง?</span><span class="en">Ready to Start Your Energy Project?</span></span></h2>
+        <p><span class="bi"><span class="th">ทีมวิศวกรของเราพร้อมประเมินไซต์งานและคำนวณ ROI ให้ฟรี · ติดต่อกลับภายใน 24 ชั่วโมง</span><span class="en">Our engineers will assess your site and calculate ROI — free of charge. Response within 24 hours.</span></span></p>
+      </div>
+      <div class="cta-banner-right">
+        <a href="quote.html" class="btn-primary">
+          <span class="bi"><span class="th">ขอใบเสนอราคาฟรี</span><span class="en">Get Free Quote</span></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <span>โทรศัพท์: อยู่ระหว่างอัปเดต / Phone: coming soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer id="about">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="24sEnergy_png.png" alt="24sEnergy">
+        <p><span class="bi">
+          <span class="th">ผู้นำด้านระบบกักเก็บพลังงานและ Solar PV สำหรับอุตสาหกรรมไทย ขับเคลื่อนด้วยเทคโนโลยีระดับโลก</span>
+          <span class="en">Leading provider of BESS and Solar PV for Thai industry, powered by world-class technology.</span>
+        </span></p>
+      </div>
+      <div class="footer-col">
+        <h4><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></h4>
+        <a href="products.html#bess">BESS</a>
+        <a href="products.html#solar">Solar PV</a>
+        <a href="products.html#inverter">Inverter</a>
+        <a href="products.html">ดูทั้งหมด</a>
+      </div>
+      <div class="footer-col">
+        <h4><span class="bi"><span class="th">บริษัท</span><span class="en">Company</span></span></h4>
+        <a href="contact.html"><span class="bi"><span class="th">ติดต่อเรา</span><span class="en">Contact Us</span></span></a>
+        <a href="#solutions"><span class="bi"><span class="th">โซลูชัน</span><span class="en">Solutions</span></span></a>
+        <a href="news.html"><span class="bi"><span class="th">ข่าวสาร</span><span class="en">News</span></span></a>
+        <span><span class="bi"><span class="th">ร่วมงาน</span><span class="en">Careers</span></span></span>
+      </div>
+      <div class="footer-col">
+        <h4><span class="bi"><span class="th">ติดต่อ</span><span class="en">Contact</span></span></h4>
+        <span>โทรศัพท์: อยู่ระหว่างอัปเดต / Phone: coming soon</span>
+        <span>📱 LINE: @24senergy</span>
+        <a href="mailto:info@24senergy.co.th">✉ info@24senergy.co.th</a>
+        <a href="contact.html">📍 <span class="bi"><span class="th">กรุงเทพฯ</span><span class="en">Bangkok</span></span></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 24sEnergy Co., Ltd. <span class="bi"><span class="th">สงวนลิขสิทธิ์</span><span class="en">All rights reserved.</span></span></div>
+      <div class="social">
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg></span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3z"/></svg></span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ===== Language toggle =====
+  function setLang(lang){
+    document.body.setAttribute('data-lang', lang);
+    document.documentElement.setAttribute('lang', lang);
+    document.getElementById('btnTH').classList.toggle('active', lang==='th');
+    document.getElementById('btnEN').classList.toggle('active', lang==='en');
+    try { localStorage.setItem('lang', lang); } catch {}
+  }
+  (function(){ try { var s=localStorage.getItem('lang'); if(s==='th'||s==='en') setLang(s); } catch {} })();
+
+  // ===== Nav scroll effect =====
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', ()=>{
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // ===== Reveal on scroll =====
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{threshold:.12, rootMargin:'0px 0px -40px 0px'});
+  reveals.forEach(el => io.observe(el));
+
+  // ===== Smooth anchor scroll offset for sticky nav =====
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const id = a.getAttribute('href');
+      if(id.length>1 && document.querySelector(id)){
+        e.preventDefault();
+        const top = document.querySelector(id).getBoundingClientRect().top + window.scrollY - 70;
+        window.scrollTo({top, behavior:'smooth'});
+      }
+    });
+  });
+
+  // ===== HERO CAROUSEL =====
+  let _hxTimer;
+  function initHeroCarousel(ITEMS) {
+    const n = ITEMS.length;
+    if (n < 1) return;
+
+    // Rebuild DOM
+    const bg = document.getElementById('hxBg');
+    const stage = document.querySelector('.hx-stage');
+    const heading = document.getElementById('hxHeading');
+    if (!bg || !stage || !heading) return;
+
+    bg.innerHTML = ITEMS.map((it, i) =>
+      `<img class="hx-bg-blur${i===0?' is-active':''}" data-idx="${i}" src="${escapeHTML(safeURL(it.src))}" alt="" aria-hidden="true">`
+    ).join('') + '<div class="hx-bg-overlay" id="hxBgOverlay"></div><div class="hx-scrim"></div>';
+
+    stage.innerHTML = ITEMS.map((it, i) =>
+      `<div class="hx-item" data-idx="${i}"><img src="${escapeHTML(safeURL(it.src))}" alt="${escapeHTML(it.label)}" loading="${i===0?'eager':'lazy'}"/></div>`
+    ).join('');
+
+    heading.innerHTML = ITEMS.map((it, i) =>
+      `<span class="bi" data-idx="${i}"><span class="th">${escapeHTML(it.title_th)}</span><span class="en">${escapeHTML(it.title_en)}</span></span>`
+    ).join('');
+
+    // Re-query after rebuild
+    const bgBlurs = bg.querySelectorAll('.hx-bg-blur');
+    const bgOverlay = document.getElementById('hxBgOverlay');
+    const stageItems = stage.querySelectorAll('.hx-item');
+    const headingSpans = heading.querySelectorAll('.bi');
+
+    stageItems.forEach((el, i) => {
+      const img = el.querySelector('img');
+      if (img) img.onerror = () => { el.classList.add('no-img'); el.dataset.fallback = ITEMS[i].label; };
+    });
+
+    let activeIndex = 0, isAnimating = false;
+
+    function hexToRgba(hex, alpha) {
+      const h = hex.replace('#','');
+      const r = parseInt(h.substring(0,2),16), g = parseInt(h.substring(2,4),16), b = parseInt(h.substring(4,6),16);
+      return `rgba(${r},${g},${b},${alpha})`;
+    }
+
+    function applyRoles() {
+      stageItems.forEach((el, i) => {
+        el.classList.remove('is-center','is-left','is-right','is-back');
+        const offset = (i - activeIndex + n) % n;
+        if (offset === 0) el.classList.add('is-center');
+        else if (offset === 1) el.classList.add('is-right');
+        else if (offset === n - 1) el.classList.add('is-left');
+        else el.classList.add('is-back');
+      });
+      bg.style.backgroundColor = ITEMS[activeIndex].bg;
+      bgBlurs.forEach((img, i) => img.classList.toggle('is-active', i === activeIndex));
+      if (bgOverlay) bgOverlay.style.backgroundColor = hexToRgba(ITEMS[activeIndex].bg, .42);
+      headingSpans.forEach(s => s.classList.toggle('is-active', parseInt(s.dataset.idx,10) === activeIndex));
+    }
+
+    function navigate(dir) {
+      if (isAnimating) return;
+      isAnimating = true;
+      activeIndex = dir === 'next' ? (activeIndex + 1) % n : (activeIndex + n - 1) % n;
+      applyRoles();
+      setTimeout(() => { isAnimating = false; }, 650);
+    }
+
+    if (_hxTimer) clearInterval(_hxTimer);
+    const prevBtn = document.getElementById('hxPrev');
+    const nextBtn = document.getElementById('hxNext');
+    if (prevBtn) prevBtn.onclick = () => navigate('prev');
+    if (nextBtn) nextBtn.onclick = () => navigate('next');
+
+    document.onkeydown = e => {
+      if (e.target.matches('input, textarea')) return;
+      if (e.key === 'ArrowLeft') navigate('prev');
+      else if (e.key === 'ArrowRight') navigate('next');
+    };
+
+    clearInterval(_hxTimer);
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reducedMotion) _hxTimer = setInterval(() => navigate('next'), 5000);
+    const root = document.getElementById('hxRoot');
+    if (root) {
+      root.onmouseenter = () => clearInterval(_hxTimer);
+      root.onmouseleave = () => { clearInterval(_hxTimer); if (!reducedMotion) _hxTimer = setInterval(() => navigate('next'), 5000); };
+    }
+
+    applyRoles();
+  }
+
+  // Static fallback (shown immediately, replaced if DB has slides)
+  initHeroCarousel([
+    { src:'01.webp', bg:'#6A2DAF', title_th:'ระบบกักเก็บพลังงาน', title_en:'BATTERY STORAGE', label:'BESS' },
+    { src:'02.webp', bg:'#1a1a1f', title_th:'โซลาร์เซลล์อุตสาหกรรม', title_en:'INDUSTRIAL SOLAR', label:'SOLAR' },
+    { src:'03.webp', bg:'#3F3F3F', title_th:'อินเวอร์เตอร์', title_en:'INVERTERS', label:'INVERTER' },
+    { src:'04.webp', bg:'#4d1f80', title_th:'โซลาร์สำหรับบ้านและฟาร์ม', title_en:'HOME & FARM SOLAR', label:'SOLAR' },
+  ]);
+
+  // ===== Supabase dynamic data =====
+  const SB_URL = 'https://cocmcinqcywqrqdxwdof.supabase.co';
+  const SB_KEY = 'sb_publishable_oEeXvdWPNAt0wmUDuvACfg_tDlTxkhu';
+
+  async function sbFetch(path) {
+    const r = await fetch(SB_URL + path, { headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY } });
+    if (!r.ok) throw new Error('Content unavailable');
+    return r.json();
+  }
+
+  // Load hero slides from DB
+  async function loadHeroSlides() {
+    try {
+      const data = await sbFetch('/rest/v1/hero_slides?is_active=eq.true&order=sort_order.asc&select=*');
+      if (!Array.isArray(data) || data.length === 0) return;
+      initHeroCarousel(data.map(s => ({
+        src: s.image_url || '01.webp',
+        bg: '#1a1a1f',
+        title_th: s.title_th || '',
+        title_en: s.title_en || '',
+        label: s.title_en || '',
+      })));
+    } catch(e) { console.error('Supabase load failed:', e); }
+  }
+
+  // Load video from site_config
+  function getYouTubeId(url) {
+    const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([^&\s?#]+)/);
+    return m ? m[1] : null;
+  }
+
+  async function loadVideo() {
+    try {
+      const keys = ['video_youtube_url','video_title_th','video_title_en','video_desc_th','video_desc_en'];
+      const data = await sbFetch('/rest/v1/site_config?key=in.(' + keys.join(',') + ')&select=key,value');
+      if (!Array.isArray(data)) return;
+      const map = Object.fromEntries(data.map(d => [d.key, d.value]));
+      const url = map['video_youtube_url'];
+      if (!url) return;
+      const vid = getYouTubeId(url);
+      if (!/^[A-Za-z0-9_-]{11}$/.test(vid || '')) return;
+      if (!vid) return;
+
+      const lang = document.body.dataset.lang || 'th';
+      const titleTh = map['video_title_th'] || 'วิดีโอของเรา';
+      const titleEn = map['video_title_en'] || 'Our Video';
+      const descTh = map['video_desc_th'] || '';
+      const descEn = map['video_desc_en'] || '';
+
+      const titleEl = document.getElementById('videoTitle');
+      const descEl = document.getElementById('videoDesc');
+      const frameEl = document.getElementById('videoFrame');
+      const section = document.getElementById('video');
+
+      if (titleEl) titleEl.innerHTML = `<span class="bi"><span class="th">${escapeHTML(titleTh)}</span><span class="en">${escapeHTML(titleEn)}</span></span>`;
+      if (descEl && (descTh || descEn)) {
+        descEl.innerHTML = `<span class="bi"><span class="th">${escapeHTML(descTh)}</span><span class="en">${escapeHTML(descEn)}</span></span>`;
+        descEl.style.display = '';
+      }
+      if (frameEl) frameEl.innerHTML = `<iframe src="https://www.youtube.com/embed/${vid}?rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+      if (section) {
+        section.style.display = '';
+        section.querySelectorAll('.reveal').forEach(el => io.observe(el));
+      }
+    } catch(e) { console.error('Supabase load failed:', e); }
+  }
+
+
+  // ===== Highlights: one benefit per product, reshuffled each visit =====
+  // Six slots and six products, so every product appears every time; what
+  // varies is which of its benefits shows and which lands on the big card.
+  const HL_POOL = [{"p":"sunwoda","c":"bess","s":"Sunwoda Atrix Max+","i":"<rect x=\"2\" y=\"7\" width=\"18\" height=\"10\" rx=\"2\"/><path d=\"M22 11v2\"/>","tt":"ความจุที่ใช้ได้เต็มทุกหน่วย","te":"Every kWh is usable","dt":"แบตเตอรี่ LFP เซลล์ 314Ah ความจุ 16 kWh ใช้ได้เต็ม 16 kWh ที่ 100% DOD อายุการใช้งานสูงสุด 10,000 รอบตามเงื่อนไขการทดสอบของผู้ผลิต","de":"314Ah LFP cells: 16 kWh nominal and 16 kWh usable at 100% DOD, rated up to 10,000 cycles under the maker&rsquo;s test conditions."},{"p":"sunwoda","c":"bess","s":"Sunwoda Atrix Max+","i":"<path d=\"M3 17h4V9H3zM10 17h4V5h-4zM17 17h4v-6h-4z\"/>","tt":"เริ่มชุดเดียว ขยายได้ถึง 512 kWh","te":"One unit now, 512 kWh later","dt":"ต่อขนานได้สูงสุด 32 ชุด รวม 512 kWh เพิ่มทีหลังได้โดยไม่ต้องเปลี่ยนของเดิม","de":"Up to 32 units in parallel for 512 kWh, added later without replacing what is installed."},{"p":"sunwoda","c":"bess","s":"Sunwoda Atrix Max+","i":"<path d=\"M13 2 3 14h7l-1 8 10-12h-7l1-8z\"/>","tt":"รับโหลดกระชากช่วงสั้นได้","te":"Handles short surges","dt":"กระแสชาร์จ/จ่ายสูงสุด 220A และจ่าย Peak ได้ 300A นานสูงสุด 5 นาที สำหรับโหลดที่กินกระแสสูงตอนสตาร์ท","de":"Up to 220A charge and discharge, with a 300A peak for as long as five minutes for loads that draw hard at start-up."},{"p":"kstar","c":"bess","s":"KSTAR BluE-S &amp; BluePulse","i":"<path d=\"M13 2 3 14h7l-1 8 10-12h-7l1-8z\"/>","tt":"ไฟดับแล้วกลับมาในเสี้ยววินาที","te":"Back on in milliseconds","dt":"ตู้ BluePulse สลับเข้าไฟสำรองได้ต่ำกว่า 10 มิลลิวินาที และต่อเครื่องปั่นไฟร่วมได้ในพื้นที่ไฟไม่เสถียร","de":"The BluePulse cabinet transfers to backup in under 10 milliseconds and accepts a genset where the grid is unreliable."},{"p":"kstar","c":"bess","s":"KSTAR BluE-S &amp; BluePulse","i":"<path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"/><path d=\"M9 12l2 2 4-4\"/>","tt":"ความปลอดภัยระดับตู้เชิงพาณิชย์","te":"Cabinet-grade safety","dt":"ตู้สำหรับงาน C&amp;I มีระบบดับเพลิงในตัวและผ่านการทดสอบ UL9540A (เฉพาะตู้ BluePulse)","de":"The C&amp;I cabinet includes fire suppression and is UL9540A tested (BluePulse cabinet only)."},{"p":"kstar","c":"bess","s":"KSTAR BluE-S &amp; BluePulse","i":"<circle cx=\"12\" cy=\"12\" r=\"3.2\"/><path d=\"M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1\"/>","tt":"รับแดดเกินพิกัดได้ 2 เท่า","te":"Twice the panels","dt":"รองรับ PV เกินพิกัดได้ถึง 200% พร้อมโหมด Self-consumption, TOU และ Peak shaving เลือกตามรูปแบบค่าไฟ","de":"Supports 200% PV oversizing, with self-consumption, TOU and peak-shaving modes to match the tariff."},{"p":"tcl","c":"bess","s":"TCL BlueArk X1","i":"<path d=\"M3 17h4V9H3zM10 17h4V5h-4zM17 17h4v-6h-4z\"/>","tt":"เริ่มเท่าที่จำเป็น แล้วค่อยขยาย","te":"Start small, grow later","dt":"ขยายได้ตั้งแต่ 8 kWh ถึง 128 kWh ต่อขนานอินเวอร์เตอร์ได้สูงสุด 4 เครื่อง โดยไม่ต้องรื้อของเดิม","de":"Scales from 8 kWh to 128 kWh with up to four inverters in parallel, without replacing what is installed."},{"p":"tcl","c":"bess","s":"TCL BlueArk X1","i":"<path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"/><path d=\"M9 12l2 2 4-4\"/>","tt":"ความปลอดภัยที่ออกแบบมาตั้งแต่ต้น","te":"Safety designed in","dt":"แบตมีโมดูลดับเพลิงในตัว BMS สองชั้น และเซนเซอร์อุณหภูมิ 10 จุดต่อ 8 เซลล์","de":"The battery carries a fire-suppression module, a dual-layer BMS and ten temperature sensors per eight cells."},{"p":"tcl","c":"bess","s":"TCL BlueArk X1","i":"<path d=\"M4 20h16M6 20V9l6-5 6 5v11\"/><path d=\"M10 20v-5h4v5\"/>","tt":"ติดตั้งนอกอาคารได้ทั้งชุด","te":"Rated for outdoors","dt":"ตัวเครื่อง IP66 ทั้งชุด ใช้งานได้ -30 ถึง 60°C และเพิ่มแบตใหม่ปนกับแบตเดิมได้ตามคู่มือผู้ผลิต","de":"IP66 throughout, -30 to 60°C, and new packs can join older ones following the maker&rsquo;s manual."},{"p":"leapton","c":"solar","s":"Leapton N-Type TOPCon","i":"<circle cx=\"12\" cy=\"12\" r=\"3.2\"/><path d=\"M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1\"/>","tt":"วัตต์ต่อแผงสูง ลดจำนวนแผง","te":"More watts per panel","dt":"แผง N-Type TOPCon 610–725W ประสิทธิภาพสูงสุด 23.34% ได้กำลังมากต่อแผง ลดจำนวนแผง โครงสร้างและสายที่ต้องใช้","de":"N-Type TOPCon at 610–725W and up to 23.34% efficiency — more watts per panel means fewer panels, rails and cable."},{"p":"leapton","c":"solar","s":"Leapton N-Type TOPCon","i":"<path d=\"M4 20h16M6 20V9l6-5 6 5v11\"/><path d=\"M10 20v-5h4v5\"/>","tt":"เสื่อมช้าและทนหน้างานหนัก","te":"Ages slowly, takes a beating","dt":"อัตราเสื่อม 0.4% ต่อปี ผ่านทดสอบไอเค็มและแอมโมเนีย (TUV Nord) รับประกันกำลังผลิต 30 ปีตามเงื่อนไขผู้ผลิต","de":"Degradation of 0.4% per year, salt-mist and ammonia tested (TUV Nord), 30-year performance warranty per maker&rsquo;s terms."},{"p":"leapton","c":"solar","s":"Leapton N-Type TOPCon","i":"<path d=\"M13 2 3 14h7l-1 8 10-12h-7l1-8z\"/>","tt":"รับแสงสะท้อนจากด้านหลังได้","te":"Catches light from behind","dt":"กระจกสองชั้นแบบ Bifacial ค่า Bifaciality 80±5% กำลังที่ได้เพิ่มขึ้นกับพื้นผิว ความสูง และวิธีติดตั้ง","de":"Dual-glass bifacial at 80±5% bifaciality; the rear-side gain depends on ground surface, height and mounting."},{"p":"solaredge","c":"inverter","s":"SolarEdge","i":"<circle cx=\"12\" cy=\"12\" r=\"3.2\"/><path d=\"M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1\"/>","tt":"เงาบังบางแผง ไม่ฉุดทั้งระบบ","te":"Shade stays on one panel","dt":"Power Optimizer ดึงไฟจากแต่ละแผงแยกกัน และดูข้อมูลการผลิตได้ทีละแผง","de":"Power Optimizers work each panel independently, with production data read panel by panel."},{"p":"solaredge","c":"inverter","s":"SolarEdge","i":"<path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"/><path d=\"M9 12l2 2 4-4\"/>","tt":"ลดแรงดันเหลือ 1V เมื่อปิดระบบ","te":"Down to 1V at shutdown","dt":"SafeDC ลดแรงดันแต่ละแผงเหลือ 1V เมื่อปิดระบบ ลดความเสี่ยงของช่างที่ต้องขึ้นไปทำงานบนหลังคา","de":"SafeDC drops each panel to 1V when the system shuts down, lowering the risk for anyone working on the roof."},{"p":"solaredge","c":"inverter","s":"SolarEdge","i":"<rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M7 12h3l2-3 2 6 2-3h1\"/>","tt":"ระบบบ้านครบในแบรนด์เดียว","te":"One brand, whole system","dt":"Home Hub 3–10 kVA รองรับ PV เกินพิกัดถึง 300% พร้อมแบตเตอรี่ใช้ได้จริง 9.7 kWh ประสิทธิภาพไป-กลับ 94.5%","de":"Home Hub at 3–10 kVA with up to 300% DC oversizing, plus a 9.7 kWh usable battery at 94.5% round-trip efficiency."},{"p":"solplanet","c":"inverter","s":"Solplanet ASW HT","i":"<path d=\"M3 17l5-6 4 3 5-7\"/><circle cx=\"12\" cy=\"12\" r=\"9\"/>","tt":"หาปัญหาได้โดยไม่ต้องขึ้นหลังคา","te":"Diagnose without the roof","dt":"Smart I-V Curve วินิจฉัยสตริงจากระยะไกล และตรวจอุณหภูมิขั้วต่อ DC/AC เพื่อจับความผิดปกติตั้งแต่เนิ่น","de":"Smart I-V Curve diagnoses strings remotely, and DC/AC terminal temperature monitoring catches faults early."},{"p":"solplanet","c":"inverter","s":"Solplanet ASW HT","i":"<path d=\"M13 2 3 14h7l-1 8 10-12h-7l1-8z\"/>","tt":"ประสิทธิภาพระดับ 99% สำหรับงานใหญ่","te":"99% class for utility work","dt":"อินเวอร์เตอร์ 3 เฟส 250–360 kW ประสิทธิภาพสูงสุด 99.01% รองรับ 1500V สำหรับโซลาร์ฟาร์มและงานระดับเมกะวัตต์","de":"Three-phase 250–360 kW inverters at up to 99.01% efficiency and 1500V, for utility and MW-scale sites."},{"p":"solplanet","c":"inverter","s":"Solplanet ASW HT","i":"<path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"/><path d=\"M9 12l2 2 4-4\"/>","tt":"ตัดไฟระดับแผงเมื่อฉุกเฉิน","te":"Module-level rapid shutdown","dt":"อุปกรณ์ Sol-RSD02 ตัดไฟระดับแผงตามมาตรฐาน UL1741/UL3741 พร้อมปุ่มฉุกเฉิน — การรับรอง UL ไม่ได้แทนการตรวจข้อกำหนดไทย","de":"Sol-RSD02 shuts down at module level to UL1741/UL3741 with an emergency button. UL listing does not replace a check against Thai requirements."}];
+  const HL_PH = { bess:'01.webp', solar:'02.webp', inverter:'04.webp' };
+
+  function shuffle(a){
+    for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}
+    return a;
+  }
+  function bi(th,en){
+    return '<span class="bi"><span class="th">'+th+'</span><span class="en">'+en+'</span></span>';
+  }
+  function fillHighlights(){
+    const cards=[...document.querySelectorAll('.highlights-bento > [data-slot]')];
+    if(cards.length!==6) return;
+
+    const byProduct={};
+    HL_POOL.forEach(h=>{ (byProduct[h.p]=byProduct[h.p]||[]).push(h) });
+    const picks=shuffle(Object.keys(byProduct)).map(k=>{
+      const list=byProduct[k];
+      return list[Math.floor(Math.random()*list.length)];
+    });
+    if(picks.length<6) return;
+
+    // The three photo cards should never show the same picture, so take one
+    // product per category for them and leave the rest to the text cards.
+    const forPhotos=[], forTexts=[], usedCat=new Set();
+    picks.forEach(h=>{
+      if(forPhotos.length<3 && !usedCat.has(h.c)){ usedCat.add(h.c); forPhotos.push(h) }
+      else forTexts.push(h);
+    });
+    while(forPhotos.length<3 && forTexts.length) forPhotos.push(forTexts.shift());
+    const ordered=shuffle(forPhotos).concat(forTexts);
+
+    const photos=cards.filter(c=>c.dataset.slot==='photo');
+    const texts=cards.filter(c=>c.dataset.slot==='text');
+    photos.forEach((card,n)=>{
+      const h=ordered[n];
+      card.style.setProperty('--hl-img',"url('highlights/"+h.c+".webp')");
+      card.style.setProperty('--hl-ph',"url('"+(HL_PH[h.c]||'01.webp')+"')");
+      card.innerHTML='<div class="hl-photo-body"><h3>'+bi(h.tt,h.te)+'</h3><p>'+bi(h.dt,h.de)+'</p><span class="hl-src">'+h.s+'</span></div>';
+    });
+    texts.forEach((card,n)=>{
+      const h=ordered[n+3];
+      card.innerHTML='<div class="hl-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+h.i+'</svg></div>'
+        +'<h3>'+bi(h.tt,h.te)+'</h3><p>'+bi(h.dt,h.de)+'</p><span class="hl-src">'+h.s+'</span>';
+    });
+  }
+  fillHighlights();
+
+  loadHeroSlides();
+  loadVideo();
+</script>
+</body>
+</html>
