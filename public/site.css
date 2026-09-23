@@ -187,3 +187,143 @@
   box-shadow:-2px -1px 6px var(--neu-hi), 2px 2px 7px rgba(106,45,175,.42);
 }
 .neu .check-sub{color:var(--neu-muted)}
+
+/* ===================================================================
+   Quote CTA — an outline pill that fills from the centre on hover
+   -------------------------------------------------------------------
+   Two notes on the original this is adapted from:
+
+   * its ::before is z-index:-1 while the button is only
+     `position:relative`, which does NOT open a stacking context. The
+     circle then paints behind the nearest ancestor that does — so on a
+     nav or a banner with a background it simply never appears.
+     `isolation:isolate` keeps it inside the button.
+   * its circle is 50px scaled 3x = 150px across, narrower than these
+     buttons, so the corners never filled. A fixed size cannot serve both
+     a 170px nav pill and a 370px banner button at once, so the circle is
+     as wide as the button and scales past it.
+
+   Contrast, measured: brand on white 8.05:1, white on the brand fill
+   8.05:1, white on the banner gradient 9.62:1, brand-dark on the white
+   fill 11.52:1.
+   =================================================================== */
+.q-cta{
+  position:relative;isolation:isolate;overflow:hidden;
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  border-radius:999px;line-height:1;white-space:nowrap;
+  font-weight:700;
+  color:var(--brand,#6A2DAF);
+  background-color:transparent;
+  border:2px solid var(--brand,#6A2DAF);
+  box-shadow:none;
+  transition:color .35s cubic-bezier(.23,1,.32,1),
+             scale .35s cubic-bezier(.23,1,.32,1),
+             box-shadow .35s cubic-bezier(.23,1,.32,1),
+             border-color .35s cubic-bezier(.23,1,.32,1);
+}
+.q-cta::before{
+  content:'';position:absolute;inset:0;margin:auto;
+  width:100%;aspect-ratio:1;border-radius:50%;
+  scale:0;z-index:-1;
+  background-color:var(--brand,#6A2DAF);
+  transition:scale .6s cubic-bezier(.23,1,.32,1);
+}
+.q-cta:hover::before,
+.q-cta:focus-visible::before{scale:1.6}
+.q-cta:hover,
+.q-cta:focus-visible{color:#fff;scale:1.05;box-shadow:0 0 20px rgba(106,45,175,.40)}
+.q-cta:active{scale:1}
+.q-cta svg{transition:transform .35s cubic-bezier(.23,1,.32,1)}
+.q-cta:hover svg{transform:translateX(3px)}
+
+/* on a photo or a dark banner the outline inverts */
+.q-cta-inv{color:#fff;border-color:rgba(255,255,255,.85)}
+.q-cta-inv::before{background-color:#fff}
+.q-cta-inv:hover,
+.q-cta-inv:focus-visible{color:var(--brand-dark,#4d1f80);box-shadow:0 0 22px rgba(255,255,255,.35)}
+
+/* --- nav: transparent over the hero, white once scrolled ----------- */
+.nav .btn-cta{
+  position:relative;isolation:isolate;overflow:hidden;
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:10px 24px;border-radius:999px;
+  background-color:transparent;box-shadow:none;
+  color:#fff;border:2px solid rgba(255,255,255,.85);
+  transition:color .35s cubic-bezier(.23,1,.32,1),
+             scale .35s cubic-bezier(.23,1,.32,1),
+             box-shadow .35s cubic-bezier(.23,1,.32,1),
+             border-color .35s cubic-bezier(.23,1,.32,1),
+             padding .3s ease;
+}
+.nav .btn-cta::before{
+  content:'';position:absolute;inset:0;margin:auto;
+  width:100%;aspect-ratio:1;border-radius:50%;
+  scale:0;z-index:-1;background-color:#fff;
+  transition:scale .6s cubic-bezier(.23,1,.32,1), background-color .3s ease;
+}
+.nav .btn-cta:hover::before,
+.nav .btn-cta:focus-visible::before{scale:1.6}
+/* a smaller lift here — the nav row is tight and 1.1 collided with the
+   language toggle at tablet widths */
+.nav .btn-cta:hover,
+.nav .btn-cta:focus-visible{color:var(--brand-dark);scale:1.04;box-shadow:0 0 20px rgba(255,255,255,.3)}
+.nav .btn-cta:active{scale:1}
+
+.nav.scrolled .btn-cta{color:var(--brand);border-color:var(--brand)}
+.nav.scrolled .btn-cta::before{background-color:var(--brand)}
+.nav.scrolled .btn-cta:hover,
+.nav.scrolled .btn-cta:focus-visible{color:#fff;box-shadow:0 0 20px rgba(106,45,175,.40)}
+/* the quote page's own nav entry stays filled, it marks the current page */
+.nav .btn-cta.active::before{scale:1.6}
+.nav .btn-cta.active{color:#fff}
+.nav.scrolled .btn-cta.active{color:#fff;border-color:var(--brand)}
+
+/* --- closing CTA banners (index, news) — both sit on dark ---------- */
+.cta-banner-right .btn-primary,
+.cta-band-right .btn-primary-white{
+  position:relative;isolation:isolate;overflow:hidden;
+  border-radius:999px;background-color:transparent;box-shadow:none;
+  color:#fff;border:2px solid rgba(255,255,255,.85);
+  transition:color .35s cubic-bezier(.23,1,.32,1),
+             scale .35s cubic-bezier(.23,1,.32,1),
+             box-shadow .35s cubic-bezier(.23,1,.32,1);
+}
+.cta-banner-right .btn-primary::before,
+.cta-band-right .btn-primary-white::before{
+  content:'';position:absolute;inset:0;margin:auto;
+  width:100%;aspect-ratio:1;border-radius:50%;
+  scale:0;z-index:-1;background-color:#fff;
+  transition:scale .6s cubic-bezier(.23,1,.32,1);
+}
+.cta-banner-right .btn-primary:hover::before,
+.cta-banner-right .btn-primary:focus-visible::before,
+.cta-band-right .btn-primary-white:hover::before,
+.cta-band-right .btn-primary-white:focus-visible::before{scale:1.6}
+.cta-banner-right .btn-primary:hover,
+.cta-banner-right .btn-primary:focus-visible,
+.cta-band-right .btn-primary-white:hover,
+.cta-band-right .btn-primary-white:focus-visible{
+  color:var(--brand-dark);transform:none;scale:1.05;
+  box-shadow:0 0 22px rgba(255,255,255,.35);
+}
+.cta-banner-right .btn-primary:active,
+.cta-band-right .btn-primary-white:active{scale:1}
+
+@media (prefers-reduced-motion:reduce){
+  .q-cta,.nav .btn-cta,.cta-banner-right .btn-primary,.cta-band-right .btn-primary-white{
+    transition:color .01ms,border-color .01ms!important;
+  }
+  .q-cta:hover,.nav .btn-cta:hover,
+  .cta-banner-right .btn-primary:hover,.cta-band-right .btn-primary-white:hover{scale:1}
+  .q-cta::before,.nav .btn-cta::before,
+  .cta-banner-right .btn-primary::before,.cta-band-right .btn-primary-white::before{
+    transition:none!important;
+  }
+}
+
+/* The mobile hide for this button lives further up in this file. These rules
+   come later at the same specificity, so they win on source order and the
+   button reappeared at 390px — pushing the burger 34px off-screen. Restate it. */
+@media (max-width:520px){
+  .nav .btn-cta{display:none}
+}
