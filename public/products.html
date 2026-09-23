@@ -102,7 +102,6 @@
   .filter-opt input{accent-color:var(--brand);width:16px;height:16px;cursor:pointer;flex-shrink:0}
   .dot-cat{width:9px;height:9px;border-radius:50%;flex-shrink:0}
   .dot-bess{background:var(--brand)}.dot-solar{background:#d97706}
-  .dot-ev{background:#059669}.dot-ems{background:#2563eb}
   .dot-inverter{background:#2563eb}
   .prod-card.hide{display:none!important}
   .no-results{display:none;text-align:center;padding:60px 20px;color:var(--muted);font-size:15px}
@@ -130,8 +129,7 @@
     backdrop-filter:blur(6px);pointer-events:none}
   .prod-img.bg-bess{background-image:url('01.webp');--tint:linear-gradient(135deg,rgba(63,63,63,.6),rgba(106,45,175,.75))}
   .prod-img.bg-solar{background-image:url('02.webp');--tint:linear-gradient(135deg,rgba(217,119,6,.6),rgba(251,191,36,.5))}
-  .prod-img.bg-ev{background-image:url('03.webp');--tint:linear-gradient(135deg,rgba(5,150,105,.6),rgba(16,185,129,.5))}
-  .prod-img.bg-ems{background-image:url('04.webp');--tint:linear-gradient(135deg,rgba(37,99,235,.6),rgba(96,165,250,.5))}
+  .prod-img.bg-inverter{background-image:url('04.webp');--tint:linear-gradient(135deg,rgba(37,99,235,.6),rgba(96,165,250,.5))}
   .prod-img.has-real-img{background:#f5f5f7;--tint:none}
   .prod-img.has-real-img::before{display:none}
   .prod-img.has-real-img::after{display:none}
@@ -163,13 +161,7 @@
   .prod-foot .btn{flex:1;padding:12px;border-radius:8px;font-size:13.5px;font-weight:700;
     text-align:center;transition:all .2s;display:block}
   .prod-foot .btn-brand{background:var(--brand);color:#fff}.prod-foot .btn-brand:hover{background:var(--brand-dark)}
-  .prod-foot .btn-solar{background:#d97706;color:#fff}.prod-foot .btn-solar:hover{background:#b45309}
-  .prod-foot .btn-ev{background:#059669;color:#fff}.prod-foot .btn-ev:hover{background:#047857}
-  .prod-foot .btn-ems{background:#2563eb;color:#fff}.prod-foot .btn-ems:hover{background:#1d4ed8}
   .prod-foot .btn-ghost-brand{background:var(--brand-soft);color:var(--brand)}.prod-foot .btn-ghost-brand:hover{background:#e5d4f4}
-  .prod-foot .btn-ghost-solar{background:#fef3c7;color:#d97706}.prod-foot .btn-ghost-solar:hover{background:#fde68a}
-  .prod-foot .btn-ghost-ev{background:#d1fae5;color:#059669}.prod-foot .btn-ghost-ev:hover{background:#a7f3d0}
-  .prod-foot .btn-ghost-ems{background:#dbeafe;color:#2563eb}.prod-foot .btn-ghost-ems:hover{background:#bfdbfe}
 
   /* ===== CTA banner ===== */
   .cta-banner{background:linear-gradient(135deg,var(--brand) 0%,var(--brand-dark) 100%);
@@ -407,9 +399,9 @@
   const SB_KEY  = 'sb_publishable_oEeXvdWPNAt0wmUDuvACfg_tDlTxkhu';
 
   const CAT_CFG = {
-    bess:  {label:'BESS · Energy Storage', img:'bg-bess',  btn:'btn-brand', ghost:'btn-ghost-brand', app:'residential commercial'},
-    solar: {label:'Solar PV',           img:'bg-solar', btn:'btn-solar', ghost:'btn-ghost-solar', app:'industrial commercial'},
-    inverter: {label:'Inverter',        img:'bg-ems',  btn:'btn-ems',  ghost:'btn-ghost-ems',  app:'industrial commercial residential'},
+    bess:     {label:'BESS · Energy Storage', img:'bg-bess',     app:'residential commercial'},
+    solar:    {label:'Solar PV',              img:'bg-solar',    app:'industrial commercial'},
+    inverter: {label:'Inverter',              img:'bg-inverter', app:'industrial commercial residential'},
   };
   const ICONS = {
     bess:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="18" height="11" rx="2"/><path d="M22 11v3"/><rect x="5" y="10" width="5" height="5" rx="1"/></svg>`,
@@ -460,8 +452,8 @@
             <p><span class="bi"><span class="th">${escapeHTML(p.description_th)}</span><span class="en">${escapeHTML(p.description_en)}</span></span></p>
             ${specs.length ? `<div class="prod-specs">${specs.map(([k,v])=>`<div><span class="v">${escapeHTML(v)}</span><span class="l">${escapeHTML(k)}</span></div>`).join('')}</div>` : ''}
             <div class="prod-foot">
-              <a href="${page}" class="btn ${c.btn}"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">View Details</span></span></a>
-              <a href="quote.html" class="btn ${c.ghost}"><span class="bi"><span class="th">ขอราคา</span><span class="en">Get Quote</span></span></a>
+              <a href="${page}" class="btn btn-brand"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">View Details</span></span></a>
+              <a href="quote.html" class="btn btn-ghost-brand"><span class="bi"><span class="th">ขอราคา</span><span class="en">Get Quote</span></span></a>
             </div>
           </div>
         </div>`;

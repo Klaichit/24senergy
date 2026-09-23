@@ -388,3 +388,49 @@
   .hx-cta::before{transition:none!important}
   .hx-cta:hover{scale:1}
 }
+
+/* ===================================================================
+   One button shape
+   -------------------------------------------------------------------
+   The quote CTA, the neumorphic panels and the hero are settled above.
+   What was left was eleven unrelated styles across five pages: three
+   radii (8px, 10px, 999px), eight padding pairs, four type sizes and
+   four different hover moves, for what is all the same control.
+
+   These are all buttons, so they get one shape, one type scale and one
+   hover law. Colour is the only thing that varies, and the catalogue
+   cards no longer vary it by category — the card and its badge already
+   carry that, so the button repeating it only fought the brand.
+   =================================================================== */
+.btn-outline,
+.btn-back,
+.prod-foot .btn,
+.pg-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  border-radius:999px;
+  font-weight:700;line-height:1;white-space:nowrap;
+  transition:background-color .25s var(--ease,cubic-bezier(.2,.8,.2,1)),
+             color .25s var(--ease,cubic-bezier(.2,.8,.2,1)),
+             border-color .25s var(--ease,cubic-bezier(.2,.8,.2,1)),
+             box-shadow .25s var(--ease,cubic-bezier(.2,.8,.2,1)),
+             transform .25s var(--ease,cubic-bezier(.2,.8,.2,1));
+}
+/* one hover law: lift 2px, deepen the shadow */
+.btn-outline:hover,
+.btn-back:hover,
+.prod-foot .btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(26,26,46,.12);
+}
+.btn-outline:active,
+.btn-back:active,
+.prod-foot .btn:active{transform:translateY(0);box-shadow:none}
+
+/* two sizes, not eight */
+.btn-outline{padding:13px 26px;font-size:14.5px}
+.btn-back{padding:13px 26px;font-size:14.5px}
+.prod-foot .btn{padding:11px 18px;font-size:13px}
+
+@media (prefers-reduced-motion:reduce){
+  .btn-outline:hover,.btn-back:hover,.prod-foot .btn:hover{transform:none}
+}
