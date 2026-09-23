@@ -320,7 +320,7 @@
               <div class="field">
                 <label><span class="bi"><span class="th">ช่องทางที่ต้องการให้ติดต่อกลับ</span><span class="en">Preferred Contact</span></span></label>
                 <select name="contact_pref">
-                  <option value="phone"><span class="bi"><span class="th">โทรศัพท์</span><span class="en">Phone</span></span></option>
+                  <option value="phone" data-th="โทรศัพท์" data-en="Phone">โทรศัพท์</option>
                   <option value="email">Email</option>
                   <option value="line">LINE</option>
                 </select>
@@ -375,20 +375,20 @@
               <div class="field">
                 <label><span class="bi"><span class="th">ประเภทธุรกิจ</span><span class="en">Business Type</span></span><span class="req">*</span></label>
                 <select name="business_type" required>
-                  <option value="" disabled selected><span class="bi"><span class="th">เลือกประเภท</span><span class="en">Select type</span></span></option>
-                  <option value="factory"><span class="bi"><span class="th">โรงงาน / อุตสาหกรรม</span><span class="en">Factory / Industrial</span></span></option>
-                  <option value="commercial"><span class="bi"><span class="th">พาณิชยกรรม / ห้างสรรพสินค้า</span><span class="en">Commercial / Mall</span></span></option>
-                  <option value="hospital"><span class="bi"><span class="th">โรงพยาบาล / สาธารณสุข</span><span class="en">Hospital / Healthcare</span></span></option>
-                  <option value="hotel"><span class="bi"><span class="th">โรงแรม / รีสอร์ท</span><span class="en">Hotel / Resort</span></span></option>
-                  <option value="utility"><span class="bi"><span class="th">Utility-scale / โครงการขนาดใหญ่</span><span class="en">Utility-scale Project</span></span></option>
-                  <option value="residential"><span class="bi"><span class="th">ที่อยู่อาศัย</span><span class="en">Residential</span></span></option>
-                  <option value="other"><span class="bi"><span class="th">อื่นๆ</span><span class="en">Other</span></span></option>
+                  <option value="" disabled selected data-th="เลือกประเภท" data-en="Select type">เลือกประเภท</option>
+                  <option value="factory" data-th="โรงงาน / อุตสาหกรรม" data-en="Factory / Industrial">โรงงาน / อุตสาหกรรม</option>
+                  <option value="commercial" data-th="พาณิชยกรรม / ห้างสรรพสินค้า" data-en="Commercial / Mall">พาณิชยกรรม / ห้างสรรพสินค้า</option>
+                  <option value="hospital" data-th="โรงพยาบาล / สาธารณสุข" data-en="Hospital / Healthcare">โรงพยาบาล / สาธารณสุข</option>
+                  <option value="hotel" data-th="โรงแรม / รีสอร์ท" data-en="Hotel / Resort">โรงแรม / รีสอร์ท</option>
+                  <option value="utility" data-th="Utility-scale / โครงการขนาดใหญ่" data-en="Utility-scale Project">Utility-scale / โครงการขนาดใหญ่</option>
+                  <option value="residential" data-th="ที่อยู่อาศัย" data-en="Residential">ที่อยู่อาศัย</option>
+                  <option value="other" data-th="อื่นๆ" data-en="Other">อื่นๆ</option>
                 </select>
               </div>
               <div class="field">
                 <label><span class="bi"><span class="th">กำลังไฟฟ้าเฉลี่ย</span><span class="en">Average Power Demand</span></span></label>
                 <select name="power">
-                  <option value="" disabled selected><span class="bi"><span class="th">เลือกช่วง</span><span class="en">Select range</span></span></option>
+                  <option value="" disabled selected data-th="เลือกช่วง" data-en="Select range">เลือกช่วง</option>
                   <option value="<100">&lt; 100 kW</option>
                   <option value="100-500">100 – 500 kW</option>
                   <option value="500-1000">500 kW – 1 MW</option>
@@ -399,22 +399,22 @@
               <div class="field">
                 <label><span class="bi"><span class="th">ไทม์ไลน์โครงการ</span><span class="en">Project Timeline</span></span></label>
                 <select name="timeline">
-                  <option value="" disabled selected><span class="bi"><span class="th">เลือกระยะเวลา</span><span class="en">Select timeline</span></span></option>
-                  <option value="asap"><span class="bi"><span class="th">โดยเร็วที่สุด (ภายใน 3 เดือน)</span><span class="en">ASAP (within 3 months)</span></span></option>
-                  <option value="6m"><span class="bi"><span class="th">3 – 6 เดือน</span><span class="en">3 – 6 months</span></span></option>
-                  <option value="1y"><span class="bi"><span class="th">6 – 12 เดือน</span><span class="en">6 – 12 months</span></span></option>
-                  <option value="plan"><span class="bi"><span class="th">วางแผนระยะยาว</span><span class="en">Long-term planning</span></span></option>
+                  <option value="" disabled selected data-th="เลือกระยะเวลา" data-en="Select timeline">เลือกระยะเวลา</option>
+                  <option value="asap" data-th="โดยเร็วที่สุด (ภายใน 3 เดือน)" data-en="ASAP (within 3 months)">โดยเร็วที่สุด (ภายใน 3 เดือน)</option>
+                  <option value="6m" data-th="3 – 6 เดือน" data-en="3 – 6 months">3 – 6 เดือน</option>
+                  <option value="1y" data-th="6 – 12 เดือน" data-en="6 – 12 months">6 – 12 เดือน</option>
+                  <option value="plan" data-th="วางแผนระยะยาว" data-en="Long-term planning">วางแผนระยะยาว</option>
                 </select>
               </div>
               <div class="field">
                 <label><span class="bi"><span class="th">งบประมาณโดยประมาณ</span><span class="en">Estimated Budget</span></span></label>
                 <select name="budget">
-                  <option value="" disabled selected><span class="bi"><span class="th">เลือกช่วงงบ</span><span class="en">Select range</span></span></option>
-                  <option value="<1m"><span class="bi"><span class="th">ต่ำกว่า 1 ล้านบาท</span><span class="en">Under ฿1M</span></span></option>
-                  <option value="1-5m"><span class="bi"><span class="th">1 – 5 ล้านบาท</span><span class="en">฿1M – ฿5M</span></span></option>
-                  <option value="5-20m"><span class="bi"><span class="th">5 – 20 ล้านบาท</span><span class="en">฿5M – ฿20M</span></span></option>
-                  <option value="20-100m"><span class="bi"><span class="th">20 – 100 ล้านบาท</span><span class="en">฿20M – ฿100M</span></span></option>
-                  <option value=">100m"><span class="bi"><span class="th">มากกว่า 100 ล้านบาท</span><span class="en">Over ฿100M</span></span></option>
+                  <option value="" disabled selected data-th="เลือกช่วงงบ" data-en="Select range">เลือกช่วงงบ</option>
+                  <option value="<1m" data-th="ต่ำกว่า 1 ล้านบาท" data-en="Under ฿1M">ต่ำกว่า 1 ล้านบาท</option>
+                  <option value="1-5m" data-th="1 – 5 ล้านบาท" data-en="฿1M – ฿5M">1 – 5 ล้านบาท</option>
+                  <option value="5-20m" data-th="5 – 20 ล้านบาท" data-en="฿5M – ฿20M">5 – 20 ล้านบาท</option>
+                  <option value="20-100m" data-th="20 – 100 ล้านบาท" data-en="฿20M – ฿100M">20 – 100 ล้านบาท</option>
+                  <option value=">100m" data-th="มากกว่า 100 ล้านบาท" data-en="Over ฿100M">มากกว่า 100 ล้านบาท</option>
                 </select>
               </div>
             </div>
@@ -554,14 +554,29 @@
 </footer>
 
 <script>
+  // A browser will not apply CSS to elements inside <option>, so the .bi
+  // span trick used everywhere else printed both languages run together
+  // ("เลือกประเภทSelect type"). Options carry their two strings as data
+  // attributes instead and have their text swapped here.
+  function setOptionLang(lang){
+    document.querySelectorAll('option[data-th]').forEach(o=>{
+      o.textContent = o.dataset[lang] || o.dataset.th;
+    });
+  }
+
   function setLang(lang){
     document.body.setAttribute('data-lang',lang);
     document.documentElement.setAttribute('lang',lang);
     document.getElementById('btnTH').classList.toggle('active',lang==='th');
     document.getElementById('btnEN').classList.toggle('active',lang==='en');
+    setOptionLang(lang);
     try { localStorage.setItem('lang', lang); } catch {}
   }
-  (function(){ try { var s=localStorage.getItem('lang'); if(s==='th'||s==='en') setLang(s); } catch {} })();
+  (function(){
+    var s=null;
+    try { s=localStorage.getItem('lang'); } catch {}
+    setLang(s==='en' ? 'en' : (s==='th' ? 'th' : document.body.getAttribute('data-lang') || 'th'));
+  })();
 
 
 
