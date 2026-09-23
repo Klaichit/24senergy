@@ -327,3 +327,64 @@
 @media (max-width:520px){
   .nav .btn-cta{display:none}
 }
+
+/* --- hero CTA ------------------------------------------------------
+   Same fill, but the hero is a photo carousel of four slides, so an
+   outline alone is a gamble: white text reads over the dark cabinets on
+   one slide and washes out over a bright sunset on the next. A faint
+   darkened, blurred backdrop rides under the pill so the label holds on
+   every slide while the button still reads as an outline. */
+.hx-cta{
+  /* position stays with each page: the live hero pins this bottom-right,
+     the parked draft lets it sit in the flow under the copy. Declaring it
+     here would rip the draft's button out of its row. */
+  isolation:isolate;overflow:hidden;
+  background-color:rgba(10,8,20,.30);
+  -webkit-backdrop-filter:blur(8px) saturate(1.2);
+  backdrop-filter:blur(8px) saturate(1.2);
+  color:#fff;
+  border:2px solid rgba(255,255,255,.85);
+  box-shadow:none;
+  transition:color .35s cubic-bezier(.23,1,.32,1),
+             scale .35s cubic-bezier(.23,1,.32,1),
+             box-shadow .35s cubic-bezier(.23,1,.32,1),
+             background-color .35s cubic-bezier(.23,1,.32,1);
+}
+.hx-cta::before{
+  content:'';position:absolute;inset:0;margin:auto;
+  width:100%;aspect-ratio:1;border-radius:50%;
+  scale:0;z-index:-1;background-color:#fff;
+  transition:scale .6s cubic-bezier(.23,1,.32,1);
+}
+.hx-cta:hover::before,
+.hx-cta:focus-visible::before{scale:1.6}
+.hx-cta:hover,
+.hx-cta:focus-visible{
+  color:var(--brand-dark,#4d1f80);
+  background-color:transparent;
+  transform:none;scale:1.05;
+  box-shadow:0 0 26px rgba(255,255,255,.4);
+}
+.hx-cta:active{scale:1}
+/* the badge is the accent, so it flips the other way: quiet at rest,
+   brand purple once the pill has filled */
+.hx-cta .hx-cta-arrow{
+  background:rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.55);
+  color:#fff;
+  transition:background-color .35s cubic-bezier(.23,1,.32,1),
+             border-color .35s cubic-bezier(.23,1,.32,1),
+             transform .35s cubic-bezier(.23,1,.32,1);
+}
+.hx-cta:hover .hx-cta-arrow,
+.hx-cta:focus-visible .hx-cta-arrow{
+  background:var(--brand,#6A2DAF);
+  border-color:var(--brand,#6A2DAF);
+  color:#fff;transform:translateX(3px);
+}
+
+@media (prefers-reduced-motion:reduce){
+  .hx-cta{transition:color .01ms!important}
+  .hx-cta::before{transition:none!important}
+  .hx-cta:hover{scale:1}
+}
