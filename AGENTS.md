@@ -108,6 +108,55 @@ placeholder so a missing file falls through and a present one covers it:
 Both folders have a `README.md` with the exact filenames and framing. Product
 and hero images go through `/admin` into Supabase Storage instead.
 
+## One stylesheet, one cascade
+
+Each page carries its whole stylesheet in a single `<style>` block and then
+loads `site.css` after it. Nothing is scoped or modular. A rule written later
+therefore beats an identical selector written earlier, and that has caused
+three separate bugs:
+
+- `.products-grid` was set to two columns inside the 1020px block, which sits
+  below the 520px single-column rule, so phones kept two columns and the spec
+  numbers clipped.
+- The nav's quote button was restyled at the end of `site.css`, which undid the
+  520px hide further up the same file and pushed the burger 34px off screen.
+- `.reveal` declares `transition: opacity .7s, transform .7s`. The products
+  accordion had declared `transition: flex-grow ...` earlier at equal
+  specificity, so the shorthand replaced the whole list and `flex-grow` was
+  never transitioned at all. The panel jumped 186px to 495px in 90ms.
+
+The third is the dangerous shape: **nothing throws, nothing looks wrong in the
+diff, the animation is simply absent.** It was found only by reading
+`getComputedStyle(el).transitionProperty` in the browser and seeing
+`"opacity, transform"` where `flex-grow` should have been. Guessing from the
+symptom would have sent you to tune a duration that was never running.
+
+So:
+
+- A `transition` shorthand replaces the entire list, delay included. Most
+  elements here also carry `.reveal`, which sets its own. Scope yours one level
+  deeper — `.products-grid .product-card` beats `.reveal` — and restate what
+  the other rule was transitioning, or its animation disappears instead.
+- Use `transition-delay` as its own declaration when a state needs to wait. A
+  later shorthand silently resets it to `0s`.
+- Put responsive rules in the file's own `/* Responsive */` section near the
+  bottom, not beside the component, so they cannot be outranked.
+- **Measure motion, do not watch it.** Record width or height in a
+  `requestAnimationFrame` loop inside the page. A round trip through Playwright
+  takes longer than the animation and will tell you it finished instantly.
+
+## Thai text has two rules of its own
+
+- **Never put Thai inside a rotated box.** The accordion spine tried a Thai
+  sub-label beneath the Latin one and the vowel and tone marks scattered off
+  their consonants. Spine labels stay Latin; the Thai name goes in the open
+  panel.
+- **Letter-spacing is fine at the values this site uses.** A sweep found Thai
+  carrying 0.4–1.6px of tracking on every page — footer headings, section tags,
+  form block titles — and rendered against untracked copies the marks stay
+  attached throughout that range. 2.3px on a 10.5px line did detach them. Treat
+  roughly 1.6px as the ceiling rather than avoiding tracking on Thai at all.
+
 ## Before you push
 
 Run `pnpm check:public`, `npx tsc --noEmit`, `pnpm lint` and `pnpm test`.
@@ -118,8 +167,12 @@ Playwright (Chromium at `/opt/pw-browsers/chromium-1194/chrome-linux/chrome`),
 stub Supabase with `page.route`, then assert on card counts, computed styles,
 404s and `pageerror`. Interactions that looked fine but were broken: the news
 category filter matched only `all` and `today`, `products.html#bess` had no
-matching anchor, two elements shared an id, and `.reveal-d1/d2/d3` were used in
-markup but never defined in CSS.
+matching anchor, and two elements shared an id.
+
+**`page.route` runs the most recently registered handler first.** Register the
+catch-all before the specific route, or the catch-all swallows it. Getting this
+backwards has twice produced an empty grid and the false conclusion that the
+page was broken.
 
 **Check the latest Vercel deployment before merging to `master`** — it is
 production. Builds had been failing at `pnpm install` for a while
