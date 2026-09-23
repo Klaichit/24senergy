@@ -17,3 +17,173 @@
 }
 @media(max-width:520px){.nav .nav-right{gap:8px}.nav .btn-cta{display:none}.nav .nav-logo{flex-shrink:0}.nav .nav-logo img{max-width:110px;height:auto;max-height:38px}.nav .nav-burger{flex-shrink:0;width:30px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1!important;transform:none!important}}
+
+/* ===================================================================
+   Neumorphic zones
+   -------------------------------------------------------------------
+   This treatment needs the surface under a control to be GREY. Its
+   highlight is pure white, so on the site's white pages there is
+   nothing for that highlight to catch and the effect collapses into a
+   one-sided tilt. So it is scoped to panels that set their own grey
+   surface — the filter sidebar, the pager tray, the form cards — and
+   the rest of the site stays white.
+
+   Contrast on #ebe8f2, measured: ink 14.4:1, ink-2 7.3:1, brand 6.7:1.
+   The muted grey used for placeholders elsewhere only reaches 2.9:1
+   here, so .neu redefines it.
+   =================================================================== */
+.neu{
+  --neu-surface:#ebe8f2;
+  --neu-hi:#ffffff;
+  --neu-lo:rgba(106,45,175,.28);
+  --neu-muted:#686874;              /* 4.54:1 on the surface */
+  --neu-rim:rgba(255,255,255,.55);
+  --neu-up:-5px -3px 14px 0 var(--neu-hi), 5px 4px 16px 0 var(--neu-lo);
+  --neu-up-sm:-3px -2px 8px 0 var(--neu-hi), 3px 2px 9px 0 var(--neu-lo);
+  --neu-carved:inset 3px 3px 8px 0 rgba(106,45,175,.22), inset -3px -3px 8px 0 var(--neu-hi);
+  background:var(--neu-surface);
+  border:none;
+  border-radius:20px;
+}
+
+/* Raised control inside a .neu panel. Hover shrinks the shadow rather
+   than growing it — the control settles toward the surface instead of
+   lifting off it, which is what makes the material read as one piece. */
+.neu .neu-btn{
+  background:var(--neu-surface);
+  border:2px solid var(--neu-rim);
+  border-radius:999px;
+  color:var(--brand);
+  box-shadow:var(--neu-up);
+  transition:box-shadow .22s cubic-bezier(.2,.8,.2,1), color .22s, background-color .22s;
+}
+.neu .neu-btn:hover{box-shadow:var(--neu-up-sm);color:var(--brand-dark)}
+.neu .neu-btn:active,
+.neu .neu-btn[aria-current="page"],
+.neu .neu-btn.active{
+  color:var(--brand-dark);
+  border-color:rgba(255,255,255,.22);
+  box-shadow:var(--neu-carved);
+}
+.neu .neu-btn:disabled{opacity:.42;box-shadow:var(--neu-up-sm);cursor:not-allowed}
+
+/* --- pager tray (news) --------------------------------------------- */
+.pagination.neu{
+  width:max-content;justify-self:center;
+  padding:9px 11px;gap:8px;border-radius:999px;
+  box-shadow:inset 2px 2px 6px rgba(106,45,175,.18), inset -2px -2px 6px var(--neu-hi);
+}
+.pagination.neu .pg-btn{
+  background:var(--neu-surface);
+  border:2px solid var(--neu-rim);
+  border-radius:999px;
+  color:var(--brand);
+  box-shadow:var(--neu-up-sm);
+  transition:box-shadow .22s cubic-bezier(.2,.8,.2,1), color .22s, background-color .22s;
+}
+.pagination.neu .pg-btn:hover:not(:disabled){box-shadow:-2px -1px 5px var(--neu-hi), 2px 1px 6px var(--neu-lo)}
+.pagination.neu .pg-btn.active{
+  background:var(--neu-surface);color:var(--brand-dark);
+  border-color:rgba(255,255,255,.22);
+  box-shadow:var(--neu-carved);
+}
+.pagination.neu .pg-btn:disabled{opacity:.4;box-shadow:none;border-color:rgba(255,255,255,.3)}
+
+/* --- filter sidebar (products) ------------------------------------- */
+.filters.neu{
+  padding:26px;
+  border:2px solid var(--neu-rim);
+  box-shadow:var(--neu-up);
+}
+/* a groove rather than a line: shadow above, highlight below */
+.filters.neu .filter-group{
+  border-bottom:1px solid rgba(106,45,175,.14);
+  box-shadow:0 1px 0 0 var(--neu-hi);
+}
+.filters.neu .filter-group:last-child{border-bottom:none;box-shadow:none}
+.filters.neu .filters-clear,
+.filters.neu .clear{color:var(--brand)}
+/* unchecked reads as a hole in the surface, checked as a raised key */
+.filters.neu .filter-opt input[type="checkbox"]{
+  -webkit-appearance:none;appearance:none;
+  width:20px;height:20px;border-radius:7px;flex-shrink:0;
+  background:var(--neu-surface);position:relative;margin:0;
+  box-shadow:inset 2px 2px 5px rgba(106,45,175,.26), inset -2px -2px 5px var(--neu-hi);
+  transition:box-shadow .2s cubic-bezier(.2,.8,.2,1), background-color .2s;
+}
+.filters.neu .filter-opt input[type="checkbox"]:checked{
+  background:var(--brand);
+  box-shadow:-2px -1px 6px var(--neu-hi), 2px 2px 7px rgba(106,45,175,.42);
+}
+.filters.neu .filter-opt input[type="checkbox"]:checked::after{
+  content:'';position:absolute;left:6.5px;top:3px;width:4px;height:9px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);
+}
+
+/* --- form cards (quote, contact) ----------------------------------- */
+.form-card.neu,
+.form-section.neu{
+  padding:40px;
+  border:2px solid var(--neu-rim);
+  box-shadow:var(--neu-up);
+}
+.neu .field input,
+.neu .field select,
+.neu .field textarea{
+  background:var(--neu-surface);
+  border:none;
+  border-radius:12px;
+  color:var(--ink);
+  box-shadow:inset 3px 3px 7px rgba(106,45,175,.20), inset -3px -3px 7px var(--neu-hi);
+  transition:box-shadow .2s cubic-bezier(.2,.8,.2,1);
+}
+.neu .field input:focus,
+.neu .field select:focus,
+.neu .field textarea:focus{
+  box-shadow:inset 3px 3px 7px rgba(106,45,175,.26), inset -3px -3px 7px var(--neu-hi),
+             0 0 0 3px rgba(106,45,175,.20);
+}
+.neu .field input::placeholder,
+.neu .field textarea::placeholder{color:var(--neu-muted)}
+.neu .hint,
+.neu .form-note{color:var(--neu-muted)}
+.neu .btn-submit{
+  border:2px solid rgba(255,255,255,.28);
+  border-radius:999px;
+  box-shadow:-5px -3px 14px 0 var(--neu-hi), 5px 5px 18px 0 rgba(106,45,175,.45);
+  transition:box-shadow .22s cubic-bezier(.2,.8,.2,1), background-color .22s;
+}
+.neu .btn-submit:hover{
+  transform:none;
+  box-shadow:-3px -2px 8px 0 var(--neu-hi), 3px 3px 11px 0 rgba(106,45,175,.52);
+}
+.neu .btn-submit:active{
+  box-shadow:inset 3px 3px 9px 0 rgba(0,0,0,.34), inset -2px -2px 7px 0 rgba(255,255,255,.18);
+}
+
+@media (prefers-reduced-motion:reduce){
+  .neu .neu-btn,.neu .pg-btn,.neu .field input,.neu .field select,
+  .neu .field textarea,.neu .btn-submit{transition:none!important}
+}
+
+/* The quote form hides the real input and draws .check-box instead, so the
+   control to restyle here is that span, not the input. */
+.neu .prod-check{
+  background:var(--neu-surface);
+  border:none;border-radius:14px;
+  box-shadow:var(--neu-up-sm);
+  transition:box-shadow .22s cubic-bezier(.2,.8,.2,1);
+}
+.neu .prod-check:hover{background:var(--neu-surface);box-shadow:var(--neu-up)}
+/* a picked option settles into the surface rather than changing colour */
+.neu .prod-check:has(input:checked){background:var(--neu-surface);box-shadow:var(--neu-carved)}
+.neu .check-box{
+  background:var(--neu-surface);border:none;
+  box-shadow:inset 2px 2px 5px rgba(106,45,175,.26), inset -2px -2px 5px var(--neu-hi);
+  transition:box-shadow .2s cubic-bezier(.2,.8,.2,1), background-color .2s;
+}
+.neu .prod-check input:checked ~ .check-box{
+  background:var(--brand);
+  box-shadow:-2px -1px 6px var(--neu-hi), 2px 2px 7px rgba(106,45,175,.42);
+}
+.neu .check-sub{color:var(--neu-muted)}
