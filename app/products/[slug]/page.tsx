@@ -42,6 +42,15 @@ function Bi({ th, en }: { th: string; en: string }) {
   return <span className="bi"><span className="th">{th}</span><span className="en">{en}</span></span>
 }
 
+/* ── Brand colour overrides (official brand colours) ───────────── */
+const BRAND_COLOR: Record<string, string> = {
+  TCL:      '#E8001B',
+  Hithium:  '#00A0E9',
+  Leapton:  '#0066CC',
+  AISWEI:   '#FF6600',
+  SolarEdge:'#FF6600',
+}
+
 /* ── Theme per category ─────────────────────────────────────────── */
 const THEME = {
   bess:     { accent: '#7C3AED', glow: 'rgba(124,58,237,0.18)', badge: 'BESS · Energy Storage', badgeBg: '#f3effe', badgeText: '#6d28d9' },
@@ -107,6 +116,7 @@ function ProductPage({ product }: { product: Product }) {
   const enWords = product.name_en.trim().split(/\s+/)
   const brand = enWords[0]
   const productRest = enWords.slice(1).join(' ')
+  const brandColor = BRAND_COLOR[brand] ?? '#ffffff'
 
   const NavBar = (
     <nav
@@ -165,7 +175,7 @@ function ProductPage({ product }: { product: Product }) {
 
               {/* Product name */}
               <h1 className="font-black leading-[1.0] tracking-tight mb-3">
-                <span className="block text-2xl lg:text-3xl" style={{ color: theme.accent }}>{brand}</span>
+                <span className="block text-4xl lg:text-5xl font-black tracking-tight" style={{ color: brandColor }}>{brand}</span>
                 <span className="block text-4xl lg:text-6xl text-white">{productRest || brand}</span>
                 {product.hero_badge && (
                   <span className="inline-block mt-2 px-3 py-1 text-sm font-black rounded-lg"
