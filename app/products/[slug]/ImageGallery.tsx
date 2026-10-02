@@ -15,39 +15,57 @@ export default function ImageGallery({ images, alt, accent }: Props) {
 
   return (
     <div className="flex flex-col gap-4 w-full">
-      {/* Main image */}
-      <div className="relative w-full" style={{ height: '560px' }}>
-        {/* ambient glow — blurred copy behind the image */}
+      {/* Main image — framed container */}
+      <div
+        className="relative w-full rounded-3xl overflow-hidden"
+        style={{
+          height: '560px',
+          background: 'linear-gradient(145deg, #f8f8fc 0%, #f2f2f8 100%)',
+          border: '1px solid rgba(0,0,0,0.06)',
+          boxShadow: `0 2px 12px rgba(0,0,0,0.04), 0 16px 48px rgba(0,0,0,0.07), 0 0 0 1px rgba(255,255,255,0.8) inset`,
+        }}
+      >
+        {/* ambient glow — stronger, wider */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute', inset: '-10%',
+            backgroundImage: `url(${images[active]})`,
+            backgroundSize: '65%', backgroundPosition: 'center 70%', backgroundRepeat: 'no-repeat',
+            filter: 'blur(48px) saturate(2.5)',
+            opacity: 0.55,
+            transform: 'scale(1.05) translateY(10px)',
+            pointerEvents: 'none',
+          }}
+        />
+        {/* accent glow ring */}
         <div
           aria-hidden="true"
           style={{
             position: 'absolute', inset: 0,
-            backgroundImage: `url(${images[active]})`,
-            backgroundSize: '55%', backgroundPosition: 'center 80%', backgroundRepeat: 'no-repeat',
-            filter: 'blur(36px) saturate(2)',
-            opacity: 0.45,
-            transform: 'scale(1.1) translateY(14px)',
+            background: `radial-gradient(ellipse at 50% 85%, ${accent}18 0%, transparent 65%)`,
             pointerEvents: 'none',
+            zIndex: 0,
           }}
         />
         <Image
           src={images[active]}
           alt={`${alt} ${active + 1}`}
           fill
-          sizes="(max-width: 768px) 100vw, 448px"
+          sizes="(max-width: 768px) 100vw, 480px"
           className="object-contain"
-          style={{ zIndex: 1 }}
+          style={{ zIndex: 1, padding: '24px' }}
           priority={active === 0}
         />
         {/* ground shadow */}
         <div
           aria-hidden="true"
           style={{
-            position: 'absolute', bottom: 8, left: '50%',
+            position: 'absolute', bottom: 16, left: '50%',
             transform: 'translateX(-50%)',
-            width: '55%', height: 24,
-            background: 'rgba(0,0,0,0.28)',
-            filter: 'blur(18px)',
+            width: '50%', height: 28,
+            background: 'rgba(0,0,0,0.22)',
+            filter: 'blur(20px)',
             borderRadius: '50%',
             zIndex: 0,
             pointerEvents: 'none',
@@ -55,20 +73,22 @@ export default function ImageGallery({ images, alt, accent }: Props) {
         />
       </div>
 
-      {/* Thumbnails — only show if more than 1 image */}
+      {/* Thumbnails — object-contain, no crop */}
       {images.length > 1 && (
-        <div className="flex gap-3 flex-wrap">
+        <div className="flex gap-2.5 flex-wrap">
           {images.map((img, i) => (
             <button
               key={i}
               onClick={() => setActive(i)}
-              className="w-20 h-20 rounded-xl overflow-hidden border-2 transition-all flex-shrink-0"
+              className="w-20 h-20 rounded-xl overflow-hidden border-2 transition-all flex-shrink-0 flex items-center justify-center"
               style={{
-                borderColor: active === i ? accent : 'transparent',
-                opacity: active === i ? 1 : 0.55,
+                borderColor: active === i ? accent : 'rgba(0,0,0,0.08)',
+                background: '#f8f8fc',
+                opacity: active === i ? 1 : 0.6,
+                boxShadow: active === i ? `0 0 0 3px ${accent}22` : 'none',
               }}
             >
-              <img src={img} alt={`${alt} thumbnail ${i + 1}`} className="w-full h-full object-cover" />
+              <img src={img} alt={`${alt} ${i + 1}`} className="w-full h-full object-contain p-1.5" />
             </button>
           ))}
         </div>
