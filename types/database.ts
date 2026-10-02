@@ -12,6 +12,7 @@ export interface Product {
   description_en: string
   specs: Record<string, string>
   images: string[]
+  bg_image_url: string | null
   pdf_url: string | null
   is_published: boolean
   sort_order: number

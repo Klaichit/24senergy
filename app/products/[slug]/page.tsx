@@ -155,7 +155,7 @@ function ProductPage({ product }: { product: Product }) {
 
       {/* ── Specs ── */}
       {specs.length > 0 && (
-        <ParallaxSection imageUrl={images[0] ?? null}>
+        <ParallaxSection imageUrl={product.bg_image_url ?? null}>
           <div className="py-20 px-8">
             <div className="max-w-7xl mx-auto">
               <p className="text-xs font-black uppercase tracking-[0.2em] mb-14"

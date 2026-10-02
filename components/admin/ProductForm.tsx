@@ -32,11 +32,14 @@ export default function ProductForm({ product }: Props) {
   })
 
   const [images, setImages] = useState<string[]>(product?.images ?? [])
+  const [bgImageUrl, setBgImageUrl] = useState<string | null>(product?.bg_image_url ?? null)
   const [uploading, setUploading] = useState(false)
+  const [uploadingBg, setUploadingBg] = useState(false)
   const [saving, setSaving] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const [error, setError] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
+  const bgFileRef = useRef<HTMLInputElement>(null)
   const dragIdx = useRef<number | null>(null)
 
   const set = (k: string, v: unknown) => setForm(f => ({ ...f, [k]: v }))
@@ -68,6 +71,21 @@ export default function ProductForm({ product }: Props) {
     setImages(prev => prev.filter(u => u !== url))
   }
 
+  async function handleBgUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploadingBg(true); setError('')
+    const slug = form.slug || `product-${Date.now()}`
+    const ext = file.name.split('.').pop()
+    const path = `${slug}/bg-${Date.now()}.${ext}`
+    const { error: upErr } = await supabase.storage.from(BUCKET).upload(path, file, { upsert: true })
+    if (upErr) { setError(`อัปโหลดไม่สำเร็จ: ${upErr.message}`); setUploadingBg(false); return }
+    const { data } = supabase.storage.from(BUCKET).getPublicUrl(path)
+    setBgImageUrl(data.publicUrl)
+    setUploadingBg(false)
+    if (bgFileRef.current) bgFileRef.current.value = ''
+  }
+
   function onDragStart(i: number) { dragIdx.current = i }
   function onDrop(i: number) {
     if (dragIdx.current === null || dragIdx.current === i) return
@@ -95,6 +113,7 @@ export default function ProductForm({ product }: Props) {
       description_en: form.description_en,
       specs:          specsObj,
       images,
+      bg_image_url:   bgImageUrl || null,
       pdf_url:        form.pdf_url || null,
       is_published:   form.is_published,
       sort_order:     Number(form.sort_order),
@@ -203,6 +222,38 @@ export default function ProductForm({ product }: Props) {
           )}
         </div>
         <input ref={fileRef} type="file" accept="image/*" multiple className="hidden" onChange={handleUpload} />
+      </div>
+
+      {/* Parallax Background Image */}
+      <div className="bg-white border border-gray-200 rounded-2xl p-6 space-y-4">
+        <div>
+          <h2 className="font-bold text-gray-800 mb-1">ภาพ Parallax Background</h2>
+          <p className="text-xs text-gray-400">ภาพนี้จะแสดงเป็น background เบลอๆ ในส่วน Technical Specs — แยกจาก gallery ด้านบน ควรเป็น PNG พื้นหลังโปร่งใสหรือภาพ full product</p>
+        </div>
+
+        {bgImageUrl && (
+          <div className="relative w-40 h-40 rounded-xl overflow-hidden bg-gray-900 border border-gray-200">
+            <img src={bgImageUrl} alt="Parallax bg" className="w-full h-full object-contain p-2" />
+            <button type="button" onClick={() => setBgImageUrl(null)}
+              className="absolute top-1.5 right-1.5 w-6 h-6 bg-red-500 text-white rounded-full text-xs font-bold flex items-center justify-center">×</button>
+          </div>
+        )}
+
+        <div onClick={() => bgFileRef.current?.click()}
+          className="border-2 border-dashed border-purple-200 rounded-xl p-6 text-center cursor-pointer hover:border-purple-400 hover:bg-purple-50/30 transition-colors">
+          {uploadingBg ? (
+            <p className="text-sm text-purple-600 font-medium">กำลังอัปโหลด...</p>
+          ) : (
+            <>
+              <svg className="mx-auto mb-2 text-purple-300 w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+              </svg>
+              <p className="text-sm text-gray-500">{bgImageUrl ? 'คลิกเพื่อเปลี่ยนภาพ' : 'คลิกเพื่ออัปโหลดภาพ Parallax'}</p>
+              <p className="text-xs text-gray-400 mt-1">PNG พื้นใสแนะนำ — 1 ภาพ</p>
+            </>
+          )}
+        </div>
+        <input ref={bgFileRef} type="file" accept="image/*" className="hidden" onChange={handleBgUpload} />
       </div>
 
       <div className="bg-white border border-gray-200 rounded-2xl p-6 space-y-5">
