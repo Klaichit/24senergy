@@ -13,6 +13,8 @@ export interface Product {
   specs: Record<string, string>
   images: string[]
   bg_image_url: string | null
+  hero_bg_url: string | null
+  hero_badge: string | null
   pdf_url: string | null
   is_published: boolean
   sort_order: number

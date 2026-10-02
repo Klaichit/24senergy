@@ -33,13 +33,17 @@ export default function ProductForm({ product }: Props) {
 
   const [images, setImages] = useState<string[]>(product?.images ?? [])
   const [bgImageUrl, setBgImageUrl] = useState<string | null>(product?.bg_image_url ?? null)
+  const [heroBgUrl, setHeroBgUrl] = useState<string | null>(product?.hero_bg_url ?? null)
+  const [heroBadge, setHeroBadge] = useState<string>(product?.hero_badge ?? '')
   const [uploading, setUploading] = useState(false)
   const [uploadingBg, setUploadingBg] = useState(false)
+  const [uploadingHero, setUploadingHero] = useState(false)
   const [saving, setSaving] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const [error, setError] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
   const bgFileRef = useRef<HTMLInputElement>(null)
+  const heroBgFileRef = useRef<HTMLInputElement>(null)
   const dragIdx = useRef<number | null>(null)
 
   const set = (k: string, v: unknown) => setForm(f => ({ ...f, [k]: v }))
@@ -98,6 +102,21 @@ export default function ProductForm({ product }: Props) {
     dragIdx.current = null
   }
 
+  async function handleHeroBgUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploadingHero(true); setError('')
+    const slug = form.slug || `product-${Date.now()}`
+    const ext = file.name.split('.').pop()
+    const path = `${slug}/hero-${Date.now()}.${ext}`
+    const { error: upErr } = await supabase.storage.from(BUCKET).upload(path, file, { upsert: true })
+    if (upErr) { setError(`อัปโหลดไม่สำเร็จ: ${upErr.message}`); setUploadingHero(false); return }
+    const { data } = supabase.storage.from(BUCKET).getPublicUrl(path)
+    setHeroBgUrl(data.publicUrl)
+    setUploadingHero(false)
+    if (heroBgFileRef.current) heroBgFileRef.current.value = ''
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setSaving(true); setError('')
@@ -114,6 +133,8 @@ export default function ProductForm({ product }: Props) {
       specs:          specsObj,
       images,
       bg_image_url:   bgImageUrl || null,
+      hero_bg_url:    heroBgUrl || null,
+      hero_badge:     heroBadge.trim() || null,
       pdf_url:        form.pdf_url || null,
       is_published:   form.is_published,
       sort_order:     Number(form.sort_order),
@@ -254,6 +275,42 @@ export default function ProductForm({ product }: Props) {
           )}
         </div>
         <input ref={bgFileRef} type="file" accept="image/*" className="hidden" onChange={handleBgUpload} />
+      </div>
+
+      {/* Hero Full-Bleed Background */}
+      <div className="bg-white border border-gray-200 rounded-2xl p-6 space-y-4">
+        <div>
+          <h2 className="font-bold text-gray-800 mb-1">Hero Full-Bleed Background</h2>
+          <p className="text-xs text-gray-400">ภาพนี้จะใช้เป็น background เต็มหน้าจอในส่วน Hero (lifestyle/environment photo) — เมื่อตั้งค่าแล้วหน้า product จะเปลี่ยนเป็น dark full-bleed mode</p>
+        </div>
+
+        {heroBgUrl && (
+          <div className="relative w-full h-40 rounded-xl overflow-hidden bg-gray-900 border border-gray-200">
+            <img src={heroBgUrl} alt="Hero bg" className="w-full h-full object-cover" />
+            <button type="button" onClick={() => setHeroBgUrl(null)}
+              className="absolute top-1.5 right-1.5 w-6 h-6 bg-red-500 text-white rounded-full text-xs font-bold flex items-center justify-center">×</button>
+          </div>
+        )}
+
+        <div onClick={() => heroBgFileRef.current?.click()}
+          className="border-2 border-dashed border-indigo-200 rounded-xl p-6 text-center cursor-pointer hover:border-indigo-400 hover:bg-indigo-50/30 transition-colors">
+          {uploadingHero ? (
+            <p className="text-sm text-indigo-600 font-medium">กำลังอัปโหลด...</p>
+          ) : (
+            <>
+              <svg className="mx-auto mb-2 text-indigo-300 w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+              </svg>
+              <p className="text-sm text-gray-500">{heroBgUrl ? 'คลิกเพื่อเปลี่ยนภาพ' : 'คลิกเพื่ออัปโหลด Hero Background'}</p>
+              <p className="text-xs text-gray-400 mt-1">JPG, WebP landscape — แนะนำขนาด 1920×1080 ขึ้นไป</p>
+            </>
+          )}
+        </div>
+        <input ref={heroBgFileRef} type="file" accept="image/*" className="hidden" onChange={handleHeroBgUpload} />
+
+        <Field label='Hero Badge (เช่น "HYBRID", "ALL-IN-ONE") — ไม่บังคับ'>
+          <input className="input" value={heroBadge} onChange={e => setHeroBadge(e.target.value)} placeholder="HYBRID" />
+        </Field>
       </div>
 
       <div className="bg-white border border-gray-200 rounded-2xl p-6 space-y-5">
