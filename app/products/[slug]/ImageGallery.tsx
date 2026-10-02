@@ -16,71 +16,45 @@ export default function ImageGallery({ images, alt, accent, heroMode }: Props) {
 
   if (heroMode) {
     return (
-      <div className="w-full">
-        <div
-          className="relative w-full rounded-3xl overflow-hidden"
-          style={{
-            height: '480px',
-            background: 'rgba(255,255,255,0.04)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            boxShadow: `0 0 0 1px rgba(255,255,255,0.05) inset, 0 32px 80px rgba(0,0,0,0.5)`,
-          }}
-        >
-          {/* ambient glow */}
-          <div
-            aria-hidden="true"
+      <div className="relative w-full" style={{ height: '65vh', minHeight: 420, maxHeight: 720 }}>
+        {/* Crossfade image stack — no frame, no background */}
+        {images.map((img, i) => (
+          <img
+            key={i}
+            src={img}
+            alt={`${alt} ${i + 1}`}
+            className="absolute inset-0 w-full h-full object-contain"
             style={{
-              position: 'absolute', inset: '-10%',
-              backgroundImage: `url(${images[active]})`,
-              backgroundSize: '65%', backgroundPosition: 'center 70%', backgroundRepeat: 'no-repeat',
-              filter: 'blur(60px) saturate(2)',
-              opacity: 0.35,
-              transform: 'scale(1.05) translateY(10px)',
-              pointerEvents: 'none',
+              opacity: active === i ? 1 : 0,
+              transition: 'opacity 0.65s ease-in-out',
+              pointerEvents: active === i ? 'auto' : 'none',
             }}
           />
-          {/* accent glow ring */}
-          <div
-            aria-hidden="true"
-            style={{
-              position: 'absolute', inset: 0,
-              background: `radial-gradient(ellipse at 50% 85%, ${accent}22 0%, transparent 65%)`,
-              pointerEvents: 'none',
-              zIndex: 0,
-            }}
-          />
-          <Image
-            src={images[active]}
-            alt={`${alt} ${active + 1}`}
-            fill
-            sizes="(max-width: 768px) 100vw, 520px"
-            className="object-contain"
-            style={{ zIndex: 1, padding: images.length > 1 ? '28px 28px 80px' : '28px' }}
-            priority={active === 0}
-          />
+        ))}
 
-          {/* Thumbnail overlay at bottom */}
-          {images.length > 1 && (
-            <div className="absolute bottom-3 left-0 right-0 flex gap-2 justify-center px-3 z-10">
-              {images.map((img, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActive(i)}
-                  className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center transition-all"
-                  style={{
-                    border: `2px solid ${active === i ? accent : 'rgba(255,255,255,0.15)'}`,
-                    background: 'rgba(0,0,0,0.55)',
-                    backdropFilter: 'blur(8px)',
-                    opacity: active === i ? 1 : 0.55,
-                    boxShadow: active === i ? `0 0 0 3px ${accent}33` : 'none',
-                  }}
-                >
-                  <img src={img} alt={`${alt} ${i + 1}`} className="w-full h-full object-contain p-1" />
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+        {/* Dot indicators */}
+        {images.length > 1 && (
+          <div className="absolute bottom-2 left-0 right-0 flex gap-2 justify-center z-10">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActive(i)}
+                aria-label={`Image ${i + 1}`}
+                style={{
+                  width: active === i ? 24 : 8,
+                  height: 8,
+                  borderRadius: 4,
+                  background: active === i ? accent : 'rgba(255,255,255,0.3)',
+                  transition: 'all 0.35s ease',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: 0,
+                  flexShrink: 0,
+                }}
+              />
+            ))}
+          </div>
+        )}
       </div>
     )
   }
