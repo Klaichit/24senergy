@@ -16,42 +16,42 @@ export default function ImageGallery({ images, alt, accent, heroMode }: Props) {
 
   if (heroMode) {
     return (
-      <div className="relative w-full" style={{ height: '65vh', minHeight: 420, maxHeight: 720 }}>
-        {/* Crossfade image stack — no frame, no background */}
-        {images.map((img, i) => (
-          <img
-            key={i}
-            src={img}
-            alt={`${alt} ${i + 1}`}
-            className="absolute inset-0 w-full h-full object-contain"
-            style={{
-              opacity: active === i ? 1 : 0,
-              transition: 'opacity 0.65s ease-in-out',
-              pointerEvents: active === i ? 'auto' : 'none',
-            }}
-          />
-        ))}
+      <div className="flex flex-col gap-3 w-full">
+        {/* Main image — no frame, crossfade */}
+        <div className="relative w-full" style={{ height: '55vh', minHeight: 380, maxHeight: 640 }}>
+          {images.map((img, i) => (
+            <img
+              key={i}
+              src={img}
+              alt={`${alt} ${i + 1}`}
+              className="absolute inset-0 w-full h-full object-contain"
+              style={{
+                opacity: active === i ? 1 : 0,
+                transition: 'opacity 0.65s ease-in-out',
+                pointerEvents: active === i ? 'auto' : 'none',
+              }}
+            />
+          ))}
+        </div>
 
-        {/* Dot indicators */}
+        {/* Thumbnails */}
         {images.length > 1 && (
-          <div className="absolute bottom-2 left-0 right-0 flex gap-2 justify-center z-10">
-            {images.map((_, i) => (
+          <div className="flex gap-2.5 flex-wrap">
+            {images.map((img, i) => (
               <button
                 key={i}
                 onClick={() => setActive(i)}
-                aria-label={`Image ${i + 1}`}
+                className="w-16 h-16 rounded-xl overflow-hidden border-2 transition-all flex-shrink-0 flex items-center justify-center"
                 style={{
-                  width: active === i ? 24 : 8,
-                  height: 8,
-                  borderRadius: 4,
-                  background: active === i ? accent : 'rgba(255,255,255,0.3)',
-                  transition: 'all 0.35s ease',
-                  border: 'none',
-                  cursor: 'pointer',
-                  padding: 0,
-                  flexShrink: 0,
+                  borderColor: active === i ? accent : 'rgba(255,255,255,0.15)',
+                  background: 'rgba(255,255,255,0.06)',
+                  backdropFilter: 'blur(6px)',
+                  opacity: active === i ? 1 : 0.55,
+                  boxShadow: active === i ? `0 0 0 3px ${accent}33` : 'none',
                 }}
-              />
+              >
+                <img src={img} alt={`${alt} ${i + 1}`} className="w-full h-full object-contain p-1" />
+              </button>
             ))}
           </div>
         )}
