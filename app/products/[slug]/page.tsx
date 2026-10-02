@@ -99,12 +99,12 @@ function ProductPage({ product }: { product: Product }) {
       <section className="relative overflow-hidden flex items-center"
         style={{ background: `radial-gradient(ellipse at 35% 50%, ${theme.glow} 0%, transparent 65%), #fafafa` }}>
 
-        <div className="max-w-7xl mx-auto px-8 w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0 py-12 items-center">
+        <div className="max-w-7xl mx-auto px-8 w-full grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-8 lg:gap-12 py-16 items-center">
 
           {/* Image side */}
           <div className="flex items-center justify-center relative w-full">
             {images.length > 0 ? (
-              <div className="relative z-10 w-full max-w-md">
+              <div className="relative z-10 w-full max-w-xl">
                 <ImageGallery images={images} alt={product.name_en} accent={theme.accent} />
               </div>
             ) : (

@@ -16,7 +16,7 @@ export default function ImageGallery({ images, alt, accent }: Props) {
   return (
     <div className="flex flex-col gap-4 w-full">
       {/* Main image */}
-      <div className="relative w-full" style={{ height: '420px' }}>
+      <div className="relative w-full" style={{ height: '560px' }}>
         {/* ambient glow — blurred copy behind the image */}
         <div
           aria-hidden="true"
