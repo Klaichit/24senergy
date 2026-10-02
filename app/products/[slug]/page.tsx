@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import type { Product } from '@/types/database'
 import ImageGallery from './ImageGallery'
+import ParallaxSection from './ParallaxSection'
 
 export const revalidate = 60
 
@@ -154,38 +155,40 @@ function ProductPage({ product }: { product: Product }) {
 
       {/* ── Specs ── */}
       {specs.length > 0 && (
-        <section className="py-20 px-8 bg-white border-t border-gray-100">
-          <div className="max-w-7xl mx-auto">
-            <p className="text-xs font-black uppercase tracking-[0.2em] mb-14"
-              style={{ color: theme.accent }}>Technical Specifications</p>
-            <div className="grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 items-start">
+        <ParallaxSection imageUrl={images[0] ?? null}>
+          <div className="py-20 px-8">
+            <div className="max-w-7xl mx-auto">
+              <p className="text-xs font-black uppercase tracking-[0.2em] mb-14"
+                style={{ color: theme.accent }}>Technical Specifications</p>
+              <div className="grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 items-start">
 
-              {/* Hero stats — first 3 entries */}
-              <div className="flex flex-col gap-10">
-                {specs.slice(0, 3).map(([k, v]) => (
-                  <div key={k}>
-                    <div className="text-[3.25rem] font-black text-gray-900 leading-none tracking-tight mb-2">
-                      {String(v)}
+                {/* Hero stats — first 3 entries */}
+                <div className="flex flex-col gap-10">
+                  {specs.slice(0, 3).map(([k, v]) => (
+                    <div key={k}>
+                      <div className="text-[3.25rem] font-black text-white leading-none tracking-tight mb-2">
+                        {String(v)}
+                      </div>
+                      <div className="text-xs font-semibold text-white/40 uppercase tracking-[0.18em]">{k}</div>
+                      <div className="h-px w-10 mt-3 rounded" style={{ background: theme.accent, opacity: 0.7 }} />
                     </div>
-                    <div className="text-xs font-semibold text-gray-400 uppercase tracking-[0.18em]">{k}</div>
-                    <div className="h-px w-10 mt-3 rounded" style={{ background: theme.accent, opacity: 0.5 }} />
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
 
-              {/* Full spec list */}
-              <div className="grid sm:grid-cols-2 gap-0 border-t border-gray-100">
-                {specs.map(([k, v]) => (
-                  <div key={k} className="flex items-start gap-4 py-4 border-b border-gray-100 px-1">
-                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest w-32 flex-shrink-0 pt-0.5">{k}</span>
-                    <span className="text-sm font-bold text-gray-800">{String(v)}</span>
-                  </div>
-                ))}
-              </div>
+                {/* Full spec list */}
+                <div className="grid sm:grid-cols-2 gap-0 border-t border-white/10">
+                  {specs.map(([k, v]) => (
+                    <div key={k} className="flex items-start gap-4 py-4 border-b border-white/10 px-1">
+                      <span className="text-[10px] font-bold text-white/30 uppercase tracking-widest w-32 flex-shrink-0 pt-0.5">{k}</span>
+                      <span className="text-sm font-bold text-white/90">{String(v)}</span>
+                    </div>
+                  ))}
+                </div>
 
+              </div>
             </div>
           </div>
-        </section>
+        </ParallaxSection>
       )}
 
       {/* ── Details / Description ── */}

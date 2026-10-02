@@ -37,6 +37,7 @@ export default function ProductForm({ product }: Props) {
   const [deleting, setDeleting] = useState(false)
   const [error, setError] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
+  const dragIdx = useRef<number | null>(null)
 
   const set = (k: string, v: unknown) => setForm(f => ({ ...f, [k]: v }))
 
@@ -65,6 +66,18 @@ export default function ProductForm({ product }: Props) {
 
   function removeImage(url: string) {
     setImages(prev => prev.filter(u => u !== url))
+  }
+
+  function onDragStart(i: number) { dragIdx.current = i }
+  function onDrop(i: number) {
+    if (dragIdx.current === null || dragIdx.current === i) return
+    setImages(prev => {
+      const next = [...prev]
+      const [moved] = next.splice(dragIdx.current!, 1)
+      next.splice(i, 0, moved)
+      return next
+    })
+    dragIdx.current = null
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -145,21 +158,32 @@ export default function ProductForm({ product }: Props) {
         <h2 className="font-bold text-gray-800 mb-1">รูปภาพผลิตภัณฑ์</h2>
 
         {images.length > 0 && (
-          <div className="grid grid-cols-3 gap-3">
-            {images.map((url, i) => (
-              <div key={url} className="relative group aspect-square rounded-xl overflow-hidden bg-gray-50 border border-gray-200">
-                <img src={url} alt={`Product image ${i + 1}`} className="w-full h-full object-cover" />
-                <button
-                  type="button"
-                  onClick={() => removeImage(url)}
-                  className="absolute top-1.5 right-1.5 w-6 h-6 bg-red-500 text-white rounded-full text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
-                >×</button>
-                {i === 0 && (
-                  <span className="absolute bottom-1.5 left-1.5 bg-black/60 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md">หลัก</span>
-                )}
-              </div>
-            ))}
-          </div>
+          <>
+            <p className="text-xs text-gray-400">ลากเพื่อเรียงลำดับ — รูปแรกจะเป็นภาพหลัก (background)</p>
+            <div className="grid grid-cols-3 gap-3">
+              {images.map((url, i) => (
+                <div
+                  key={url}
+                  draggable
+                  onDragStart={() => onDragStart(i)}
+                  onDragOver={e => e.preventDefault()}
+                  onDrop={() => onDrop(i)}
+                  className="relative group aspect-square rounded-xl overflow-hidden bg-gray-50 border-2 border-gray-200 cursor-grab active:cursor-grabbing transition-all"
+                  style={{ borderStyle: i === 0 ? 'solid' : 'dashed', borderColor: i === 0 ? '#7C3AED' : undefined }}
+                >
+                  <img src={url} alt={`Product image ${i + 1}`} className="w-full h-full object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => removeImage(url)}
+                    className="absolute top-1.5 right-1.5 w-6 h-6 bg-red-500 text-white rounded-full text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                  >×</button>
+                  {i === 0 && (
+                    <span className="absolute bottom-1.5 left-1.5 bg-purple-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md">หลัก</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </>
         )}
 
         <div
