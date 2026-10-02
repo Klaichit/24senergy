@@ -32,7 +32,7 @@ export default function ParallaxSection({ imageUrl, children }: Props) {
             position: 'absolute', inset: '-25%',
             backgroundImage: `url(${imageUrl})`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center 25%',
+            backgroundPosition: 'center top',
             backgroundRepeat: 'no-repeat',
             opacity: 0.18,
             willChange: 'transform',
