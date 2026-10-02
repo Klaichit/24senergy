@@ -213,10 +213,12 @@ function ProductPage({ product }: { product: Product }) {
             </p>
             {pdfUrl && (
               <a href={pdfUrl} target="_blank" rel="noopener noreferrer"
-                className="mt-8 inline-flex items-center gap-2 text-sm font-bold"
-                style={{ color: theme.accent }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                <Bi th="ดาวน์โหลด Product Datasheet →" en="Download Product Datasheet →" />
+                className="mt-8 inline-flex items-center gap-2.5 px-6 py-3 rounded-xl border font-bold text-sm transition-all duration-200 hover:-translate-y-0.5"
+                style={{ borderColor: theme.accent + '40', color: theme.accent, background: theme.badgeBg }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = theme.accent; (e.currentTarget as HTMLAnchorElement).style.boxShadow = `0 4px 16px ${theme.glow}` }}
+                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = theme.accent + '40'; (e.currentTarget as HTMLAnchorElement).style.boxShadow = 'none' }}>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <Bi th="ดาวน์โหลด Product Datasheet" en="Download Product Datasheet" />
               </a>
             )}
           </div>
