@@ -31,12 +31,12 @@ export default function ParallaxSection({ imageUrl, children }: Props) {
           style={{
             position: 'absolute', inset: '-25%',
             backgroundImage: `url(${imageUrl})`,
-            backgroundSize: 'contain',
+            backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            opacity: 0.13,
+            opacity: 0.18,
             willChange: 'transform',
-            filter: 'saturate(0.6) brightness(1.1)',
+            filter: 'saturate(0.5) brightness(0.9)',
           }}
         />
       )}
