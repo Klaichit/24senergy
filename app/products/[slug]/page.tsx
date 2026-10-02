@@ -1,6 +1,6 @@
 import { createPublicClient } from '@/lib/public-data'
 import { cache } from 'react'
-import ProductLanguage from '@/components/ProductLanguage'
+import ProductLanguage, { LangToggle } from '@/components/ProductLanguage'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -130,12 +130,19 @@ function ProductPage({ product }: { product: Product }) {
       <span className={`mx-1 ${heroMode ? 'text-white/30' : 'text-gray-200'}`}>/</span>
       <span className={`text-sm font-medium ${heroMode ? 'text-white/80' : 'text-gray-700'}`}><Bi th={product.name_th} en={product.name_en} /></span>
       <div className="ml-auto flex items-center gap-3">
-        <Link href="/products.html" className={`text-sm transition-colors ${heroMode ? 'text-white/50 hover:text-white' : 'text-gray-400 hover:text-gray-700'}`}><Bi th="← กลับ" en="← Back" /></Link>
+        <Link href="/products.html"
+          className="px-4 py-2 text-sm font-bold rounded-xl transition-all"
+          style={heroMode
+            ? { border: '1px solid rgba(255,255,255,0.28)', color: 'rgba(255,255,255,0.8)' }
+            : { border: '1px solid #e5e7eb', color: '#6b7280' }}>
+          <Bi th="← กลับ" en="← Back" />
+        </Link>
         <a href={`/quote.html?product=${product.category}`}
           style={{ background: theme.accent }}
           className="px-5 py-2 text-white text-sm font-bold rounded-xl hover:opacity-90 transition-opacity">
           <Bi th="ขอใบเสนอราคา" en="Get a Quote" />
         </a>
+        <LangToggle dark={heroMode} />
       </div>
     </nav>
   )
