@@ -156,15 +156,33 @@ function ProductPage({ product }: { product: Product }) {
       {specs.length > 0 && (
         <section className="py-20 px-8 bg-white border-t border-gray-100">
           <div className="max-w-7xl mx-auto">
-            <p className="text-xs font-black uppercase tracking-[0.2em] mb-10"
+            <p className="text-xs font-black uppercase tracking-[0.2em] mb-14"
               style={{ color: theme.accent }}>Technical Specifications</p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px bg-gray-100 rounded-2xl overflow-hidden border border-gray-100">
-              {specs.map(([k, v]) => (
-                <div key={k} className="bg-white px-8 py-7">
-                  <div className="text-3xl font-black text-gray-900 mb-1">{String(v)}</div>
-                  <div className="text-xs font-semibold text-gray-400 uppercase tracking-widest">{k}</div>
-                </div>
-              ))}
+            <div className="grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 items-start">
+
+              {/* Hero stats — first 3 entries */}
+              <div className="flex flex-col gap-10">
+                {specs.slice(0, 3).map(([k, v]) => (
+                  <div key={k}>
+                    <div className="text-[3.25rem] font-black text-gray-900 leading-none tracking-tight mb-2">
+                      {String(v)}
+                    </div>
+                    <div className="text-xs font-semibold text-gray-400 uppercase tracking-[0.18em]">{k}</div>
+                    <div className="h-px w-10 mt-3 rounded" style={{ background: theme.accent, opacity: 0.5 }} />
+                  </div>
+                ))}
+              </div>
+
+              {/* Full spec list */}
+              <div className="grid sm:grid-cols-2 gap-0 border-t border-gray-100">
+                {specs.map(([k, v]) => (
+                  <div key={k} className="flex items-start gap-4 py-4 border-b border-gray-100 px-1">
+                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest w-32 flex-shrink-0 pt-0.5">{k}</span>
+                    <span className="text-sm font-bold text-gray-800">{String(v)}</span>
+                  </div>
+                ))}
+              </div>
+
             </div>
           </div>
         </section>
