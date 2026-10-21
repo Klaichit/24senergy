@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>24sEnergy V2 — พลังงานที่ใช่ สำหรับทุกการเติบโต</title>
-<meta name="description" content="24S Energy — ระบบกักเก็บพลังงาน BESS โซลาร์เซลล์ และอินเวอร์เตอร์ สำหรับบ้าน ฟาร์ม และโรงงาน คัดสรรแบรนด์ระดับโลก"/>
+<title>24s Energy — โซลูชันพลังงานครบวงจร</title>
+<meta name="description" content="24s Energy — แผงโซลาร์ อินเวอร์เตอร์ และระบบกักเก็บพลังงาน สำหรับบ้าน ฟาร์ม และโรงงาน คัดสรรแบรนด์ระดับโลก"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;900&family=Noto+Sans:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&family=Noto+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
 <script>
@@ -20,11 +20,11 @@
         },
         fontFamily: {
           sans:    ["Noto Sans Thai", "Noto Sans", "sans-serif"],
-          display: ["Space Grotesk", "Noto Sans Thai", "sans-serif"],
+          display: ["Noto Sans Thai", "Space Grotesk", "sans-serif"],
         },
         boxShadow: {
           soft: "0 10px 40px -12px rgba(106,45,175,.20)",
-          card: "0 6px 24px -10px rgba(26,26,46,.12)",
+          card: "0 8px 30px -12px rgba(26,26,46,.16)",
         },
       },
     },
@@ -33,240 +33,180 @@
 <style>
   body{font-family:'Noto Sans Thai','Noto Sans',sans-serif}
   body[data-lang="en"]{font-family:'Noto Sans','Noto Sans Thai',sans-serif}
-  h1,h2,h3{font-family:'Space Grotesk','Noto Sans Thai',sans-serif}
-  body[data-lang="th"] h1,body[data-lang="th"] h2,body[data-lang="th"] h3{font-family:'Noto Sans Thai','Noto Sans',sans-serif;font-weight:700}
+  .num{font-family:'Space Grotesk','Noto Sans Thai',sans-serif}
   .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'opsz' 24}
-  .hero-grad{background:radial-gradient(120% 120% at 70% 0%, #f1e9fb 0%, #faf7fd 45%, #ffffff 100%)}
   .brand-grad{background:linear-gradient(135deg,#6A2DAF 0%,#8b4dd6 100%)}
+  .hero-shade{background:linear-gradient(90deg, rgba(20,10,35,.55) 0%, rgba(20,10,35,.30) 42%, rgba(20,10,35,0) 70%)}
+  .sol-shade{background:linear-gradient(180deg, rgba(255,255,255,.82) 0%, rgba(241,233,251,.80) 100%)}
   .lift{transition:transform .25s ease, box-shadow .25s ease}
   .lift:hover{transform:translateY(-4px)}
-  /* Bilingual toggle */
   .bi .th,.bi .en{display:inline}
   body[data-lang="th"] .bi .en{display:none}
   body[data-lang="en"] .bi .th{display:none}
+  /* hero carousel */
+  .hslide{opacity:0;transition:opacity .8s ease}
+  .hslide.active{opacity:1}
+  .hdot{width:9px;height:9px;border-radius:9999px;background:rgba(255,255,255,.5);transition:all .3s}
+  .hdot.active{background:#fff;width:26px}
 </style>
 </head>
 <body data-lang="th" class="bg-white text-ink antialiased">
 <script>try{var _l=localStorage.getItem('lang');if(_l)document.body.setAttribute('data-lang',_l);}catch(e){}</script>
 
-<!-- ===== NAV ===== -->
-<header class="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-black/5">
-  <nav class="max-w-[1240px] mx-auto px-6 md:px-7 h-20 flex items-center justify-between">
-    <a href="#top" class="flex items-center shrink-0">
-      <img src="24sEnergy_png.png" alt="24S Energy" class="h-9 w-auto"/>
-    </a>
-    <div class="hidden lg:flex items-center gap-9 text-[15px] font-medium text-ink-soft bi">
-      <a href="#products" class="hover:text-brand transition-colors"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></a>
-      <a href="#solutions" class="hover:text-brand transition-colors"><span class="th">โซลูชัน</span><span class="en">Solutions</span></a>
-      <a href="news.html" class="hover:text-brand transition-colors"><span class="th">ข่าวสาร</span><span class="en">News</span></a>
-      <a href="contact.html" class="hover:text-brand transition-colors"><span class="th">ติดต่อ</span><span class="en">Contact</span></a>
+<!-- ===== HERO (full-bleed with overlaid nav) ===== -->
+<header class="relative min-h-[88vh] lg:min-h-[94vh] overflow-hidden text-white">
+  <!-- slides -->
+  <div class="absolute inset-0">
+    <div class="hslide active absolute inset-0" data-idx="0"><img src="v2-hero.png" alt="" class="w-full h-full object-cover"/></div>
+    <div class="hslide absolute inset-0" data-idx="1"><img src="v2-nature.png" alt="" class="w-full h-full object-cover"/></div>
+    <div class="hslide absolute inset-0" data-idx="2"><img src="v2-sunwoda.png" alt="" class="w-full h-full object-cover"/></div>
+    <div class="hslide absolute inset-0" data-idx="3"><img src="v2-leapton.png" alt="" class="w-full h-full object-cover"/></div>
+  </div>
+  <div class="absolute inset-0 hero-shade"></div>
+
+  <!-- nav -->
+  <nav class="relative z-20 max-w-[1240px] mx-auto px-6 md:px-8 h-20 flex items-center justify-between gap-4">
+    <a href="#top" class="text-2xl font-extrabold tracking-tight shrink-0">24s <span class="font-light">Energy</span></a>
+    <div class="hidden lg:flex items-center gap-6 xl:gap-8 text-[15px] font-medium text-white/90 bi">
+      <a href="#products" class="hover:text-white transition"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></a>
+      <a href="#solutions" class="hover:text-white transition"><span class="th">โซลูชัน</span><span class="en">Solutions</span></a>
+      <a href="#projects" class="hover:text-white transition"><span class="th">โครงการ</span><span class="en">Projects</span></a>
+      <a href="news.html" class="hover:text-white transition"><span class="th">ข่าวสาร</span><span class="en">News</span></a>
+      <a href="#about" class="hover:text-white transition"><span class="th">เกี่ยวกับ</span><span class="en">About</span></a>
     </div>
-    <div class="flex items-center gap-3">
-      <div class="hidden sm:flex items-center text-sm font-semibold rounded-full bg-brand-light p-0.5">
-        <button id="btnTH" onclick="setLang('th')" class="px-3 py-1.5 rounded-full">TH</button>
-        <button id="btnEN" onclick="setLang('en')" class="px-3 py-1.5 rounded-full">EN</button>
+    <div class="flex items-center gap-3 shrink-0">
+      <div class="hidden sm:flex items-center gap-1 text-sm font-semibold text-white/90">
+        <button id="btnTH" onclick="setLang('th')">TH</button><span class="text-white/40">/</span><button id="btnEN" onclick="setLang('en')">EN</button>
       </div>
       <a href="quote.html" class="brand-grad text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-soft hover:opacity-95 transition bi"><span class="th">ขอใบเสนอราคา</span><span class="en">Get a Quote</span></a>
-      <button class="lg:hidden text-brand" aria-label="menu"><span class="material-symbols-outlined">menu</span></button>
+      <button class="lg:hidden text-white" aria-label="menu"><span class="material-symbols-outlined">menu</span></button>
     </div>
   </nav>
-</header>
 
-<main id="top">
-
-<!-- ===== HERO ===== -->
-<section class="hero-grad">
-  <div class="max-w-[1240px] mx-auto px-6 md:px-7 grid lg:grid-cols-2 gap-10 items-center py-16 lg:py-24">
-    <div class="space-y-7 order-2 lg:order-1 bi">
-      <h1 class="font-display text-4xl sm:text-5xl lg:text-[3.6rem] font-bold leading-[1.1] tracking-tight">
-        <span class="th">พลังงานที่ใช่<br/><span class="text-brand">สำหรับทุกการเติบโต</span></span>
-        <span class="en">The Right Energy<br/><span class="text-brand">for Every Growth</span></span>
+  <!-- hero copy -->
+  <div class="relative z-10 max-w-[1240px] mx-auto px-6 md:px-8 flex items-center" style="min-height:calc(88vh - 5rem)">
+    <div class="max-w-xl py-10 bi">
+      <p class="text-lg font-semibold text-white/85 mb-3">24s Energy</p>
+      <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] drop-shadow-sm">
+        <span class="th">โซลูชันพลังงาน<br/>ครบวงจร</span>
+        <span class="en">Complete Energy<br/>Solutions</span>
       </h1>
-      <p class="text-lg text-ink-soft max-w-md leading-relaxed">
-        <span class="th">ระบบกักเก็บพลังงาน โซลาร์เซลล์ และอินเวอร์เตอร์<br class="hidden sm:block"/> สำหรับบ้าน ฟาร์ม และโรงงาน</span>
-        <span class="en">Battery storage, solar PV and inverters<br class="hidden sm:block"/> for homes, farms and factories.</span>
+      <p class="text-lg lg:text-xl text-white/90 mt-5 font-medium">
+        <span class="th">แผงโซลาร์ อินเวอร์เตอร์ และระบบกักเก็บพลังงาน</span>
+        <span class="en">Solar panels, inverters and energy storage systems</span>
       </p>
-      <div class="flex flex-wrap gap-4 pt-1">
-        <a href="#products" class="brand-grad text-white font-semibold px-7 py-3.5 rounded-full shadow-soft hover:opacity-95 transition"><span class="th">ดูผลิตภัณฑ์</span><span class="en">View Products</span></a>
-        <a href="contact.html" class="bg-white text-brand font-semibold px-7 py-3.5 rounded-full border border-brand/20 hover:border-brand/40 hover:bg-brand-tint transition"><span class="th">ปรึกษาทีมงาน</span><span class="en">Talk to Us</span></a>
+      <div class="flex flex-wrap gap-4 mt-8">
+        <a href="#products" class="brand-grad text-white font-semibold px-7 py-3.5 rounded-full shadow-soft hover:opacity-95 transition inline-flex items-center gap-2"><span class="th">ดูผลิตภัณฑ์</span><span class="en">View Products</span> <span class="material-symbols-outlined text-[20px]">arrow_forward</span></a>
+        <a href="quote.html" class="bg-white/10 backdrop-blur text-white font-semibold px-7 py-3.5 rounded-full border border-white/50 hover:bg-white/20 transition"><span class="th">ขอใบเสนอราคา</span><span class="en">Get a Quote</span></a>
       </div>
     </div>
-    <div class="order-1 lg:order-2">
-      <div class="relative rounded-[2rem] overflow-hidden shadow-soft bg-white">
-        <img src="01.webp" alt="24S Energy — BESS, Solar PV & Inverter" class="w-full h-full object-cover aspect-[4/3]"/>
-      </div>
+  </div>
+
+  <!-- carousel controls -->
+  <button id="hPrev" class="absolute z-20 left-5 top-1/2 -translate-y-1/2 h-11 w-11 grid place-items-center rounded-full bg-white/15 backdrop-blur border border-white/40 hover:bg-white/30 transition" aria-label="Previous"><span class="material-symbols-outlined">chevron_left</span></button>
+  <button id="hNext" class="absolute z-20 right-5 top-1/2 -translate-y-1/2 h-11 w-11 grid place-items-center rounded-full bg-white/15 backdrop-blur border border-white/40 hover:bg-white/30 transition" aria-label="Next"><span class="material-symbols-outlined">chevron_right</span></button>
+  <div id="hDots" class="absolute z-20 left-1/2 -translate-x-1/2 bottom-7 flex items-center gap-2.5">
+    <button class="hdot active" data-go="0"></button><button class="hdot" data-go="1"></button><button class="hdot" data-go="2"></button><button class="hdot" data-go="3"></button>
+  </div>
+</header>
+
+<!-- ===== STATS BAR ===== -->
+<section class="border-b border-black/5">
+  <div class="max-w-[1240px] mx-auto px-6 md:px-8 grid grid-cols-2 md:grid-cols-4 divide-x divide-black/10">
+    <div class="py-8 text-center"><div class="num text-4xl lg:text-5xl font-bold text-ink">350+</div><p class="text-sm text-ink-mute mt-1 bi"><span class="th">MWh ติดตั้งสะสม</span><span class="en">MWh installed</span></p></div>
+    <div class="py-8 text-center"><div class="num text-4xl lg:text-5xl font-bold text-ink">120+</div><p class="text-sm text-ink-mute mt-1 bi"><span class="th">โครงการสำเร็จ</span><span class="en">Projects done</span></p></div>
+    <div class="py-8 text-center"><div class="num text-4xl lg:text-5xl font-bold text-ink">15</div><p class="text-sm text-ink-mute mt-1 bi"><span class="th">ปีประสบการณ์</span><span class="en">Years experience</span></p></div>
+    <div class="py-8 text-center"><div class="num text-4xl lg:text-5xl font-bold text-brand">98%</div><p class="text-sm text-ink-mute mt-1 bi"><span class="th">ลูกค้าพอใจ</span><span class="en">Satisfaction</span></p></div>
+  </div>
+</section>
+
+<!-- ===== PRODUCTS ===== -->
+<section id="products" class="py-16 lg:py-24 scroll-mt-24">
+  <div class="max-w-[1240px] mx-auto px-6 md:px-8">
+    <div class="text-center max-w-2xl mx-auto bi">
+      <h2 class="font-display text-3xl lg:text-5xl font-bold tracking-tight"><span class="th">โซลูชันพลังงานครบวงจร</span><span class="en">Complete Energy Solutions</span></h2>
+      <p class="text-ink-soft mt-3 text-lg"><span class="th">เลือกผลิตภัณฑ์ให้เหมาะกับการใช้งานของคุณ</span><span class="en">Choose the right products for your needs.</span></p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 mt-12">
+      <!-- card: Sunwoda -->
+      <article class="lift bg-white rounded-3xl border border-black/5 shadow-card overflow-hidden grid grid-cols-5">
+        <div class="col-span-3 p-7 flex flex-col justify-center bi">
+          <span class="text-[12px] font-semibold tracking-wide text-brand"><span class="th">แบตเตอรี่กักเก็บพลังงาน</span><span class="en">Battery Storage</span></span>
+          <h3 class="font-display text-2xl font-bold mt-1 leading-tight">Sunwoda Atrix Max+</h3>
+          <p class="text-ink-soft text-[15px] leading-relaxed mt-2"><span class="th">แบตเตอรี่กักเก็บพลังงาน 16 kWh</span><span class="en">16 kWh energy storage battery</span></p>
+          <a href="products.html" class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:gap-2.5 transition-all bi"><span class="th">ดูรายละเอียด</span><span class="en">Details</span> <span class="material-symbols-outlined text-[18px]">north_east</span></a>
+        </div>
+        <div class="col-span-2 bg-brand-tint"><img src="v2-sunwoda.png" alt="Sunwoda Atrix Max+" class="w-full h-full object-cover"/></div>
+      </article>
+      <!-- card: TCL -->
+      <article class="lift bg-white rounded-3xl border border-black/5 shadow-card overflow-hidden grid grid-cols-5">
+        <div class="col-span-3 p-7 flex flex-col justify-center bi">
+          <span class="text-[12px] font-semibold tracking-wide text-brand"><span class="th">ระบบกักเก็บพลังงาน</span><span class="en">Energy Storage</span></span>
+          <h3 class="font-display text-2xl font-bold mt-1 leading-tight">TCL BlueArk X1</h3>
+          <p class="text-ink-soft text-[15px] leading-relaxed mt-2"><span class="th">ระบบ Hybrid ESS แบบโมดูล</span><span class="en">Modular hybrid ESS</span></p>
+          <a href="products.html" class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:gap-2.5 transition-all bi"><span class="th">ดูรายละเอียด</span><span class="en">Details</span> <span class="material-symbols-outlined text-[18px]">north_east</span></a>
+        </div>
+        <div class="col-span-2 bg-brand-tint"><img src="v2-tcl.png" alt="TCL BlueArk X1" class="w-full h-full object-cover"/></div>
+      </article>
+      <!-- card: Solplanet -->
+      <article class="lift bg-white rounded-3xl border border-black/5 shadow-card overflow-hidden grid grid-cols-5">
+        <div class="col-span-3 p-7 flex flex-col justify-center bi">
+          <span class="text-[12px] font-semibold tracking-wide text-brand"><span class="th">อินเวอร์เตอร์โซลาร์</span><span class="en">Solar Inverter</span></span>
+          <h3 class="font-display text-2xl font-bold mt-1 leading-tight">Solplanet ASW HT</h3>
+          <p class="text-ink-soft text-[15px] leading-relaxed mt-2"><span class="th">อินเวอร์เตอร์สำหรับงานโซลาร์ขนาดใหญ่</span><span class="en">Inverter for large-scale solar</span></p>
+          <a href="products.html" class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:gap-2.5 transition-all bi"><span class="th">ดูรายละเอียด</span><span class="en">Details</span> <span class="material-symbols-outlined text-[18px]">north_east</span></a>
+        </div>
+        <div class="col-span-2 bg-brand-tint"><img src="v2-solplanet.png" alt="Solplanet ASW HT" class="w-full h-full object-cover"/></div>
+      </article>
+      <!-- card: Leapton -->
+      <article class="lift bg-white rounded-3xl border border-black/5 shadow-card overflow-hidden grid grid-cols-5">
+        <div class="col-span-3 p-7 flex flex-col justify-center bi">
+          <span class="text-[12px] font-semibold tracking-wide text-brand"><span class="th">แผงโซลาร์</span><span class="en">Solar Panel</span></span>
+          <h3 class="font-display text-2xl font-bold mt-1 leading-tight">Leapton N-Type TOPCon</h3>
+          <p class="text-ink-soft text-[15px] leading-relaxed mt-2"><span class="th">แผงโซลาร์ Bifacial</span><span class="en">Bifacial solar module</span></p>
+          <a href="products.html" class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:gap-2.5 transition-all bi"><span class="th">ดูรายละเอียด</span><span class="en">Details</span> <span class="material-symbols-outlined text-[18px]">north_east</span></a>
+        </div>
+        <div class="col-span-2 bg-brand-tint"><img src="v2-leapton.png" alt="Leapton N-Type TOPCon" class="w-full h-full object-cover"/></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOLUTIONS (icon band over nature) ===== -->
+<section id="solutions" class="relative py-16 lg:py-24 overflow-hidden scroll-mt-24">
+  <img src="v2-nature.png" alt="" class="absolute inset-0 w-full h-full object-cover"/>
+  <div class="absolute inset-0 sol-shade"></div>
+  <div class="relative max-w-[1240px] mx-auto px-6 md:px-8 text-center">
+    <h2 class="font-display text-3xl lg:text-5xl font-bold tracking-tight"><span class="bi"><span class="th">ออกแบบตามความต้องการของคุณ</span><span class="en">Designed Around Your Needs</span></span></h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12">
+      <div class="flex flex-col items-center gap-3"><div class="h-14 w-14 rounded-2xl bg-white shadow-card text-brand grid place-items-center"><span class="material-symbols-outlined text-[28px]">bar_chart</span></div><p class="font-semibold">Peak Shaving</p></div>
+      <div class="flex flex-col items-center gap-3"><div class="h-14 w-14 rounded-2xl bg-white shadow-card text-brand grid place-items-center"><span class="material-symbols-outlined text-[28px]">solar_power</span></div><p class="font-semibold">Solar + Storage</p></div>
+      <div class="flex flex-col items-center gap-3"><div class="h-14 w-14 rounded-2xl bg-white shadow-card text-brand grid place-items-center"><span class="material-symbols-outlined text-[28px]">battery_charging_full</span></div><p class="font-semibold">Backup Power</p></div>
+      <div class="flex flex-col items-center gap-3"><div class="h-14 w-14 rounded-2xl bg-white shadow-card text-brand grid place-items-center"><span class="material-symbols-outlined text-[28px]">hub</span></div><p class="font-semibold">Microgrid</p></div>
     </div>
   </div>
 </section>
 
 <!-- ===== SELECTED BRANDS ===== -->
-<section class="py-14 lg:py-20">
-  <div class="max-w-[1240px] mx-auto px-6 md:px-7">
-    <div class="rounded-[2rem] bg-brand-tint border border-brand/10 p-8 lg:p-12">
-      <div class="flex items-start justify-between flex-wrap gap-4 bi">
-        <div>
-          <p class="text-xs font-semibold tracking-[0.2em] text-brand uppercase mb-3">Selected Brands</p>
-          <h2 class="font-display text-3xl lg:text-4xl font-bold tracking-tight"><span class="th">แบรนด์ที่เราคัดสรร</span><span class="en">Brands We Distribute</span></h2>
-          <p class="text-ink-soft mt-2"><span class="th">อุปกรณ์พลังงานสำหรับบ้าน ฟาร์ม และโรงงาน</span><span class="en">Energy equipment for homes, farms and factories.</span></p>
-        </div>
-        <a href="#products" class="text-sm font-semibold text-brand hover:underline underline-offset-4 shrink-0 pt-1"><span class="th">ดูผลิตภัณฑ์ทั้งหมด →</span><span class="en">View all products →</span></a>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 mt-8 border-t border-brand/10 pt-8">
-        <div class="flex flex-col items-center justify-center text-center gap-1 h-20"><span class="text-2xl font-extrabold tracking-tight text-ink">Solar<span class="text-[#E4002B]">Edge</span></span><span class="text-[11px] tracking-widest text-ink-mute uppercase">Inverter · Optimizer</span></div>
-        <div class="flex flex-col items-center justify-center text-center gap-1 h-20"><span class="text-2xl font-extrabold italic tracking-tight text-[#1D4ED8]">KSTAR</span><span class="text-[11px] tracking-widest text-ink-mute uppercase">BESS</span></div>
-        <div class="flex flex-col items-center justify-center text-center gap-1 h-20"><span class="text-2xl font-extrabold tracking-tight text-[#1456B0]">LEAPTON</span><span class="text-[11px] tracking-widest text-ink-mute uppercase">Solar PV</span></div>
-        <div class="flex flex-col items-center justify-center text-center gap-1 h-20"><span class="text-2xl font-bold tracking-tight text-[#E2006A]">Solplanet</span><span class="text-[11px] tracking-widest text-ink-mute uppercase">Inverter</span></div>
-        <div class="flex flex-col items-center justify-center text-center gap-1 h-20"><span class="text-2xl font-extrabold italic tracking-tight text-[#E2006A]">SUNWODA</span><span class="text-[11px] tracking-widest text-ink-mute uppercase">BESS</span></div>
-        <div class="flex flex-col items-center justify-center text-center gap-1 h-20"><span class="text-2xl font-bold tracking-tight text-ink">TCL <span class="font-normal">Digital Power</span></span><span class="text-[11px] tracking-widest text-ink-mute uppercase">BESS</span></div>
-        <div class="flex flex-col items-center justify-center text-center gap-1 h-20"><span class="text-2xl font-bold tracking-tight text-[#0B6BCB]">Solar PPM</span><span class="text-[11px] tracking-widest text-ink-mute uppercase">Solar PV</span></div>
-        <div class="flex items-center justify-center text-center h-20"><a href="#products" class="text-sm font-semibold text-brand hover:underline underline-offset-4 bi"><span class="th">+ พันธมิตรเพิ่มเติม</span><span class="en">+ More partners</span></a></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== PRODUCTS ===== -->
-<section id="products" class="py-14 lg:py-20 scroll-mt-24">
-  <div class="max-w-[1240px] mx-auto px-6 md:px-7 bi">
-    <p class="text-xs font-semibold tracking-[0.2em] text-brand uppercase mb-3">Our Products</p>
-    <h2 class="font-display text-3xl lg:text-4xl font-bold tracking-tight"><span class="th">เทคโนโลยีที่เลือก <span class="text-brand">เพื่อพลังงานที่ดีกว่า</span></span><span class="en">Technology Chosen <span class="text-brand">for Better Energy</span></span></h2>
-    <p class="text-ink-soft mt-3 text-lg"><span class="th">อุปกรณ์คุณภาพ ครอบคลุมการใช้งานจริง สำหรับบ้าน ฟาร์ม และโรงงาน</span><span class="en">Quality equipment covering real-world use for homes, farms and factories.</span></p>
-
-    <div class="grid md:grid-cols-3 gap-6 mt-10">
-      <article class="lift bg-white rounded-3xl border border-black/5 shadow-card overflow-hidden flex flex-col">
-        <div class="aspect-[4/3] overflow-hidden bg-brand-tint"><img src="01.webp" alt="BESS" class="w-full h-full object-cover"/></div>
-        <div class="p-7 flex flex-col flex-1">
-          <span class="text-[11px] font-semibold tracking-widest text-brand uppercase">BESS</span>
-          <h3 class="font-display text-xl font-bold mt-1 bi"><span class="th">ระบบกักเก็บพลังงาน</span><span class="en">Battery Storage</span></h3>
-          <p class="text-ink-soft text-[15px] leading-relaxed mt-2 flex-1 bi"><span class="th">แบตเตอรี่ลิเธียม ระบบกักเก็บพลังงานสำหรับบ้าน ฟาร์ม และโรงงาน</span><span class="en">Lithium batteries and energy storage for homes, farms and factories.</span></p>
-          <a href="products.html" class="mt-5 inline-flex items-center justify-center text-sm font-semibold text-brand border border-brand/20 rounded-full px-5 py-2.5 hover:bg-brand-tint transition bi"><span class="th">ดูผลิตภัณฑ์</span><span class="en">View product</span></a>
-        </div>
-      </article>
-      <article class="lift bg-white rounded-3xl border border-black/5 shadow-card overflow-hidden flex flex-col">
-        <div class="aspect-[4/3] overflow-hidden bg-brand-tint"><img src="02.webp" alt="Solar PV" class="w-full h-full object-cover"/></div>
-        <div class="p-7 flex flex-col flex-1">
-          <span class="text-[11px] font-semibold tracking-widest text-brand uppercase">Solar PV</span>
-          <h3 class="font-display text-xl font-bold mt-1 bi"><span class="th">โซลาร์เซลล์</span><span class="en">Solar PV</span></h3>
-          <p class="text-ink-soft text-[15px] leading-relaxed mt-2 flex-1 bi"><span class="th">แผงโซลาร์เซลล์คุณภาพสูง สำหรับทุกขนาดการใช้งาน</span><span class="en">High-efficiency solar modules for every scale of use.</span></p>
-          <a href="products.html" class="mt-5 inline-flex items-center justify-center text-sm font-semibold text-brand border border-brand/20 rounded-full px-5 py-2.5 hover:bg-brand-tint transition bi"><span class="th">ดูผลิตภัณฑ์</span><span class="en">View product</span></a>
-        </div>
-      </article>
-      <article class="lift bg-white rounded-3xl border border-black/5 shadow-card overflow-hidden flex flex-col">
-        <div class="aspect-[4/3] overflow-hidden bg-brand-tint"><img src="03.webp" alt="Inverter" class="w-full h-full object-cover"/></div>
-        <div class="p-7 flex flex-col flex-1">
-          <span class="text-[11px] font-semibold tracking-widest text-brand uppercase">Inverter</span>
-          <h3 class="font-display text-xl font-bold mt-1 bi"><span class="th">อินเวอร์เตอร์</span><span class="en">Inverters</span></h3>
-          <p class="text-ink-soft text-[15px] leading-relaxed mt-2 flex-1 bi"><span class="th">อินเวอร์เตอร์ประสิทธิภาพสูง รองรับการใช้งานหลากหลายรูปแบบ</span><span class="en">High-efficiency inverters supporting a wide range of applications.</span></p>
-          <a href="products.html" class="mt-5 inline-flex items-center justify-center text-sm font-semibold text-brand border border-brand/20 rounded-full px-5 py-2.5 hover:bg-brand-tint transition bi"><span class="th">ดูผลิตภัณฑ์</span><span class="en">View product</span></a>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ===== SOLUTIONS ===== -->
-<section id="solutions" class="py-14 lg:py-20 bg-brand-tint scroll-mt-24">
-  <div class="max-w-[1240px] mx-auto px-6 md:px-7">
-    <div class="text-center max-w-2xl mx-auto bi">
-      <p class="text-xs font-semibold tracking-[0.2em] text-brand uppercase mb-3">Solutions</p>
-      <h2 class="font-display text-3xl lg:text-4xl font-bold tracking-tight"><span class="th">ออกแบบระบบให้เหมาะกับคุณ</span><span class="en">Systems Designed to Fit You</span></h2>
-      <p class="text-ink-soft mt-3 text-lg"><span class="th">ครบทุกการใช้งาน ด้วยโซลูชันที่ยืดหยุ่น รองรับการเติบโตในอนาคต</span><span class="en">Flexible solutions for every use case — built to grow with you.</span></p>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-6 mt-10">
-      <a href="contact.html" class="lift group bg-white rounded-3xl border border-black/5 shadow-card overflow-hidden flex">
-        <div class="w-2/5 shrink-0 overflow-hidden bg-brand-light"><img src="04.webp" alt="" class="w-full h-full object-cover"/></div>
-        <div class="p-6 flex flex-col justify-center bi">
-          <h3 class="font-display text-lg font-bold"><span class="th">โรงงานและอาคาร</span><span class="en">Factories & Buildings</span></h3>
-          <p class="text-ink-soft text-[15px] leading-relaxed mt-1.5"><span class="th">โซลูชันพลังงานสำหรับภาคอุตสาหกรรมและอาคารขนาดใหญ่</span><span class="en">Energy solutions for industry and large buildings.</span></p>
-          <span class="mt-3 text-sm font-semibold text-brand group-hover:underline underline-offset-4"><span class="th">รายละเอียด →</span><span class="en">Details →</span></span>
-        </div>
-      </a>
-      <a href="contact.html" class="lift group bg-white rounded-3xl border border-black/5 shadow-card overflow-hidden flex">
-        <div class="w-2/5 shrink-0 overflow-hidden bg-brand-light"><img src="04.webp" alt="" class="w-full h-full object-cover"/></div>
-        <div class="p-6 flex flex-col justify-center bi">
-          <h3 class="font-display text-lg font-bold"><span class="th">บ้านและฟาร์ม</span><span class="en">Home & Farm</span></h3>
-          <p class="text-ink-soft text-[15px] leading-relaxed mt-1.5"><span class="th">พลังงานสะอาดสำหรับบ้านและภาคการเกษตร</span><span class="en">Clean energy for homes and agriculture.</span></p>
-          <span class="mt-3 text-sm font-semibold text-brand group-hover:underline underline-offset-4"><span class="th">รายละเอียด →</span><span class="en">Details →</span></span>
-        </div>
-      </a>
-      <a href="contact.html" class="lift group bg-white rounded-3xl border border-black/5 shadow-card overflow-hidden flex">
-        <div class="w-2/5 shrink-0 overflow-hidden bg-brand-light"><img src="01.webp" alt="" class="w-full h-full object-cover"/></div>
-        <div class="p-6 flex flex-col justify-center bi">
-          <h3 class="font-display text-lg font-bold"><span class="th">ไฟสำรอง / UPS</span><span class="en">Backup / UPS</span></h3>
-          <p class="text-ink-soft text-[15px] leading-relaxed mt-1.5"><span class="th">โซลูชันไฟสำรอง เพื่อความต่อเนื่องในการใช้งาน</span><span class="en">Backup power for uninterrupted operation.</span></p>
-          <span class="mt-3 text-sm font-semibold text-brand group-hover:underline underline-offset-4"><span class="th">อ่านบทความ →</span><span class="en">Read more →</span></span>
-        </div>
-      </a>
-      <a href="contact.html" class="lift group bg-white rounded-3xl border border-black/5 shadow-card overflow-hidden flex">
-        <div class="w-2/5 shrink-0 overflow-hidden bg-brand-light"><img src="02.webp" alt="" class="w-full h-full object-cover"/></div>
-        <div class="p-6 flex flex-col justify-center bi">
-          <h3 class="font-display text-lg font-bold"><span class="th">งานและตัวแทนจำหน่าย</span><span class="en">Jobs & Dealers</span></h3>
-          <p class="text-ink-soft text-[15px] leading-relaxed mt-1.5"><span class="th">การรับสมัครตัวแทนจำหน่ายและพาร์ทเนอร์ทางธุรกิจ</span><span class="en">Dealer recruitment and business partnerships.</span></p>
-          <span class="mt-3 text-sm font-semibold text-brand group-hover:underline underline-offset-4"><span class="th">อ่านรายละเอียด →</span><span class="en">Learn more →</span></span>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ===== WHY 24S ===== -->
-<section class="py-14 lg:py-20">
-  <div class="max-w-[1240px] mx-auto px-6 md:px-7 text-center bi">
-    <p class="text-xs font-semibold tracking-[0.2em] text-brand uppercase mb-3">Why 24S Energy</p>
-    <h2 class="font-display text-3xl lg:text-4xl font-bold tracking-tight"><span class="th">เลือกอุปกรณ์ด้วยเหตุผล</span><span class="en">Equipment Chosen for a Reason</span></h2>
-    <div class="grid md:grid-cols-3 gap-8 mt-12 text-left">
-      <div class="flex flex-col items-start gap-3">
-        <div class="h-12 w-12 rounded-2xl bg-brand-light text-brand grid place-items-center"><span class="material-symbols-outlined">deployed_code</span></div>
-        <h3 class="font-display text-lg font-bold"><span class="th">ขยายระบบได้</span><span class="en">Scalable</span></h3>
-        <p class="text-ink-soft text-[15px] leading-relaxed"><span class="th">รองรับการเพิ่มขนาดในอนาคต ตามความต้องการใช้งาน</span><span class="en">Ready to expand as your needs grow.</span></p>
-      </div>
-      <div class="flex flex-col items-start gap-3">
-        <div class="h-12 w-12 rounded-2xl bg-brand-light text-brand grid place-items-center"><span class="material-symbols-outlined">verified_user</span></div>
-        <h3 class="font-display text-lg font-bold"><span class="th">ความปลอดภัย</span><span class="en">Safety</span></h3>
-        <p class="text-ink-soft text-[15px] leading-relaxed"><span class="th">อุปกรณ์ได้มาตรฐาน และมีระบบป้องกันที่เชื่อถือได้</span><span class="en">Certified equipment with reliable protection.</span></p>
-      </div>
-      <div class="flex flex-col items-start gap-3">
-        <div class="h-12 w-12 rounded-2xl bg-brand-light text-brand grid place-items-center"><span class="material-symbols-outlined">monitoring</span></div>
-        <h3 class="font-display text-lg font-bold"><span class="th">ตรวจสอบระบบได้</span><span class="en">Monitorable</span></h3>
-        <p class="text-ink-soft text-[15px] leading-relaxed"><span class="th">สามารถตรวจสอบการทำงานและสถานะการใช้งานได้อย่างสะดวก</span><span class="en">Easily monitor performance and system status.</span></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== INSIGHTS ===== -->
-<section id="insights" class="py-14 lg:py-20 bg-brand-tint scroll-mt-24">
-  <div class="max-w-[1240px] mx-auto px-6 md:px-7">
-    <div class="flex items-end justify-between flex-wrap gap-4 bi">
-      <div>
-        <p class="text-xs font-semibold tracking-[0.2em] text-brand uppercase mb-3">Insights</p>
-        <h2 class="font-display text-3xl lg:text-4xl font-bold tracking-tight"><span class="th">ข่าวสารและความรู้</span><span class="en">News & Insights</span></h2>
-      </div>
-      <a href="news.html" class="text-sm font-semibold text-brand hover:underline underline-offset-4"><span class="th">ดูทั้งหมด →</span><span class="en">View all →</span></a>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-6 mt-10">
-      <article class="lift bg-white rounded-3xl border border-black/5 shadow-card overflow-hidden">
-        <div class="aspect-[16/9] overflow-hidden"><img src="04.webp" alt="" class="w-full h-full object-cover"/></div>
-        <div class="p-6 bi"><h3 class="font-display text-base font-bold leading-snug"><span class="th">การออกแบบระบบโซลาร์เซลล์สำหรับโรงงานและอาคาร</span><span class="en">Designing solar systems for factories and buildings</span></h3><a href="news.html" class="mt-3 inline-block text-sm font-semibold text-brand hover:underline underline-offset-4"><span class="th">อ่านบทความ →</span><span class="en">Read →</span></a></div>
-      </article>
-      <article class="lift bg-white rounded-3xl border border-black/5 shadow-card overflow-hidden">
-        <div class="aspect-[16/9] overflow-hidden"><img src="01.webp" alt="" class="w-full h-full object-cover"/></div>
-        <div class="p-6 bi"><h3 class="font-display text-base font-bold leading-snug"><span class="th">แนวโน้มการจัดการพลังงานไฟฟ้าในภาคอุตสาหกรรม</span><span class="en">Trends in industrial power management</span></h3><a href="news.html" class="mt-3 inline-block text-sm font-semibold text-brand hover:underline underline-offset-4"><span class="th">อ่านบทความ →</span><span class="en">Read →</span></a></div>
-      </article>
-      <article class="lift bg-white rounded-3xl border border-black/5 shadow-card overflow-hidden">
-        <div class="aspect-[16/9] overflow-hidden"><img src="02.webp" alt="" class="w-full h-full object-cover"/></div>
-        <div class="p-6 bi"><h3 class="font-display text-base font-bold leading-snug"><span class="th">เทคโนโลยีแบตเตอรี่กับการเพิ่มความยืดหยุ่นของระบบพลังงาน</span><span class="en">Battery tech and energy-system flexibility</span></h3><a href="news.html" class="mt-3 inline-block text-sm font-semibold text-brand hover:underline underline-offset-4"><span class="th">อ่านบทความ →</span><span class="en">Read →</span></a></div>
-      </article>
+<section id="about" class="py-16 lg:py-20 scroll-mt-24">
+  <div class="max-w-[1240px] mx-auto px-6 md:px-8">
+    <p class="text-center text-sm font-medium text-ink-mute bi"><span class="th">แบรนด์ที่เราจัดจำหน่าย</span><span class="en">Brands we distribute</span></p>
+    <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 mt-6 text-center">
+      <div><div class="text-xl font-extrabold text-ink">Solar<span class="text-[#E4002B]">Edge</span></div><div class="text-[11px] tracking-widest text-ink-mute uppercase">Inverter · Optimizer</div></div>
+      <div><div class="text-xl font-extrabold italic text-[#1D4ED8]">KSTAR</div><div class="text-[11px] tracking-widest text-ink-mute uppercase">BESS</div></div>
+      <div><div class="text-xl font-extrabold text-[#1456B0]">LEAPTON</div><div class="text-[11px] tracking-widest text-ink-mute uppercase">Solar PV</div></div>
+      <div><div class="text-xl font-bold text-[#E2006A]">Solplanet</div><div class="text-[11px] tracking-widest text-ink-mute uppercase">Inverter</div></div>
+      <div><div class="text-xl font-extrabold italic text-[#E2006A]">SUNWODA</div><div class="text-[11px] tracking-widest text-ink-mute uppercase">BESS</div></div>
+      <div><div class="text-xl font-bold text-ink">TCL <span class="font-normal">Digital Power</span></div><div class="text-[11px] tracking-widest text-ink-mute uppercase">BESS</div></div>
+      <div><div class="text-xl font-bold text-[#0B6BCB]">Solar PPM</div><div class="text-[11px] tracking-widest text-ink-mute uppercase">Solar PV</div></div>
     </div>
   </div>
 </section>
 
 <!-- ===== CTA ===== -->
-<section class="py-16 lg:py-24">
-  <div class="max-w-[1240px] mx-auto px-6 md:px-7">
+<section class="pb-20">
+  <div class="max-w-[1240px] mx-auto px-6 md:px-8">
     <div class="brand-grad rounded-[2.5rem] px-8 lg:px-16 py-14 lg:py-20 text-white relative overflow-hidden">
       <div class="relative z-10 max-w-2xl bi">
         <h2 class="font-display text-3xl lg:text-5xl font-bold tracking-tight leading-tight"><span class="th">เริ่มต้นโครงการพลังงานของคุณ</span><span class="en">Start Your Energy Project</span></h2>
@@ -279,41 +219,42 @@
   </div>
 </section>
 
-</main>
-
 <!-- ===== FOOTER ===== -->
 <footer class="border-t border-black/5">
-  <div class="max-w-[1240px] mx-auto px-6 md:px-7 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
-    <img src="24sEnergy_png.png" alt="24S Energy" class="h-8 w-auto"/>
+  <div class="max-w-[1240px] mx-auto px-6 md:px-8 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
+    <a href="#top" class="text-xl font-extrabold tracking-tight text-ink">24s <span class="font-light">Energy</span></a>
     <nav class="flex items-center gap-7 text-[15px] font-medium text-ink-soft bi">
-      <a href="#products" class="hover:text-brand transition-colors"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></a>
-      <a href="#solutions" class="hover:text-brand transition-colors"><span class="th">โซลูชัน</span><span class="en">Solutions</span></a>
-      <a href="news.html" class="hover:text-brand transition-colors"><span class="th">ข่าวสาร</span><span class="en">News</span></a>
-      <a href="contact.html" class="hover:text-brand transition-colors"><span class="th">ติดต่อ</span><span class="en">Contact</span></a>
+      <a href="#products" class="hover:text-brand transition"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></a>
+      <a href="#solutions" class="hover:text-brand transition"><span class="th">โซลูชัน</span><span class="en">Solutions</span></a>
+      <a href="news.html" class="hover:text-brand transition"><span class="th">ข่าวสาร</span><span class="en">News</span></a>
+      <a href="contact.html" class="hover:text-brand transition"><span class="th">ติดต่อ</span><span class="en">Contact</span></a>
     </nav>
     <div class="flex items-center gap-6 text-[15px] font-medium text-ink-soft">
       <span class="inline-flex items-center gap-1.5"><span class="material-symbols-outlined text-[20px] text-[#06C755]">chat</span> LINE: @24senergy</span>
       <a href="mailto:info@24senergy.co.th" class="inline-flex items-center gap-1.5 hover:text-brand"><span class="material-symbols-outlined text-[20px]">mail</span> info@24senergy.co.th</a>
     </div>
   </div>
-  <div class="border-t border-black/5"><p class="max-w-[1240px] mx-auto px-6 md:px-7 py-5 text-sm text-ink-mute">© 2026 24s Energy Co., Ltd. All rights reserved.</p></div>
+  <div class="border-t border-black/5"><p class="max-w-[1240px] mx-auto px-6 md:px-8 py-5 text-sm text-ink-mute">© 2026 24s Energy Co., Ltd. All rights reserved.</p></div>
 </footer>
 
 <script>
-  function setLang(l){
-    document.body.setAttribute('data-lang', l);
-    try{ localStorage.setItem('lang', l); }catch(e){}
-    document.documentElement.lang = l;
-    paintLang(l);
-  }
-  function paintLang(l){
-    var th=document.getElementById('btnTH'), en=document.getElementById('btnEN');
-    if(!th||!en) return;
-    var on='bg-brand text-white', off='text-ink-soft hover:text-brand';
-    th.className='px-3 py-1.5 rounded-full '+(l==='en'?off:on);
-    en.className='px-3 py-1.5 rounded-full '+(l==='en'?on:off);
-  }
+  function setLang(l){document.body.setAttribute('data-lang',l);try{localStorage.setItem('lang',l);}catch(e){}document.documentElement.lang=l;paintLang(l);}
+  function paintLang(l){var th=document.getElementById('btnTH'),en=document.getElementById('btnEN');if(!th||!en)return;th.style.color=l==='en'?'rgba(255,255,255,.6)':'#fff';en.style.color=l==='en'?'#fff':'rgba(255,255,255,.6)';}
   paintLang(document.body.getAttribute('data-lang')||'th');
+
+  // hero carousel
+  (function(){
+    var slides=[].slice.call(document.querySelectorAll('.hslide'));
+    var dots=[].slice.call(document.querySelectorAll('.hdot'));
+    var i=0,n=slides.length,t;
+    function go(k){i=(k+n)%n;slides.forEach(function(s,x){s.classList.toggle('active',x===i);});dots.forEach(function(d,x){d.classList.toggle('active',x===i);});}
+    function next(){go(i+1);}function prev(){go(i-1);}
+    function play(){stop();t=setInterval(next,6000);}function stop(){if(t)clearInterval(t);}
+    document.getElementById('hNext').onclick=function(){next();play();};
+    document.getElementById('hPrev').onclick=function(){prev();play();};
+    dots.forEach(function(d){d.onclick=function(){go(+d.getAttribute('data-go'));play();};});
+    play();
+  })();
 </script>
 </body>
 </html>
