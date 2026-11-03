@@ -17,5 +17,5 @@ for(const name of await readdir('public/catalog')){
  await sharp(`public/catalog/${name}`).resize({width:800,withoutEnlargement:true}).webp({quality:82}).toFile(`public/catalog/${name.replace('.png','.webp')}`)
 }
 const news=await readdir('public/news')
-await writeFile('public/news-images.css','/* Generated: only reference article images that actually exist. */\n'+news.filter(n=>/^[a-z0-9-]+\.webp$/.test(n)).map(n=>`[data-slug="${n.slice(0,-5)}"]{--news-img:url('news/${n}');}`).join('\n'))
+await writeFile('public/news-images.css','/* Generated: only reference article images that actually exist. */\n'+news.filter(n=>/^[a-z0-9][a-z0-9.-]*\.webp$/.test(n)).map(n=>`[data-slug="${n.slice(0,-5)}"]{--news-img:url('news/${n}');}`).join('\n'))
 console.log('Built storefront CSS, WebP derivatives and available news image manifest.')
