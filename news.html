@@ -428,8 +428,9 @@
 <meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="storefront.css">
 <link rel="stylesheet" href="news-images.css">
+<link rel="stylesheet" href="news-editorial.css">
 </head>
-<body data-lang="th">
+<body data-lang="th" class="news-page">
 <script>try{var _ll=localStorage.getItem('lang');if(_ll)document.body.setAttribute('data-lang',_ll);}catch(e){}</script>
 
 <!-- ===== NAV ===== -->
@@ -469,13 +470,27 @@
     </h1>
     <p>
       <span class="bi">
-        <span class="th">ติดตามข่าวสาร ความเคลื่อนไหวในอุตสาหกรรมพลังงาน บทความเชิงเทคนิค และอัพเดทโครงการล่าสุดของเรา</span>
-        <span class="en">Industry news, technical insights, and the latest updates from our energy projects across Thailand.</span>
+        <span class="th">เข้าใจพลังงานให้มากขึ้น ก่อนเลือกสิ่งที่เหมาะกับคุณ — ข่าวโซลาร์ แบตเตอรี่ และนโยบายที่ควรรู้</span>
+        <span class="en">Make informed energy decisions. Explore solar, battery storage and the policies that matter.</span>
       </span>
     </p>
   </div>
 </header>
 
+<section class="wrap news-opening" aria-label="Featured article">
+  <a href="https://capsolar.co.th/en/knowledge/solar-panel-price-thailand-2026" target="_blank" rel="noopener noreferrer" class="featured reveal" data-cat="solar" data-date="2026-10-28" data-slug="solar-panel-battery-price-decline-2026">
+    <div class="featured-img"><img src="news/solar-panel-battery-price-decline-2026.webp" width="800" height="1000" alt="ภาพประกอบบทความต้นทุนโซลาร์ถูกลงจาก Content Board" fetchpriority="high"></div>
+    <div class="featured-body">
+      <div class="feature-label"><span class="bi"><span class="th">เรื่องน่าอ่าน</span><span class="en">In focus</span></span></div>
+      <div class="article-meta"><span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์ · ให้ความรู้</span><span class="en">Solar · Explainer</span></span></span><span><span class="bi"><span class="th">คัดเลือก 28 ต.ค. 2026</span><span class="en">Selected Oct 28, 2026</span></span></span></div>
+      <h2><span class="bi"><span class="th">ต้นทุนโซลาร์ถูกลง<br>ก่อนติดตั้ง ควรดูอะไรบ้าง?</span><span class="en">Solar costs are changing.<br>What should you consider?</span></span></h2>
+      <p><span class="bi"><span class="th">ชวนมองแนวโน้มราคาแผงและแบตเตอรี่ พร้อมปัจจัยที่ต้องพิจารณาก่อนเลือกขนาดระบบให้เหมาะกับบ้านหรือธุรกิจของคุณ</span><span class="en">Explore panel and battery price trends, and the factors to consider when sizing a system for your home or business.</span></span></p>
+      <p class="feature-caveat"><span class="bi"><span class="th">ราคาจริงขึ้นกับช่วงเวลา แบรนด์ ขนาดระบบ และหน้างาน ต้องประเมินความคุ้มค่าจากการใช้ไฟจริง</span><span class="en">Actual prices depend on timing, brand, system size and site conditions. Returns require an assessment of real electricity use.</span></span></p>
+      <div class="feature-source">CAP Solar / Green Energy Thailand</div>
+      <div class="source-note"><span class="bi"><span class="th">อ่านบทความต้นฉบับ</span><span class="en">Read the original article</span></span></div>
+    </div>
+  </a>
+</section>
 <!-- ===== CATEGORY TABS ===== -->
 <div class="cat-tabs" id="news-filter">
   <div class="wrap cat-tabs-inner">
@@ -489,21 +504,31 @@
 </div>
 
 <!-- ===== MAIN ===== -->
-<div class="wrap main">
+<main class="wrap main" id="articles">
 
   <!-- FEATURED ARTICLE -->
-  <a href="https://www.prd.go.th/th/content/category/detail/id/33/iid/542862" target="_blank" rel="noopener noreferrer" class="featured reveal" data-cat="solar" data-date="2026-09-18" data-slug="nepc177-solar-people-10000mw-2.20thb-20yr-rooftop-ground-floating-2026-09-18">
-    <div class="featured-img"></div>
-    <div class="featured-body">
+
+
+  <!-- LEFT COLUMN — ARTICLE GRID -->
+  <div>
+    <p class="article-source-note"><span class="bi"><span class="th">สรุปข่าวจากแหล่งภายนอก · คลิกเพื่ออ่านต้นฉบับ · ใช้ภาพจากบอร์ดและภาพประกอบตามหมวดหมู่</span><span class="en">Curated external news · Open an article to read the source · Board artwork and category illustrations</span></span></p><div class="news-search"><label for="newsSearch"><span class="bi"><span class="th">ค้นหาเรื่องที่สนใจ</span><span class="en">Find a topic</span></span></label><div><input id="newsSearch" type="search" placeholder="ค้นหาข่าว โซลาร์ แบตเตอรี่..." data-placeholder-th="ค้นหาข่าว โซลาร์ แบตเตอรี่..." data-placeholder-en="Search solar, batteries, news..." autocomplete="off"><button id="clearSearch" type="button"><span class="bi"><span class="th">ล้าง</span><span class="en">Clear</span></span></button></div></div><div class="articles-head">
+      <h3><span class="bi"><span class="th">ข่าวสารและบทความ</span><span class="en">News &amp; articles</span></span></h3>
+      <div class="count"><b id="visibleCount">6</b> <span class="bi"><span class="th">บทความ</span><span class="en">articles</span></span></div>
+    </div>
+
+    <p id="newsEmpty" hidden role="status"><span class="bi"><span class="th">ไม่พบเรื่องที่ค้นหา ลองเปลี่ยนคำค้นหรือเลือกหมวดทั้งหมด</span><span class="en">No matching stories. Try a different search or choose All.</span></span></p><div class="articles">
+  <a href="https://www.prd.go.th/th/content/category/detail/id/33/iid/542862" target="_blank" rel="noopener noreferrer" class="article reveal" data-cat="solar" data-date="2026-09-18" data-slug="nepc177-solar-people-10000mw-2.20thb-20yr-rooftop-ground-floating-2026-09-18">
+    <div class="article-img"></div>
+    <div class="article-body">
       <div class="article-meta">
         <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
         <span><span class="bi"><span class="th">18 ก.ย. 2026</span><span class="en">Sep 18, 2026</span></span></span>
         <span class="dot"></span>
         <span>สำนักงานประชาสัมพันธ์ (PRD) / THE STANDARD</span>
       </div>
-      <h2>
+      <h3>
         <span class="bi"><span class="th">กพช. ขยายโซลาร์ประชาชนเป็น 10,000 MW รับซื้อไฟ 2.20 บาท นาน 20 ปี</span><span class="en">NEPC expands the people’s solar scheme to 10,000 MW at THB 2.20 per unit for 20 years</span></span>
-      </h2>
+      </h3>
       <p>
         <span class="bi"><span class="th">กพช. ครั้งที่ 177 (18 ก.ย. 2569) มีนายเอกนิติ นิติทัณฑ์ประภาศ เป็นประธาน เห็นชอบขยายโครงการโซลาร์ภาคประชาชนเป็น 10,000 MW รับซื้อไฟส่วนเกิน 2.20 บาท/หน่วยแบบ Net Billing สัญญา 20 ปี ขายได้ไม่เกิน 5 kW ต่อมิเตอร์ ติดตั้งได้บนหลังคา พื้นดิน และผิวน้ำ ครอบคลุมปี 2569-2571 มอบหมายให้เตรียมโครงข่าย สมาร์ตมิเตอร์ และระบบกักเก็บพลังงานให้พร้อมภายใน 1 เดือน และให้ กกพ. ออกระเบียบพร้อมลดขั้นตอนเป็น One Stop Service</span><span class="en">The National Energy Policy Council approved an expansion of the household solar programme to 10,000 MW, buying surplus power at THB 2.20 per unit on a net billing basis under 20-year contracts.</span></span>
       </p>
@@ -511,17 +536,8 @@
     </div>
   </a>
 
-  <!-- LEFT COLUMN — ARTICLE GRID -->
-  <div>
-    <p class="article-source-note"><span class="bi"><span class="th">สรุปข่าวจากแหล่งภายนอก · คลิกเพื่ออ่านต้นฉบับ · ภาพประกอบตามหมวดหมู่</span><span class="en">Curated external news · Open an article to read the source · Category illustrations</span></span></p><div class="articles-head">
-      <h3><span class="bi"><span class="th">บทความล่าสุด</span><span class="en">Latest Articles</span></span></h3>
-      <div class="count"><b id="visibleCount">6</b> <span class="bi"><span class="th">บทความ</span><span class="en">articles</span></span></div>
-    </div>
-
-    <div class="articles">
-
       <a href="https://www.prd.go.th/th/content/category/detail/id/39/iid/541767" target="_blank" rel="noopener noreferrer" class="article reveal img-01" data-cat="solar" data-date="2026-09-16" data-slug="th-industry-ministry-tisi-solar-rooftop-standards-1.5m-households-mid-oct-2026-09-16">
-        <div class="article-img">
+        <div class="article-img has-news-image"><img src="news/th-industry-ministry-tisi-solar-rooftop-standards-1.5m-households-mid-oct-2026-09-16.webp" alt="ภาพประกอบบทความ" loading="lazy" decoding="async">
           <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
         </div>
         <div class="article-body">
@@ -539,7 +555,7 @@
       </a>
 
       <a href="https://www.thairath.co.th/news/politic/2959340" target="_blank" rel="noopener noreferrer" class="article reveal img-02" data-cat="solar" data-date="2026-09-13" data-slug="thanakorn-rooftop-solar-5kw-750units-1650baht-month-figure-conflict-2026-09-13">
-        <div class="article-img">
+        <div class="article-img has-news-image"><img src="news/thanakorn-rooftop-solar-5kw-750units-1650baht-month-figure-conflict-2026-09-13.webp" alt="ภาพประกอบบทความ" loading="lazy" decoding="async">
           <span class="cat-badge solar"><span class="bi"><span class="th">โซลาร์</span><span class="en">Solar</span></span></span>
         </div>
         <div class="article-body">
@@ -557,7 +573,7 @@
       </a>
 
       <a href="https://www.thansettakij.com/finance/668841" target="_blank" rel="noopener noreferrer" class="article reveal img-03" data-cat="policy" data-date="2026-09-13" data-slug="pdp2026-analysis-clean-power-datacenter-16-sites-800mw-direct-ppa-65bn-2026-09-13">
-        <div class="article-img">
+        <div class="article-img has-news-image"><img src="news/pdp2026-analysis-clean-power-datacenter-16-sites-800mw-direct-ppa-65bn-2026-09-13.webp" alt="ภาพประกอบบทความ" loading="lazy" decoding="async">
           <span class="cat-badge policy"><span class="bi"><span class="th">นโยบายรัฐ</span><span class="en">Policy</span></span></span>
         </div>
         <div class="article-body">
@@ -575,7 +591,7 @@
       </a>
 
       <a href="https://www.dailynews.co.th/news/6182832/" target="_blank" rel="noopener noreferrer" class="article reveal img-04" data-cat="battery" data-date="2026-09-12" data-slug="gulf-sparks-offgrid-solar-battery-ban-huai-ta-uttaradit-2026-09-12">
-        <div class="article-img">
+        <div class="article-img has-news-image"><img src="news/gulf-sparks-offgrid-solar-battery-ban-huai-ta-uttaradit-2026-09-12.webp" alt="ภาพประกอบบทความ" loading="lazy" decoding="async">
           <span class="cat-badge battery"><span class="bi"><span class="th">แบตเตอรี่</span><span class="en">Battery</span></span></span>
         </div>
         <div class="article-body">
@@ -593,7 +609,7 @@
       </a>
 
       <a href="https://www.prachachat.net/economic/news-2065633" target="_blank" rel="noopener noreferrer" class="article reveal img-01" data-cat="battery" data-date="2026-09-12" data-slug="pdp2026-option4-73pct-green-power-3.8364-tariff-pending-final-2026-09-12">
-        <div class="article-img">
+        <div class="article-img has-news-image"><img src="news/pdp2026-option4-73pct-green-power-3.8364-tariff-pending-final-2026-09-12.webp" alt="ภาพประกอบบทความ" loading="lazy" decoding="async">
           <span class="cat-badge battery"><span class="bi"><span class="th">แบตเตอรี่</span><span class="en">Battery</span></span></span>
         </div>
         <div class="article-body">
@@ -853,10 +869,11 @@
 
   <!-- RIGHT SIDEBAR -->
   <aside class="sidebar">
+<div class="news-products"><h3><span class="bi"><span class="th">จากความรู้ สู่ระบบที่ใช่</span><span class="en">From insight to your system</span></span></h3><p><span class="bi"><span class="th">สำรวจอุปกรณ์ตามโจทย์การใช้งาน</span><span class="en">Explore equipment for your application</span></span></p><a href="products.html#solar"><img src="catalog/leapton-n-type-topcon-bifacial.webp" alt="" width="72" height="72"><span class="bi"><span class="th">แผงโซลาร์เซลล์</span><span class="en">Solar panels</span></span><span>↗</span></a><a href="products.html#bess"><img src="catalog/tcl-blueark-x1.webp" alt="" width="72" height="72"><span class="bi"><span class="th">ระบบกักเก็บพลังงาน</span><span class="en">Battery storage</span></span><span>↗</span></a><a href="products.html#inverter"><img src="catalog/solplanet-asw-ht-series.webp" alt="" width="72" height="72"><span class="bi"><span class="th">อินเวอร์เตอร์</span><span class="en">Inverters</span></span><span>↗</span></a></div>
 
     <!-- Recent -->
     <div class="widget reveal">
-      <h4><span class="pip"></span><span class="bi"><span class="th">อ่านล่าสุด</span><span class="en">Recent</span></span></h4>
+      <h4><span class="pip"></span><span class="bi"><span class="th">จากคลังบทความ</span><span class="en">From the archive</span></span></h4>
       <a class="pop-item" href="https://www.prd.go.th/th/content/category/detail/id/39/iid/541767" target="_blank" rel="noopener noreferrer">
         <div class="pop-num">01</div>
         <div class="pop-info">
@@ -925,8 +942,8 @@
     <div class="widget newsletter reveal">
       <h4><span class="pip"></span><span class="bi"><span class="th">รับข่าวสาร</span><span class="en">Subscribe</span></span></h4>
       <p><span class="bi">
-        <span class="th">รับข่าวสารและบทความเชิงเทคนิคทางอีเมล สัปดาห์ละ 1 ครั้ง · ยกเลิกได้ทุกเมื่อ</span>
-        <span class="en">Get weekly news &amp; technical insights in your inbox. Unsubscribe anytime.</span>
+        <span class="th">ลงทะเบียนความสนใจรับข่าวสารและบทความด้านพลังงานทางอีเมล</span>
+        <span class="en">Register your interest in energy news and insights by email.</span>
       </span></p>
       <form id="newsletterForm">
         <input type="email" name="email" aria-label="Email" placeholder="your@email.com" required>
@@ -936,7 +953,7 @@
 
   </aside>
 
-</div>
+</main>
 
 <!-- ===== CTA BAND ===== -->
 <div class="wrap">
@@ -1023,11 +1040,13 @@
   const pageStatus = document.getElementById('pageStatus');
   const PER_PAGE = 6;
   let currentCat = 'all', currentPage = 1;
+  const search=document.getElementById('newsSearch');
+  const matchesSearch=a=>a.textContent.toLocaleLowerCase().includes(search.value.trim().toLocaleLowerCase());
 
-  const matching = cat => [...articles].filter(a => cat === 'all' || a.dataset.cat === cat);
+  const matching = cat => [...articles].filter(a => (cat === 'all' || a.dataset.cat === cat) && matchesSearch(a));
 
   function render(){
-    tabs.forEach(t => t.classList.toggle('active', t.dataset.cat === currentCat));
+    tabs.forEach(t => {t.classList.toggle('active', t.dataset.cat === currentCat);t.setAttribute('aria-pressed',String(t.dataset.cat===currentCat));});
 
     const inCat = matching(currentCat);
     const pages = Math.max(1, Math.ceil(inCat.length / PER_PAGE));
@@ -1039,11 +1058,13 @@
     onPage.forEach(a => { a.classList.remove('hide'); a.classList.add('in'); });
 
     // The featured article heads the list, so it belongs on the first page only.
-    const featShow = featured && currentPage === 1 && (currentCat === 'all' || featured.dataset.cat === currentCat);
+    const featShow = featured && currentPage === 1 && matchesSearch(featured) && (currentCat === 'all' || featured.dataset.cat === currentCat);
     if(featured) featured.style.display = featShow ? '' : 'none';
 
-    const total = inCat.length + (featured && (currentCat === 'all' || featured.dataset.cat === currentCat) ? 1 : 0);
+    const total = inCat.length + (featured && matchesSearch(featured) && (currentCat === 'all' || featured.dataset.cat === currentCat) ? 1 : 0);
     if(visibleCount) visibleCount.textContent = total;
+    document.getElementById('newsEmpty').hidden=total>0;
+    document.querySelector('.news-opening').hidden=!featShow;
 
     // Pager
     pager.innerHTML = '';
@@ -1053,14 +1074,15 @@
         const b = document.createElement('button');
         b.className = 'pg-btn' + (opts.arrow ? ' pg-arrow' : '') + (opts.active ? ' active' : '');
         b.textContent = label;
+        if(opts.active)b.setAttribute('aria-current','page');
         if(opts.disabled) b.disabled = true;
         else b.addEventListener('click', () => { currentPage = page; render(); scrollToTop(); });
         if(opts.label) b.setAttribute('aria-label', opts.label);
         return b;
       };
-      pager.append(btn('←', currentPage - 1, {arrow:true, disabled: currentPage === 1, label:'หน้าก่อนหน้า'}));
+      pager.append(btn('←', currentPage - 1, {arrow:true, disabled: currentPage === 1, label:document.body.dataset.lang==='en'?'Previous page':'หน้าก่อนหน้า'}));
       for(let i = 1; i <= pages; i++) pager.append(btn(String(i), i, {active: i === currentPage}));
-      pager.append(btn('→', currentPage + 1, {arrow:true, disabled: currentPage === pages, label:'หน้าถัดไป'}));
+      pager.append(btn('→', currentPage + 1, {arrow:true, disabled: currentPage === pages, label:document.body.dataset.lang==='en'?'Next page':'หน้าถัดไป'}));
     }
 
     if(pageStatus){
@@ -1082,6 +1104,9 @@
     render();
   }
   tabs.forEach(t => t.addEventListener('click', () => { applyFilter(t.dataset.cat); scrollToTop(); }));
+  document.querySelectorAll('.cat-tab,.cat-link').forEach(t=>{const n=t.querySelector('.count,.cnt');if(n)n.textContent=[...articles,featured].filter(a=>t.dataset.cat==='all'||a.dataset.cat===t.dataset.cat).length;});
+  search.addEventListener('input',()=>{currentPage=1;render();});
+  document.getElementById('clearSearch').onclick=()=>{search.value='';currentPage=1;render();search.focus();};
   render();
   window.addEventListener('language-change',render);
   // Sidebar category links also filter
