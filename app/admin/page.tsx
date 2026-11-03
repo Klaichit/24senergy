@@ -39,7 +39,7 @@ export default async function AdminDashboard() {
       <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
           <h2 className="font-bold text-gray-800">ใบเสนอราคาล่าสุด (รอติดตาม)</h2>
-          <Link href="/admin/quotes" className="text-sm text-purple-600 font-semibold hover:underline">ดูทั้งหมด →</Link>
+          <Link href="/admin/quotes" className="text-sm text-purple-600 font-semibold hover:underline">ดูทั้งหมด</Link>
         </div>
         {newQuotes.length > 0 ? (
           <table className="w-full text-sm">

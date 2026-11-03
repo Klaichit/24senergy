@@ -97,7 +97,7 @@
 
       <a href="contact.html" class="mt-6 flex items-center gap-3 rounded-2xl bg-brand-tint border border-brand/10 p-4 hover:border-brand/30 transition">
         <span class="material-symbols-outlined text-brand">support_agent</span>
-        <span class="text-sm bi"><span class="th">เลือกสินค้าไม่แน่ใจ?<br/><span class="text-brand font-semibold">ปรึกษาผู้เชี่ยวชาญ →</span></span><span class="en">Not sure which?<br/><span class="text-brand font-semibold">Ask an expert →</span></span></span>
+        <span class="text-sm bi"><span class="th">เลือกสินค้าไม่แน่ใจ?<br/><span class="text-brand font-semibold">ปรึกษาผู้เชี่ยวชาญ</span></span><span class="en">Not sure which?<br/><span class="text-brand font-semibold">Ask an expert</span></span></span>
       </a>
     </div></details>
   </aside>
@@ -134,7 +134,7 @@
         <h2 class="font-display text-2xl md:text-4xl font-bold tracking-tight"><span class="th">ให้เราช่วยเลือกอุปกรณ์ที่เหมาะกับคุณ</span><span class="en">Let us help you choose the right equipment</span></h2>
         <p class="text-white/85 mt-3 text-lg"><span class="th">ปรึกษากับผู้เชี่ยวชาญ เพื่อหาชุดโซลาร์เซลล์และระบบกักเก็บพลังงานที่ตอบโจทย์บ้าน ฟาร์ม หรือโรงงานของคุณ</span><span class="en">Talk to our experts to find the solar and storage package that fits your home, farm or factory.</span></p>
       </div>
-      <a href="contact.html" class="shrink-0 inline-flex items-center gap-2 bg-white text-brand font-semibold px-8 py-3.5 rounded-full hover:bg-white/90 transition bi"><span class="th">ติดต่อทีมงาน</span><span class="en">Contact us</span> <span class="material-symbols-outlined text-[20px]">arrow_forward</span></a>
+      <a href="contact.html" class="shrink-0 inline-flex items-center gap-2 bg-white text-brand font-semibold px-8 py-3.5 rounded-full hover:bg-white/90 transition bi"><span class="th">ติดต่อทีมงาน</span><span class="en">Contact us</span></a>
     </div>
   </div>
 </section>
@@ -226,7 +226,7 @@
             <p class="product-summary text-ink-soft text-[14.5px] leading-relaxed mt-2 flex-1"><span class="bi"><span class="th">${escapeHTML(p.description_th)}</span><span class="en">${escapeHTML(p.description_en)}</span></span></p>
             ${specs.length ? `<div class="flex flex-wrap gap-x-5 gap-y-1 mt-3">${specs.map(([k,v])=>`<div><span class="font-semibold text-ink">${escapeHTML(v)}</span> <span class="text-ink-mute text-xs">${escapeHTML(k)}</span></div>`).join('')}</div>` : ''}
             <div class="flex flex-wrap gap-2 mt-5">
-              <a href="${page}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-white brand-grad px-4 py-2.5 rounded-full hover:opacity-95 transition"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">View details</span></span> <span class="material-symbols-outlined text-[18px]">north_east</span></a>
+              <a href="${page}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-white brand-grad px-4 py-2.5 rounded-full hover:opacity-95 transition"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">View details</span></span></a>
               <a href="quote.html?product=${encodeURIComponent(p.category)}&amp;model=${encodeURIComponent(p.name_en)}" class="inline-flex items-center text-sm font-semibold text-brand border border-brand/20 px-4 py-2.5 rounded-full hover:bg-brand-tint transition"><span class="bi"><span class="th">สอบถามสินค้า</span><span class="en">Inquire</span></span></a>
             </div>
           </div>
