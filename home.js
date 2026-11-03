@@ -10,8 +10,13 @@
     }).join(''):'<p class="bi"><span class="th">กำลังอัปเดตรายการสินค้า กรุณาติดต่อทีมงานเพื่อสอบถาม</span><span class="en">The catalogue is being updated. Please contact our team.</span></p>';
   } catch(error){console.error('Home products:',error);}
   try {
-    const partners=await window.energyCMS('partners','is_active=eq.true&order=sort_order.asc&select=name,website');
-    if(partners.length)document.getElementById('home-brands').innerHTML=partners.map(p=>`<span class="brand-name">${e(p.name)}</span>`).join('');
+    const partners=await window.energyCMS('partners','is_active=eq.true&order=sort_order.asc&select=name,website,logo_url');
+    const logos=[['solaredge','solaredge.png','Inverter · Optimizer'],['kstar','kstar.jpg','BESS'],['leapton','leapton.png','Solar PV'],['solplanet','solplanet.png','Inverter'],['sunwoda','sunwoda.webp','BESS'],['tcl','tcl.png','BESS']];
+    if(partners.length)document.getElementById('home-brands').innerHTML=partners.map(p=>{
+      const brand=logos.find(([key])=>String(p.name).toLowerCase().replace(/\s/g,'').includes(key));
+      const src=brand?`brands/${brand[1]}`:window.safeURL(p.logo_url);
+      return `<div class="brand-item"><div class="brand-logo">${src?`<img src="${e(src)}" alt="${e(p.name)}" width="200" height="64" loading="lazy" decoding="async">`:`<span class="brand-name">${e(p.name)}</span>`}</div>${brand?`<span class="brand-category">${brand[2]}</span>`:''}</div>`;
+    }).join('');
   } catch(error){console.error('Home brands:',error);}
 })();
 
