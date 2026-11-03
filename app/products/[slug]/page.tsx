@@ -134,7 +134,7 @@ function ProductPage({ product }: { product: Product }) {
           style={heroMode
             ? { border: '1px solid rgba(255,255,255,0.28)', color: 'rgba(255,255,255,0.8)' }
             : { border: '1px solid #e5e7eb', color: '#6b7280' }}>
-          <Bi th="← กลับ" en="← Back" />
+          <Bi th="กลับ" en="Back" />
         </a>
         <a href={`/quote.html?product=${product.category}&model=${encodeURIComponent(product.name_en)}`}
           style={{ background: theme.accent }}
@@ -216,7 +216,7 @@ function ProductPage({ product }: { product: Product }) {
                   style={{ background: theme.accent }}
                   className="px-7 py-3.5 text-white font-bold rounded-2xl text-sm hover:opacity-90 transition-opacity inline-flex items-center gap-2">
                   <Bi th="ขอใบเสนอราคา" en="Get a Quote" />
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                  
                 </a>
                 {pdfUrl ? (
                   <a href={pdfUrl} target="_blank" rel="noopener noreferrer"
@@ -270,7 +270,7 @@ function ProductPage({ product }: { product: Product }) {
                     style={{ background: theme.accent }}
                     className="px-7 py-3.5 text-white font-bold rounded-2xl text-sm hover:opacity-90 transition-opacity inline-flex items-center gap-2">
                     <Bi th="ขอใบเสนอราคา" en="Get a Quote" />
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                    
                   </a>
                   {pdfUrl ? (
                     <a href={pdfUrl} target="_blank" rel="noopener noreferrer"
@@ -340,7 +340,7 @@ function ProductPage({ product }: { product: Product }) {
         <a href={`/quote.html?product=${product.category}&model=${encodeURIComponent(product.name_en)}`}
           style={{ background: theme.accent }}
           className="inline-block px-10 py-4 text-white font-black rounded-2xl text-sm hover:opacity-90 transition-opacity">
-          <Bi th="ขอใบเสนอราคา →" en="Get a Quote →" />
+          <Bi th="ขอใบเสนอราคา" en="Get a Quote" />
         </a>
       </section>
 
