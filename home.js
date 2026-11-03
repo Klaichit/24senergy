@@ -22,6 +22,8 @@
 
 (async function(){
   let slides=[...document.querySelectorAll('.hslide')];
+  function frameSlides(){slides.forEach(slide=>{const src=slide.querySelector('img')?.src;if(src)slide.style.setProperty('--slide-scene',`url(${JSON.stringify(src)})`);});}
+  frameSlides();
   const title=document.querySelector('.home-hero h1');
   const dots=document.getElementById('hDots');
   function paintDots(){dots.innerHTML=slides.map((_,i)=>`<button class="hdot ${i===0?'active':''}" data-go="${i}" aria-label="Slide ${i+1}" aria-current="${i===0}"></button>`).join('');dots.querySelectorAll('button').forEach(d=>d.onclick=()=>{go(Number(d.dataset.go));play();});}
@@ -44,6 +46,7 @@
     if(valid.length){
       document.getElementById('hero-slides').innerHTML=valid.map((s,i)=>`<div class="hslide ${i===0?'active':''} absolute inset-0"><img src="${window.escapeHTML(window.safeURL(s.image_url))}" alt="" class="w-full h-full object-cover" ${i?'loading="lazy"':'fetchpriority="high"'}></div>`).join('');
       slides=[...document.querySelectorAll('.hslide')];
+      frameSlides();
       slides.forEach((s,i)=>{s.dataset.th=valid[i].title_th;s.dataset.en=valid[i].title_en;});paintDots();go(0);play();
     }
   }catch(error){console.error('Home slides:',error);}
