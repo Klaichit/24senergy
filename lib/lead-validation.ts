@@ -19,7 +19,7 @@ export function validateLead(value: unknown): { kind: LeadKind; row: Record<stri
   if (kind === 'newsletter') return { kind, row: { email } }
   const phone = field('phone', 40, true)
   if (!/^[+\d\s().-]{7,40}$/.test(phone) || phone.replace(/\D/g, '').length < 7) throw new Error('Invalid phone')
-  const common = { name: field('name', 150, true), company: field('company', 200, kind === 'quote'), email, phone }
+  const common = { name: field('name', 150, true), company: field('company', 200, kind === 'quote' && data.business_type !== 'residential'), email, phone }
   if (kind === 'contact') return { kind, row: { ...common, message: field('message', 5000, true) } }
   const products = data.products ?? []
   if (!Array.isArray(products) || products.length > 4 || products.some(p => !categories.has(p))) throw new Error('Invalid products')

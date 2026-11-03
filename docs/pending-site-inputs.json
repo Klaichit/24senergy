@@ -1,0 +1,15 @@
+{
+  "status": "Awaiting business-provided information; no placeholder contact links or invented claims added",
+  "inputs": [
+    {"item": "Business phone number", "usedBy": ["Contact", "Quote", "Footer"]},
+    {"item": "Verified LINE Official URL and QR image", "usedBy": ["Contact", "Quote", "Footer"]},
+    {"item": "Confirmed office address and Google Maps share/embed URL", "usedBy": ["Contact"], "current": "Appointment information and email replace the broken map"},
+    {"item": "Datasheets for Sunwoda, KSTAR, Leapton, SolarEdge and Solplanet", "usedBy": ["Product detail"]},
+    {"item": "Verify public sharing permissions for the existing TCL datasheet", "usedBy": ["Product detail"]},
+    {"item": "Evidence for engineering experience, reference projects, service scope and response-time promise", "current": "Unsupported 10+ years, 50+ sites and 24-hour promises removed from public copy"},
+    {"item": "Confirm Solar PPM distribution status", "current": "Not included in the six-product fallback brand list"},
+    {"item": "Article-specific images, named with Content Board dedupe keys", "current": "Category illustrations used; no requests to missing files. Add public/news/*.webp and run pnpm build:storefront"},
+    {"item": "Model-specific specifications, warranty conditions and installation suitability from Product Data board", "current": "Existing published specifications preserved; no new performance claims added"},
+    {"item": "Approved privacy notice and lead follow-up responsibility", "current": "No legal policy invented; production lead persistence and team notifications need a separately coordinated acceptance test"}
+  ]
+}

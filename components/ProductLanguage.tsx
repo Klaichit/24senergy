@@ -42,8 +42,7 @@ export function LangToggle({ dark }: { dark?: boolean }) {
 
 export default function ProductLanguage({ children }: { children: ReactNode }) {
   const saved = useSyncExternalStore(subscribe, snapshot, () => 'th')
-  const [selected, setSelected] = useState<string | null>(null)
-  const lang = selected ?? saved
+  const lang = saved
   useEffect(() => { document.documentElement.lang = lang }, [lang])
   return (
     <div className="product-language" data-lang={lang}>

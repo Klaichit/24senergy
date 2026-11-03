@@ -25,6 +25,7 @@ const collect = html => {
   const refs = [
     ...html.matchAll(/(?:src|href)="(\/?[0-9A-Za-z_.\-/]+\.[a-z0-9]+)"/g),
     ...html.matchAll(/url\((?:'|"|&quot;)?(\/?[0-9A-Za-z_.\-/]+\.[a-z0-9]+)/g),
+    ...html.matchAll(/['"]((?:catalog\/|v2-)[0-9A-Za-z_.\-/]+\.(?:webp|png))['"]/g),
   ]
   for (const [, ref] of refs) {
     const path = ref.replace(/^\//, '')
@@ -45,7 +46,9 @@ for (const asset of assets) {
   const from = `public/${asset}`
   // Article images are uploaded per article and many are not present yet.
   if (!(await stat(from).then(() => true, () => false))) continue
-  copies.push([asset, await readFile(from)])
+  const content = await readFile(from)
+  copies.push([asset, content])
+  if (/\.(css|js)$/.test(asset)) collect(content.toString('utf8'))
 }
 
 for (const [name, content] of copies) {

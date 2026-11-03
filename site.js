@@ -5,8 +5,10 @@ window.safeURL = value => {
   catch { return ''; }
 };
 document.addEventListener('DOMContentLoaded', () => {
-  const burger = document.querySelector('.nav-burger');
-  const links = document.querySelector('.nav-links');
+  const translatePlaceholders=()=>{const lang=document.body.dataset.lang==='en'?'en':'th';document.querySelectorAll('[data-placeholder-th]').forEach(el=>{el.placeholder=el.dataset[lang==='en'?'placeholderEn':'placeholderTh'];});};
+  window.addEventListener('language-change',translatePlaceholders);translatePlaceholders();
+  const burger = document.querySelector('.nav-burger, .store-burger');
+  const links = document.querySelector('.nav-links, .store-menu');
   if (burger && links) {
     if (!links.querySelector('a[href="quote.html"]')) {
       const quote = document.createElement('a'); quote.href = 'quote.html';
@@ -20,8 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const close = () => { links.classList.remove('is-open'); burger.setAttribute('aria-expanded','false'); };
     burger.addEventListener('click', () => { burger.setAttribute('aria-expanded', String(links.classList.toggle('is-open'))); });
     links.addEventListener('click', close);
+    window.addEventListener('resize',close);
     document.addEventListener('keydown', e => { if(e.key === 'Escape') { close(); burger.focus(); } });
-    document.addEventListener('click', e => { if (!e.target.closest('.nav')) close(); });
+    document.addEventListener('click', e => { if (!e.target.closest('.nav, .store-nav')) close(); });
   }
   document.querySelectorAll('input,select,textarea').forEach((field, i) => {
     if (!field.id) field.id = 'field-' + i;
@@ -38,7 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
     feedback.className = 'form-feedback'; feedback.setAttribute('role','status'); feedback.setAttribute('aria-live','polite');
     form.append(feedback);
     const category = new URLSearchParams(location.search).get('product');
-    if (kind === 'quote' && ['bess','solar','ev','ems'].includes(category)) form.querySelector(`input[value="${category}"]`).checked = true;
+    if (kind === 'quote' && ['bess','solar','inverter'].includes(category)) { const selected=form.querySelector(`input[value="${category}"]`); if(selected)selected.checked=true; }
+    if(kind==='quote'){
+      const model=(new URLSearchParams(location.search).get('model')||'').slice(0,200);
+      const context=document.getElementById('quoteContext');
+      const business=form.elements.business_type, company=form.elements.company;
+      const update=()=>{const en=document.body.dataset.lang==='en';const home=business.value==='residential';company.required=!home;document.getElementById('companyRequired').hidden=home;company.placeholder=home?(en?'Optional for a home project':'ไม่จำเป็นสำหรับบ้านพักอาศัย'):(en?'Company / organization':'ชื่อบริษัท / องค์กร');if(context&&model){context.hidden=false;context.textContent=(en?'Product of interest: ':'สินค้าที่สนใจ: ')+model;}};
+      business.addEventListener('change',update);window.addEventListener('language-change',update);update();
+    }
     form.addEventListener('submit', async e => {
       e.preventDefault();
       if (form.dataset.sending || !form.reportValidity()) return;
@@ -48,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const fields = new FormData(form);
       const data = Object.fromEntries(fields);
       data.kind = kind;
-      if (kind === 'quote') data.products = fields.getAll('products');
+      if (kind === 'quote') { data.products = fields.getAll('products'); const model=(new URLSearchParams(location.search).get('model')||'').slice(0,200); if(model)data.details=`Product: ${model}\n${data.details||''}`; }
       form.dataset.sending = 'true'; button.disabled = true;
       feedback.dataset.error = 'false'; feedback.textContent = en ? 'Sending…' : 'กำลังส่ง…';
       try {

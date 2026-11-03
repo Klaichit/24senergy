@@ -25,6 +25,11 @@ test('contact message is required; company is optional', () => {
   assert.throws(() => validateLead({...quote, kind:'contact'}))
   assert.equal(validateLead({...quote, kind:'contact', company:'', message:'Hello'}).row.message,'Hello')
 })
+test('homeowners may request a quote without a company; business requests still require it', () => {
+  assert.equal(validateLead({...quote,business_type:'residential',company:''}).row.company,'')
+  assert.throws(()=>validateLead({...quote,business_type:'factory',company:''}))
+  assert.equal(validateLead({...quote,business_type:'residential',company:'',products:['inverter'],details:'Product: SolarEdge Home Hub'}).row.details,'Product: SolarEdge Home Hub')
+})
 test('newsletter stores only normalized email', () => {
   assert.deepEqual(validateLead({kind:'newsletter', email:' A@example.com ', status:'admin'}).row,{email:'a@example.com'})
 })
