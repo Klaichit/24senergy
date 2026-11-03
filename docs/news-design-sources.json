@@ -10,6 +10,110 @@
     "image": "https://drive.google.com/file/d/1_vhughWqPc-Hv3xN1_bfRbwEnu6MMgCX/view",
     "guardrails": "No fixed price, savings or payback claims. Quote depends on timing, brand, system size and site. Card text is a concise adaptation of the approved educational topic."
   },
-  "archive": "Existing 19 articles retained with original source URLs/dates; five matching local Facebook artwork files optimized for the web. Remaining images are category illustrations, identified in the page note.",
-  "sync": "This is a reviewed static layout/content snapshot, not an automatic Notion synchronization. Internal board links, draft captions and workflow fields are not exposed on the public page."
+  "archive": "All 19 archive cards now use their matching artwork linked in Notion Content Board. Existing bilingual summaries and original source attribution retained.",
+  "sync": "This is a reviewed static layout/content snapshot, not an automatic Notion synchronization. Internal board links, draft captions and workflow fields are not exposed on the public page.",
+  "facebookDestination": "https://www.facebook.com/24sEnergyThailand",
+  "linkPolicy": "All 20 story cards open the official Facebook page at the user request; labels explicitly describe a page visit, not an original-article or exact-post link.",
+  "artworkSources": [
+    {
+      "slug": "tisi-61730-solar-safety-2026",
+      "notion": "https://app.notion.com/3d0a36ce3bdb815b8163db3c6d23be51",
+      "image": "https://drive.google.com/file/d/1m1jsdgXPQXCfcqn9hrTqOHyH4G6jd9t8/view?usp=drivesdk"
+    },
+    {
+      "slug": "thai-solar-vendor-registry-2026-08-05",
+      "notion": "https://app.notion.com/3d3a36ce3bdb8177a104d0569f181910",
+      "image": "https://drive.google.com/file/d/1rtJAnyZcKTueb0BQljaiDQXGc-TrImC0/view?usp=drivesdk"
+    },
+    {
+      "slug": "erc-residential-progressive-tariff-sep-2026",
+      "notion": "https://app.notion.com/3d3a36ce3bdb81bc832aee8393da8a12",
+      "image": "https://drive.google.com/file/d/1dXDOZVohY52G2bcFlHCim8oCqoGDHR87/view?usp=drivesdk"
+    },
+    {
+      "slug": "th-pdp2026-solar-24300mw-bess-14500mw-lcoe-criticism-2026-09-09",
+      "notion": "https://app.notion.com/3d7a36ce3bdb81a9b256e085b3192a4a",
+      "image": "https://drive.google.com/file/d/1og1tOfmI2ZJrBQkSTu5mcqM8v8fMryma/view?usp=drivesdk"
+    },
+    {
+      "slug": "tisi-5-solar-equipment-mandatory-standard-sep-2026",
+      "notion": "https://app.notion.com/3d7a36ce3bdb81cfa361f131d2cd65dc",
+      "image": "https://drive.google.com/file/d/1h4p_FQGh1LrsvRUp8eWBAAE7vezgH0bX/view?usp=drivesdk"
+    },
+    {
+      "slug": "th-rooftop-solar-subsidy-1.5m-homes-50k-baht-2026-09-09",
+      "notion": "https://app.notion.com/3d7a36ce3bdb81fcbcaec814f3e3f458",
+      "image": "https://drive.google.com/file/d/1Q6Cugpz_71_WLrmuePJlcKV9FbIjD17f/view?usp=drivesdk"
+    },
+    {
+      "slug": "gulf-agri-solar-water-pump-greenhouse-udonthani-32k-baht-2026-09-09",
+      "notion": "https://app.notion.com/3d8a36ce3bdb81b9b332d0b3b4686dd2",
+      "image": "https://drive.google.com/file/d/1HHxl8UtrSzM-VqvHx6dlsYn4qv_rZbBR/view?usp=drivesdk"
+    },
+    {
+      "slug": "th-10gw-rooftop-target-6842mw-installed-netbilling-500mw-deadline-sep30-2026-09-10",
+      "notion": "https://app.notion.com/3d9a36ce3bdb8125a61fc04fe6ffc34e",
+      "image": "https://drive.google.com/file/d/1Cl1jlKrBlcKv1e1qokVTvtqQGV0jm-o_/view?usp=drivesdk"
+    },
+    {
+      "slug": "gulf-sparks-offgrid-solar-battery-ban-huai-ta-uttaradit-2026-09-12",
+      "notion": "https://app.notion.com/3d9a36ce3bdb81cabb7fe98729b2a8c8",
+      "image": "https://drive.google.com/file/d/1U7A-ThtgYyy03cVDpWh_lnXyzncPEdIG/view?usp=drivesdk"
+    },
+    {
+      "slug": "village-fund-500m-solar-budget-duplication-sml-scrutiny-2026-09-07",
+      "notion": "https://app.notion.com/3d9a36ce3bdb81efb0eadf4a88a82a8b",
+      "image": "https://drive.google.com/file/d/12-uNoABQDM7zC1SiR-xMqcQWQN7Vfdck/view?usp=drivesdk"
+    },
+    {
+      "slug": "solaredge-800vdc-ai-data-center-nvidia-framework-2026-09-10",
+      "notion": "https://app.notion.com/3dba36ce3bdb811b811ece7ecbf7c23f",
+      "image": "https://drive.google.com/file/d/1x_DztyiHMv35U9TZQR98E92BWHx8JjR0/view?usp=drivesdk"
+    },
+    {
+      "slug": "pdp2026-option4-73pct-green-power-3.8364-tariff-pending-final-2026-09-12",
+      "notion": "https://app.notion.com/3dba36ce3bdb8124939efef7b25aaa3c",
+      "image": "https://drive.google.com/file/d/1cq6QWaxPvmmVtabG2akfUStWXGDNcVrr/view?usp=drivesdk"
+    },
+    {
+      "slug": "thanakorn-rooftop-solar-5kw-750units-1650baht-month-figure-conflict-2026-09-13",
+      "notion": "https://app.notion.com/3dba36ce3bdb813e8e08d8f3c8b740c8",
+      "image": "https://drive.google.com/file/d/1kvUtrvabsIEci5BULW8YEBlqLfZegDbM/view?usp=drivesdk"
+    },
+    {
+      "slug": "gastech-2026-bangkok-energy-security-ai-grid-modernization-2026-09-11",
+      "notion": "https://app.notion.com/3dba36ce3bdb8173b64dfbb74c892eec",
+      "image": "https://drive.google.com/file/d/1VUEC98O4A7FXsyvK21k556pV6OCVrGG0/view?usp=drivesdk"
+    },
+    {
+      "slug": "th-pea-residential-progressive-rate-application-2026-09-11",
+      "notion": "https://app.notion.com/3dba36ce3bdb8189b20fc0c7ea0a9e21",
+      "image": "https://drive.google.com/file/d/1t9Twnmt1pq7VlnCfjAZ_EZWt9Lt_iWmJ/view?usp=drivesdk"
+    },
+    {
+      "slug": "pdp2026-analysis-clean-power-datacenter-16-sites-800mw-direct-ppa-65bn-2026-09-13",
+      "notion": "https://app.notion.com/3dba36ce3bdb8193b719d08e364781e8",
+      "image": "https://drive.google.com/file/d/1R11IeYo1lol_SP22J1ybjWoK-tBmPj03/view?usp=drivesdk"
+    },
+    {
+      "slug": "thai-smart-grid-egat-mea-pea-erc-solar-ev-tpa-ugt-2026-09-09",
+      "notion": "https://app.notion.com/3dba36ce3bdb81a1b2b9ddb6a6214f66",
+      "image": "https://drive.google.com/file/d/1is3777IHzT0je8GidFua2ek2R8gRugH0/view?usp=drivesdk"
+    },
+    {
+      "slug": "th-industry-ministry-tisi-solar-rooftop-standards-1.5m-households-mid-oct-2026-09-16",
+      "notion": "https://app.notion.com/3dda36ce3bdb811b94b6c3b82c2227cc",
+      "image": "https://drive.google.com/file/d/14BbqxFfzNAWdyVR1sFYIH8lQ5peCo41l/view?usp=drivesdk"
+    },
+    {
+      "slug": "nepc177-solar-people-10000mw-2.20thb-20yr-rooftop-ground-floating-2026-09-18",
+      "notion": "https://app.notion.com/3e0a36ce3bdb8130965ff3e14d6b1d82",
+      "image": "https://drive.google.com/file/d/10sdhlMRpA-joCpNdfcGz8yzvIaWBN3LK/view?usp=drivesdk"
+    },
+    {
+      "slug": "solar-panel-battery-price-decline-2026",
+      "notion": "https://app.notion.com/40ca36ce3bdb81b8bf84e38f55dbda0d",
+      "image": "https://drive.google.com/file/d/1_vhughWqPc-Hv3xN1_bfRbwEnu6MMgCX/view?usp=drivesdk"
+    }
+  ]
 }
