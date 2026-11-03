@@ -1,432 +1,211 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Products — 24sEnergy</title>
-<meta name="description" content="ผลิตภัณฑ์จาก 24sEnergy — ระบบกักเก็บพลังงาน BESS, โซลาร์เซลล์ และอินเวอร์เตอร์">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;700;900&family=Noto+Sans:wght@300;400;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ผลิตภัณฑ์ — 24s Energy</title>
+<meta name="description" content="ผลิตภัณฑ์ของ 24s Energy — ระบบกักเก็บพลังงาน BESS โซลาร์เซลล์ และอินเวอร์เตอร์ จากแบรนด์ที่ผ่านการคัดเลือก สำหรับบ้าน ฟาร์ม และโรงงาน"/>
+<link rel="canonical" href="https://www.24senergy.co.th/products.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="ผลิตภัณฑ์ — 24s Energy"/>
+<meta property="og:description" content="ระบบกักเก็บพลังงาน BESS โซลาร์เซลล์ และอินเวอร์เตอร์ จากแบรนด์ที่ผ่านการคัดเลือก"/>
+<meta property="og:url" content="https://www.24senergy.co.th/products.html"/>
+<meta property="og:image" content="https://www.24senergy.co.th/24sEnergy_png.png"/>
+<meta name="twitter:card" content="summary"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&family=Noto+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      colors: {
+        brand: { DEFAULT: "#6A2DAF", 600: "#7a3cc4", 500: "#8b4dd6", light: "#f1e9fb", tint: "#faf7fd" },
+        ink:   { DEFAULT: "#1a1a1a", soft: "#4a4a4a", mute: "#8a8a8a" },
+      },
+      fontFamily: { sans: ["Noto Sans Thai","Noto Sans","sans-serif"], display: ["Noto Sans Thai","Space Grotesk","sans-serif"] },
+      boxShadow: { soft: "0 10px 40px -12px rgba(106,45,175,.20)", card: "0 8px 30px -12px rgba(26,26,46,.14)" },
+    } },
+  };
+</script>
 <style>
-  :root{
-    --brand:#6A2DAF;--brand-dark:#4d1f80;--brand-light:#8b4dd6;--brand-soft:#f1e9fb;
-    --brand-2:#3F3F3F;--ink:#1a1a1a;--ink-2:#4a4a4a;--muted:#8a8a8a;--line:#e8e8ec;
-    --bg:#ffffff;--bg-soft:#fafafb;--bg-dark:#1a1a1f;--accent:#22c55e;
-    --shadow-sm:0 1px 2px rgba(0,0,0,.04),0 2px 8px rgba(0,0,0,.04);
-    --shadow:0 4px 16px rgba(0,0,0,.06),0 12px 40px rgba(0,0,0,.08);
-    --shadow-lg:0 20px 60px rgba(106,45,175,.18),0 8px 24px rgba(0,0,0,.06);
-    --mono:'JetBrains Mono','SF Mono',Menlo,monospace;
-    --radius:16px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{font-family:'Noto Sans Thai','Noto Sans',-apple-system,BlinkMacSystemFont,sans-serif;
-    color:var(--ink);background:var(--bg);line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased;}
-  body[data-lang="th"]{font-family:'Noto Sans Thai','Noto Sans',sans-serif}
+  body{font-family:'Noto Sans Thai','Noto Sans',sans-serif}
   body[data-lang="en"]{font-family:'Noto Sans','Noto Sans Thai',sans-serif}
-
-  a{color:inherit;text-decoration:none}
-  img{max-width:100%;display:block}
-  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
-  .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'opsz' 24}
+  .brand-grad{background:linear-gradient(135deg,#6A2DAF 0%,#8b4dd6 100%)}
+  .head-grad{background:linear-gradient(120deg,#f1e9fb 0%,#faf7fd 55%,#ffffff 100%)}
+  .lift{transition:transform .25s ease, box-shadow .25s ease}
+  .lift:hover{transform:translateY(-4px)}
   .bi .th,.bi .en{display:inline}
   body[data-lang="th"] .bi .en{display:none}
   body[data-lang="en"] .bi .th{display:none}
-
-  /* ===== Nav ===== */
-  .nav{position:sticky;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.95);
-    backdrop-filter:saturate(180%) blur(16px);box-shadow:0 1px 0 rgba(0,0,0,.06);padding:14px 0;}
-  .nav-inner{display:flex;align-items:center;gap:32px}
-  .nav-logo{height:36px}.nav-logo img{height:100%;width:auto}
-  .nav-links{display:flex;gap:6px;margin-left:auto}
-  .nav-links a{padding:9px 16px;border-radius:8px;font-size:14.5px;font-weight:400;color:var(--ink-2);transition:all .2s}
-  .nav-links a:hover,.nav-links a.active{background:var(--brand-soft);color:var(--brand)}
-  .nav-right{display:flex;align-items:center;gap:14px;margin-left:14px}
-  .lang-toggle{display:flex;background:#f0f0f3;border-radius:8px;padding:3px;font-family:var(--mono);font-size:12px;font-weight:700}
-  .lang-toggle button{padding:6px 12px;border-radius:6px;color:var(--muted);transition:all .2s}
-  .lang-toggle button.active{background:var(--brand);color:#fff !important;box-shadow:0 1px 3px rgba(0,0,0,.15)}
-  .btn-cta{background:var(--brand);color:#fff;padding:11px 22px;border-radius:8px;font-weight:700;font-size:14px;
-    transition:all .2s;box-shadow:0 4px 14px rgba(106,45,175,.35);white-space:nowrap;}
-  .btn-cta:hover{background:var(--brand-dark);transform:translateY(-1px)}
-  .nav-burger{display:none;width:30px;height:30px;flex-direction:column;justify-content:center;gap:5px}
-  .nav-burger span{display:block;height:2px;background:var(--ink);border-radius:2px}
-
-  /* ===== Page header ===== */
-  .page-head{background:linear-gradient(135deg,#1a1a1f 0%,#2d1a4a 60%,#3F3F3F 100%);
-    color:#fff;padding:80px 0 100px;position:relative;overflow:hidden;}
-  .page-head::before{content:'';position:absolute;inset:0;
-    background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
-    background-size:50px 50px;
-    mask-image:radial-gradient(ellipse at center,#000 30%,transparent 70%);
-    -webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 70%);}
-  .page-head .ph-mockup{position:absolute;top:50%;right:-2%;transform:translateY(-50%);
-    width:380px;max-width:38vw;aspect-ratio:.7/1;border-radius:14px;overflow:hidden;
-    box-shadow:0 30px 80px rgba(0,0,0,.5),0 8px 24px rgba(0,0,0,.3);z-index:0;opacity:.85;}
-  .page-head .ph-mockup img{width:100%;height:100%;object-fit:cover;object-position:center 25%;display:block;
-    filter:saturate(.9) contrast(1.05);}
-  .page-head .ph-mockup::after{content:'';position:absolute;inset:0;
-    background:linear-gradient(135deg,rgba(106,45,175,.25),rgba(26,26,31,.5));pointer-events:none;}
-  @media(max-width:820px){.page-head .ph-mockup{display:none}}
-  .page-head::after{content:'';position:absolute;top:-30%;right:-10%;width:600px;height:600px;
-    background:radial-gradient(circle,rgba(106,45,175,.5) 0%,transparent 60%);filter:blur(60px);}
-  .page-head-inner{position:relative;z-index:1}
-  .breadcrumb{font-family:var(--mono);font-size:12.5px;color:rgba(255,255,255,.6);margin-bottom:18px;letter-spacing:.5px}
-  .breadcrumb a{color:rgba(255,255,255,.6);transition:color .2s}.breadcrumb a:hover{color:#fff}
-  .breadcrumb .sep{margin:0 8px;opacity:.5}.breadcrumb .current{color:#fff;font-weight:700}
-  .page-head h1{font-size:clamp(32px,4.5vw,52px);font-weight:900;line-height:1.1;letter-spacing:-1px;margin-bottom:16px}
-  .page-head h1 .accent{background:linear-gradient(135deg,#c8a8ff 0%,#fff 100%);
-    -webkit-background-clip:text;background-clip:text;color:transparent}
-  .page-head p{font-size:17px;color:rgba(255,255,255,.78);max-width:680px;line-height:1.6}
-
-  /* ===== Products section ===== */
-  .products-section{padding:50px 0 80px}
-  .main-layout{display:grid;grid-template-columns:240px 1fr;gap:36px}
-  .products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
-
-  /* ===== Filter sidebar ===== */
-  .filters{position:sticky;top:80px;align-self:flex-start;background:#fff;
-    border:1px solid var(--line);border-radius:var(--radius);padding:24px;
-    max-height:calc(100vh - 100px);overflow-y:auto}
-  .filters h3{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;
-    color:var(--ink);margin-bottom:18px;display:flex;align-items:center;justify-content:space-between}
-  .filters .clear{font-size:11px;color:var(--brand);font-weight:700;cursor:pointer;
-    text-transform:none;letter-spacing:0}
-  .filter-group{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--line)}
-  .filter-group:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
-  .filter-group h4{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:12px}
-  .filter-opt{display:flex;align-items:center;gap:10px;padding:7px 0;cursor:pointer;
-    font-size:13.5px;color:var(--ink-2);transition:color .2s;user-select:none}
-  .filter-opt:hover{color:var(--brand)}
-  .filter-opt input{accent-color:var(--brand);width:16px;height:16px;cursor:pointer;flex-shrink:0}
-  .dot-cat{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-  .dot-bess{background:var(--brand)}.dot-solar{background:#d97706}
-  .dot-inverter{background:#2563eb}
-  .prod-card.hide{display:none!important}
-  .no-results{display:none;text-align:center;padding:60px 20px;color:var(--muted);font-size:15px}
+  .prod-card.hide{display:none}
+  .no-results{display:none}
   .no-results.show{display:block}
-
-  /* ===== Product cards ===== */
-  .prod-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-    overflow:hidden;transition:all .3s ease;display:flex;flex-direction:column;cursor:pointer}
-  .prod-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
-  .prod-cat{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;
-    font-size:11.5px;font-weight:700;letter-spacing:.5px;font-family:var(--mono);margin-bottom:14px}
-  .prod-cat.bess{background:var(--brand-soft);color:var(--brand)}
-  .prod-cat.solar{background:#fef3c7;color:#d97706}
-  .prod-cat.ev{background:#d1fae5;color:#059669}
-  .prod-cat.ems{background:#dbeafe;color:#2563eb}
-  .prod-img{height:240px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;
-    background-size:cover;background-position:center 30%;background-repeat:no-repeat}
-  .prod-img::before{content:'';position:absolute;inset:0;z-index:0;
-    background:var(--tint,linear-gradient(135deg,rgba(106,45,175,.55),rgba(26,26,31,.7)));
-    transition:opacity .35s ease;pointer-events:none}
-  .prod-card:hover .prod-img::before{opacity:.88}
-  .prod-img>*{position:relative;z-index:1}
-    background:rgba(0,0,0,.55);color:rgba(255,255,255,.95);padding:3px 9px;border-radius:5px;
-    font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.6px;
-    backdrop-filter:blur(6px);pointer-events:none}
-  .prod-img.bg-bess{background-image:url('01.webp');--tint:linear-gradient(135deg,rgba(63,63,63,.6),rgba(106,45,175,.75))}
-  .prod-img.bg-solar{background-image:url('02.webp');--tint:linear-gradient(135deg,rgba(217,119,6,.6),rgba(251,191,36,.5))}
-  .prod-img.bg-inverter{background-image:url('04.webp');--tint:linear-gradient(135deg,rgba(37,99,235,.6),rgba(96,165,250,.5))}
-  .prod-img.has-real-img{background:#f5f5f7;--tint:none}
-  .prod-img.has-real-img::before{display:none}
-  .prod-img.has-real-img::after{display:none}
-  .prod-img.has-real-img svg{display:none}
-  .prod-img-glow{position:absolute;inset:0;background-size:60%;background-position:center 70%;
-    background-repeat:no-repeat;filter:blur(20px) saturate(2.4);opacity:0;
-    transform:scale(1) translateY(12px);transition:opacity .4s ease,transform .4s ease;z-index:0;pointer-events:none}
-  .prod-card:hover .prod-img-glow{opacity:.35;transform:scale(1.1) translateY(16px)}
-  .prod-real-img{width:100%;height:100%;object-fit:contain;padding:20px;display:block;position:relative;z-index:1;
-    transition:transform .4s cubic-bezier(.25,.46,.45,.94)}
-  .prod-card:hover .prod-real-img{transform:scale(1.07)}
-  .prod-img svg{color:#fff;opacity:.35;width:100px;height:100px;transition:all .4s;
-    filter:drop-shadow(0 2px 8px rgba(0,0,0,.4))}
-  .prod-card:hover .prod-img svg{opacity:.55;transform:scale(1.08)}
-  .prod-body{padding:26px;flex:1;display:flex;flex-direction:column}
-  .prod-body h3{font-size:21px;font-weight:900;color:var(--ink);margin-bottom:6px;line-height:1.25}
-  .prod-body .model{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-bottom:12px;letter-spacing:.3px}
-  .prod-body p{
-    font-size:14px;color:var(--ink-2);margin-bottom:18px;line-height:1.6;
-    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
-  }
-  .prod-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
-    padding:14px;background:var(--bg-soft);border-radius:10px;margin-bottom:18px;
-    margin-top:auto}
-  .prod-specs>div{text-align:center}
-  .prod-specs .v{display:block;font-family:var(--mono);font-weight:700;color:var(--ink);font-size:14.5px}
-  .prod-specs .l{display:block;font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:3px}
-  .prod-foot{display:flex;align-items:center;gap:10px;margin-top:auto}
-  .prod-foot .btn{flex:1;padding:12px;border-radius:8px;font-size:13.5px;font-weight:700;
-    text-align:center;transition:all .2s;display:block}
-  .prod-foot .btn-brand{background:var(--brand);color:#fff}.prod-foot .btn-brand:hover{background:var(--brand-dark)}
-  .prod-foot .btn-ghost-brand{background:var(--brand-soft);color:var(--brand)}.prod-foot .btn-ghost-brand:hover{background:#e5d4f4}
-
-  /* ===== CTA banner ===== */
-  .cta-banner{background:linear-gradient(135deg,var(--brand) 0%,var(--brand-dark) 100%);
-    border-radius:24px;padding:50px 48px;color:#fff;
-    display:grid;grid-template-columns:1.5fr 1fr;gap:32px;align-items:center;
-    position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(106,45,175,.35);margin:0 0 60px}
-  .cta-banner::before{content:'';position:absolute;top:-40%;right:-10%;width:500px;height:500px;
-    background:radial-gradient(circle,rgba(255,255,255,.15) 0%,transparent 60%);filter:blur(40px)}
-  .cta-banner h2{font-size:28px;font-weight:900;line-height:1.2;margin-bottom:10px;position:relative}
-  .cta-banner p{font-size:15px;opacity:.85;max-width:480px;position:relative}
-  .cta-banner-right{display:flex;flex-direction:column;gap:10px;position:relative;z-index:1}
-  .btn-primary-white{background:#fff;color:var(--brand-2);padding:14px 28px;border-radius:10px;
-    font-weight:700;font-size:14.5px;display:inline-flex;align-items:center;justify-content:center;gap:10px;
-    transition:all .25s;box-shadow:0 8px 24px rgba(0,0,0,.2)}
-  .btn-primary-white:hover{transform:translateY(-2px)}
-
-  /* ===== Footer ===== */
-  footer{background:var(--bg-dark);color:rgba(255,255,255,.75);padding:80px 0 30px}
-  .footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:40px;margin-bottom:48px}
-  .footer-brand img{height:36px;filter:brightness(0) invert(1);margin-bottom:18px}
-  .footer-brand p{font-size:14px;line-height:1.7;opacity:.65;max-width:280px}
-  .footer-col h4{color:#fff;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:18px}
-  .footer-col a{display:block;font-size:14px;color:rgba(255,255,255,.6);padding:6px 0;transition:color .2s}
-  .footer-col a:hover{color:#fff}
-  .footer-bottom{padding-top:30px;border-top:1px solid rgba(255,255,255,.08);display:flex;
-    justify-content:space-between;align-items:center;font-size:13px;color:rgba(255,255,255,.4);flex-wrap:wrap;gap:12px}
-  .social{display:flex;gap:10px}
-  .social a{width:36px;height:36px;display:flex;align-items:center;justify-content:center;
-    background:rgba(255,255,255,.06);border-radius:8px;transition:all .2s}
-  .social a:hover{background:var(--brand);color:#fff}
-
-  /* ===== Reveal ===== */
-  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
-  .reveal.in{opacity:1;transform:translateY(0)}
-  .reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}
-
-  /* ===== Responsive ===== */
-  @media(max-width:900px){
-    .main-layout{grid-template-columns:1fr}
-    .filters{position:static;max-height:none}
-    .products-grid{grid-template-columns:1fr}
-    .cta-banner{grid-template-columns:1fr;padding:36px 28px}
-    .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
-    .nav-links,.nav-right .lang-toggle{display:none}
-    .nav-burger{display:flex}
-  }
-  @media(max-width:520px){
-    .wrap{padding:0 20px}
-    .footer-grid{grid-template-columns:1fr}
-    .prod-specs .v{font-size:13px}
-    .page-head{padding:60px 0 80px}
-  }
 </style>
-<link rel="stylesheet" href="site.css">
-<script src="site.js"></script>
-<link rel="canonical" href="https://www.24senergy.co.th/products.html">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Products — 24sEnergy">
-<meta property="og:description" content="ผลิตภัณฑ์จาก 24sEnergy — ระบบกักเก็บพลังงาน BESS, โซลาร์เซลล์ และอินเวอร์เตอร์">
-<meta property="og:url" content="https://www.24senergy.co.th/products.html">
-<meta property="og:image" content="https://www.24senergy.co.th/24sEnergy_png.png">
-<meta name="twitter:card" content="summary">
 </head>
-<body data-lang="th">
+<body data-lang="th" class="bg-white text-ink antialiased">
 <script>try{var _ll=localStorage.getItem('lang');if(_ll)document.body.setAttribute('data-lang',_ll);}catch(e){}</script>
 
 <!-- ===== NAV ===== -->
-<nav class="nav" id="nav">
-  <div class="wrap nav-inner">
-    <a href="index.html" class="nav-logo"><img src="24sEnergy_png.png" alt="24sEnergy"></a>
-    <div class="nav-links">
-      <a href="products.html" class="active"><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></a>
-      <a href="index.html#solutions"><span class="bi"><span class="th">โซลูชัน</span><span class="en">Solutions</span></span></a>
-      <a href="news.html"><span class="bi"><span class="th">ข่าวสาร</span><span class="en">News</span></span></a>
-      <a href="contact.html"><span class="bi"><span class="th">ติดต่อ</span><span class="en">Contact</span></span></a>
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-black/5">
+  <nav class="max-w-[1240px] mx-auto px-6 md:px-8 h-20 flex items-center justify-between gap-4">
+    <a href="index.html" class="shrink-0"><img src="24sEnergy_png.png" alt="24s Energy" class="h-9 w-auto"/></a>
+    <div class="hidden lg:flex items-center gap-2 text-[15px] font-medium bi">
+      <a href="products.html" class="px-3 py-1.5 rounded-full bg-brand-light text-brand font-semibold"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></a>
+      <a href="index.html#solutions" class="px-3 py-1.5 rounded-full text-ink-soft hover:text-brand transition"><span class="th">โซลูชัน</span><span class="en">Solutions</span></a>
+      <a href="news.html" class="px-3 py-1.5 rounded-full text-ink-soft hover:text-brand transition"><span class="th">ข่าวสาร</span><span class="en">News</span></a>
+      <a href="contact.html" class="px-3 py-1.5 rounded-full text-ink-soft hover:text-brand transition"><span class="th">ติดต่อ</span><span class="en">Contact</span></a>
     </div>
-    <div class="nav-right">
-      <a href="quote.html" class="btn-cta"><span class="bi"><span class="th">ขอใบเสนอราคา</span><span class="en">Get a Quote</span></span></a>
-      <div class="lang-toggle">
-        <button id="btnTH" class="active" onclick="setLang('th')">TH</button>
-        <button id="btnEN" onclick="setLang('en')">EN</button>
+    <div class="flex items-center gap-3 shrink-0">
+      <div class="hidden sm:flex items-center text-sm font-semibold rounded-full bg-brand-light p-0.5">
+        <button id="btnTH" onclick="setLang('th')" class="px-3 py-1.5 rounded-full">TH</button>
+        <button id="btnEN" onclick="setLang('en')" class="px-3 py-1.5 rounded-full">EN</button>
       </div>
-      <button class="nav-burger" aria-label="menu"><span></span><span></span><span></span></button>
+      <a href="quote.html" class="brand-grad text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-soft hover:opacity-95 transition bi"><span class="th">ขอใบเสนอราคา</span><span class="en">Get a Quote</span></a>
+      <button class="lg:hidden text-brand" aria-label="menu"><span class="material-symbols-outlined">menu</span></button>
     </div>
-  </div>
-</nav>
-
-<!-- ===== PAGE HEAD ===== -->
-<header class="page-head">
-  <div class="ph-mockup" aria-hidden="true"><img src="04.webp" alt=""></div>
-  <div class="wrap page-head-inner">
-    <div class="breadcrumb">
-      <a href="index.html"><span class="bi"><span class="th">หน้าแรก</span><span class="en">Home</span></span></a>
-      <span class="sep">/</span>
-      <span class="current"><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></span>
-    </div>
-    <h1>
-      <span class="bi">
-        <span class="th"><span class="accent">ผลิตภัณฑ์</span>ของเรา</span>
-        <span class="en">Our <span class="accent">Products</span></span>
-      </span>
-    </h1>
-    <p>
-      <span class="bi">
-        <span class="th">ระบบกักเก็บพลังงาน BESS โซลาร์เซลล์ และอินเวอร์เตอร์ จากแบรนด์ที่ผ่านการคัดเลือก สำหรับบ้าน ฟาร์ม และโรงงาน</span><span class="en">Battery storage, solar PV and inverters from selected brands — for homes, farms and factories.</span>
-      </span>
-    </p>
-  </div>
+  </nav>
 </header>
 
-<!-- ===== PRODUCTS GRID ===== -->
-<section class="products-section">
-  <div class="wrap">
-    <div class="main-layout">
-
-      <!-- FILTER SIDEBAR -->
-      <aside class="filters neu reveal">
-        <h3>
-          <span class="bi"><span class="th">กรอง</span><span class="en">Filter</span></span>
-          <span class="clear" id="clearAll"><span class="bi"><span class="th">ล้างทั้งหมด</span><span class="en">Clear all</span></span></span>
-        </h3>
-
-        <div class="filter-group">
-          <h4><span class="bi"><span class="th">หมวดหมู่</span><span class="en">Category</span></span></h4>
-          <label class="filter-opt">
-            <input type="checkbox" data-filter="cat" value="bess" checked>
-            <span class="dot-cat dot-bess"></span>
-            <span>BESS · Storage</span>
-          </label>
-          <label class="filter-opt">
-            <input type="checkbox" data-filter="cat" value="solar" checked>
-            <span class="dot-cat dot-solar"></span>
-            <span>Solar PV</span>
-          </label>
-          <label class="filter-opt">
-            <input type="checkbox" data-filter="cat" value="inverter" checked>
-            <span class="dot-cat dot-inverter"></span>
-            <span>Inverter</span>
-          </label>
-        </div>
-
-        <div class="filter-group">
-          <h4><span class="bi"><span class="th">ประเภทการใช้งาน</span><span class="en">Application</span></span></h4>
-          <label class="filter-opt">
-            <input type="checkbox" data-filter="app" value="industrial" checked>
-            <span class="bi"><span class="th">อุตสาหกรรม</span><span class="en">Industrial</span></span>
-          </label>
-          <label class="filter-opt">
-            <input type="checkbox" data-filter="app" value="commercial" checked>
-            <span class="bi"><span class="th">พาณิชย์</span><span class="en">Commercial</span></span>
-          </label>
-          <label class="filter-opt">
-            <input type="checkbox" data-filter="app" value="residential" checked>
-            <span class="bi"><span class="th">ที่อยู่อาศัย</span><span class="en">Residential</span></span>
-          </label>
-        </div>
-      </aside>
-
-      <!-- PRODUCT CARDS -->
-      <main>
-        <div class="products-grid" id="products-grid">
-          <!-- loaded from Supabase -->
-        </div><!-- /.products-grid -->
-        <div class="no-results">
-          <span class="bi"><span class="th">ไม่พบผลิตภัณฑ์ที่ตรงกับตัวกรองที่เลือก</span><span class="en">No products match the selected filters.</span></span>
-        </div>
-      </main>
-
-    </div><!-- /.main-layout -->
+<main>
+<!-- ===== HEADER BANNER ===== -->
+<section class="max-w-[1240px] mx-auto px-6 md:px-8 pt-8">
+  <div class="relative overflow-hidden rounded-[2rem] head-grad border border-brand/10">
+    <img src="products-header.png" alt="" class="absolute right-0 top-0 h-full w-1/2 object-cover opacity-90 hidden md:block [mask-image:linear-gradient(to_right,transparent,#000_38%)]"/>
+    <div class="relative z-10 px-8 md:px-12 py-12 md:py-16 max-w-xl">
+      <nav class="text-sm text-ink-mute bi mb-3"><a href="index.html" class="hover:text-brand"><span class="th">หน้าแรก</span><span class="en">Home</span></a> / <span class="text-brand font-medium"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></nav>
+      <h1 class="font-display text-4xl md:text-5xl font-bold tracking-tight bi"><span class="th">ผลิตภัณฑ์ของเรา</span><span class="en">Our Products</span></h1>
+      <p class="text-ink-soft mt-3 text-lg leading-relaxed bi"><span class="th">ระบบกักเก็บพลังงาน BESS โซลาร์เซลล์ และอินเวอร์เตอร์ จากแบรนด์ที่ผ่านการคัดเลือก สำหรับบ้าน ฟาร์ม และโรงงาน</span><span class="en">Battery storage, solar PV and inverters from selected brands — for homes, farms and factories.</span></p>
+    </div>
   </div>
 </section>
 
-<!-- ===== CTA ===== -->
-<div class="wrap">
-  <div id="cta" class="cta-banner reveal">
-    <div>
-      <h2><span class="bi"><span class="th">ไม่แน่ใจว่าผลิตภัณฑ์ไหนเหมาะ?</span><span class="en">Not sure which product fits?</span></span></h2>
-      <p><span class="bi"><span class="th">ทีมวิศวกรของเราพร้อมประเมินไซต์ คำนวณ ROI และแนะนำผลิตภัณฑ์ที่เหมาะที่สุดสำหรับธุรกิจของคุณ — ฟรี</span><span class="en">Our engineers will assess your site, calculate ROI, and recommend the best fit for your business — for free.</span></span></p>
+<!-- ===== CATALOGUE ===== -->
+<section class="max-w-[1240px] mx-auto px-6 md:px-8 py-12 grid lg:grid-cols-[240px_1fr] gap-9">
+  <!-- Sidebar filter -->
+  <aside class="h-max lg:sticky lg:top-28">
+    <div class="rounded-3xl border border-black/5 shadow-card p-6">
+      <div class="flex items-center justify-between">
+        <h2 class="font-display text-lg font-bold bi"><span class="th">กรองสินค้า</span><span class="en">Filter</span></h2>
+        <button id="clearAll" class="text-sm font-semibold text-brand hover:underline underline-offset-4 bi"><span class="th">ล้างทั้งหมด</span><span class="en">Clear all</span></button>
+      </div>
+
+      <div class="mt-6">
+        <p class="text-xs font-semibold tracking-widest text-ink-mute uppercase mb-3 bi"><span class="th">หมวดหมู่</span><span class="en">Category</span></p>
+        <label class="flex items-center gap-3 py-1.5 cursor-pointer text-[15px] text-ink-soft"><input type="checkbox" data-filter="cat" value="bess" checked class="rounded text-brand focus:ring-brand/40"/> BESS · Storage</label>
+        <label class="flex items-center gap-3 py-1.5 cursor-pointer text-[15px] text-ink-soft"><input type="checkbox" data-filter="cat" value="solar" checked class="rounded text-brand focus:ring-brand/40"/> Solar PV</label>
+        <label class="flex items-center gap-3 py-1.5 cursor-pointer text-[15px] text-ink-soft"><input type="checkbox" data-filter="cat" value="inverter" checked class="rounded text-brand focus:ring-brand/40"/> Inverter</label>
+      </div>
+
+      <div class="mt-6 border-t border-black/5 pt-5">
+        <p class="text-xs font-semibold tracking-widest text-ink-mute uppercase mb-3 bi"><span class="th">การใช้งาน</span><span class="en">Use case</span></p>
+        <label class="flex items-center gap-3 py-1.5 cursor-pointer text-[15px] text-ink-soft"><input type="checkbox" data-filter="app" value="residential" checked class="rounded text-brand focus:ring-brand/40"/> <span class="bi"><span class="th">บ้าน</span><span class="en">Home</span></span></label>
+        <label class="flex items-center gap-3 py-1.5 cursor-pointer text-[15px] text-ink-soft"><input type="checkbox" data-filter="app" value="commercial" checked class="rounded text-brand focus:ring-brand/40"/> <span class="bi"><span class="th">ฟาร์ม</span><span class="en">Farm</span></span></label>
+        <label class="flex items-center gap-3 py-1.5 cursor-pointer text-[15px] text-ink-soft"><input type="checkbox" data-filter="app" value="industrial" checked class="rounded text-brand focus:ring-brand/40"/> <span class="bi"><span class="th">ธุรกิจ / โรงงาน</span><span class="en">Business / Factory</span></span></label>
+      </div>
+
+      <a href="contact.html" class="mt-6 flex items-center gap-3 rounded-2xl bg-brand-tint border border-brand/10 p-4 hover:border-brand/30 transition">
+        <span class="material-symbols-outlined text-brand">support_agent</span>
+        <span class="text-sm bi"><span class="th">เลือกสินค้าไม่แน่ใจ?<br/><span class="text-brand font-semibold">ปรึกษาผู้เชี่ยวชาญ →</span></span><span class="en">Not sure which?<br/><span class="text-brand font-semibold">Ask an expert →</span></span></span>
+      </a>
     </div>
-    <div class="cta-banner-right">
-      <span>
-        <span class="bi"><span class="th">ปรึกษาฟรี</span><span class="en">Free Consultation</span></span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-      </span>
+  </aside>
+
+  <!-- Content -->
+  <div>
+    <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
+      <div class="relative flex-1">
+        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-ink-mute text-[20px]">search</span>
+        <input id="searchBox" type="text" class="w-full rounded-full border border-black/10 pl-11 pr-4 py-3 text-[15px] focus:border-brand focus:ring-brand/30" placeholder="ค้นหาชื่อสินค้า รุ่น หรือแบรนด์"/>
+      </div>
+    </div>
+
+    <h2 class="font-display text-2xl font-bold mt-8 bi"><span class="th">ผลิตภัณฑ์ทั้งหมด</span><span class="en">All products</span></h2>
+
+    <div class="flex flex-wrap gap-2 mt-4" id="catPills">
+      <button class="cat-pill px-4 py-1.5 rounded-full text-sm font-medium border border-brand bg-brand text-white" data-pill="all"><span class="bi"><span class="th">ทั้งหมด</span><span class="en">All</span></span></button>
+      <button class="cat-pill px-4 py-1.5 rounded-full text-sm font-medium border border-black/10 text-ink-soft hover:border-brand hover:text-brand transition" data-pill="bess">BESS</button>
+      <button class="cat-pill px-4 py-1.5 rounded-full text-sm font-medium border border-black/10 text-ink-soft hover:border-brand hover:text-brand transition" data-pill="solar">Solar PV</button>
+      <button class="cat-pill px-4 py-1.5 rounded-full text-sm font-medium border border-black/10 text-ink-soft hover:border-brand hover:text-brand transition" data-pill="inverter">Inverter</button>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 mt-7" id="products-grid"></div>
+    <p class="no-results text-center text-ink-mute py-16 bi"><span class="th">ไม่พบผลิตภัณฑ์ที่ตรงกับตัวกรองที่เลือก</span><span class="en">No products match the selected filters.</span></p>
+  </div>
+</section>
+
+<!-- ===== CONTACT BANNER ===== -->
+<section class="max-w-[1240px] mx-auto px-6 md:px-8 pb-16">
+  <div class="relative overflow-hidden rounded-[2.5rem] brand-grad text-white">
+    <img src="contact-banner.png" alt="" class="absolute inset-0 w-full h-full object-cover opacity-25"/>
+    <div class="relative z-10 px-8 md:px-14 py-12 md:py-16 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      <div class="max-w-xl bi">
+        <h2 class="font-display text-2xl md:text-4xl font-bold tracking-tight"><span class="th">ให้เราช่วยเลือกอุปกรณ์ที่เหมาะกับคุณ</span><span class="en">Let us help you choose the right equipment</span></h2>
+        <p class="text-white/85 mt-3 text-lg"><span class="th">ปรึกษากับผู้เชี่ยวชาญ เพื่อหาชุดโซลาร์เซลล์และระบบกักเก็บพลังงานที่ตอบโจทย์บ้าน ฟาร์ม หรือโรงงานของคุณ</span><span class="en">Talk to our experts to find the solar and storage package that fits your home, farm or factory.</span></p>
+      </div>
+      <a href="contact.html" class="shrink-0 inline-flex items-center gap-2 bg-white text-brand font-semibold px-8 py-3.5 rounded-full hover:bg-white/90 transition bi"><span class="th">ติดต่อทีมงาน</span><span class="en">Contact us</span> <span class="material-symbols-outlined text-[20px]">arrow_forward</span></a>
     </div>
   </div>
-</div>
+</section>
+</main>
 
 <!-- ===== FOOTER ===== -->
-<footer>
-  <div class="wrap">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="24sEnergy_png.png" alt="24sEnergy">
-        <p><span class="bi">
-          <span class="th">ผู้นำด้านระบบกักเก็บพลังงานและ Solar PV สำหรับอุตสาหกรรมไทย ขับเคลื่อนด้วยเทคโนโลยีระดับโลก</span>
-          <span class="en">Leading provider of BESS and Solar PV for Thai industry, powered by world-class technology.</span>
-        </span></p>
-      </div>
-      <div class="footer-col">
-        <h4><span class="bi"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></span></h4>
-        <a href="products.html#bess"><span class="bi"><span class="th">ระบบกักเก็บพลังงาน BESS</span><span class="en">Battery Storage</span></span></a>
-        <a href="products.html#solar"><span class="bi"><span class="th">โซลาร์เซลล์</span><span class="en">Solar PV</span></span></a>
-        <a href="products.html#inverter"><span class="bi"><span class="th">อินเวอร์เตอร์</span><span class="en">Inverter</span></span></a>
-        <a href="products.html"><span class="bi"><span class="th">ดูทั้งหมด</span><span class="en">All products</span></span></a>
-      </div>
-      <div class="footer-col">
-        <h4><span class="bi"><span class="th">บริษัท</span><span class="en">Company</span></span></h4>
-        <a href="contact.html"><span class="bi"><span class="th">ติดต่อเรา</span><span class="en">Contact Us</span></span></a>
-        <a href="index.html#solutions"><span class="bi"><span class="th">โซลูชัน</span><span class="en">Solutions</span></span></a>
-        <a href="news.html"><span class="bi"><span class="th">ข่าวสาร</span><span class="en">News</span></span></a>
-        <span><span class="bi"><span class="th">ร่วมงาน</span><span class="en">Careers</span></span></span>
-      </div>
-      <div class="footer-col">
-        <h4><span class="bi"><span class="th">ติดต่อ</span><span class="en">Contact</span></span></h4>
-        <span>โทรศัพท์: อยู่ระหว่างอัปเดต / Phone: coming soon</span>
-        <span>📱 LINE: @24senergy</span>
-        <a href="mailto:info@24senergy.co.th">✉ info@24senergy.co.th</a>
-        <a href="contact.html">📍 <span class="bi"><span class="th">กรุงเทพฯ</span><span class="en">Bangkok</span></span></a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div>© 2026 24sEnergy Co., Ltd. <span class="bi"><span class="th">สงวนลิขสิทธิ์</span><span class="en">All rights reserved.</span></span></div>
-      <div class="social">
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></span>
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg></span>
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3z"/></svg></span>
-      </div>
+<footer class="border-t border-black/5">
+  <div class="max-w-[1240px] mx-auto px-6 md:px-8 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
+    <a href="index.html"><img src="24sEnergy_png.png" alt="24s Energy" class="h-8 w-auto"/></a>
+    <nav class="flex items-center gap-7 text-[15px] font-medium text-ink-soft bi">
+      <a href="products.html" class="hover:text-brand transition"><span class="th">ผลิตภัณฑ์</span><span class="en">Products</span></a>
+      <a href="index.html#solutions" class="hover:text-brand transition"><span class="th">โซลูชัน</span><span class="en">Solutions</span></a>
+      <a href="news.html" class="hover:text-brand transition"><span class="th">ข่าวสาร</span><span class="en">News</span></a>
+      <a href="contact.html" class="hover:text-brand transition"><span class="th">ติดต่อ</span><span class="en">Contact</span></a>
+    </nav>
+    <div class="flex items-center gap-6 text-[15px] font-medium text-ink-soft">
+      <span class="inline-flex items-center gap-1.5"><span class="material-symbols-outlined text-[20px] text-[#06C755]">chat</span> LINE: @24senergy</span>
+      <a href="mailto:info@24senergy.co.th" class="inline-flex items-center gap-1.5 hover:text-brand"><span class="material-symbols-outlined text-[20px]">mail</span> info@24senergy.co.th</a>
     </div>
   </div>
+  <div class="border-t border-black/5"><p class="max-w-[1240px] mx-auto px-6 md:px-8 py-5 text-sm text-ink-mute">© 2026 24s Energy Co., Ltd. All rights reserved.</p></div>
 </footer>
 
+<script src="site.js"></script>
 <script>
-  const SB_URL  = 'https://cocmcinqcywqrqdxwdof.supabase.co';
-  const SB_KEY  = 'sb_publishable_oEeXvdWPNAt0wmUDuvACfg_tDlTxkhu';
+  const SB_URL = 'https://cocmcinqcywqrqdxwdof.supabase.co';
+  const SB_KEY = 'sb_publishable_oEeXvdWPNAt0wmUDuvACfg_tDlTxkhu';
 
   const CAT_CFG = {
-    bess:     {label:'BESS · Energy Storage', img:'bg-bess',     app:'residential commercial'},
-    solar:    {label:'Solar PV',              img:'bg-solar',    app:'industrial commercial'},
-    inverter: {label:'Inverter',              img:'bg-inverter', app:'industrial commercial residential'},
+    bess:     {label:'Battery Storage', app:'residential commercial'},
+    solar:    {label:'Solar Panel',     app:'industrial commercial'},
+    inverter: {label:'Inverter',        app:'industrial commercial residential'},
   };
   const ICONS = {
-    bess:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="18" height="11" rx="2"/><path d="M22 11v3"/><rect x="5" y="10" width="5" height="5" rx="1"/></svg>`,
-    solar: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>`,
-    inverter: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="5 13 9 8 13 11 19 5"/></svg>`,
+    bess:  '<span class="material-symbols-outlined text-5xl text-brand/40">battery_charging_full</span>',
+    solar: '<span class="material-symbols-outlined text-5xl text-brand/40">solar_power</span>',
+    inverter: '<span class="material-symbols-outlined text-5xl text-brand/40">bolt</span>',
   };
 
   function setLang(lang){
     document.body.setAttribute('data-lang',lang);
     document.documentElement.setAttribute('lang',lang);
-    document.getElementById('btnTH').classList.toggle('active',lang==='th');
-    document.getElementById('btnEN').classList.toggle('active',lang==='en');
-    try { localStorage.setItem('lang', lang); } catch {}
+    var th=document.getElementById('btnTH'), en=document.getElementById('btnEN');
+    var on='px-3 py-1.5 rounded-full bg-brand text-white', off='px-3 py-1.5 rounded-full text-ink-soft hover:text-brand';
+    if(th&&en){ th.className = lang==='en'?off:on; en.className = lang==='en'?on:off; }
+    try { localStorage.setItem('lang', lang); } catch (e) {}
   }
-  (function(){ try { var s=localStorage.getItem('lang'); if(s==='th'||s==='en') setLang(s); } catch {} })();
+  (function(){ var s; try { s=localStorage.getItem('lang'); } catch(e){} setLang(s==='en'?'en':'th'); })();
 
   function applyFilters(){
     const cats=[...document.querySelectorAll('[data-filter="cat"]:checked')].map(c=>c.value);
     const apps=[...document.querySelectorAll('[data-filter="app"]:checked')].map(c=>c.value);
+    const q=(document.getElementById('searchBox').value||'').trim().toLowerCase();
     let count=0;
     document.querySelectorAll('.prod-card').forEach(card=>{
       const catMatch=cats.length===0||cats.includes(card.dataset.cat);
       const cardApps=(card.dataset.app||'').split(' ');
       const appMatch=apps.length===0||cardApps.some(a=>apps.includes(a));
-      const show=catMatch&&appMatch;
+      const textMatch=q===''||(card.dataset.search||'').includes(q);
+      const show=catMatch&&appMatch&&textMatch;
       card.classList.toggle('hide',!show);
       if(show)count++;
     });
@@ -435,36 +214,66 @@
 
   function renderProducts(products){
     const grid = document.getElementById('products-grid');
-    const delays = ['','reveal-d1','reveal-d2','reveal-d3'];
-    grid.innerHTML = products.map((p, i) => {
+    grid.innerHTML = products.map((p) => {
       const c = CAT_CFG[p.category] || CAT_CFG.bess;
       const specs = Object.entries(p.specs || {}).slice(0, 3);
       const page = `/products/${encodeURIComponent(p.slug)}`;
+      const search = `${p.name_th||''} ${p.name_en||''} ${p.slug||''}`.toLowerCase();
+      const hasImg = p.images && p.images[0];
       return `
-        <div class="prod-card reveal ${delays[i]||''}" data-cat="${escapeHTML(p.category)}" data-app="${c.app}">
-          <a href="${page}" class="prod-img ${p.images&&p.images[0] ? 'has-real-img' : c.img}" style="display:flex;align-items:center;justify-content:center;text-decoration:none">
-            ${p.images&&p.images[0] ? `<div class="prod-img-glow" style="background-image:url(&quot;${escapeHTML(safeURL(p.images[0]).replaceAll('\"', '%22').replaceAll('\\', '%5C'))}&quot;)"></div><img class="prod-real-img" src="${escapeHTML(safeURL(p.images[0]))}" alt="${escapeHTML(p.name_en)}" loading="lazy" decoding="async">` : ICONS[p.category]||''}
+        <article class="prod-card lift bg-white rounded-3xl border border-black/5 shadow-card overflow-hidden flex flex-col" data-cat="${escapeHTML(p.category)}" data-app="${c.app}" data-search="${escapeHTML(search)}">
+          <a href="${page}" class="block aspect-[4/3] bg-brand-tint grid place-items-center overflow-hidden">
+            ${hasImg ? `<img src="${escapeHTML(safeURL(p.images[0]))}" alt="${escapeHTML(p.name_en)}" loading="lazy" decoding="async" class="w-full h-full object-cover">` : (ICONS[p.category]||'')}
           </a>
-          <div class="prod-body">
-            <div class="prod-cat ${escapeHTML(p.category)}">${c.label}</div>
-            <h3><span class="bi"><span class="th">${escapeHTML(p.name_th)}</span><span class="en">${escapeHTML(p.name_en)}</span></span></h3>
-            <div class="model">${escapeHTML(p.slug)}</div>
-            <p><span class="bi"><span class="th">${escapeHTML(p.description_th)}</span><span class="en">${escapeHTML(p.description_en)}</span></span></p>
-            ${specs.length ? `<div class="prod-specs">${specs.map(([k,v])=>`<div><span class="v">${escapeHTML(v)}</span><span class="l">${escapeHTML(k)}</span></div>`).join('')}</div>` : ''}
-            <div class="prod-foot">
-              <a href="${page}" class="btn btn-brand"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">View Details</span></span></a>
-              <a href="quote.html" class="btn btn-ghost-brand"><span class="bi"><span class="th">ขอราคา</span><span class="en">Get Quote</span></span></a>
+          <div class="p-6 flex flex-col flex-1">
+            <span class="text-[11px] font-semibold tracking-widest text-brand uppercase">${escapeHTML(c.label)}</span>
+            <h3 class="font-display text-lg font-bold mt-1 leading-tight"><span class="bi"><span class="th">${escapeHTML(p.name_th)}</span><span class="en">${escapeHTML(p.name_en)}</span></span></h3>
+            <p class="text-ink-soft text-[14.5px] leading-relaxed mt-2 flex-1"><span class="bi"><span class="th">${escapeHTML(p.description_th)}</span><span class="en">${escapeHTML(p.description_en)}</span></span></p>
+            ${specs.length ? `<div class="flex flex-wrap gap-x-5 gap-y-1 mt-3">${specs.map(([k,v])=>`<div><span class="font-semibold text-ink">${escapeHTML(v)}</span> <span class="text-ink-mute text-xs">${escapeHTML(k)}</span></div>`).join('')}</div>` : ''}
+            <div class="flex flex-wrap gap-2 mt-5">
+              <a href="${page}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-white brand-grad px-4 py-2.5 rounded-full hover:opacity-95 transition"><span class="bi"><span class="th">ดูรายละเอียด</span><span class="en">View details</span></span> <span class="material-symbols-outlined text-[18px]">north_east</span></a>
+              <a href="contact.html" class="inline-flex items-center text-sm font-semibold text-brand border border-brand/20 px-4 py-2.5 rounded-full hover:bg-brand-tint transition"><span class="bi"><span class="th">สอบถามสินค้า</span><span class="en">Inquire</span></span></a>
             </div>
           </div>
-        </div>`;
+        </article>`;
     }).join('');
-
-    const io2 = new IntersectionObserver(entries=>{
-      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io2.unobserve(e.target)}});
-    },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
-    document.querySelectorAll('#products-grid .reveal').forEach(el=>io2.observe(el));
     applyHashCategory();
     applyFilters();
+  }
+
+  function setPill(cat){
+    document.querySelectorAll('.cat-pill').forEach(b=>{
+      const on=b.dataset.pill===cat;
+      b.className='cat-pill px-4 py-1.5 rounded-full text-sm font-medium transition '+(on?'border border-brand bg-brand text-white':'border border-black/10 text-ink-soft hover:border-brand hover:text-brand');
+    });
+    document.querySelectorAll('[data-filter="cat"]').forEach(cb=>{ cb.checked = (cat==='all') ? true : cb.value===cat; });
+    applyFilters();
+  }
+
+  // products.html#bess / #solar / #inverter — linked from every footer
+  function applyHashCategory(){
+    const cat=(location.hash||'').replace('#','');
+    const boxes=[...document.querySelectorAll('[data-filter="cat"]')];
+    if(!cat || !boxes.some(b=>b.value===cat)) { return; }
+    setPill(cat);
+  }
+  window.addEventListener('hashchange',applyHashCategory);
+
+  document.querySelectorAll('[data-filter]').forEach(cb=>cb.addEventListener('change',()=>{ syncPillFromBoxes(); applyFilters(); }));
+  document.getElementById('searchBox').addEventListener('input',applyFilters);
+  document.querySelectorAll('.cat-pill').forEach(b=>b.addEventListener('click',()=>setPill(b.dataset.pill)));
+  document.getElementById('clearAll').addEventListener('click',()=>{
+    document.querySelectorAll('[data-filter]').forEach(cb=>cb.checked=true);
+    document.getElementById('searchBox').value='';
+    setPill('all');
+  });
+  function syncPillFromBoxes(){
+    const cats=[...document.querySelectorAll('[data-filter="cat"]:checked')].map(c=>c.value);
+    const pill = cats.length===1 ? cats[0] : 'all';
+    document.querySelectorAll('.cat-pill').forEach(b=>{
+      const on=b.dataset.pill===pill;
+      b.className='cat-pill px-4 py-1.5 rounded-full text-sm font-medium transition '+(on?'border border-brand bg-brand text-white':'border border-black/10 text-ink-soft hover:border-brand hover:text-brand');
+    });
   }
 
   async function loadProducts(){
@@ -480,34 +289,11 @@
       const data = await res.json();
       renderProducts(Array.isArray(data) ? data : []);
     }catch(e){
-      // Without this the page shows a generic Thai error and swallows the cause,
-      // which is how a 404 on /site.js looked like a broken product catalogue.
       console.error('loadProducts failed:', e);
       const grid = document.getElementById('products-grid');
       grid.textContent = document.body.dataset.lang === 'en' ? 'Unable to load products. Please reload or contact us.' : 'โหลดสินค้าไม่สำเร็จ กรุณาโหลดหน้าใหม่หรือติดต่อเรา';
     }
   }
-
-  // products.html#bess / #solar / #inverter — linked from every footer
-  function applyHashCategory(){
-    const cat=(location.hash||'').replace('#','');
-    const boxes=[...document.querySelectorAll('[data-filter="cat"]')];
-    if(!cat || !boxes.some(b=>b.value===cat)) return;
-    boxes.forEach(b=>b.checked = b.value===cat);
-    applyFilters();
-  }
-  window.addEventListener('hashchange',applyHashCategory);
-
-  document.querySelectorAll('[data-filter]').forEach(cb=>cb.addEventListener('change',applyFilters));
-  document.getElementById('clearAll').addEventListener('click',()=>{
-    document.querySelectorAll('[data-filter]').forEach(cb=>cb.checked=true);
-    applyFilters();
-  });
-
-  const io = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
-  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
-  document.querySelectorAll('.reveal:not(#products-grid .reveal)').forEach(el=>io.observe(el));
 
   loadProducts();
 </script>
