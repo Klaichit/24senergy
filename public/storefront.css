@@ -80,3 +80,10 @@ html,body{overflow-x:clip}body{color:var(--store-ink)}
  .storefront footer>div{padding-left:16px;padding-right:16px}.storefront footer nav{gap:12px 16px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1!important;transform:none!important}}
+.brand-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:32px;margin-top:32px;text-align:center}
+.brand-item{min-width:0}
+.brand-logo{height:72px;display:flex;align-items:center;justify-content:center}
+.brand-logo img{display:block;width:100%;max-width:180px;height:56px;object-fit:contain}
+.brand-category{display:block;margin-top:12px;font-size:11px;color:var(--store-muted);letter-spacing:1px;text-transform:uppercase}
+@media(max-width:1020px){.brand-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:520px){.brand-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.brand-logo img{max-width:150px;height:48px}.brand-logo{height:60px}}
