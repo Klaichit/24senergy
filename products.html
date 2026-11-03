@@ -184,6 +184,17 @@
     solar: '<span class="material-symbols-outlined text-5xl text-brand/40">solar_power</span>',
     inverter: '<span class="material-symbols-outlined text-5xl text-brand/40">bolt</span>',
   };
+  // Approved catalog card images (public/catalog/*), keyed by product slug.
+  // These override the Supabase image for the card thumbnail only; the detail
+  // page still uses the product's own images.
+  const CARD_IMG = {
+    'sunwoda-atrix-max-plus':        'catalog/sunwoda-atrix-max-plus.png',
+    'tcl-blueark-x1':                'catalog/tcl-blueark-x1.png',
+    'solplanet-asw-ht-series':       'catalog/solplanet-asw-ht-series.png',
+    'leapton-n-type-topcon-bifacial':'catalog/leapton-n-type-topcon-bifacial.png',
+    'kstar-blue-s-bluepulse':        'catalog/kstar-blue-s-bluepulse.png',
+    'solaredge-home-hub-optimizer':  'catalog/solaredge-home-hub-optimizer.png',
+  };
 
   function setLang(lang){
     document.body.setAttribute('data-lang',lang);
@@ -219,11 +230,11 @@
       const specs = Object.entries(p.specs || {}).slice(0, 3);
       const page = `/products/${encodeURIComponent(p.slug)}`;
       const search = `${p.name_th||''} ${p.name_en||''} ${p.slug||''}`.toLowerCase();
-      const hasImg = p.images && p.images[0];
+      const imgSrc = CARD_IMG[p.slug] || (p.images && p.images[0] ? safeURL(p.images[0]) : '');
       return `
         <article class="prod-card lift bg-white rounded-3xl border border-black/5 shadow-card overflow-hidden flex flex-col" data-cat="${escapeHTML(p.category)}" data-app="${c.app}" data-search="${escapeHTML(search)}">
           <a href="${page}" class="block aspect-[4/3] bg-brand-tint grid place-items-center overflow-hidden">
-            ${hasImg ? `<img src="${escapeHTML(safeURL(p.images[0]))}" alt="${escapeHTML(p.name_en)}" loading="lazy" decoding="async" class="w-full h-full object-cover">` : (ICONS[p.category]||'')}
+            ${imgSrc ? `<img src="${escapeHTML(imgSrc)}" alt="${escapeHTML(p.name_en)}" loading="lazy" decoding="async" class="w-full h-full object-cover">` : (ICONS[p.category]||'')}
           </a>
           <div class="p-6 flex flex-col flex-1">
             <span class="text-[11px] font-semibold tracking-widest text-brand uppercase">${escapeHTML(c.label)}</span>
