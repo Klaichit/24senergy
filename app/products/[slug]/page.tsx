@@ -120,15 +120,18 @@ function ProductPage({ product }: { product: Product }) {
   const NavBar = (
     <nav
       style={{ borderBottom: heroMode ? '1px solid rgba(255,255,255,0.08)' : '1px solid #f0f0f0' }}
-      className={`px-4 md:px-8 py-4 flex flex-wrap items-center gap-3 z-50 ${heroMode ? 'absolute top-0 left-0 right-0 bg-black/20 backdrop-blur-md' : 'sticky top-0 bg-white/90 backdrop-blur-sm'}`}>
-      <a href="/index.html">
+      className={`product-detail-nav z-50 ${heroMode ? 'absolute top-0 left-0 right-0 bg-black/20 backdrop-blur-md' : 'sticky top-0 bg-white/90 backdrop-blur-sm'}`}>
+      <div className="product-detail-nav-inner max-w-7xl mx-auto px-6 md:px-8 py-4 flex flex-wrap items-center gap-3">
+      <a href="/index.html" className="product-detail-logo flex shrink-0 items-center">
         <img src="/24sEnergy_png.png" alt="24sEnergy" className={`h-8 w-auto ${heroMode ? 'brightness-0 invert' : ''}`} style={heroMode ? { filter: 'brightness(0) invert(1)' } : {}} />
       </a>
+      <div className="product-detail-breadcrumb flex min-w-0 flex-1 items-center gap-3">
       <span className={`mx-1 ${heroMode ? 'text-white/30' : 'text-gray-200'}`}>/</span>
       <a href="/products.html" className={`text-sm transition-colors ${heroMode ? 'text-white/50 hover:text-white' : 'text-gray-400 hover:text-gray-700'}`}><Bi th="ผลิตภัณฑ์" en="Products" /></a>
       <span className={`mx-1 ${heroMode ? 'text-white/30' : 'text-gray-200'}`}>/</span>
-      <span className={`text-sm font-medium ${heroMode ? 'text-white/80' : 'text-gray-700'}`}><Bi th={product.name_th} en={product.name_en} /></span>
-      <div className="ml-auto flex items-center gap-3">
+      <span className={`truncate text-sm font-medium ${heroMode ? 'text-white/80' : 'text-gray-700'}`}><Bi th={product.name_th} en={product.name_en} /></span>
+      </div>
+      <div className="product-detail-actions ml-auto flex shrink-0 items-center gap-3">
         <a href="/products.html"
           className="px-4 py-2 text-sm font-bold rounded-xl transition-all"
           style={heroMode
@@ -142,6 +145,7 @@ function ProductPage({ product }: { product: Product }) {
           <Bi th="ขอใบเสนอราคา" en="Get a Quote" />
         </a>
         <LangToggle dark={heroMode} />
+      </div>
       </div>
     </nav>
   )

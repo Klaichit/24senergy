@@ -27,6 +27,15 @@ body {
 
 .product-language[data-lang="th"] .en, .product-language[data-lang="en"] .th { display: none; }
 .product-language h1 { line-height: 1.5; }
+.product-detail-logo img { display: block; }
+.product-detail-actions a { white-space: nowrap; }
+@media (max-width: 1023px) {
+  .product-detail-breadcrumb { display: none; }
+}
+@media (max-width: 520px) {
+  .product-detail-nav-inner { gap: 12px; }
+  .product-detail-actions { width: 100%; justify-content: space-between; gap: 8px; }
+}
 :focus-visible { outline: 3px solid #8b4dd6; outline-offset: 3px; }
 @media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
 
