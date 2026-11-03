@@ -1,0 +1,15 @@
+{
+  "createdOn": "2026-11-03",
+  "generator": "Built-in imagegen",
+  "approvedReference": "exec-5dfef2f0-e696-421d-830f-67029af89450.png",
+  "artDirection": "Half photorealistic scene, half architectural line drawing, softly blended with matching perspective. White and purple website with varied location palettes. No text or logos in assets.",
+  "assets": {
+    "hero.webp": "Wide solar array beside a reservoir and distant mountains, natural blue sky and water, fine purple linework fading to white on the left for headline space.",
+    "home.webp": "Two-storey suburban home with rooftop solar, warm peach light, photograph fading into architectural drawing.",
+    "business.webp": "Urban brick cafe and shopfront, amber interior lighting and slate facade, photograph fading into architectural drawing.",
+    "industry.webp": "Warehouse loading yard, truck, rooftop solar and generic battery cabinets, cool steel-blue palette, photograph fading into engineering linework.",
+    "farm.webp": "Golden fields, irrigation pump and ground solar beside a canal, distant hills, photograph fading into landscape linework."
+  },
+  "production": "Four approved scenes generated as a 2x2 image sheet, separated into four 768x512 WebP assets. Hero generated separately. No embedded webpage text. Files mirrored from public/solutions to solutions/.",
+  "claimPolicy": "Illustrative concepts, not company installation photographs. Product links indicate items to explore, not certified compatible equipment bundles. No fixed savings or backup duration claims."
+}

@@ -37,5 +37,7 @@ document.addEventListener('DOMContentLoaded',()=>{
  form.addEventListener('formdata',e=>{e.formData.set('details',`Location: ${form.elements.site_location.value}\nGoal: ${form.elements.project_goal.value}\n${form.elements.details.value}`);});
  window.addEventListener('language-change',()=>{document.querySelectorAll('#projectGoal option[data-en]').forEach(o=>o.textContent=en()?o.dataset.en:o.dataset.th);show(current,false);});
  document.querySelectorAll('.prod-check').forEach(label=>{const input=label.querySelector('input');const img=document.createElement('img');img.alt='';img.src={bess:'catalog/tcl-blueark-x1.webp',solar:'catalog/leapton-n-type-topcon-bifacial.webp',inverter:'catalog/solplanet-asw-ht-series.webp'}[input.value];img.width=92;img.height=92;label.prepend(img);});
+ const solution=new URLSearchParams(location.search).get('solution');
+ if(['residential','commercial','factory','farm'].includes(solution)){typeSelect.value=solution;typeSelect.dispatchEvent(new Event('change',{bubbles:true}));}
  form.classList.add('flow-ready');updateChoices();show(0,false);window.dispatchEvent(new Event('language-change'));
 });

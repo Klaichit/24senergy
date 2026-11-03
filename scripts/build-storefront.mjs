@@ -2,7 +2,7 @@ import {writeFile,readdir} from 'node:fs/promises'
 import sharp from 'sharp'
 import {createRequire} from 'node:module'
 const require=createRequire(import.meta.url)
-const config={content:['./public/index.html','./public/products.html','./public/home.js'],theme:{extend:{colors:{brand:{DEFAULT:'#6A2DAF',600:'#7a3cc4',500:'#8b4dd6',light:'#f1e9fb',tint:'#faf7fd'},ink:{DEFAULT:'#1a1a1a',soft:'#4a4a4a',mute:'#8a8a8a'}},fontFamily:{sans:['Noto Sans Thai','Noto Sans','sans-serif'],display:['Noto Sans Thai','Space Grotesk','sans-serif']},boxShadow:{soft:'0 10px 40px -12px rgba(106,45,175,.20)',card:'0 8px 30px -12px rgba(26,26,46,.14)'}}},plugins:[require('@tailwindcss/forms')]}
+const config={content:['./public/index.html','./public/products.html','./public/solutions.html','./public/home.js'],theme:{extend:{colors:{brand:{DEFAULT:'#6A2DAF',600:'#7a3cc4',500:'#8b4dd6',light:'#f1e9fb',tint:'#faf7fd'},ink:{DEFAULT:'#1a1a1a',soft:'#4a4a4a',mute:'#8a8a8a'}},fontFamily:{sans:['Noto Sans Thai','Noto Sans','sans-serif'],display:['Noto Sans Thai','Space Grotesk','sans-serif']},boxShadow:{soft:'0 10px 40px -12px rgba(106,45,175,.20)',card:'0 8px 30px -12px rgba(26,26,46,.14)'}}},plugins:[require('@tailwindcss/forms')]}
 // Tailwind 3 matches the existing storefront markup; Next's own Tailwind 4 is separate.
 const postcss=createRequire(require.resolve('tailwindcss-public/package.json'))('postcss')
 const tailwind=require('tailwindcss-public')
