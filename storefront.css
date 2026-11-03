@@ -1,5 +1,10 @@
 /* Shared storefront layer: light surfaces, purple actions, product-first imagery. */
 :root{--store-brand:#6a2daf;--store-ink:#20202a;--store-muted:#62616d;--store-surface:#faf8fc;--store-line:#e6e1eb;--store-radius:24px}
+/* Current-page state must not activate the legacy hover overlay. */
+.nav .btn-cta::before{display:none!important}
+.nav .btn-cta,.nav .btn-cta.active,.nav.scrolled .btn-cta{scale:1!important;transform:none!important;box-shadow:none!important;background:var(--store-brand)!important;color:white!important}
+@media(hover:hover){.nav .btn-cta:hover{background:#4d1f80!important}}
+.nav .btn-cta:focus-visible{outline:3px solid var(--store-brand);outline-offset:4px}
 html,body{overflow-x:clip}body{color:var(--store-ink)}
 :focus-visible{outline:3px solid var(--store-brand);outline-offset:4px}
 .store-nav{position:relative;z-index:60}.store-burger{display:none;background:none;border:0;padding:8px;cursor:pointer}

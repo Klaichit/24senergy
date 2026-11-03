@@ -1,0 +1,16 @@
+{
+ "state":"Implemented, disabled until provider and database setup are completed",
+ "recipient":"info@24senergy.co.th",
+ "steps":[
+  "Apply supabase/migrations/202611030001_lead_email.sql in the production Supabase project. This adds a service-only durable outbox and insert triggers without changing existing requests.",
+  "Verify an owned sending domain in Resend and add its required DNS records. Do not change existing mailbox MX records unless the mail provider explicitly requires it.",
+  "Set RESEND_API_KEY and LEAD_EMAIL_FROM in Vercel server environment variables. FROM must use the verified sender/domain. Never use NEXT_PUBLIC for credentials.",
+  "Set LEAD_EMAIL_ENABLED=true and redeploy only after the outbox migration and sender verification succeed.",
+  "Coordinate one real test enquiry, confirm the request in Admin and the notification at info. Reply-To should be the test customer's address.",
+  "Admin /admin/quotes has a pending-email retry button. Eligible retries wait five minutes. Processing also runs after new contact/quote submissions. No scheduled automatic retries are configured.",
+  "Rows with five attempts or an attempted delivery older than 23 hours move to review. Check provider logs before any manual resend to avoid duplicate messages. Sent means provider accepted, not confirmed inbox delivery."
+ ],
+ "behavior":"Save request and notification job in one database transaction. Respond successfully once saved; mail failure does not discard the customer request. Newsletter signup is not emailed. No historical requests are automatically queued.",
+ "security":"Recipient fixed server-side. Reply-To uses the validated customer email. Plain-text body avoids HTML injection. Queue/RPC restricted to service_role; retry endpoint checks same origin and authenticated admin role.",
+ "privacy":"The outbox contains a copy of the request. Include it in the business retention/deletion process. A separate normalized customer registry is not implemented in this change."
+}
