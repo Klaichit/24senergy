@@ -1,8 +1,11 @@
 import { createClient } from '@supabase/supabase-js'
 import { createHmac } from 'node:crypto'
 import { validateLead } from '@/lib/lead-validation'
+import { after } from 'next/server'
+import { processLeadEmails } from '@/lib/lead-email'
 
 export const runtime = 'nodejs'
+export const maxDuration = 120
 const reply = (status: number, error?: string) => Response.json(error ? { error } : { ok: true }, {
   status, headers: { 'Cache-Control': 'no-store', ...(status === 429 ? { 'Retry-After': '3600' } : {}) },
 })
@@ -45,6 +48,9 @@ export async function POST(request: Request) {
     const { error } = await db.from(table).insert(lead.row)
     // Do not reveal whether an email address is already subscribed.
     if (error && !(lead.kind === 'newsletter' && error.code === '23505')) return reply(503, 'Could not save submission')
+    if(lead.kind !== 'newsletter' && process.env.LEAD_EMAIL_ENABLED === 'true') after(async()=>{
+      try { await processLeadEmails(db) } catch { console.error('Lead saved; email queue processing unavailable') }
+    })
     return reply(201)
   } catch { return reply(503, 'Submission service unavailable') }
 }

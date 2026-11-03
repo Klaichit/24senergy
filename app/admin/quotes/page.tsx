@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
+import LeadEmailRetry from '@/components/admin/LeadEmailRetry'
 import type { Quote, QuoteStatus } from '@/types/database'
 
 const STATUS_OPTIONS: { value: QuoteStatus; label: string; color: string }[] = [
@@ -46,6 +47,7 @@ export default function QuotesAdmin() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 mb-1">ใบเสนอราคา</h1>
+          <LeadEmailRetry />
           <p className="text-sm text-gray-500">{quotes.length} รายการทั้งหมด</p>
         </div>
         <div className="flex gap-2">
