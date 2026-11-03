@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded',()=>{
  const progress=document.createElement('nav');progress.className='flow-progress';progress.setAttribute('aria-label','Quote request steps');
  const labels=[['ลักษณะงาน','Project'],['ระบบที่สนใจ','Equipment'],['ข้อมูลติดต่อ','Contact'],['ตรวจทาน','Review']];
  labels.forEach(([th,en],i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=`<span>${i+1}</span>${bi(th,en)}`;b.onclick=()=>{if(i<current)show(i);};progress.append(b);});form.prepend(progress);
- const actions=document.createElement('div');actions.className='flow-actions';actions.innerHTML=`<button type="button" id="flowBack">← ${bi('ย้อนกลับ','Back')}</button><span id="flowStatus" aria-live="polite"></span><button type="button" id="flowNext">${bi('ถัดไป','Continue')} →</button>`;form.insertBefore(actions,submit);actions.append(submit);
+ const actions=document.createElement('div');actions.className='flow-actions';actions.innerHTML=`<button type="button" id="flowBack">${bi('ย้อนกลับ','Back')}</button><span id="flowStatus" aria-live="polite"></span><button type="button" id="flowNext">${bi('ถัดไป','Continue')}</button>`;form.insertBefore(actions,submit);actions.append(submit);
  let current=0;
  const en=()=>document.body.dataset.lang==='en';
  const updateChoices=()=>document.querySelectorAll('.site-choice').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===typeSelect.value)));
