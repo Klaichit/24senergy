@@ -8,7 +8,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: 'IBM Plex Sans Thai', Arial, sans-serif;
+  --font-sans: 'Noto Sans Thai', Arial, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
@@ -22,7 +22,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'IBM Plex Sans Thai', Arial, Helvetica, sans-serif;
+  font-family: 'Noto Sans Thai', Arial, Helvetica, sans-serif;
 }
 
 .product-language[data-lang="th"] .en, .product-language[data-lang="en"] .th { display: none; }

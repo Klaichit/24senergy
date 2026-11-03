@@ -1,13 +1,12 @@
+/* eslint-disable @next/next/no-html-link-for-pages -- These destinations are static public/*.html documents, not App Router pages; use full navigation to avoid RSC prefetch 404s. */
 import { createPublicClient } from '@/lib/public-data'
 import { cache } from 'react'
 import ProductLanguage, { LangToggle } from '@/components/ProductLanguage'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
 import Image from 'next/image'
 import type { Product } from '@/types/database'
 import ImageGallery from './ImageGallery'
-import ParallaxSection from './ParallaxSection'
 
 export const revalidate = 60
 
@@ -34,7 +33,7 @@ export default async function ProductDetailPage({ params }: Props) {
   const product = await getProduct(slug)
   if (!product) notFound()
   const json = JSON.stringify({ '@context': 'https://schema.org', '@type': 'Product', name: product.name_th,
-    description: product.description_th, image: product.images, brand: { '@type': 'Brand', name: '24sEnergy' } }).replace(/</g, '\\u003c')
+    description: product.description_th, image: product.images, brand: { '@type': 'Brand', name: product.name_en.trim().split(/\s+/)[0] } }).replace(/</g, '\\u003c')
   return <ProductLanguage><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: json }} /><ProductPage product={product} /></ProductLanguage>
 }
 
@@ -122,22 +121,22 @@ function ProductPage({ product }: { product: Product }) {
     <nav
       style={{ borderBottom: heroMode ? '1px solid rgba(255,255,255,0.08)' : '1px solid #f0f0f0' }}
       className={`px-4 md:px-8 py-4 flex flex-wrap items-center gap-3 z-50 ${heroMode ? 'absolute top-0 left-0 right-0 bg-black/20 backdrop-blur-md' : 'sticky top-0 bg-white/90 backdrop-blur-sm'}`}>
-      <Link href="/index.html">
+      <a href="/index.html">
         <img src="/24sEnergy_png.png" alt="24sEnergy" className={`h-8 w-auto ${heroMode ? 'brightness-0 invert' : ''}`} style={heroMode ? { filter: 'brightness(0) invert(1)' } : {}} />
-      </Link>
+      </a>
       <span className={`mx-1 ${heroMode ? 'text-white/30' : 'text-gray-200'}`}>/</span>
-      <Link href="/products.html" className={`text-sm transition-colors ${heroMode ? 'text-white/50 hover:text-white' : 'text-gray-400 hover:text-gray-700'}`}><Bi th="ผลิตภัณฑ์" en="Products" /></Link>
+      <a href="/products.html" className={`text-sm transition-colors ${heroMode ? 'text-white/50 hover:text-white' : 'text-gray-400 hover:text-gray-700'}`}><Bi th="ผลิตภัณฑ์" en="Products" /></a>
       <span className={`mx-1 ${heroMode ? 'text-white/30' : 'text-gray-200'}`}>/</span>
       <span className={`text-sm font-medium ${heroMode ? 'text-white/80' : 'text-gray-700'}`}><Bi th={product.name_th} en={product.name_en} /></span>
       <div className="ml-auto flex items-center gap-3">
-        <Link href="/products.html"
+        <a href="/products.html"
           className="px-4 py-2 text-sm font-bold rounded-xl transition-all"
           style={heroMode
             ? { border: '1px solid rgba(255,255,255,0.28)', color: 'rgba(255,255,255,0.8)' }
             : { border: '1px solid #e5e7eb', color: '#6b7280' }}>
           <Bi th="← กลับ" en="← Back" />
-        </Link>
-        <a href={`/quote.html?product=${product.category}`}
+        </a>
+        <a href={`/quote.html?product=${product.category}&model=${encodeURIComponent(product.name_en)}`}
           style={{ background: theme.accent }}
           className="px-5 py-2 text-white text-sm font-bold rounded-xl hover:opacity-90 transition-opacity">
           <Bi th="ขอใบเสนอราคา" en="Get a Quote" />
@@ -148,7 +147,7 @@ function ProductPage({ product }: { product: Product }) {
   )
 
   return (
-    <div className="min-h-screen" style={{ background: heroMode ? '#0c0c14' : 'white', fontFamily: "'IBM Plex Sans Thai',Arial,sans-serif" }}>
+    <div className="min-h-screen" style={{ background: heroMode ? '#0c0c14' : 'white', fontFamily: "'Noto Sans Thai',Arial,sans-serif" }}>
 
       {/* ── Hero ── */}
       {heroMode ? (
@@ -213,7 +212,7 @@ function ProductPage({ product }: { product: Product }) {
 
               {/* CTAs */}
               <div className="flex gap-3 flex-wrap">
-                <a href={`/quote.html?product=${product.category}`}
+                <a href={`/quote.html?product=${product.category}&model=${encodeURIComponent(product.name_en)}`}
                   style={{ background: theme.accent }}
                   className="px-7 py-3.5 text-white font-bold rounded-2xl text-sm hover:opacity-90 transition-opacity inline-flex items-center gap-2">
                   <Bi th="ขอใบเสนอราคา" en="Get a Quote" />
@@ -267,7 +266,7 @@ function ProductPage({ product }: { product: Product }) {
                   <Bi th={product.description_th} en={product.description_en} />
                 </p>
                 <div className="flex gap-3 flex-wrap">
-                  <a href={`/quote.html?product=${product.category}`}
+                  <a href={`/quote.html?product=${product.category}&model=${encodeURIComponent(product.name_en)}`}
                     style={{ background: theme.accent }}
                     className="px-7 py-3.5 text-white font-bold rounded-2xl text-sm hover:opacity-90 transition-opacity inline-flex items-center gap-2">
                     <Bi th="ขอใบเสนอราคา" en="Get a Quote" />
@@ -294,33 +293,14 @@ function ProductPage({ product }: { product: Product }) {
 
       {/* ── Specs ── */}
       {specs.length > 0 && (
-        <ParallaxSection imageUrl={product.bg_image_url ?? null}>
-          <div className="py-20 px-8">
-            <div className="max-w-7xl mx-auto">
-              <p className="text-xs font-black uppercase tracking-[0.2em] mb-14"
-                style={{ color: theme.accent }}>Technical Specifications</p>
-              <div className="grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 items-start">
-                <div className="flex flex-col gap-10">
-                  {specs.slice(0, 3).map(([k, v]) => (
-                    <div key={k}>
-                      <div className="text-[3.25rem] font-black text-white leading-none tracking-tight mb-2">{String(v)}</div>
-                      <div className="text-xs font-semibold text-white/40 uppercase tracking-[0.18em]">{k}</div>
-                      <div className="h-px w-10 mt-3 rounded" style={{ background: theme.accent, opacity: 0.7 }} />
-                    </div>
-                  ))}
-                </div>
-                <div className="grid sm:grid-cols-2 gap-0 border-t border-white/10">
-                  {specs.map(([k, v]) => (
-                    <div key={k} className="flex items-start gap-4 py-4 border-b border-white/10 px-1">
-                      <span className="text-[10px] font-bold text-white/30 uppercase tracking-widest w-32 flex-shrink-0 pt-0.5">{k}</span>
-                      <span className="text-sm font-bold text-white/90">{String(v)}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+        <section className="py-16 px-6 md:px-8 bg-gray-50 border-y border-gray-100">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-2xl font-bold text-gray-900 mb-8"><Bi th="ข้อมูลทางเทคนิค" en="Technical specifications" /></h2>
+            <dl className="grid md:grid-cols-2 gap-x-12">
+              {specs.map(([k,v])=>(<div key={k} className="grid grid-cols-2 gap-4 border-b border-gray-200 py-4"><dt className="text-sm text-gray-600 break-words">{k}</dt><dd className="text-sm font-semibold text-gray-900 break-words">{String(v)}</dd></div>))}
+            </dl>
           </div>
-        </ParallaxSection>
+        </section>
       )}
 
       {/* ── Details / Description ── */}
@@ -338,8 +318,8 @@ function ProductPage({ product }: { product: Product }) {
             </p>
           </div>
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.2em] mb-5 text-gray-400">Product Overview</p>
-            <p className="text-gray-500 leading-relaxed text-[15px]">{product.description_en}</p>
+            <p className="text-xs font-black uppercase tracking-[0.2em] mb-5 text-gray-500"><Bi th="ก่อนเลือกติดตั้ง" en="Before installation" /></p>
+            <p className="text-gray-600 leading-relaxed text-[15px]"><Bi th="แจ้งลักษณะการใช้งาน โหลดไฟฟ้า และอุปกรณ์ที่มีอยู่ เพื่อให้ทีมงานตรวจสอบรุ่นที่เข้ากันได้ ขนาดระบบ และเงื่อนไขการรับประกันกับเอกสารผู้ผลิตก่อนเสนอราคา" en="Share your application, electrical loads and existing equipment so our team can check model compatibility, system sizing and manufacturer warranty terms before quoting." /></p>
             {pdfUrl && (
               <a href={pdfUrl} target="_blank" rel="noopener noreferrer"
                 className="mt-8 inline-flex items-center gap-2.5 px-6 py-3 rounded-xl border font-bold text-sm transition-all duration-200 hover:-translate-y-0.5 hover:opacity-90"
@@ -357,7 +337,7 @@ function ProductPage({ product }: { product: Product }) {
         <p className="text-xs font-black uppercase tracking-[0.2em] mb-4 text-gray-400">Ready to get started?</p>
         <h2 className="text-3xl font-black text-gray-900 mb-3"><Bi th="สนใจผลิตภัณฑ์นี้?" en="Interested in this product?" /></h2>
         <p className="text-gray-500 mb-8 text-sm"><Bi th="ทีมวิศวกรพร้อมให้คำปรึกษาและเสนอราคาฟรี ไม่มีข้อผูกมัด" en="Our engineers can help with advice and a no-obligation quote." /></p>
-        <a href={`/quote.html?product=${product.category}`}
+        <a href={`/quote.html?product=${product.category}&model=${encodeURIComponent(product.name_en)}`}
           style={{ background: theme.accent }}
           className="inline-block px-10 py-4 text-white font-black rounded-2xl text-sm hover:opacity-90 transition-opacity">
           <Bi th="ขอใบเสนอราคา →" en="Get a Quote →" />
@@ -366,7 +346,7 @@ function ProductPage({ product }: { product: Product }) {
 
       {/* ── Footer ── */}
       <footer className="bg-gray-950 text-white/40 text-xs text-center py-8">
-        © 2026 24sEnergy Co., Ltd. All rights reserved.
+        <div className="flex flex-wrap justify-center gap-6 mb-4 text-sm text-white/80"><a href="/products.html"><Bi th="ผลิตภัณฑ์" en="Products" /></a><a href="/news.html"><Bi th="ข่าวสาร" en="News" /></a><a href="/contact.html"><Bi th="ติดต่อ" en="Contact" /></a></div>© 2026 24sEnergy Co., Ltd. All rights reserved.
       </footer>
     </div>
   )

@@ -5,12 +5,13 @@
   "packageManager": "pnpm@11.19.0",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "pnpm build:storefront && pnpm sync:public && next build",
     "start": "next start",
     "lint": "eslint",
     "test": "node --test tests/*.test.mjs",
     "sync:public": "node scripts/sync-public.mjs",
-    "check:public": "node scripts/sync-public.mjs --check"
+    "check:public": "node scripts/sync-public.mjs --check",
+    "build:storefront": "node scripts/build-storefront.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",
@@ -20,17 +21,23 @@
     "react-dom": "19.2.4"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["sharp", "unrs-resolver"]
+    "onlyBuiltDependencies": [
+      "sharp",
+      "unrs-resolver"
+    ]
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.5.8",
+    "@tailwindcss/forms": "0.5.11",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4",
+    "tailwindcss-public": "npm:tailwindcss@3.4.19",
     "typescript": "^5"
   }
 }

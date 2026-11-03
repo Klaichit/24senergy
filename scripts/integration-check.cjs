@@ -47,13 +47,13 @@ const { once } = require('node:events');
     mode='limited'; const limited=await post(); assert.equal(limited.status,429); assert.equal(limited.headers.get('retry-after'),'3600');
     mode='ok';
     const admin=await fetch(base+'/admin',{redirect:'manual'}); assert.equal(admin.status,307); assert.match(admin.headers.get('location'),/\/admin\/login/);
-    const legacy=await fetch(base+'/product-heroee8.html',{redirect:'manual'}); assert.equal(legacy.status,308); assert.match(legacy.headers.get('location'),/\/products\/heroee8-aio/);
+    const legacy=await fetch(base+'/product-heroee8.html',{redirect:'manual'}); assert.equal(legacy.status,308); assert.match(legacy.headers.get('location'),/\/products\.html$/);
     const response=await fetch(base+'/products/heroee8-aio'); const html=await response.text(); assert.equal(response.status,200,output);
     assert.ok(html.includes('แบตเตอรี่ทดสอบ — 24sEnergy')); assert.ok(html.includes('Test Battery')); assert.ok(html.includes('application/ld+json')); assert.ok(!html.includes('test-server-only'));
     assert.equal((await fetch(base+'/products/missing')).status,404);
     const sitemap=await (await fetch(base+'/sitemap.xml')).text(); assert.ok(sitemap.includes('/products/heroee8-aio'));
     const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
-    const browser=await chromium.launch({executablePath:process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
+    const browser=await chromium.launch({...(process.env.CHROME_PATH ? {executablePath:process.env.CHROME_PATH} : {}),headless:true});
     try {
       const page=await browser.newPage({viewport:{width:390,height:844}});
       await page.addInitScript(()=>localStorage.setItem('lang','en'));
