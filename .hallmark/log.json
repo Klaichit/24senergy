@@ -1,6 +1,21 @@
 [
   {
     "date": "2026-11-03",
+    "macrostructure": "Illustrated four-stage journey and editorial consultation banner",
+    "theme": "existing 24sEnergy light",
+    "enrichment": "architectural process illustrations and photo-to-linework planning desk",
+    "brief": "Replace plain process list and flat purple CTA with approved illustrated design",
+    "scores": {
+      "philosophy": 4,
+      "hierarchy": 5,
+      "execution": 4,
+      "specificity": 5,
+      "restraint": 4,
+      "variety": 5
+    }
+  },
+  {
+    "date": "2026-11-03",
     "macrostructure": "Application-led solutions with linked landing groups",
     "theme": "existing 24sEnergy light",
     "enrichment": "photographic-to-architectural-linework imagery",

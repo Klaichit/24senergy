@@ -1,0 +1,9 @@
+{
+  "createdOn": "2026-11-03",
+  "generator": "Built-in imagegen",
+  "approvedReference": "exec-dffb3f52-dc63-4038-8a55-3aa7aa9e2742.png",
+  "processPrompt": "Four isolated architectural process illustrations on white in an equal 2x2 sheet: electricity bill clipboard with abstract usage chart; site plan and magnifying glass; solar-roof house with inverter and battery; quotation document with checkmark. Fine dark plum linework, lavender and cream fills, subtle shadows, consistent scale. No text, numbers, logos, buttons or webpage. Separate the quadrants into individual assets.",
+  "bannerPrompt": "Wide consultation banner background only. Left dark plum negative space for HTML text, right natural photograph of an energy-planning desk with a hand and pen, solar plan, tablet and small panel sample. Rightmost area fades into matching fine purple architectural linework on pale paper. Warm daylight. No text, logos, buttons or personal information.",
+  "files": ["process-usage.webp", "process-assessment.webp", "process-system.webp", "process-quotation.webp", "consultation.webp"],
+  "export": "PNG originals and optimized WebP copies saved in WEB/solutions-process-assets-2026-11-03. Process quadrant crops trimmed and padded to 768x512. Website headings, descriptions and calls to action remain real bilingual HTML, not text embedded in images."
+}
