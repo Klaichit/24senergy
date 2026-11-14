@@ -434,3 +434,12 @@
 @media (prefers-reduced-motion:reduce){
   .btn-outline:hover,.btn-back:hover,.prod-foot .btn:hover{transform:none}
 }
+
+/* The news pager is max-content wide. Past five pages its buttons outgrow a
+   phone column and widen the body, so shrink them and let the tray wrap as a
+   last resort. */
+@media (max-width:520px){
+  .pagination.neu{max-width:100%;flex-wrap:wrap;gap:4px;padding:8px;border-radius:22px}
+  .pagination.neu .pg-btn{min-width:30px;height:30px;font-size:13px}
+  .pagination.neu .pg-arrow{padding:0 9px}
+}
