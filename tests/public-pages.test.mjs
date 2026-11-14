@@ -32,3 +32,19 @@ test('CMS escaping and URL validation reject active content', () => {
   assert.equal(sandbox.window.safeURL('01.webp'),'https://example.com/site/01.webp')
   assert.equal(sandbox.window.escapeHTML('<img onerror="x">'), '&lt;img onerror=&quot;x&quot;&gt;')
 })
+test('every public page loads analytics.js relatively and offers cookie settings', () => {
+  for (const file of readdirSync('public').filter(f => f.endsWith('.html'))) {
+    const html=readFileSync(`public/${file}`,'utf8')
+    assert.ok(html.includes('<script src="analytics.js" defer></script>'), `${file} must load analytics.js by a relative path`)
+    assert.ok(html.includes('data-cookie-settings'), `${file} needs a cookie settings control in its footer`)
+  }
+})
+test('analytics has one valid Measurement ID and is inert when it is blanked', () => {
+  const source=readFileSync('public/analytics.js','utf8')
+  const declarations=[...source.matchAll(/const GA_MEASUREMENT_ID = '([^']*)'/g)]
+  assert.equal(declarations.length, 1, 'GA_MEASUREMENT_ID must be declared once in public/analytics.js')
+  assert.match(declarations[0][1], /^(G-[A-Z0-9]+)?$/)
+  const blank=source.replace(declarations[0][0], "const GA_MEASUREMENT_ID = ''")
+  assert.doesNotThrow(() => vm.runInNewContext(blank, {}), 'with no ID the script must not touch window, document or storage')
+  if (declarations[0][1]) assert.throws(() => vm.runInNewContext(source, {}), 'with an ID the script does run')
+})

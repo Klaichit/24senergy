@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const response = await fetch('/api/leads', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data), signal:AbortSignal.timeout(20000) });
         if (!response.ok) throw new Error(String(response.status));
+        if (response.status === 201 && kind !== 'newsletter') window.siteAnalytics?.track('generate_lead', { lead_type: kind });
         form.reset();
         feedback.textContent = en ? 'Your information has been received. Thank you.' : 'ระบบได้รับข้อมูลของคุณแล้ว ขอบคุณครับ';
         if(kind === 'quote') { form.classList.add('hide'); const success = document.getElementById('successState'); success.classList.add('show'); success.setAttribute('tabindex','-1'); success.focus(); }

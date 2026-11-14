@@ -46,6 +46,27 @@ plain static server. The script copies **the referenced assets as well as the
 pages** — a mirror with HTML but no `site.js` is a broken site. `pnpm
 check:public` fails on drift; never hand-edit the root copies.
 
+## Analytics stays off until it has an ID
+
+Google Analytics 4 lives in `public/analytics.js`, behind a PDPA consent
+banner using Google Consent Mode v2. The Measurement ID is the
+`GA_MEASUREMENT_ID` const at the top of that file (`G-7J7YXKV7N4`) and nowhere
+else. Blanking it switches analytics off entirely: the script returns before
+touching anything, so no request to Google, no cookie, no banner, and the
+footer "ตั้งค่าคุกกี้ / Cookie settings" buttons stay `hidden`. Change it there,
+then run `pnpm sync:public`. There is no GTM container on the site; gtag.js
+with the G- ID is the only Google script.
+
+- Every page in `public/` loads it with `<script src="analytics.js" defer>`,
+  and `app/products/[slug]/page.tsx` loads `/analytics.js` through
+  `next/script`. It is not in `app/layout.tsx`, because that would put it on
+  `/admin` too.
+- gtag.js is only fetched after the visitor accepts. Accept grants
+  `analytics_storage` only; every ad signal stays `denied`.
+- Send events through `window.siteAnalytics?.track(name, params)`, which drops
+  them unless the visitor accepted. Never put what a visitor typed (name,
+  email, phone, message) in a param.
+
 ## Never let a catch swallow
 
 `catch(e){}` with no logging is why a 404 on a script looked like a broken
