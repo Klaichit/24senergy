@@ -1,5 +1,5 @@
 {
-  "reviewedOn": "2026-11-03",
+  "reviewedOn": "2026-11-14",
   "system": "https://app.notion.com/p/3cfa36ce3bdb815f95b2fde5c8934ab2",
   "contentBoard": "collection://6a2e052d-8552-4bb9-8ca7-2d7b86402a17",
   "featured": {
@@ -10,10 +10,10 @@
     "image": "https://drive.google.com/file/d/1_vhughWqPc-Hv3xN1_bfRbwEnu6MMgCX/view",
     "guardrails": "No fixed price, savings or payback claims. Quote depends on timing, brand, system size and site. Card text is a concise adaptation of the approved educational topic."
   },
-  "archive": "All 19 archive cards now use their matching artwork linked in Notion Content Board. Existing bilingual summaries and original source attribution retained.",
+  "archive": "All 37 archive cards use their matching artwork linked in Notion Content Board. Existing bilingual summaries and original source attribution retained; the 18 cards added on 2026-11-14 adapt each row's สรุปภาษาไทย inside its Factual Guardrails.",
   "sync": "This is a reviewed static layout/content snapshot, not an automatic Notion synchronization. Internal board links, draft captions and workflow fields are not exposed on the public page.",
   "facebookDestination": "https://www.facebook.com/24sEnergyThailand",
-  "linkPolicy": "All 20 story cards open the official Facebook page at the user request; labels explicitly describe a page visit, not an original-article or exact-post link.",
+  "linkPolicy": "All 38 story cards open the official Facebook page at the user request; labels explicitly describe a page visit, not an original-article or exact-post link.",
   "artworkSources": [
     {
       "slug": "tisi-61730-solar-safety-2026",
@@ -114,6 +114,112 @@
       "slug": "solar-panel-battery-price-decline-2026",
       "notion": "https://app.notion.com/40ca36ce3bdb81b8bf84e38f55dbda0d",
       "image": "https://drive.google.com/file/d/1_vhughWqPc-Hv3xN1_bfRbwEnu6MMgCX/view?usp=drivesdk"
+    },
+    {
+      "slug": "solar-rooftop-no-rg4-license-2569",
+      "notion": "https://app.notion.com/407a36ce3bdb8195a9e1c07fa76ab461",
+      "image": "https://drive.google.com/file/d/16oqvPrkCeo3ZT-CLxPGFG3TzeiTDwsEw/view?usp=drivesdk"
+    },
+    {
+      "slug": "pea-solar-worth-it-bill-2000-2569",
+      "notion": "https://app.notion.com/407a36ce3bdb8167a1f5cc82af1a3716",
+      "image": "https://drive.google.com/file/d/1U1SJKEmJfYQdyWQji28f3rC4LAjzppTT/view?usp=drivesdk"
+    },
+    {
+      "slug": "pea-solar-smartgrid-smartmeter-20bn-2569",
+      "notion": "https://app.notion.com/407a36ce3bdb81799ef5eb4e617d57dd",
+      "image": "https://drive.google.com/file/d/1OdT00Amp5bHeUa04i7Btjyjf3SrcL7R4/view?usp=drivesdk"
+    },
+    {
+      "slug": "pea-solar-registered-installers-bigplayers-2569",
+      "notion": "https://app.notion.com/407a36ce3bdb818fa77fee374ce6a496",
+      "image": "https://drive.google.com/file/d/1vtffFYsSzir5LUBtoYRSILYsh17jvhp3/view?usp=drivesdk"
+    },
+    {
+      "slug": "pea-solar-macro-1.5bn-jobs-training-2569",
+      "notion": "https://app.notion.com/407a36ce3bdb81e19449e86096572b2a",
+      "image": "https://drive.google.com/file/d/1A_nUyUcNqARVtFN7w_KWFKi2F2aSL-uD/view?usp=drivesdk"
+    },
+    {
+      "slug": "bess-ci-boi-depreciation-2569",
+      "notion": "https://app.notion.com/40ca36ce3bdb815e8d7beff2f3717f45",
+      "image": "https://drive.google.com/file/d/15MWXddRK3Y6JCQmkYwzwdXyuTmumzOLx/view?usp=drivesdk"
+    },
+    {
+      "slug": "thailand-solar-import-surge-china-2026",
+      "notion": "https://app.notion.com/40ca36ce3bdb81c4945ee57be8c0088e",
+      "image": "https://drive.google.com/file/d/1jTC91QtKqroXWpm23lElBcghdz5S6a5T/view?usp=drivesdk"
+    },
+    {
+      "slug": "edu-panel-degradation-lifespan-25-30yr",
+      "notion": "https://app.notion.com/410a36ce3bdb8103992af0032c149012",
+      "image": "https://drive.google.com/open?id=1SnR5DV4mWAxO9lgqT0j0S2KtRu93d5_2&usp=drive_fs"
+    },
+    {
+      "slug": "edu-ongrid-offgrid-hybrid-comparison",
+      "notion": "https://app.notion.com/410a36ce3bdb814bac96c712cbb084c2",
+      "image": "https://drive.google.com/open?id=1sM7iGd57dOfBoyWEj6ZktYoP3RRieXJm&usp=drive_fs"
+    },
+    {
+      "slug": "edu-panel-cleaning-maintenance-rainy-pm25",
+      "notion": "https://app.notion.com/410a36ce3bdb81ff87b0e2101c046568",
+      "image": "https://drive.google.com/open?id=10EUhatjQ1Y9SrYAk4-qQNC81timcBn6f&usp=drive_fs"
+    },
+    {
+      "slug": "pea-solar-prachachon-50k-subsidy-5-10kw-2569",
+      "notion": "https://app.notion.com/407a36ce3bdb812689b8d50e411062f3",
+      "image": "https://drive.google.com/file/d/19DSAnp5QhEIZ03pjDpdIFZlhBODza3PI/view?usp=drivesdk"
+    },
+    {
+      "slug": "erc-revise-adder-fit-spp-vspp-nonfirm-11baht-vs-2.1579-2026-10-08",
+      "notion": "https://app.notion.com/3f4a36ce3bdb816f927efbc0c9153611",
+      "image": "https://drive.google.com/open?id=1JU48-sEazxJ_5cOIZU5ILxO2mm-Sqa36&usp=drive_fs"
+    },
+    {
+      "slug": "th-solar-1.5m-bottleneck-installers-mit-cost-grid-2026-10-07",
+      "notion": "https://app.notion.com/3f4a36ce3bdb812187fdc746b6299b88",
+      "image": "https://drive.google.com/open?id=1_4fw7Vu9RBrwKn0I7SfQtNxMoSXGys3U&usp=drive_fs"
+    },
+    {
+      "slug": "egat-78072m-baht-bess-1595mw-6380mwh-4-substations-2026-10-07",
+      "notion": "https://app.notion.com/3f4a36ce3bdb818fbf06dfc9db0aa42a",
+      "image": "https://drive.google.com/open?id=1bDK9mow6qfgV-9VAjI_VkIKVhGz8j7IF&usp=drive_fs"
+    },
+    {
+      "slug": "solar-buyback-2.20-net-billing-nepc-20yr-2569",
+      "notion": "https://app.notion.com/407a36ce3bdb819f94afda07357164c0",
+      "image": "https://drive.google.com/file/d/1VUF0rw-du9KGm_z8sG0C0V3RZaO17Xp_/view?usp=drivesdk"
+    },
+    {
+      "slug": "krisdika-warns-power-development-fund-24.6bn-public-lighting-cost-to-ratepayers-2026-09-14",
+      "notion": "https://app.notion.com/3dba36ce3bdb818d8ecce2cb0772691a",
+      "image": "https://drive.google.com/file/d/1yMRSVoJHw_S4oQuToixiFNzWUDu6kvj3/view?usp=drivesdk"
+    },
+    {
+      "slug": "moi-submits-75bn-loan-screening-board-1.5m-households-5kw-cap-2300-installers-2026-09-12",
+      "notion": "https://app.notion.com/3daa36ce3bdb819d8023e0b0f173c8da",
+      "image": "https://drive.google.com/file/d/1IVOdDtfRI7k4_jCDcTardsOa2w8sH9v1/view?usp=drivesdk"
+    },
+    {
+      "slug": "siam-premium-outlets-solar-bess-re100-2026-09-02",
+      "notion": "https://app.notion.com/3d5a36ce3bdb81b7b1b3fec0bef303d5",
+      "image": "https://drive.google.com/file/d/1ellgx3f2RksvMKwqgM3GGS0trg-bu1el/view?usp=drivesdk"
     }
-  ]
+  ],
+  "boardDateCards": {
+    "dateMeaning": "These cards have no วันที่เผยแพร่ข่าว on the board, so they show the board discovery date วันที่พบ as \"คัดเลือก 28 ต.ค. 2026\" / \"Selected Oct 28, 2026\", the same way the featured card does.",
+    "slugs": [
+      "solar-rooftop-no-rg4-license-2569",
+      "pea-solar-worth-it-bill-2000-2569",
+      "pea-solar-smartgrid-smartmeter-20bn-2569",
+      "pea-solar-registered-installers-bigplayers-2569",
+      "pea-solar-macro-1.5bn-jobs-training-2569",
+      "bess-ci-boi-depreciation-2569",
+      "thailand-solar-import-surge-china-2026",
+      "edu-panel-degradation-lifespan-25-30yr",
+      "edu-ongrid-offgrid-hybrid-comparison",
+      "edu-panel-cleaning-maintenance-rainy-pm25"
+    ]
+  },
+  "explainerSource": "Rows whose แหล่งข่าว is \"Evergreen / 24s Energy\" are 24sEnergy explainers and show \"24sEnergy\" as the source line."
 }
