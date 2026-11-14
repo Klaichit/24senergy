@@ -93,7 +93,7 @@ each row carries a `Claim Guardrails` field the site must stay inside:
 Never invent a fact to fill a gap. Removed from this site already: an invented
 byline, view counts, sidebar counts for content that did not exist, pagination
 showing eight pages for one page of articles, and KPI figures with no source.
-The phone number still reads "อยู่ระหว่างอัปเดต" because there is no real one.
+The main phone number, 063-195-0948, was supplied by the business on 2026-11-15.
 
 ## Images
 
