@@ -5,6 +5,7 @@ import ProductLanguage, { LangToggle } from '@/components/ProductLanguage'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
+import Script from 'next/script'
 import type { Product } from '@/types/database'
 import ImageGallery from './ImageGallery'
 
@@ -34,7 +35,7 @@ export default async function ProductDetailPage({ params }: Props) {
   if (!product) notFound()
   const json = JSON.stringify({ '@context': 'https://schema.org', '@type': 'Product', name: product.name_th,
     description: product.description_th, image: product.images, brand: { '@type': 'Brand', name: product.name_en.trim().split(/\s+/)[0] } }).replace(/</g, '\\u003c')
-  return <ProductLanguage><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: json }} /><ProductPage product={product} /></ProductLanguage>
+  return <ProductLanguage><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: json }} /><ProductPage product={product} /><Script src="/analytics.js" strategy="afterInteractive" /></ProductLanguage>
 }
 
 function Bi({ th, en }: { th: string; en: string }) {
@@ -350,7 +351,8 @@ function ProductPage({ product }: { product: Product }) {
 
       {/* ── Footer ── */}
       <footer className="bg-gray-950 text-white/40 text-xs text-center py-8">
-        <div className="flex flex-wrap justify-center gap-6 mb-4 text-sm text-white/80"><a href="/products.html"><Bi th="ผลิตภัณฑ์" en="Products" /></a><a href="/news.html"><Bi th="ข่าวสาร" en="News" /></a><a href="/contact.html"><Bi th="ติดต่อ" en="Contact" /></a></div>© 2026 24sEnergy Co., Ltd. All rights reserved.
+        <div className="flex flex-wrap justify-center gap-6 mb-4 text-sm text-white/80"><a href="/products.html"><Bi th="ผลิตภัณฑ์" en="Products" /></a><a href="/news.html"><Bi th="ข่าวสาร" en="News" /></a><a href="/contact.html"><Bi th="ติดต่อ" en="Contact" /></a></div>© 2026 24sEnergy Co., Ltd. All rights reserved.{' '}
+        <button type="button" className="cookie-settings-link" data-cookie-settings hidden><Bi th="ตั้งค่าคุกกี้" en="Cookie settings" /></button>
       </footer>
     </div>
   )
