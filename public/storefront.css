@@ -9,7 +9,9 @@ html,body{overflow-x:clip}body{color:var(--store-ink)}
 :focus-visible{outline:3px solid var(--store-brand);outline-offset:4px}
 .store-nav{position:relative;z-index:60}.store-burger{display:none;background:none;border:0;padding:8px;cursor:pointer}
 .store-menu a,.store-nav button,.store-nav a{white-space:nowrap}
-.store-lang{display:flex!important}.store-nav .store-logo img{height:32px}
+.store-lang{display:flex!important}
+/* The 24s logo art seats the "energy" wordmark in its lower ~20%, so a centred image box drops the readable wordmark below the bar's centre line. Lift it onto the centre (matches /products/[slug]); percent scales with the logo height. */
+.store-nav .store-logo img{height:32px;transform:translateY(-30%)}
 .store-menu.is-open{display:flex!important}.store-menu .mobile-quote-link{display:none}
 .home-hero{min-height:650px!important;height:min(800px,88vh)}
 .home-hero .hslide{overflow:hidden;background:#253d59}
