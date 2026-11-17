@@ -123,7 +123,7 @@ function ProductPage({ product }: { product: Product }) {
       style={{ borderBottom: heroMode ? '1px solid rgba(255,255,255,0.08)' : '1px solid #f0f0f0' }}
       className={`product-detail-nav z-50 ${heroMode ? 'absolute top-0 left-0 right-0 bg-black/20 backdrop-blur-md' : 'sticky top-0 bg-white/90 backdrop-blur-sm'}`}>
       <div className="product-detail-nav-inner max-w-7xl mx-auto px-6 md:px-8 py-4 flex flex-wrap items-center gap-3">
-      <a href="/index.html" className="product-detail-logo flex shrink-0 items-center">
+      <a href="/" className="product-detail-logo flex shrink-0 items-center">
         <img src="/24sEnergy_png.png" alt="24sEnergy" className={`h-8 w-auto ${heroMode ? 'brightness-0 invert' : ''}`} style={heroMode ? { filter: 'brightness(0) invert(1)' } : {}} />
       </a>
       <div className="product-detail-breadcrumb flex min-w-0 flex-1 items-center gap-3">
