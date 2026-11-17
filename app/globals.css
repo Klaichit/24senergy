@@ -27,7 +27,13 @@ body {
 
 .product-language[data-lang="th"] .en, .product-language[data-lang="en"] .th { display: none; }
 .product-language h1 { line-height: 1.5; }
-.product-detail-logo img { display: block; }
+/* The 24s logo art puts the tall "24" at the top and the "energy" wordmark in
+   its lower ~20%, so centring the whole image box drops the readable wordmark
+   below the bar's centre line. Nudge up by the offset between the image's
+   geometric centre (50%) and the wordmark's centre (~80%) so "energy" lands on
+   the nav centre, aligned with the breadcrumb and buttons. Percent scales with
+   the logo height, so it holds if h-8 changes. */
+.product-detail-logo img { display: block; transform: translateY(-30%); }
 .product-detail-actions a { white-space: nowrap; }
 @media (max-width: 1023px) {
   .product-detail-breadcrumb { display: none; }
